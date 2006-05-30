@@ -1,0 +1,12 @@
+RewriteEngine On
+
+# DELETE /item/<id>
+# GET /item/<id>
+# PUT /item/<id>
+RewriteRule ^item/(\d+)$ scripts/item.php?id=$1 [L,QSA]
+
+# GET /
+RewriteRule ^$ index.php [L,QSA]
+
+# POST /item/
+RewriteRule ^item/$ scripts/item.php [L,QSA]
