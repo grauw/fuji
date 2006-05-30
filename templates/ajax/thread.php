@@ -2,8 +2,8 @@
 <fuji:item xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:fuji="http://fuji.sourceforge.net/ns"
 	xml:lang="<?php echo L10n::$language ?>"
-	fuji:loadcontext="postsDiv"
-	fuji:parent="item/<?php echo $entry->title ?>">
+	loadcontext="postsDiv"
+	parent="item/<?php echo $entry->getParent()->id ?>">
 	<fuji:content>
 		<h2 class="windowTitle"><?php echo L10n::$posts ?> - <?php echo $entry->title ?></h2>
 		<div id="postsActions" class="windowActions">

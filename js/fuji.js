@@ -14,17 +14,15 @@ Fuji = {
 			var callback =
 			{
 				success: Fuji.loadItemNode,
-				failure: function(o) {alert('failure')},
-				argument: {
-						uri: uri
-					}
+				failure: function(o) {alert('failure: ',o.argument.uri)},
+				argument: { uri: uri }
 			}
 			YAHOO.util.Connect.asyncRequest('GET', uri, callback, null); 
 		}
 	},
 	loadItemNode : function(oXMLHttpObject) {
 		var oSource = oXMLHttpObject.responseXML;
-		var oTargetId = oSource.documentElement.getAttributeNS(Fuji.NS,'loadcontext');
+		var oTargetId = oSource.documentElement.getAttribute('loadcontext');
 		var oTarget = document.getElementById(oTargetId);
 		var oContent = oSource.getElementsByTagNameNS(Fuji.NS,'content')[0];
 		var oTargetDiv = document.createElement('div');
@@ -32,6 +30,9 @@ Fuji = {
 		oTarget.appendChild(oTargetDiv);
 		for (var i=0; i < oContent.childNodes.length; i++) {
 			oTargetDiv.appendChild(document.importNode(oContent.childNodes.item(i), true));
+		}
+		if (oSource.documentElement.hasAttribute('parent')) {
+			oTargetDiv.setAttribute('parent',oSource.documentElement.getAttribute('parent'));
 		}
 		Fuji.selectDeckItem(oTargetDiv);
 		var oLoadHandler = oSource.getElementsByTagNameNS(Fuji.NS,'loadhandler');
@@ -45,8 +46,11 @@ Fuji = {
 			if (oDeckItem.nodeType == 1) {
 				oElm.parentNode.childNodes.item(i).style.display = 'none';
 			}
-		} 
+		}
 		oElm.style.display = '';
+		if (oElm.hasAttribute('parent')) {
+			Fuji.loadItem(oElm.getAttribute('parent'));
+		}
 	},
 	loadMenu : function() {
 		var callback =
