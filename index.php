@@ -32,34 +32,14 @@
 <body onload="Fuji.init()">
 	<div class="logoDiv logo window">Fuji</div>
 	<div id="foraDiv" class="window">
-		<div id="foraTitle" class="windowTitle"><?php echo L10n::$fora ?></div>
 	</div>
 	<div id="menuDiv" class="window">
 		<div class="windowTitle"><?php echo L10n::$menu ?></div>
 		<div id="menuListDiv"></div>
 	</div>
 	<div id="threadsDiv" class="window">
-		<div id="threadsTitle" class="windowTitle"><?php echo L10n::$threads ?></div>
-		<div id="threadPath" class="windowInfo"></div> 
-		<div id="threadsActions" class="windowActions">
-			<span id="actionNewThread"><a href="javascript:Fuji.showNewThreadDialog()"><?php echo L10n::$new ?></a></span>
-			<span id="actionEditThread"><a href="javascript:Fuji.showEditThreadDialog()"><?php echo L10n::$edit ?></a></span>
-			<span id="actionDeleteThread"><a href="javascript:Fuji.showDeleteThreadDialog()"><?php echo L10n::$delete ?></a></span>
-			<span><?php echo L10n::$search ?></span>
-			<span><a href="javascript:Fuji.reloadThreads()"><?php echo L10n::$refresh ?></a></span>
-		</div>
-		<div id="threadsTableDiv"></div>
 	</div>
 	<div id="postsDiv" class="window">
-		<div id="postsTitle" class="windowTitle"><?php echo L10n::$posts ?></div>
-		<div id="postsActions" class="windowActions">
-			<span id="actionReplyPost"><a href="javascript:Fuji.showReplyDialog()"><?php echo L10n::$reply ?></a></span>
-			<span id="actionEditPost"><?php echo L10n::$edit ?></span>
-			<span id="actionDeletePost"><?php echo L10n::$delete ?></span>
-			<span><?php echo L10n::$search ?></span>
-			<span><a href="javascript:Fuji.reloadPosts()"><?php echo L10n::$refresh ?></a></span>
-		</div>
-		<div id="postsListDiv"></div>
 	</div>
 	<div id="newThreadDialog">
 		<div id="newThreadTitle" class="hd"><?php echo L10n::$new_thread ?></div>

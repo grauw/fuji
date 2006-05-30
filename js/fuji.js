@@ -1,10 +1,65 @@
 Fuji = {
+	NS : 'http://fuji.sourceforge.net/ns',
+	
 	forum : 0,
 	thread : 0,
 	replyDialog : null,
 	newThreadDialog : null,
 	deleteThreadDialog : null,
 	editThreadDialog : null,
+	loadItem : function(uri) {
+		if (document.getElementById(uri)) {
+			Fuji.selectDeckItem(document.getElementById(uri));
+		} else {
+			var callback =
+			{
+				success: Fuji.loadItemNode,
+				failure: function(o) {alert('failure')},
+				argument: {
+						uri: uri
+					}
+			}
+			YAHOO.util.Connect.asyncRequest('GET', uri, callback, null); 
+		}
+	},
+	loadItemNode : function(oXMLHttpObject) {
+		var oSource = oXMLHttpObject.responseXML;
+		var oTargetId = oSource.documentElement.getAttributeNS(Fuji.NS,'loadcontext');
+		var oTarget = document.getElementById(oTargetId);
+		var oSourceContent = oSource.getElementsByTagNameNS(Fuji.NS,'content')[0];
+		var oTargetDiv = document.createElement('div');
+		oTargetDiv.id = oXMLHttpObject.argument.uri;
+		oTarget.appendChild(oTargetDiv);
+		while(oSourceContent.hasChildNodes()) {
+			oTargetDiv.appendChild(oSourceContent.firstChild);
+/*			var oElm = oForumTreeDiv.firstChild;
+			if(oElm.tagName == 'script')
+			{
+				var oHead = document.getElementsByTagName('head')[0];
+				var oScript = document.createElement('script');
+				oScript.type = 'text/javascript';
+				oScript.id = 'treeLoadScript';
+				var oScriptText = document.createTextNode(oElm.firstChild.nodeValue);
+				oScript.appendChild(oScriptText);
+				oForumTreeDiv.removeChild(oElm);
+				var oOldScript = document.getElementById('treeLoadScript');
+				if(oOldScript) oHead.removeChild(oOldScript);
+				oHead.appendChild(oScript);
+			}
+			else
+				oTarget.appendChild(oElm);
+*/		}
+		Fuji.selectDeckItem(oTargetDiv);
+	},
+	selectDeckItem : function(oElm) {
+		for (var i=0; i < oElm.parentNode.childNodes.length; i++) {
+			var oDeckItem = oElm.parentNode.childNodes.item(i);
+			if (oDeckItem.nodeType == 1) {
+				oElm.parentNode.childNodes.item(i).style.display = 'none';
+			}
+		} 
+		oElm.style.display = '';
+	},
 	loadFora : function() {
 		var callback =
 		{
@@ -38,86 +93,6 @@ Fuji = {
 				oTarget.appendChild(oElm);
 		}
 		if(Fuji.ForumTree)	Fuji.ForumTree.treeLoad();
-	},
-	loadThreads : function(i) {
-		var callback =
-		{
-			success: Fuji.loadThreadNode,
-			failure: function(o) {alert('failure')},
-			argument: []
-		}
-		Fuji.forum = i;		
-		YAHOO.util.Connect.asyncRequest('GET', 'item/' + i, callback, null); 
-	},
-	loadThreadNode : function(oElm) {
-		Fuji.clearThreads();	
-		var oSource = oElm.responseXML;
-		var oTarget = document.getElementById('threadsTableDiv');
-		var oThreadsTableDiv = oSource.getElementById('threadsTableDiv');
-		while(oThreadsTableDiv.hasChildNodes())
-		{
-			var oElm = oThreadsTableDiv.firstChild;
-			if(oElm.tagName == 'script')
-			{
-				var oHead = document.getElementsByTagName('head')[0];
-				var oScript = document.createElement('script');
-				oScript.type = 'text/javascript';
-				var oScriptText = document.createTextNode(oElm.firstChild.nodeValue);
-				oScript.appendChild(oScriptText);
-				oThreadsTableDiv.removeChild(oElm);
-				oHead.appendChild(oScript);
-			}
-			else
-				oTarget.appendChild(oElm);
-		}
-		Fuji.resetThreadsActions(oThreadsTableDiv.getAttribute('may_post'), oThreadsTableDiv.getAttribute('may_edit'), oThreadsTableDiv.getAttribute('may_delete'));
-		//rename title
-		var oH1 = oSource.getElementsByTagName('body')[0].getElementsByTagName('h1')[0];
-		var title = oH1.firstChild.nodeValue;
-		var oTitle = document.getElementById('threadsTitle').firstChild;
-		oTitle.nodeValue = oH1.getAttribute('default') + " - " + title;
-	},
-	loadPosts : function(i) {
-		var callback =
-		{
-			success: Fuji.loadPostNode,
-			failure: function(o) {alert('failure')},
-			argument: []
-		}
-		Fuji.thread = i;
-		YAHOO.util.Connect.asyncRequest('GET', 'item/' + i, callback, null); 
-	},
-	loadPostNode : function(oElm) {
-		Fuji.clearPosts();
-		document.getElementById('postsActions').style.display = 'block';		
-		var oSource = oElm.responseXML;
-		var oTarget = document.getElementById('postsListDiv');
-		var oPostsListDiv = oSource.getElementById('postsListDiv');
-		while(oPostsListDiv.hasChildNodes())
-		{
-			var oElm = oPostsListDiv.firstChild;
-			if(oElm.tagName == 'script')
-			{
-				var oHead = document.getElementsByTagName('head')[0];
-				var oScript = document.createElement('script');
-				oScript.type = 'text/javascript';
-				var oScriptText = document.createTextNode(oElm.firstChild.nodeValue);
-				oScript.appendChild(oScriptText);
-				oPostsListDiv.removeChild(oElm);
-				oHead.appendChild(oScript);
-			}
-			else
-				oTarget.appendChild(oElm);
-		}
-		Fuji.resetPostsActions(oPostsListDiv.getAttribute('may_post'), oPostsListDiv.getAttribute('may_edit'), oPostsListDiv.getAttribute('may_delete'));
-		//rename title
-		var oH1 = oSource.getElementsByTagName('body')[0].getElementsByTagName('h1')[0];
-		var title = oH1.firstChild.nodeValue;
-		document.getElementById('replyT').value = 'Re: ' + title;
-		document.getElementById('replyContent').value = '';
-		var oTitle = document.getElementById('postsTitle').firstChild;
-		oTitle.nodeValue = oH1.getAttribute('default') + " - " + title;
-		oTarget.setAttribute("threadid", i);		
 	},
 	loadMenu : function() {
 		var callback =
@@ -317,14 +292,27 @@ Fuji = {
 		YAHOO.util.Connect.setForm('editThreadF');
 		YAHOO.util.Connect.asyncRequest('POST', 'item/' + Fuji.thread, callback, null); 
 	},
+	startUrlChangeListener : function() {
+		setTimeout(Fuji.urlChangeListener, 300);
+	},
+	urlChangeListener : function() {
+		if (location.hash != Fuji.currentURLHash) Fuji.urlChangeCallback(location.hash);
+		Fuji.currentURLHash = location.hash;
+		Fuji.startUrlChangeListener();
+	},
+	urlChangeCallback : function(hash) {
+		var uri = hash.indexOf('#') != -1 ? hash.substr(hash.indexOf('#')+1) : hash;
+		Fuji.loadItem(uri);
+	},
 	init : function() {
-		Fuji.loadFora();
-		Fuji.loadThreads(2);
 		Fuji.loadMenu();
 		Fuji.createReplyDialog();
 		Fuji.createNewThreadDialog();
 		Fuji.createDeleteThreadDialog();
-		Fuji.createEditThreadDialog();		
+		Fuji.createEditThreadDialog();
+		Fuji.loadItem('item/1');
+		if (location.hash == '') location.hash='#item/2';
+		Fuji.startUrlChangeListener();
 	}
 }
 Fuji.util = {
