@@ -10,3 +10,9 @@ RewriteRule ^$ index.php [L,QSA]
 
 # POST /item/
 RewriteRule ^item/$ scripts/item.php [L,QSA]
+
+# GET /menu/
+RewriteRule ^menu/$ scripts/menu.php [L,QSA]
+
+# GET /menu/<action>
+RewriteRule ^menu/(\w+)$ scripts/menu.php?action=$1 [L,QSA]
