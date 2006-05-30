@@ -32,7 +32,7 @@
 		Fuji.ForumTree.treeLoad();
 	</fuji:loadhandler>
 	<fuji:content>
-		<div id="foraTitle" class="windowTitle"><?php echo L10n::$fora ?></div>
+		<h2 id="foraTitle" class="windowTitle"><?php echo L10n::$fora ?></h2>
 		<div id="forumTreeDiv">
 			<div id="forumTree"></div>
 		</div>

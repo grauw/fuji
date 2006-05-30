@@ -4,7 +4,7 @@
 	xml:lang="<?php echo L10n::$language ?>"
 	fuji:loadcontext="postsDiv">
 	<fuji:content>
-		<h1 class="windowTitle"><?php echo L10n::$posts ?> - <?php echo $entry->title ?></h1>
+		<h2 class="windowTitle"><?php echo L10n::$posts ?> - <?php echo $entry->title ?></h2>
 		<div id="postsActions" class="windowActions">
 			<?php if (UserManager::getUser()->getRights($entry)->may_post) { ?>
 			<span id="actionReplyPost"><a href="javascript:Fuji.showReplyDialog()"><?php echo L10n::$reply ?></a></span>
@@ -31,11 +31,11 @@
 					foreach($entry->getChildren() as $post) { ?>
 			<div class="postDiv">
 				<?php if ($post->type == Entry::$TYPE_POST) { ?>
-					<div class="postTitle">
+					<h3 class="postTitle">
 						<span><?php echo $post->title ?></span>
 						<span><?php echo User::getUser($post->userref)->nickname ?></span>
 						<span><?php echo $post->modified ?></span>
-					</div>
+					</h3>
 					<div class="postContent"><?php echo $post->getContent() ?></div>
 				
 				<?php } else { ?>

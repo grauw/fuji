@@ -4,7 +4,7 @@
 	xml:lang="<?php echo L10n::$language ?>"
 	fuji:loadcontext="threadsDiv">
 	<fuji:content>
-		<h1 class="windowTitle"><?php echo $entry->title ?> - <?php echo L10n::$threads ?></h1>
+		<h2 class="windowTitle"><?php echo $entry->title ?> - <?php echo L10n::$threads ?></h2>
 		<div id="threadPath" class="windowInfo"></div> 
 		<div id="threadsActions" class="windowActions">
 			<span id="actionNewThread"><a href="javascript:Fuji.showNewThreadDialog()"><?php echo L10n::$new ?></a></span>

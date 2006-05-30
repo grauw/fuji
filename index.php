@@ -30,11 +30,11 @@
 	<script type="text/javascript"><?php echo "Fuji.user = " . UserManager::getUser()->id .";\n"?></script>
 </head>
 <body onload="Fuji.init()">
-	<div class="logoDiv logo window">Fuji</div>
+	<h1 class="logoDiv logo window">Fuji</h1>
 	<div id="foraDiv" class="window">
 	</div>
 	<div id="menuDiv" class="window">
-		<div class="windowTitle"><?php echo L10n::$menu ?></div>
+		<h2 class="windowTitle"><?php echo L10n::$menu ?></h2>
 		<div id="menuListDiv"></div>
 	</div>
 	<div id="threadsDiv" class="window">
