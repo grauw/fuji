@@ -1,0 +1,70 @@
+.logo {
+  background: url(../graphics/dark/fuji.jpg) no-repeat;
+}
+.logoDiv {
+  color: white;
+  border-color: #3377cc;
+}
+.window {	
+  border-color: #3377cc;	
+}
+.windowTitle {
+  background-image: url(../graphics/dark/bar.png);
+  color: white;
+}
+.windowActions {
+  background-color: #77bbff;
+  background-image: url(../graphics/dark/bar2.png);
+  color: black;
+  border-color: #3377cc;
+}
+#foraDiv {
+  background-color: #ccddff;
+}
+#menuDiv {
+  background-color: #ccddff;
+}
+#threadsDiv {
+  background-color: #ccddff;
+}
+#postsDiv {
+  background-color: #ccddff;
+}
+.forumPostDiv {
+  border-color: #3377cc;
+}
+.postDiv {
+  border-color: #3377cc;
+}
+.postTitle {
+  background-color: #5599ee;
+  border-color: #3377cc;
+}
+.postContent {
+  background-color: #ddeeff;
+}
+#threadsTableDiv table thead {
+  background-color: #5599ee;
+}
+#threadsTableDiv table td {
+  border-color: #3377cc;	
+}
+#threadsTableDiv table .tableForumEntry {
+  background-color: #ccddff;
+}
+#threadsTableDiv table .tableThreadEntry {
+  background-color: #dfefff;
+}
+a:link {
+  color: black;
+}
+a:visited {
+  color: black;
+}
+.windowActions a:hover {
+	color: white;
+}
+.windowActions a:hover {
+	background-image: url(../graphics/dark/plain.png);
+}
+ 
