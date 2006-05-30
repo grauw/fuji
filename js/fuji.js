@@ -26,30 +26,18 @@ Fuji = {
 		var oSource = oXMLHttpObject.responseXML;
 		var oTargetId = oSource.documentElement.getAttributeNS(Fuji.NS,'loadcontext');
 		var oTarget = document.getElementById(oTargetId);
-		var oSourceContent = oSource.getElementsByTagNameNS(Fuji.NS,'content')[0];
+		var oContent = oSource.getElementsByTagNameNS(Fuji.NS,'content')[0];
 		var oTargetDiv = document.createElement('div');
 		oTargetDiv.id = oXMLHttpObject.argument.uri;
 		oTarget.appendChild(oTargetDiv);
-		while(oSourceContent.hasChildNodes()) {
-			oTargetDiv.appendChild(oSourceContent.firstChild);
-/*			var oElm = oForumTreeDiv.firstChild;
-			if(oElm.tagName == 'script')
-			{
-				var oHead = document.getElementsByTagName('head')[0];
-				var oScript = document.createElement('script');
-				oScript.type = 'text/javascript';
-				oScript.id = 'treeLoadScript';
-				var oScriptText = document.createTextNode(oElm.firstChild.nodeValue);
-				oScript.appendChild(oScriptText);
-				oForumTreeDiv.removeChild(oElm);
-				var oOldScript = document.getElementById('treeLoadScript');
-				if(oOldScript) oHead.removeChild(oOldScript);
-				oHead.appendChild(oScript);
-			}
-			else
-				oTarget.appendChild(oElm);
-*/		}
+		for (var i=0; i < oContent.childNodes.length; i++) {
+			oTargetDiv.appendChild(document.importNode(oContent.childNodes.item(i), true));
+		}
 		Fuji.selectDeckItem(oTargetDiv);
+		var oLoadHandler = oSource.getElementsByTagNameNS(Fuji.NS,'loadhandler');
+		if (oLoadHandler.length) {
+			eval(oLoadHandler[0].firstChild.nodeValue)
+		}
 	},
 	selectDeckItem : function(oElm) {
 		for (var i=0; i < oElm.parentNode.childNodes.length; i++) {
@@ -59,40 +47,6 @@ Fuji = {
 			}
 		} 
 		oElm.style.display = '';
-	},
-	loadFora : function() {
-		var callback =
-		{
-			success: Fuji.loadForumNode,
-			failure: function(o) {alert('failure')},
-			argument: []
-		}
-		YAHOO.util.Connect.asyncRequest('GET', 'item/1', callback, null); 
-	},
-	loadForumNode : function(oElm) {
-		var oSource = oElm.responseXML;
-		var oTarget = document.getElementById('foraDiv');
-		var oForumTreeDiv = oSource.getElementById('forumTreeDiv');
-		while(oForumTreeDiv.hasChildNodes())
-		{
-			var oElm = oForumTreeDiv.firstChild;
-			if(oElm.tagName == 'script')
-			{
-				var oHead = document.getElementsByTagName('head')[0];
-				var oScript = document.createElement('script');
-				oScript.type = 'text/javascript';
-				oScript.id = 'treeLoadScript';
-				var oScriptText = document.createTextNode(oElm.firstChild.nodeValue);
-				oScript.appendChild(oScriptText);
-				oForumTreeDiv.removeChild(oElm);
-				var oOldScript = document.getElementById('treeLoadScript');
-				if(oOldScript) oHead.removeChild(oOldScript);
-				oHead.appendChild(oScript);
-			}
-			else
-				oTarget.appendChild(oElm);
-		}
-		if(Fuji.ForumTree)	Fuji.ForumTree.treeLoad();
 	},
 	loadMenu : function() {
 		var callback =
