@@ -31,11 +31,11 @@
 					foreach($entry->getChildren() as $post) { ?>
 			<div class="postDiv">
 				<?php if ($post->type == Entry::$TYPE_POST) { ?>
-					<h3 class="postTitle">
+					<h4 class="postTitle">
 						<span><?php echo $post->title ?></span>
 						<span><?php echo User::getUser($post->userref)->nickname ?></span>
 						<span><?php echo $post->modified ?></span>
-					</h3>
+					</h4>
 					<div class="postContent"><?php echo $post->getContent() ?></div>
 				
 				<?php } else { ?>
