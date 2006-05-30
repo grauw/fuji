@@ -21,16 +21,17 @@
 	<?php echo $template->getHeader() ?>	
 	<div id="menuItems">
 	<?php
+		echo '<p>Logged in as ' . UserManager::getUser()->nickname . '</p>';
+		echo '<ul>'."\n";
 		if(UserManager::getUser()->nickname == 'anonymous'){
-			echo '<p><a href="">Log in</a></p>';
-			echo '<p><a href="scripts/register/">Register</a></p>';
+			echo '<li><a href="">'.L10n::$login.'</a></li>'."\n";
+			echo '<li><a href="scripts/register/">'.L10n::$register.'</a></li>'."\n";
 		}else{
-			echo '<p>Logged in as ' . UserManager::getUser()->nickname . '</p>';
+			echo '<li><a href="#profile">'.L10n::$profile.'</a></li>'."\n";
 		}
+		echo '</ul>'."\n";
 	?>
 	<ul>
-		<li><a href="#testlink1">test1</a></li>
-		<li><a href="#testlink2">test2</a></li>
 	</ul>
 	</div>
 	<?php echo $template->getFooter() ?>

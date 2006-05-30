@@ -21,16 +21,9 @@ class Menu {
 	{
 		$action = isset($_GET['action']) ? $_GET['action'] : 0;
 		
-		if (UserManager::getUser()->getRights(Entry::getEntry(1))->may_read) {
-			$lang='en-GB';
-			$template = Template::getTemplate(2);
-			$template->applyMenu($lang, $template);
-		}
-		else {
-			$lang='en-GB';
-			$template = Template::getTemplate(2);
-			$template->failInsufficientRights($lang, $template);
-		}
+		$lang='en-GB';
+		$template = Template::getTemplate(2);
+		$template->applyMenu($lang, $template);
 	}
 	
 	function httpMethodNotAllowed()
