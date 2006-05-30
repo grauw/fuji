@@ -2,19 +2,22 @@
 <fuji:item xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:fuji="http://fuji.sourceforge.net/ns"
 	xml:lang="<?php echo L10n::$language ?>"
-	fuji:loadcontext="postsDiv">
+	fuji:loadcontext="postsDiv"
+	fuji:parent="item/<?php echo $entry->title ?>">
 	<fuji:content>
 		<h2 class="windowTitle"><?php echo L10n::$posts ?> - <?php echo $entry->title ?></h2>
 		<div id="postsActions" class="windowActions">
-			<?php if (UserManager::getUser()->getRights($entry)->may_post) { ?>
-			<span id="actionReplyPost"><a href="javascript:Fuji.showReplyDialog()"><?php echo L10n::$reply ?></a></span>
-			<?php }
-				  if (UserManager::getUser()->getRights($entry)->may_edit) { ?>
-			<span id="actionEditPost"><?php echo L10n::$edit ?></span>
-			<?php }
-				  if (UserManager::getUser()->getRights($entry)->may_delete) { ?>
-			<span id="actionDeletePost"><?php echo L10n::$delete ?></span>
-			<?php } ?>
+			<?php
+				if (UserManager::getUser()->getRights($entry)->may_post) {
+					?><span id="actionReplyPost"><a href="javascript:Fuji.showReplyDialog()"><?php echo L10n::$reply ?></a></span><?php
+				}
+				if (UserManager::getUser()->getRights($entry)->may_edit) {
+					?><span id="actionEditPost"><?php echo L10n::$edit ?></span><?php
+				}
+				if (UserManager::getUser()->getRights($entry)->may_delete) {
+					?><span id="actionDeletePost"><?php echo L10n::$delete ?></span><?php
+				}
+			?>
 			<span><?php echo L10n::$search ?></span>
 			<span><a href="javascript:Fuji.reloadPosts()"><?php echo L10n::$refresh ?></a></span>
 		</div>

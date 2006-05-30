@@ -7,9 +7,17 @@
 		<h2 class="windowTitle"><?php echo $entry->title ?> - <?php echo L10n::$threads ?></h2>
 		<div id="threadPath" class="windowInfo"></div> 
 		<div id="threadsActions" class="windowActions">
-			<span id="actionNewThread"><a href="javascript:Fuji.showNewThreadDialog()"><?php echo L10n::$new ?></a></span>
-			<span id="actionEditThread"><a href="javascript:Fuji.showEditThreadDialog()"><?php echo L10n::$edit ?></a></span>
-			<span id="actionDeleteThread"><a href="javascript:Fuji.showDeleteThreadDialog()"><?php echo L10n::$delete ?></a></span>
+			<?php
+				if (UserManager::getUser()->getRights($entry)->may_post) {
+					?><span id="actionNewThread"><a href="javascript:Fuji.showNewThreadDialog()"><?php echo L10n::$new ?></a></span><?php
+				}
+				if (UserManager::getUser()->getRights($entry)->may_edit) {
+					?><span id="actionEditThread"><a href="javascript:Fuji.showEditThreadDialog()"><?php echo L10n::$edit ?></a></span><?php
+				}
+				if (UserManager::getUser()->getRights($entry)->may_delete) {
+					?><span id="actionDeleteThread"><a href="javascript:Fuji.showDeleteThreadDialog()"><?php echo L10n::$delete ?></a></span><?php
+				}
+			?>
 			<span><?php echo L10n::$search ?></span>
 			<span><a href="javascript:Fuji.reloadThreads()"><?php echo L10n::$refresh ?></a></span>
 		</div>
