@@ -27,7 +27,7 @@
 			echo '<li><a href="">'.L10n::$login.'</a></li>'."\n";
 			echo '<li><a href="scripts/register/">'.L10n::$register.'</a></li>'."\n";
 		}else{
-			echo '<li><a href="#profile">'.L10n::$profile.'</a></li>'."\n";
+			echo '<li><a href="profile.php">'.L10n::$profile.'</a></li>'."\n";
 		}
 		echo '</ul>'."\n";
 	?>
