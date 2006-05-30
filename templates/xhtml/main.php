@@ -1,0 +1,51 @@
+<?php echo $template->getPrefix() ?>
+<!DOCTYPE html
+	PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0//EN"
+	"http://www.w3.org/Math/DTD/mathml2/xhtml-math11-f.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<?php echo L10n::$language ?>">
+<head>
+	<title><?php echo $entry->title ?></title>
+	<link rel="alternate" type="application/atom+xml" title="Atom" href="/blog/atom.php" />
+	<link rel="alternate" type="application/rss+xml" title="RSS" href="/blog/rss.php" />
+	<link rel="meta" type="application/rdf+xml" title="FOAF" href="foaf.rdf" />
+	<link rel="icon" type="image/png" href="/images/siteicon.png" />
+	<?php echo $template->getHead() ?>
+</head>
+<body>
+	<?php echo $template->getHeader() ?>
+	
+	<h1><?php echo $entry->title; echo 'eej' ?></h1>
+	
+	<p><?php echo $entry->getContent() ?></p>
+	
+	<?php recur($entry) ?>
+	<?php function recur($entry) { ?>
+	<ul>
+		<?php foreach($entry->getChildren() as $post) { ?>
+			<?php if ($post->type == Entry::$TYPE_FORUMCONTAINER) { ?>
+			<li>
+				
+				<h2><?php echo $post->title ?></h2>
+				
+				<?php echo $post->getContent() ?>
+				
+				<?php recur($post) ?>
+				
+			</li>
+			<?php } ?>
+			<?php if ($post->type == Entry::$TYPE_FORUM) { ?>
+			<li>
+				
+				<h2><a href="/item/<?php echo $post->id ?>"><?php echo $post->title ?></a></h2>
+				
+				<?php echo $post->getContent() ?>
+				
+			</li>
+			<?php } ?>
+		<?php } ?>
+	</ul>
+	<?php } ?>
+	
+	<?php echo $template->getFooter() ?>
+</body>
+</html>
