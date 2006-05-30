@@ -20,11 +20,11 @@
 		</div>
 		<div id="postsListDiv">
 			<div class="postDiv">
-					<div class="postTitle">
+					<h3 class="postTitle">
 						<span><?php echo $entry->title ?></span>
 						<span><?php echo User::getUser($entry->userref)->nickname ?></span>
 						<span><?php echo $entry->modified ?></span>
-					</div>
+					</h3>
 					<div class="postContent"><?php echo $entry->getContent() ?></div>
 			</div>
 			<?php 	if(count($entry) > 0)
