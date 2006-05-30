@@ -279,13 +279,10 @@ Fuji = {
 			this.cancel();
 		}
 		var handleSubmit = function() {
-			var oEditThreadSelect = document.getElementById('editThreadSelect');
-			var selected = Fuji.util.getSelectedItems(oEditThreadSelect);
-			document.getElementById('editThreadEntryid').value = selected;
+			document.getElementById('editThreadEntryid').value = Fuji.forum;
 			document.getElementById('editThreadUserid').value = Fuji.user;
 			Fuji.editThread();
 			Fuji.editThreadDialog.hide();
-			Fuji.reloadThreads();
 		}
 		editThreadDialog.cfg.queueProperty("buttons", [ { text:"OK", handler:handleSubmit, isDefault:true },
 											   { text:"Cancel", handler:handleCancel} ]);
@@ -294,38 +291,31 @@ Fuji = {
 		Fuji.editThreadDialog = editThreadDialog;
 	},
 	showEditThreadDialog : function() {
-		var oEditThreadSelect = document.getElementById('editThreadSelect');
-		while(oEditThreadSelect.hasChildNodes())
-			oEditThreadSelect.removeChild(oEditThreadSelect.firstChild);
-		var oThreadsTable = document.getElementById('threadsTable');
-		var aThreadsTableRows = oThreadsTable.getElementsByTagName('tbody')[0].getElementsByTagName('tr');
-		for(var n = 0; n < aThreadsTableRows.length; n++)
-		{
-			var oElm = document.createElement('option');
-			var sEntryId = aThreadsTableRows[n].getAttribute('entryid');
-			var sEntryTitle = aThreadsTableRows[n].getAttribute('entrytitle');
-			oElm.value = sEntryId;
-			oElm.appendChild(document.createTextNode(sEntryTitle));
-			oEditThreadSelect.appendChild(oElm);
-		}
-		Fuji.editThreadDialog.show();
-	},
-	editThread : function() {
-		var id = document.getElementById('editThreadEntryid').value;
-		alert(id);
 		var callback =
 		{
-			success: function(o) {alert('success')},
+			success: Fuji.updateEditDialog,
+			failure: function(o) {alert('failure')},
+			argument: []
+		}
+		YAHOO.util.Connect.asyncRequest('GET', 'item/' + Fuji.forum + '/source', callback, null); 
+		Fuji.editThreadDialog.show();
+	},
+	updateEditDialog : function(oElm) {
+		var oSource = oElm.responseXML;
+		var oEditThreadTitle = document.getElementById('editThreadT');
+		var oEditThreadContent = document.getElementById('editThreadContent');
+		oEditThreadTitle.value = oSource.getElementById('title').innerHTML;
+		oEditThreadContent.value = oSource.getElementById('content').innerHTML;			
+	},
+	editThread : function() {
+		var callback =
+		{
+			success: function(o) {Fuji.reloadThreads()},
 			failure: function(o) {alert('failure')},
 			argument: []
 		}
 		YAHOO.util.Connect.setForm('editThreadF');
-		alert(YAHOO.util.Connect._sFormData);
-		YAHOO.util.Connect.asyncRequest('POST', 'item/' + id, callback, null); 
-	},
-	editThreadItemSelected : function() {
-		var oEditThreadSelect = document.getElementById('editThreadSelect');
-		var selected = Fuji.util.getSelectedItems(oEditThreadSelect);
+		YAHOO.util.Connect.asyncRequest('POST', 'item/' + Fuji.thread, callback, null); 
 	},
 	init : function() {
 		Fuji.loadFora();

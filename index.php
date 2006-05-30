@@ -36,8 +36,7 @@
 	</div>
 	<div id="menuDiv" class="window">
 		<div class="windowTitle"><?php echo L10n::$menu ?></div>
-	<?php if(UserManager::getUser()->nickname == 'anonymous') echo '<p><a href="">Log in</a></p>'; else echo '<p>Logged in as ' . UserManager::getUser()->nickname . '</p>'; ?>
-	<?php if(UserManager::getUser()->nickname == 'anonymous') echo '<p><a href="scripts/register/">Register</a></p>'; ?>
+		<div id="menuListDiv"></div>
 	</div>
 	<div id="threadsDiv" class="window">
 		<div id="threadsTitle" class="windowTitle"><?php echo L10n::$threads ?></div>
