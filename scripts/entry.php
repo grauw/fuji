@@ -1,0 +1,122 @@
+<?php
+require_once 'dataclass.php';
+require_once 'database.php';
+require_once 'usermanager.php';
+
+class Entry extends Dataclass {
+	
+	static public $TYPE_SYSTEM = 1;
+	static public $TYPE_FORUMCONTAINER = 2;
+	static public $TYPE_FORUM = 3;
+	static public $TYPE_POST = 4;
+	
+	private $table = 'entries';
+	
+	/**
+	 * returns an Entry-object given its id
+	 * @param {Int} $id Entry to be returned
+	 * @returns Entry
+	 */
+	static function getEntry($id) {
+		$data = Database::getArray("SELECT * FROM " . DbVar::$db_tprefix . "entries WHERE id = '$id'");
+		$entrydata = $data[0];
+		if($entrydata)
+			return new Entry($entrydata);
+	}
+	
+	/**
+	 * adds an Entry to the entry table. If content is given it adds content to the content table.
+	 * @param {array}  $data hash/assoc array. Key = column name in table, value is value.
+	 * @returns the new Entry
+	 */
+	static function addEntry($data) {
+		$default_proc = 0;
+		if(count($data) > 0)
+		{
+			if(array_key_exists('content', $data) && $data['content'] != null && $data['content'] !== '')
+			{
+				$content = $data['content'];
+				unset($data['content']);
+				if(array_key_exists('processor', $data))
+				{
+					$processor = $data['processor'];
+					unset($data['processor']);
+				}
+				else $processor = $default_proc;
+				
+				Database::execute("INSERT INTO " . DbVar::$db_tprefix . "content VALUES ('', '$content', '$processor')");
+				$data['contentref'] = Database::insert_id();
+			}
+			$keys = implode(',', array_keys($data));
+			$values = implode('\',\'', $data);
+			
+			Database::execute("INSERT INTO " . Database::$db_tprefix . "entries ($keys, created, modified) VALUES ('$values', NOW(), NOW())");
+			$data['id'] = Database::insert_id();
+			return new Entry($data);
+		}
+	}
+	
+	/**
+	 * Get entries content
+	 * @returns content as String
+	 */
+	function getContent() {
+		$data = Database::getArray("SELECT content FROM " . DbVar::$db_tprefix . "content WHERE id = '$this->contentref'");
+		$contentdata = $data[0];
+		if($contentdata['content'])
+			return $contentdata['content'];
+	}
+	
+	/**
+	 * Remove entries content
+	 */
+	function removeContent() {
+		Database::execute("DELETE FROM " . Database::$db_tprefix . "content WHERE id = '$this->contentref'");
+	}
+	
+	/**
+	 * Get entries children
+	 * @returns array of child Entries
+	 */
+	function getChildren() {
+		$children = array();
+		$childrendata = Database::getArray("SELECT * FROM " . DbVar::$db_tprefix . "entries WHERE ref = '$this->id'");
+		foreach($childrendata as $entrydata)
+		{
+			array_push($children, new Entry($entrydata));
+		}
+		return $children;
+	}
+	
+	/**
+	 * Removes entries descendents
+	 */
+	function removeChildren() {
+		$children = $this->getChildren();
+		foreach($children as $child) $child->remove();
+	}
+	
+	/**
+	 * Get entries parent
+	 * @returns parent as Entry
+	 */
+	function getParent() {
+		if($this->ref)
+		{
+			$data = Database::getArray("SELECT * FROM " . DbVar::$db_tprefix . "entries WHERE id = '$this->ref'");
+			$parentdata = $data[0];
+			return new Entry($parentdata);
+		}
+	}
+	
+	/**
+	 * removes entry + descendents from entry + content database
+	 */
+	function remove()
+	{
+		$this->removeContent();
+		$this->removeChildren();
+		Database::execute("DELETE FROM " . Database::$db_tprefix . "entries WHERE id = '$this->id'");
+	}
+}
+?>
