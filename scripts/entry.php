@@ -10,7 +10,9 @@ class Entry extends Dataclass {
 	static public $TYPE_FORUM = 3;
 	static public $TYPE_POST = 4;
 	
-	private $table = 'entries';
+	static function getTable() {
+		return 'entries';
+	}
 	
 	/**
 	 * returns an Entry-object given its id
@@ -57,7 +59,7 @@ class Entry extends Dataclass {
 	}
 	
 	/**
-	 * Get entries content
+	 * Get entry's content
 	 * @returns content as String
 	 */
 	function getContent() {
@@ -68,14 +70,21 @@ class Entry extends Dataclass {
 	}
 	
 	/**
-	 * Remove entries content
+	 * Remove entry's content
 	 */
 	function removeContent() {
 		Database::execute("DELETE FROM " . Database::$db_tprefix . "content WHERE id = '$this->contentref'");
 	}
 	
 	/**
-	 * Get entries children
+	 * Update entry's content
+	 */
+	function updateContent($data) {
+		Database::execute("UPDATE FROM " . Database::$db_tprefix . "content SET content = '$data' WHERE id = '$this->contentref'");
+	}
+	
+	/**
+	 * Get entry's children
 	 * @returns array of child Entries
 	 */
 	function getChildren() {
@@ -89,7 +98,7 @@ class Entry extends Dataclass {
 	}
 	
 	/**
-	 * Removes entries descendents
+	 * Removes entry's descendents
 	 */
 	function removeChildren() {
 		$children = $this->getChildren();
@@ -97,7 +106,7 @@ class Entry extends Dataclass {
 	}
 	
 	/**
-	 * Get entries parent
+	 * Get entry's parent
 	 * @returns parent as Entry
 	 */
 	function getParent() {

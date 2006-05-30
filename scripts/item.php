@@ -27,7 +27,6 @@ class Item {
 	{
 		$id = isset($_GET['id']) ? intval($_GET['id']) : 1;
 		$entry = Entry::getEntry($id);
-		
 		if (UserManager::getUser()->getRights($entry)->may_read) {
 			$lang='en-GB';
 			$template = Template::getTemplate(2);
@@ -47,35 +46,38 @@ class Item {
 			$entry = Entry::getEntry($_POST['entryid']);
 			if($entry)
 			{
-				$entry->content = $_POST['content'];
-				$entry->title = $_POST['title'];
+				if($_POST['content'] != $entry->getContent()) $entry->updateContent($_POST['content']);
+				if($_POST['content'] != $entry->title) $entry->title = $_POST['title'];
 			}
 		}
 		else
 		{
-			$data['content'] = $_POST['content'];
 			$data['ref'] = $_POST['ref'];
 			$data['title'] = $_POST['title'];
 			$data['userref'] = $_POST['userref'];
 			$data['type'] = $_POST['type'];
 			
-			Entry::addEntry($data);
+			$entry = Entry::addEntry($data);
+			if($_POST['content']) $entry->addContent($_POST['content']);
 		}
 	}
 	
 	function httpDelete()
 	{
-		$id = isset($_GET['id']) ? intval($_GET['id']) : 1;
+		$id = intval($_POST['entryid']);
 		$entry = Entry::getEntry($id);
-		$entry->remove();
+		if($entry)	$entry->remove();
 	}
 	
 	function httpPut()
 	{
-		$id = isset($_POST['entryid']) ? intval($_POST['entryid']) : 1;
+		$id = intval($_POST['entryid']);
 		$entry = Entry::getEntry($id);
-		$entry->content = $_POST['content'];
-		$entry->title = $_POST['title'];
+		if($entry)
+		{
+			$entry->updateContent($_POST['content']);
+			$entry->title = $_POST['title'];
+		}
 	}
 	
 	function httpMethodNotAllowed()

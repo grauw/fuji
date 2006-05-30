@@ -5,7 +5,9 @@ require_once 'templateview.php';
 
 class Template extends Dataclass {
 	
-	private $table = 'templates';
+	static function getTable() {
+		return 'templates';
+	}
 	
 	static function getTemplate($id) {
 		$data = Database::getArray("SELECT * FROM " . DbVar::$db_tprefix . "templates WHERE id = '$id'");

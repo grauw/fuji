@@ -4,7 +4,9 @@ require_once 'database.php';
 
 class TemplateView extends Dataclass {
 	
-	private $table = 'viewtemplates';
+	static function getTable() {
+		return 'viewtemplates';
+	}
 	
 	static function getTemplateView($template, $view) {
 		$data = Database::getArray("SELECT * FROM " . DbVar::$db_tprefix . "viewtemplates WHERE templateref = '$template' AND typeref = '$view'");

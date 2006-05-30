@@ -27,7 +27,7 @@
 	<script type="text/javascript" src="js/yui/animation/animation.js"></script>
 	<script type="text/javascript" src="js/yui/dragdrop/dragdrop.js"></script>
 	<script type="text/javascript" src="js/fuji.js"></script>
-	<script type="text/javascript"><?php echo "Fuji.user = " . UserManager::getUser()->id ?></script>
+	<script type="text/javascript"><?php echo "Fuji.user = " . UserManager::getUser()->id .";\n"?></script>
 </head>
 <body onload="Fuji.init()">
 	<div class="logoDiv logo window">Fuji</div>
@@ -36,7 +36,8 @@
 	</div>
 	<div id="menuDiv" class="window">
 		<div class="windowTitle"><?php echo L10n::$menu ?></div>
-		<div id="menuListDiv"></div>
+	<?php if(UserManager::getUser()->nickname == 'anonymous') echo '<p><a href="">Log in</a></p>'; else echo '<p>Logged in as ' . UserManager::getUser()->nickname . '</p>'; ?>
+	<?php if(UserManager::getUser()->nickname == 'anonymous') echo '<p><a href="scripts/register/">Register</a></p>'; ?>
 	</div>
 	<div id="threadsDiv" class="window">
 		<div id="threadsTitle" class="windowTitle"><?php echo L10n::$threads ?></div>
@@ -87,8 +88,7 @@
 	<div id="editThreadDialog">
 		<div id="editThreadTitle" class="hd"><?php echo L10n::$edit_thread ?></div>
 		<div id="editThreadForm" class="bd">
-			<form id="editThreadF" name="editThreadF" method="POST" action=''>
-				<select id='editThreadSelect' name='select' onChange="Fuji.editThreadItemSelected()"></select><br />
+			<form id="editThreadF" name="editThreadF" method="POST" enctype="text/plain">
 				<input id='editThreadEntryid' name='entryid' type='hidden' value='' />
 				<input id='editThreadUserid' name='userid' type='hidden' value='' />
 				<?php echo L10n::$title ?>: <input id='editThreadT' name='title' type='text' value='' /><br />

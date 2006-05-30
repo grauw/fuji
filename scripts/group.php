@@ -7,7 +7,9 @@ require_once "utils/functions.php";
 
 class Group extends Dataclass {
 	
-	private $table = 'groups';
+	static function getTable() {
+		return 'groups';
+	}
 	
 	/**
 	 * Get group by id

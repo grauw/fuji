@@ -5,6 +5,9 @@ RewriteEngine On
 # PUT /item/<id>
 RewriteRule ^item/(\d+)$ scripts/item.php?id=$1 [L,QSA]
 
+# GET /item/<id>/source
+RewriteRule ^item/(\d+)/source$ scripts/item_source.php?id=$1 [L,QSA]
+
 # GET /
 RewriteRule ^$ index.php [L,QSA]
 

@@ -7,7 +7,9 @@ require_once "rights.php";
 
 class User extends Dataclass {
 	
-	private $table = "users";
+	static function getTable() {
+		return 'users';
+	}
 	
 	/**
 	 * Get user by id
