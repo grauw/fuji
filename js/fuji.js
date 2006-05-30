@@ -20,6 +20,13 @@ Fuji = {
 			YAHOO.util.Connect.asyncRequest('GET', uri, callback, null); 
 		}
 	},
+	reloadItem : function(uri) {
+		if (document.getElementById(uri)) {
+			var oElm = document.getElementById(uri);
+			oElm.parentNode.removeChild(oElm);
+		}
+		loadItem(uri);
+	},
 	loadItemNode : function(oXMLHttpObject) {
 		var oSource = oXMLHttpObject.responseXML;
 		var oTargetId = oSource.documentElement.getAttribute('loadcontext');
