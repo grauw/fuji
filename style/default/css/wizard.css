@@ -1,0 +1,44 @@
+body {
+	font-family: Verdana, Helvetica, sans-serif;
+}
+#mainWindow {
+	position: absolute;
+	left: 10px;
+	top: 10px;
+	width: 650px;
+	height: 400px;
+}
+.windowContent {
+	padding: 5px;
+}
+.windowSide {
+	float: left;
+	width: 200px;
+	height: 400px;
+}
+.buttonBar {
+	position: absolute;
+	left: 200px;
+	bottom: 0px;
+	width: 440px;
+	height: 25px;
+	padding: 5px;
+	background-color: #ddddcc;
+}
+.logo {
+	width: 200px;
+	height: 100px;
+	font-size: 24pt;
+	color: white;
+}
+.windowSideContent {
+	width: 200px;
+	height: 264px;
+	background-color: #5e90ff;
+	color: white;
+	padding-top: 10px;
+}
+.activeItem {
+	color: red;
+	text-weight: bold;
+}
