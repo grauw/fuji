@@ -32,6 +32,7 @@
 <body onload="Fuji.init()">
 	<h1 class="logoDiv logo window">Fuji</h1>
 	<div id="foraDiv" class="window">
+		<div id="foraTreeDiv"></div>
 	</div>
 	<div id="menuDiv" class="window">
 		<h2 class="windowTitle"><?php echo L10n::$menu ?></h2>
@@ -52,17 +53,6 @@
 				<?php echo L10n::$message ?>: <textarea id='newThreadContent' name='content' type='text' value=''></textarea>
 			</form>
 		</div>
-	</div>
-	<div id="deleteThreadDialog">
-		<div id="deleteThreadTitle" class="hd"><?php echo L10n::$delete_thread ?></div>
-		<div id="deleteThreadForm" class="bd">
-			<form id="deleteThreadF" name="deleteThreadF" method="POST">
-				<input id='deleteThreadId' name='threadid' type='hidden' value='' />
-				<input id='deleteThreadUserid' name='userid' type='hidden' value='' />
-				<select id='deleteThreadSelect' name='select' multiple size='10'>
-				</select>
-			</form>
-		</div>		
 	</div>
 	<div id="editThreadDialog">
 		<div id="editThreadTitle" class="hd"><?php echo L10n::$edit_thread ?></div>

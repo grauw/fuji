@@ -56,15 +56,15 @@ class Item {
 			$data['title'] = $_POST['title'];
 			$data['userref'] = $_POST['userref'];
 			$data['type'] = $_POST['type'];
+			$data['content'] = $_POST['content'];
 			
 			$entry = Entry::addEntry($data);
-			if($_POST['content']) $entry->addContent($_POST['content']);
 		}
 	}
 	
 	function httpDelete()
 	{
-		$id = intval($_POST['entryid']);
+		$id = intval($_GET['id']);
 		$entry = Entry::getEntry($id);
 		if($entry)	$entry->remove();
 	}

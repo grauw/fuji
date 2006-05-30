@@ -5,7 +5,6 @@ Fuji = {
 	thread : 0,
 	replyDialog : null,
 	newThreadDialog : null,
-	deleteThreadDialog : null,
 	editThreadDialog : null,
 	loadItem : function(uri) {
 		if (document.getElementById(uri)) {
@@ -75,6 +74,11 @@ Fuji = {
 		var oMenu = oSource.getElementById('menuItems');
 		oTarget.appendChild(oMenu);
 	},
+	clearFora : function() {
+		var oForaTreeDiv = document.getElementById('foraTreeDiv');
+		while(oForaTreeDiv.hasChildNodes())
+			oForaTreeDiv.removeChild(oForaTreeDiv.firstChild);
+	},
 	clearThreads : function() {
 		var oThreadsTableDiv = document.getElementById('threadsTableDiv');
 		while(oThreadsTableDiv.hasChildNodes())
@@ -90,19 +94,27 @@ Fuji = {
 		while(oMenuListDiv.hasChildNodes())
 			oMenuListDiv.removeChild(oMenuListDiv.firstChild);
 	},
+	reloadFora : function() {
+		Fuji.clearFora();
+		Fuji.loadFora();
+	},
 	reloadThreads : function() {
 		oTarget = document.getElementById('threadsTableDiv');
-		if(Fuji.forum)
-			Fuji.loadThreads(Fuji.forum);
+		Fuji.loadThreads(Fuji.forum);
 	},
 	reloadPosts : function() {
 		oTarget = document.getElementById('postsListDiv');
-		if(Fuji.thread)
-			Fuji.loadPosts(Fuji.thread);
+		Fuji.loadPosts(Fuji.thread);
+	},
+	reloadAll : function() {
+		Fuji.reloadFora();
+		Fuji.reloadThreads();
+		Fuji.reloadPosts();
 	},
 	createReplyDialog : function() {
 		var replyDialog = new YAHOO.widget.Dialog("replyDialog", { visible: false, fixedCenter: true});
 		var handleCancel = function() {
+			document.getElementById('replyF').reset();			
 			this.cancel();
 		}
 		var handleSubmit = function() {
@@ -123,6 +135,7 @@ Fuji = {
 	createNewThreadDialog : function() {
 		var newThreadDialog = new YAHOO.widget.Dialog("newThreadDialog", { visible: false, fixedCenter: true });
 		var handleCancel = function() {
+			document.getElementById('newThreadF').reset();			
 			this.cancel();
 		}
 		var handleSubmit = function() {
@@ -167,55 +180,43 @@ Fuji = {
 		else
 			document.getElementById('actionDeletePost').style.display = 'none';					
 	},
-	createDeleteThreadDialog : function() {
-		var deleteThreadDialog = new YAHOO.widget.Dialog("deleteThreadDialog", { visible: false, fixedCenter: true, width: '200px' });
-		var handleCancel = function() {
-			this.cancel();
-		}
-		var handleSubmit = function() {
-			var oDeleteThreadSelect = document.getElementById('deleteThreadSelect');
-			var selected = Fuji.util.getSelectedItems(oDeleteThreadSelect);
-			document.getElementById('deleteThreadId').value = selected;
-			document.getElementById('deleteThreadUserid').value = Fuji.user;
-			Fuji.deleteThread();
-			deleteThreadDialog.hide();
-		}
-		deleteThreadDialog.cfg.queueProperty("buttons", [ { text:"Delete", handler:handleSubmit, isDefault:true },
-											   { text:"Cancel", handler:handleCancel} ]);
-		deleteThreadDialog.render();
-		Fuji.deleteThreadDialog = deleteThreadDialog;
-	},
-	showDeleteThreadDialog : function() {
-		var oDeleteThreadSelect = document.getElementById('deleteThreadSelect');
-		while(oDeleteThreadSelect.hasChildNodes())
-			oDeleteThreadSelect.removeChild(oDeleteThreadSelect.firstChild);
-		var oThreadsTable = document.getElementById('threadsTable');
-		var aThreadsTableRows = oThreadsTable.getElementsByTagName('tbody')[0].getElementsByTagName('tr');
-		for(var n = 0; n < aThreadsTableRows.length; n++)
-		{
-			var oElm = document.createElement('option');
-			var sEntryId = aThreadsTableRows[n].getAttribute('entryid');
-			var sEntryTitle = aThreadsTableRows[n].getAttribute('entrytitle');
-			oElm.value = sEntryId;
-			oElm.appendChild(document.createTextNode(sEntryTitle));
-			oDeleteThreadSelect.appendChild(oElm);
-		}
-		Fuji.deleteThreadDialog.show();
-	},
-	deleteThread : function() {
+	deleteDialog : function(iId) {
+		var deleteThreadDialog = new YAHOO.widget.SimpleDialog("dlg", { 
+			width: "20em", 
+			effect:{effect:YAHOO.widget.ContainerEffect.FADE,
+		        duration:0.25}, 
+			fixedcenter:true,
+			modal:true,
+			draggable:false });
+
+		deleteThreadDialog.setHeader("Warning");
+		deleteThreadDialog.setBody("Are you sure you want to delete this item?");
+		deleteThreadDialog.cfg.setProperty("icon", YAHOO.widget.SimpleDialog.ICON_WARN);		
 		
-		var id = document.getElementById('deleteThreadId').value;
+		var handleOK = function() {
+			Fuji.deleteItem(iId);
+			this.hide();
+		}
+		var handleCancel = function() {
+			this.hide();
+		}
+		
+		deleteThreadDialog.cfg.queueProperty("buttons", [ { text:"OK", handler:handleOK }, { text:"Cancel", handler:handleCancel } ]);
+		deleteThreadDialog.render(document.body);
+	},
+	deleteItem : function(iId) {
 		var callback =
 		{
-			success: Fuji.reloadThreads,
+			success: function(o) {Fuji.forum = 2; Fuji.thread = 0; Fuji.reloadAll();},
 			failure: function(o) {alert('failure')},
 			argument: []
 		}
-		YAHOO.util.Connect.asyncRequest('DELETE', 'item/' + id, callback, null); 
+		YAHOO.util.Connect.asyncRequest('DELETE', 'item/' + iId, callback, null); 
 	},
 	createEditThreadDialog : function() {
 		var editThreadDialog = new YAHOO.widget.Dialog("editThreadDialog", { visible: false, fixedCenter: true, width: '200px' });
 		var handleCancel = function() {
+			document.getElementById('editThreadForm').reset();
 			this.cancel();
 		}
 		var handleSubmit = function() {
@@ -250,7 +251,7 @@ Fuji = {
 	editThread : function() {
 		var callback =
 		{
-			success: function(o) {Fuji.reloadThreads()},
+			success: function(o) {Fuji.reloadAll()},
 			failure: function(o) {alert('failure')},
 			argument: []
 		}
@@ -273,7 +274,6 @@ Fuji = {
 		Fuji.loadMenu();
 		Fuji.createReplyDialog();
 		Fuji.createNewThreadDialog();
-		Fuji.createDeleteThreadDialog();
 		Fuji.createEditThreadDialog();
 		Fuji.loadItem('item/1');
 		if (location.hash == '') location.hash='#item/2';

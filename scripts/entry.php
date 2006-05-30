@@ -63,10 +63,13 @@ class Entry extends Dataclass {
 	 * @returns content as String
 	 */
 	function getContent() {
-		$data = Database::getArray("SELECT content FROM " . DbVar::$db_tprefix . "content WHERE id = '$this->contentref'");
-		$contentdata = $data[0];
-		if($contentdata['content'])
-			return $contentdata['content'];
+		if(isset($this->contentref))
+		{
+			$data = Database::getArray("SELECT content FROM " . DbVar::$db_tprefix . "content WHERE id = '$this->contentref'");
+			$contentdata = $data[0];
+			if($contentdata['content'])
+				return $contentdata['content'];
+		}
 	}
 	
 	/**

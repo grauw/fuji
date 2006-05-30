@@ -15,7 +15,7 @@
 					?><span id="actionEditPost"><?php echo L10n::$edit ?></span><?php
 				}
 				if (UserManager::getUser()->getRights($entry)->may_delete) {
-					?><span id="actionDeletePost"><?php echo L10n::$delete ?></span><?php
+					?><span id="actionDeletePost"><a href="javascript:Fuji.deleteDialog(Fuji.thread)"><?php echo L10n::$delete ?></a></span><?php
 				}
 			?>
 			<span><?php echo L10n::$search ?></span>

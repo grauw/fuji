@@ -15,7 +15,7 @@
 					?><span id="actionEditThread"><a href="javascript:Fuji.showEditThreadDialog()"><?php echo L10n::$edit ?></a></span><?php
 				}
 				if (UserManager::getUser()->getRights($entry)->may_delete) {
-					?><span id="actionDeleteThread"><a href="javascript:Fuji.showDeleteThreadDialog()"><?php echo L10n::$delete ?></a></span><?php
+					?><span id="actionDeleteThread"><a href="javascript:Fuji.deleteDialog(Fuji.forum)"><?php echo L10n::$delete ?></a></span><?php
 				}
 			?>
 			<span><?php echo L10n::$search ?></span>
