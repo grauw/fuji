@@ -10,11 +10,13 @@
 }
 .windowTitle {
   background-image: url(../graphics/dark/bar.png);
+  height: 24px;
   color: white;
 }
 .windowActions {
   background-color: #77bbff;
   background-image: url(../graphics/dark/bar2.png);
+  height: 24px;
   color: black;
   border-color: #3377cc;
 }

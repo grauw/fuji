@@ -103,7 +103,7 @@ class User extends Dataclass {
 	function getGroups()
 	{
 		$groups = array();
-		$groupsdata = Database::getArray("SELECT * FROM " . DbVar::$db_tprefix . "groupmembers WHERE userid = '$this->id'");
+		$groupsdata = Database::getArray("SELECT * FROM " . DbVar::$db_tprefix . "groupmembers WHERE userid = $this->id");
 		foreach($groupsdata as $groupdata)
 		{
 			array_push($groups, Group::getGroup($groupdata['groupid']));
