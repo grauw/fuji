@@ -15,6 +15,15 @@ class AJAX_Template extends Template {
 		include_once $templateview->location;
 	}
 	
+	function applyMenu($lang, Template $template) {
+		if (!file_exists(realpath(dirname(__FILE__).'../'.'l10n/'.$lang.'.php'))) {
+			$lang = 'default';
+		}
+		include_once '../l10n/'.$lang.'.php';
+		$template = $this;
+		include_once '../templates/ajax/menu.php';
+	}
+	
 	function failInsufficientRights($lang, Template $template) {
 		if (!file_exists(realpath(dirname(__FILE__).'../'.'l10n/'.$lang.'.php'))) {
 			$lang = 'default';

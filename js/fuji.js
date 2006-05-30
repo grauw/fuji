@@ -119,42 +119,22 @@ Fuji = {
 		oTitle.nodeValue = oH1.getAttribute('default') + " - " + title;
 		oTarget.setAttribute("threadid", i);		
 	},
-	/*******************************************************************/
-	/*loadMenu : function() {
+	loadMenu : function() {
 		var callback =
 		{
 			success: Fuji.loadMenuNode,
 			failure: function(o) {alert('failure')},
 			argument: []
 		}
-		YAHOO.util.Connect.asyncRequest('GET', 'item/' + 1, callback, null); 
+		YAHOO.util.Connect.asyncRequest('GET', 'menu/', callback, null); 
 	},
 	loadMenuNode : function(oElm) {
+		Fuji.clearMenu();
 		var oSource = oElm.responseXML;
-		var oTarget = document.getElementById('menuDiv');
-		var oForumTreeDiv = oSource.getElementById('forumTreeDiv');
-		while(oForumTreeDiv.hasChildNodes())
-		{
-			var oElm = oForumTreeDiv.firstChild;
-			if(oElm.tagName == 'script')
-			{
-				var oHead = document.getElementsByTagName('head')[0];
-				var oScript = document.createElement('script');
-				oScript.type = 'text/javascript';
-				oScript.id = 'treeLoadScript';
-				var oScriptText = document.createTextNode(oElm.firstChild.nodeValue);
-				oScript.appendChild(oScriptText);
-				oForumTreeDiv.removeChild(oElm);
-				var oOldScript = document.getElementById('treeLoadScript');
-				if(oOldScript) oHead.removeChild(oOldScript);
-				oHead.appendChild(oScript);
-			}
-			else
-				oTarget.appendChild(oElm);
-		}
-		if(Fuji.ForumTree)	Fuji.ForumTree.treeLoad();
-	},*/
-	/*************************************************************************/
+		var oTarget = document.getElementById('menuListDiv');
+		var oMenu = oSource.getElementById('menuItems');
+		oTarget.appendChild(oMenu);
+	},
 	clearThreads : function() {
 		var oThreadsTableDiv = document.getElementById('threadsTableDiv');
 		while(oThreadsTableDiv.hasChildNodes())
@@ -164,6 +144,11 @@ Fuji = {
 		var oPostsListDiv = document.getElementById('postsListDiv');
 		while(oPostsListDiv.hasChildNodes())
 			oPostsListDiv.removeChild(oPostsListDiv.firstChild);
+	},
+	clearMenu : function() {
+		var oMenuListDiv = document.getElementById('menuListDiv');
+		while(oMenuListDiv.hasChildNodes())
+			oMenuListDiv.removeChild(oMenuListDiv.firstChild);
 	},
 	reloadThreads : function() {
 		oTarget = document.getElementById('threadsTableDiv');
@@ -345,7 +330,7 @@ Fuji = {
 	init : function() {
 		Fuji.loadFora();
 		Fuji.loadThreads(2);
-		/*Fuji.loadMenu();*/
+		Fuji.loadMenu();
 		Fuji.createReplyDialog();
 		Fuji.createNewThreadDialog();
 		Fuji.createDeleteThreadDialog();
