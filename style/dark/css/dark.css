@@ -1,5 +1,5 @@
 .logo {
-  background: url(../graphics/dark/fuji.jpg) no-repeat;
+  background: url(../graphics/fuji.jpg) no-repeat;
 }
 .logoDiv {
   color: white;
@@ -9,13 +9,13 @@
   border-color: #3377cc;	
 }
 .windowTitle {
-  background-image: url(../graphics/dark/bar.png);
+  background-image: url(../graphics/bar.png);
   height: 24px;
   color: white;
 }
 .windowActions {
   background-color: #77bbff;
-  background-image: url(../graphics/dark/bar2.png);
+  background-image: url(../graphics/bar2.png);
   height: 24px;
   color: black;
   border-color: #3377cc;
@@ -67,6 +67,6 @@ a:visited {
 	color: white;
 }
 .windowActions a:hover {
-	background-image: url(../graphics/dark/plain.png);
+	background-image: url(../graphics/plain.png);
 }
  

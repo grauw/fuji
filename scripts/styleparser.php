@@ -6,25 +6,25 @@ class StyleXML {
 	
 	private $doc = null;
 
-	__construct($xmldoc)
+	function __construct($xmldoc)
 	{
 		$this->doc = DOMDocument::load($xmldoc); 
 	}
 	
 	static function getStyleXML()
 	{
-		Database::getArray("SELECT * FROM " . Database::$db_tprefix . "styles WHERE isdefault = true");
-		
-		//etcetera 
-		return new styleXML();
+		$data = Database::getArray("SELECT * FROM " . Database::$db_tprefix . "styles WHERE isdefault = true");
+		$selected = $data[0];
+		return new styleXML("style/".$selected[2]);
 	}
 	
 	function getStylesheets()
 	{
-		$elems = $doc->getElementsByTagName('css');
+		$elems = $this->doc->getElementsByTagName('css');
 		foreach ($elems as $elem)
 		{
-			echo '<link rel="stylesheet" type="text/css" href="'.$elem.'" />'; 
+			$value = $elem->nodeValue;
+			echo '<link rel="stylesheet" type="text/css" href="style/'.$value.'" />'; 
 		}
 	}
 }
