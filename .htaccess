@@ -20,5 +20,11 @@ RewriteRule ^menu/$ scripts/menu.php [L,QSA]
 # GET /menu/<action>
 RewriteRule ^menu/(\w+)$ scripts/menu.php?action=$1 [L,QSA]
 
+# GET /profile/<id>
+RewriteRule ^profile/(\d+)$ scripts/profile.php?id=$1 [L,QSA]
+
+# GET /profile
+RewriteRule ^profile/$ scripts/profile.php [L,QSA]
+
 # GET /install
-RewriteRule ^install$ scripts/install/index.php
+RewriteRule ^install$ scripts/install/index.php>>>>>>> .r39

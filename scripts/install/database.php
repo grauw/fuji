@@ -54,8 +54,11 @@ class InstallDb
 							array(
 							array('id', 'I', 'UNSIGNED', 'AUTO', 'KEY'),
 							array('nickname', 'C', 255, 'NOTNULL'),
-							array('email', 'C', 255),
+							array('email', 'C', 255, 'NOTNULL'),
+							array('email_visible', 'L', 'NOTNULL', 'DEFAULT' => '0'),
 							array('password', 'C', 40, 'NOTNULL'),
+							array('language', 'C', 5),
+							array('picture', 'C', 255),
 							array('templateref', 'I', 'UNSIGNED', 'NOTNULL', 'DEFAULT' => '2'),
 							array('inputmethod', 'I', 'UNSIGNED', 'NOTNULL', 'DEFAULT' => '2') ) ),
 
@@ -121,8 +124,8 @@ class InstallDb
 		Database::execute("INSERT INTO content (id, content, processor) VALUES ('5', '<p>Hallo hallo hallo hallo</p>', '0')");
 		Database::execute("INSERT INTO content (id, content, processor) VALUES ('6', '<p>Hallo hallo hallo hallo hallo</p>', '0')");
 		Database::execute("INSERT INTO content (id, content, processor) VALUES ('7', '<p>Tset tste tset</p>', '0')");
-		Database::execute("INSERT INTO users (nickname, password, templateref, inputmethod) VALUES ('root', '" . sha1('root') . "', '1', '1')");
-		Database::execute("INSERT INTO users (nickname, password, templateref, inputmethod) VALUES ('anonymous', '" . sha1('') . "', '1', '1')");
+		Database::execute("INSERT INTO users (nickname, email, password, templateref, inputmethod) VALUES ('root', 'root@localhost', '" . sha1('root') . "', '1', '1')");
+		Database::execute("INSERT INTO users (nickname, email, password, templateref, inputmethod) VALUES ('anonymous', 'anonymous@localhost', '" . sha1('') . "', '1', '1')");
 		Database::execute("INSERT INTO groups (name) VALUES ('Operators')");
 		Database::execute("INSERT INTO groups (name) VALUES ('Users')");
 		Database::execute("INSERT INTO groups (name) VALUES ('Guests')");

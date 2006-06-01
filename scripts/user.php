@@ -133,7 +133,15 @@ class User extends Dataclass {
 		$userrights += array('userid' => $this->id);
 		return new Rights($userrights);
 	}
-	
+	/**
+	 * Returns the number of posts by this user
+	 * @returns int the number of posts
+	 */
+	function getPosts()
+	{
+		$data = Database::getArray("SELECT COUNT(*) FROM " . Database::$db_tprefix . "entries WHERE userref = '$this->id'");
+		return $data[0][0];
+	}
 	/**
 	 * Removes a user from the users and groupmembers databases
 	 */
