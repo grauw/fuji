@@ -17,7 +17,8 @@ class StyleXML {
 	{	
 		$data = Database::getArray("SELECT * FROM " . Database::$db_tprefix . "styles WHERE isdefault = true");
 		$selected = $data[0];
-		return new StyleXML(StyleXML::getPath($depth)."style/".$selected[2]);
+		
+		return new StyleXML(StyleXML::getPath($depth)."style/".$selected[2], 0);
 	}
 	
 	function getStylesheets()

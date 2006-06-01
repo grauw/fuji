@@ -18,9 +18,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<?php echo $xhtml_template->language ?>">
 	<head>
 		<title>Fuji Installer</title>
-		<?php /*<link rel="stylesheet" type="text/css" href="../../style/default/css/fuji.css" />
-		<link rel="stylesheet" type="text/css" href="../../stylecss/wizard.css" />
-		<link rel="stylesheet" type="text/css" href="../../css/fuji-blue.css" />	*/
+		<?php
 		$style = new StyleXML("../../style/default.xml");
 		$style->getStyleSheets();
 		?>
@@ -52,7 +50,7 @@
 		  	<input id="phase" name="phase" type="hidden" value="<?php echo $current_phase ?>"></input> 
 		  	<?php if($current_phase > 0) { ?><input name="previous" type="submit" value="Previous" onclick="document.getElementById('phase').value = <?php echo $current_phase - 1 ?>"></input>
 		  	<?php } if($current_phase < count($phases) - 1) { ?><input name="next" type="submit" value="Next" onclick="document.getElementById('phase').value = <?php if(isset($target_phase)) echo $target_phase; else echo $current_phase + 1 ?>"></input>
-		  	<?php } else { ?><input name="finish" type="button" value="Finish" onclick="location.assign('../../')"></input>
+		  	<?php } else { ?><input name="finish" type="button" value="Finish" onclick="location.assign('../')"></input>
 		  	<?php } ?>
 		  </div>
 		  </form>
