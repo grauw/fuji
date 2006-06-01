@@ -25,15 +25,16 @@ class Item {
 	
 	function httpGet()
 	{
+		UserManager::authenticate();
 		$id = isset($_GET['id']) ? intval($_GET['id']) : 1;
 		$entry = Entry::getEntry($id);
 		if (UserManager::getUser()->getRights($entry)->may_read) {
-			$lang='en-GB';
+			$lang = UserManager::getUser()->language;
 			$template = Template::getTemplate(2);
 			$template->apply($entry, $lang, $template);
 		}
 		else {
-			$lang='en-GB';
+			$lang = UserManager::getUser()->language;
 			$template = Template::getTemplate(2);
 			$template->failInsufficientRights($lang, $template);
 		}

@@ -6,7 +6,7 @@ require_once 'template.php';
 class AJAX_Template extends Template {
 	
 	function apply($entry, $lang, Template $template) {
-		if (!file_exists(realpath(dirname(__FILE__).'../'.'l10n/'.$lang.'.php'))) {
+		if (!file_exists('../l10n/'.$lang.'.php')) {
 			$lang = 'default';
 		}
 		include_once '../l10n/'.$lang.'.php';
@@ -16,7 +16,7 @@ class AJAX_Template extends Template {
 	}
 	
 	function applyMenu($lang, Template $template) {
-		if (!file_exists(realpath(dirname(__FILE__).'../'.'l10n/'.$lang.'.php'))) {
+		if (!file_exists('../l10n/'.$lang.'.php')) {
 			$lang = 'default';
 		}
 		include_once '../l10n/'.$lang.'.php';
@@ -25,7 +25,7 @@ class AJAX_Template extends Template {
 	}
 	
 	function failInsufficientRights($lang, Template $template) {
-		if (!file_exists(realpath(dirname(__FILE__).'../'.'l10n/'.$lang.'.php'))) {
+		if (!file_exists('../l10n/'.$lang.'.php')) {
 			$lang = 'default';
 		}
 		include_once '../l10n/'.$lang.'.php';
