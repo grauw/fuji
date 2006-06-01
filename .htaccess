@@ -27,4 +27,4 @@ RewriteRule ^profile/(\d+)$ scripts/profile.php?id=$1 [L,QSA]
 RewriteRule ^profile/$ scripts/profile.php [L,QSA]
 
 # GET /install
-RewriteRule ^install$ scripts/install/index.php>>>>>>> .r39
+RewriteRule ^install$ scripts/install/index.php

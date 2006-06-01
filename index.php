@@ -3,8 +3,8 @@
 	require_once("scripts/styleparser.php");
 	UserManager::authenticate();
 	
-	if(isset($lang))
-		require_once("l10n/$lang.php");
+	if(isset(UserManager::getUser()->language))
+		require_once("l10n/" . UserManager::getUser()->language . ".php");
 	else
 		require_once("l10n/default.php");
 ?>

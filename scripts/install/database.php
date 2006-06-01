@@ -58,6 +58,7 @@ class InstallDb
 							array('email_visible', 'L', 'NOTNULL', 'DEFAULT' => '0'),
 							array('password', 'C', 40, 'NOTNULL'),
 							array('language', 'C', 5),
+							array('style', 'I'),
 							array('picture', 'C', 255),
 							array('templateref', 'I', 'UNSIGNED', 'NOTNULL', 'DEFAULT' => '2'),
 							array('inputmethod', 'I', 'UNSIGNED', 'NOTNULL', 'DEFAULT' => '2') ) ),
