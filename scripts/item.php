@@ -29,14 +29,13 @@ class Item {
 		$id = isset($_GET['id']) ? intval($_GET['id']) : 1;
 		$entry = Entry::getEntry($id);
 		if (UserManager::getUser()->getRights($entry)->may_read) {
-			$lang = UserManager::getUser()->language;
 			$template = Template::getTemplate(2);
-			$template->apply($entry, $lang, $template);
+			$template->apply($entry, $template);
 		}
 		else {
 			$lang = UserManager::getUser()->language;
 			$template = Template::getTemplate(2);
-			$template->failInsufficientRights($lang, $template);
+			$template->failInsufficientRights($template);
 		}
 	}
 	

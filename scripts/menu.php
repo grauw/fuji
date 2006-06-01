@@ -21,9 +21,8 @@ class Menu {
 	{
 		UserManager::authenticate();
 		$action = isset($_GET['action']) ? $_GET['action'] : 0;
-		$lang = UserManager::getUser()->language;
 		$template = Template::getTemplate(2);
-		$template->applyMenu($lang, $template);
+		$template->applyMenu($template);
 	}
 	
 	function httpMethodNotAllowed()

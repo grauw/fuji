@@ -1,7 +1,9 @@
 <?php
 	require_once "styleparser.php";
 	require_once "usermanager.php";
-	
+	require_once "../l10n/l10nmanager.php";		
+
+	UserManager::authenticate();	
 	$user;
 	
 	if(isset($_GET['id']))
@@ -10,14 +12,10 @@
 	}
 	else
 	{
-		UserManager::authenticate();
 		$user = UserManager::getUser();
 	}
 	
-	if(isset($lang))
-		require_once("../l10n/$lang.php");
-	else
-		require_once("../l10n/default.php");	
+	L10nManager::loadL10n();
 ?>
 <!DOCTYPE html 
      PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
@@ -33,10 +31,10 @@
 		<h2 class="windowTitle">Profile</h2>
 		<div id="profileInfoDiv">
 			<table>
-				<tr><td rowspan="4"><?php if(isset($user->picture)) { ?><img width="60" src="<?php echo $user->picture ?>" alt="picture"></img><?php } ?></td><td>Name:</td><td><?php echo $user->nickname ?></td></tr>
-				<tr><td><?php if(isset($user->email) && $user->email_visible) { ?>E-Mail:</td><?php } ?><td><?php if(isset($user->email) && $user->email_visible) echo $user->email; ?></td></tr>
-				<tr><td>Posts:</td><td><?php echo $user->getPosts() ?></td></tr>
-				<tr><td>Member of:</td><td><?php $groups = $user->getGroups(); foreach($groups as $group) echo $group->name . "<br />" ?></td></tr>
+				<tr><td rowspan="4"><?php if(isset($user->picture)) { ?><img width="60" src="<?php echo $user->picture ?>" alt="picture"></img><?php } ?></td><td><?php echo L10n::$name ?>:</td><td><?php echo $user->nickname ?></td></tr>
+				<tr><td><?php if(isset($user->email) && $user->email_visible) { ?><?php echo L10n::$email ?>:</td><?php } ?><td><?php if(isset($user->email) && $user->email_visible) echo $user->email; ?></td></tr>
+				<tr><td><?php echo L10n::$posts ?>:</td><td><?php echo $user->getPosts() ?></td></tr>
+				<tr><td><?php echo L10n::$member_of ?>:</td><td><?php $groups = $user->getGroups(); foreach($groups as $group) echo $group->name . "<br />" ?></td></tr>
 			</table>
 		</div>
 	</div>

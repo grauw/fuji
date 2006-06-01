@@ -6,6 +6,7 @@ class L10n {
 	static $delete_thread = 'Delete Thread';
 	static $edit = 'Edit';
 	static $edit_thread = 'Edit Thread';
+	static $email = 'E-Mail';
 	static $error_insufficient_rights = 'You have insufficient rights to access this resource.';
 	static $error_no_threads = 'This forum has no threads';
 	static $error_no_posts = 'This thread has no posts';
@@ -13,9 +14,11 @@ class L10n {
 	static $language = 'en-GB';
 	static $logged_in_as = 'Logged in as';
 	static $login = 'Login';
+	static $member_of = 'Member of';
 	static $menu = 'Menu';
 	static $message = 'Message';
 	static $modified = 'Last modified';
+	static $name = 'Name';
 	static $new = 'New';
 	static $new_thread = 'New Thread';
 	static $poster = 'Poster';

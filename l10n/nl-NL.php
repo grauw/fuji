@@ -6,6 +6,7 @@ class L10n {
 	static $delete_thread = 'Verwijder Thread';
 	static $edit = 'Bewerken';
 	static $edit_thread = 'Bewerk Thread';
+	static $email = 'E-Mail';
 	static $error_insufficient_rights = 'U heeft onvoldoende rechten om deze pagina te bekijken.';
 	static $error_no_threads = 'Dit forum heeft geen threads';
 	static $error_no_posts = 'Deze thread heeft geen berichten';
@@ -13,9 +14,11 @@ class L10n {
 	static $language = 'nl-NL';
 	static $logged_in_as = 'Ingelogd als';
 	static $login = 'Login';
+	static $member_of = 'Lid van';
 	static $menu = 'Menu';
 	static $message = 'Bericht';
 	static $modified = 'Laatst gewijzigd';
+	static $name = 'Naam';
 	static $new = 'Nieuw';
 	static $new_thread = 'Nieuwe Thread';
 	static $poster = 'Afzender';

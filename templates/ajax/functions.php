@@ -1,34 +1,25 @@
 <?php
-
+require_once '../l10n/l10nmanager.php';
 require_once 'css/stylesheets.php';
 require_once 'template.php';
 
 class AJAX_Template extends Template {
 	
-	function apply($entry, $lang, Template $template) {
-		if (!file_exists('../l10n/'.$lang.'.php')) {
-			$lang = 'default';
-		}
-		include_once '../l10n/'.$lang.'.php';
+	function apply($entry, Template $template) {
+		L10nManager::loadL10n();
 		$template = $this;
 		$templateview = $this->getTemplateView($entry->type);
 		include_once $templateview->location;
 	}
 	
-	function applyMenu($lang, Template $template) {
-		if (!file_exists('../l10n/'.$lang.'.php')) {
-			$lang = 'default';
-		}
-		include_once '../l10n/'.$lang.'.php';
+	function applyMenu(Template $template) {
+		L10nManager::loadL10n();
 		$template = $this;
 		include_once '../templates/ajax/menu.php';
 	}
 	
-	function failInsufficientRights($lang, Template $template) {
-		if (!file_exists('../l10n/'.$lang.'.php')) {
-			$lang = 'default';
-		}
-		include_once '../l10n/'.$lang.'.php';
+	function failInsufficientRights(Template $template) {
+		L10nManager::loadL10n();
 		$template = $this;
 		include_once 'error.php';		
 	}
