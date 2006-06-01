@@ -1,7 +1,5 @@
 Fuji = {
 	NS : 'http://fuji.sourceforge.net/ns',
-	
-	itemid : 0,
 	replyDialog : null,
 	newThreadDialog : null,
 	editThreadDialog : null,
@@ -110,7 +108,8 @@ Fuji = {
 	},
 	reloadAll : function() {
 		alert("eec");
-		Fuji.reloadItem("item/1");
+		location.hash='#item/2';
+		Fuji.reloadItem("item/2");
 	},
 	createReplyDialog : function() {
 		var replyDialog = new YAHOO.widget.Dialog("replyDialog", { visible: false, fixedCenter: true});
