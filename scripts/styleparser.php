@@ -5,6 +5,7 @@ require_once "database.php";
 class StyleXML {
 	
 	private $doc = null;
+	private $depth = 0;
 
 	function __construct($xmldoc)
 	{
@@ -23,9 +24,19 @@ class StyleXML {
 		$elems = $this->doc->getElementsByTagName('css');
 		foreach ($elems as $elem)
 		{
+			$path = "";
 			$value = $elem->nodeValue;
-			echo '<link rel="stylesheet" type="text/css" href="style/'.$value.'" />'; 
+			for($n = 0; n<$this->depth; $n++)
+			{
+				$path .= "../";
+			}
+			echo '<link rel="stylesheet" type="text/css" href="'.$path.'style/'.$value.'" />'; 
 		}
+	}
+	
+	function setDepth($depth)
+	{
+		$this->depth = $depth;
 	}
 }
 
