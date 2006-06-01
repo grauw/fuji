@@ -9,19 +9,13 @@
 	<link rel="alternate" type="application/rss+xml" title="RSS" href="/blog/rss.php" />
 	<link rel="meta" type="application/rdf+xml" title="FOAF" href="foaf.rdf" />
 	<link rel="icon" type="image/png" href="/images/siteicon.png" />
-	
-	<script type="text/javascript" src="../js/yui/yahoo/yahoo.js"></script>
-	<script type="text/javascript" src="../js/yui/treeview/treeview.js"></script>
-	<script type="text/javascript">
-		Fuji = {}
-	</script>
 	<?php echo $template->getHead() ?>
 </head>
-<body onload="Fuji.ForumTree.treeLoad()">
+<body>
 	<?php echo $template->getHeader() ?>	
 	<div id="menuItems">
 	<?php
-		echo '<p>Logged in as ' . UserManager::getUser()->nickname . '</p>';
+		echo '<p>' . L10n::$logged_in_as . ' ' . UserManager::getUser()->nickname . '</p>';
 		echo '<ul>'."\n";
 		if(UserManager::getUser()->nickname == 'anonymous'){
 			echo '<li><a href="">'.L10n::$login.'</a></li>'."\n";

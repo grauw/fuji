@@ -19,9 +19,9 @@ class Menu {
 	
 	function httpGet()
 	{
+		UserManager::authenticate();
 		$action = isset($_GET['action']) ? $_GET['action'] : 0;
-		
-		$lang='en-GB';
+		$lang = UserManager::getUser()->language;
 		$template = Template::getTemplate(2);
 		$template->applyMenu($lang, $template);
 	}

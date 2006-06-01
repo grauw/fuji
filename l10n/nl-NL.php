@@ -11,6 +11,7 @@ class L10n {
 	static $error_no_posts = 'Deze thread heeft geen berichten';
 	static $fora = 'Fora';
 	static $language = 'nl-NL';
+	static $logged_in_as = 'Ingelogd als';
 	static $login = 'Login';
 	static $menu = 'Menu';
 	static $message = 'Bericht';

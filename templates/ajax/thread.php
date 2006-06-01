@@ -25,7 +25,7 @@
 			<div class="postDiv">
 					<h3 class="postTitle">
 						<span><?php echo $entry->title ?></span>
-						<span><?php echo User::getUser($entry->userref)->nickname ?></span>
+						<span><a href="profile/<?php echo User::getUser($entry->userref)->id ?>" target="_blank"><?php echo User::getUser($entry->userref)->nickname ?></a></span>
 						<span><?php echo $entry->modified ?></span>
 					</h3>
 					<div class="postContent"><?php echo $entry->getContent() ?></div>
@@ -36,7 +36,7 @@
 				<?php if ($post->type == Entry::$TYPE_POST) { ?>
 					<h4 class="postTitle">
 						<span><?php echo $post->title ?></span>
-						<span><?php echo User::getUser($post->userref)->nickname ?></span>
+						<span><a href="profile/<?php echo User::getUser($entry->userref)->id ?>" target="_blank"><?php echo User::getUser($entry->userref)->nickname ?></a></span>
 						<span><?php echo $post->modified ?></span>
 					</h4>
 					<div class="postContent"><?php echo $post->getContent() ?></div>

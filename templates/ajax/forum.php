@@ -26,7 +26,7 @@
 				<div class="forumPostDiv">
 						<div class="postTitle">
 							<span><?php echo $entry->title ?></span>
-							<span><?php echo User::getUser($entry->userref)->nickname ?></span>
+							<span><a href="profile/<?php echo User::getUser($entry->userref)->id ?>" target="_blank"><?php echo User::getUser($entry->userref)->nickname ?></a></span>
 							<span><?php echo $entry->modified ?></span>
 						</div>
 						<div class="postContent"><?php echo $entry->getContent() ?></div>
@@ -46,14 +46,14 @@
 						<?php if ($post->type == Entry::$TYPE_FORUM) { ?>
 						<tr entryid="<?php echo $post->id ?>" entrytitle="<?php echo $post->title ?>" class="tableForumEntry">
 							<td><a href="#item/<?php echo $post->id ?>"><?php echo $post->title ?></a></td>
-							<td><?php echo User::getUser($post->userref)->nickname ?></td>
+							<td><a href="profile/<?php echo User::getUser($entry->userref)->id ?>" target="_blank"><?php echo User::getUser($entry->userref)->nickname ?></a></td>
 							<td><?php echo count($post->getChildren()) ?></td>
 							<td><?php echo $post->modified ?></td>
 						
 						<?php } else if ($post->type == Entry::$TYPE_POST) { ?>
 						<tr entryid="<?php echo $post->id ?>" entrytitle="<?php echo $post->title ?>" class="tableThreadEntry">				
 							<td><a href="#item/<?php echo $post->id ?>"><?php echo $post->title ?></a></td>
-							<td><?php echo User::getUser($post->userref)->nickname ?></td>
+							<td><a href="profile/<?php echo User::getUser($entry->userref)->id ?>" target="_blank"><?php echo User::getUser($entry->userref)->nickname ?></a></td>
 							<td><?php echo count($post->getChildren()) ?></td>
 							<td><?php echo $post->modified ?></td>
 						

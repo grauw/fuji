@@ -11,6 +11,7 @@ class L10n {
 	static $error_no_posts = 'This thread has no posts';
 	static $fora = 'Fora';
 	static $language = 'en-GB';
+	static $logged_in_as = 'Logged in as';
 	static $login = 'Login';
 	static $menu = 'Menu';
 	static $message = 'Message';
