@@ -38,8 +38,8 @@ Fuji = {
 		var oTargetId = oSource.documentElement.getAttribute('loadcontext');
 		var oTarget = document.getElementById(oTargetId);
 		var oContent = oSource.getElementsByTagNameNS(Fuji.NS,'content')[0];
-		if (document.getElementById(uri)) {
-			document.getElementById(uri).parentNode.removeChild(document.getElementById(uri));
+		if (document.getElementById(oXMLHttpObject.argument.uri)) {
+			document.getElementById(oXMLHttpObject.argument.uri).parentNode.removeChild(document.getElementById(oXMLHttpObject.argument.uri));
 		}
 		var oTargetDiv = document.createElement('div');
 		oTargetDiv.id = oXMLHttpObject.argument.uri;
@@ -110,6 +110,7 @@ Fuji = {
 	},
 	reloadThreads : function() {
 		oTarget = document.getElementById('threadsTableDiv');
+		alert('test');
 		Fuji.loadThreads(Fuji.forum);
 	},
 	reloadPosts : function() {
@@ -117,7 +118,7 @@ Fuji = {
 		Fuji.loadPosts(Fuji.thread);
 	},
 	reloadAll : function() {
-		Fuji.reloadFora();
+		Fuji.reloadItem();
 		Fuji.reloadThreads();
 		Fuji.reloadPosts();
 	},
