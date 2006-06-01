@@ -71,7 +71,7 @@ class Item {
 	
 	function httpPut()
 	{
-		$id = intval($_POST['entryid']);
+		$id = intval($_GET['id']);
 		$entry = Entry::getEntry($id);
 		if($entry)
 		{

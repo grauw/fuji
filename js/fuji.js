@@ -107,7 +107,6 @@ Fuji = {
 		Fuji.loadFora();
 	},
 	reloadAll : function() {
-		alert("eec");
 		location.hash='#item/2';
 		Fuji.reloadItem("item/2");
 	},
@@ -221,8 +220,6 @@ Fuji = {
 			this.cancel();
 		}
 		var handleSubmit = function() {
-			document.getElementById('editThreadEntryid').value = Fuji.forum;
-			document.getElementById('editThreadUserid').value = Fuji.user;
 			Fuji.editThread();
 			Fuji.editThreadDialog.hide();
 		}
@@ -232,14 +229,16 @@ Fuji = {
 		editThreadDialog.render();
 		Fuji.editThreadDialog = editThreadDialog;
 	},
-	showEditThreadDialog : function() {
+	showEditThreadDialog : function(id) {
 		var callback =
 		{
 			success: Fuji.updateEditDialog,
 			failure: function(o) {alert('failure')},
 			argument: []
 		}
-		YAHOO.util.Connect.asyncRequest('GET', 'item/' + Fuji.forum + '/source', callback, null); 
+		document.getElementById('editThreadEntryid').value = id;
+		document.getElementById('editThreadUserid').value = Fuji.user;
+		YAHOO.util.Connect.asyncRequest('GET', 'item/' + id + '/source', callback, null); 
 		Fuji.editThreadDialog.show();
 	},
 	updateEditDialog : function(oElm) {
@@ -247,7 +246,8 @@ Fuji = {
 		var oEditThreadTitle = document.getElementById('editThreadT');
 		var oEditThreadContent = document.getElementById('editThreadContent');
 		oEditThreadTitle.value = oSource.getElementById('title').innerHTML;
-		oEditThreadContent.value = oSource.getElementById('content').innerHTML;			
+		oEditThreadContent.value = oSource.getElementById('content').innerHTML;	
+
 	},
 	editThread : function() {
 		var callback =
@@ -257,7 +257,8 @@ Fuji = {
 			argument: []
 		}
 		YAHOO.util.Connect.setForm('editThreadF');
-		YAHOO.util.Connect.asyncRequest('POST', 'item/' + Fuji.thread, callback, null); 
+		alert('item/' + document.getElementById('editThreadEntryid').value);
+		YAHOO.util.Connect.asyncRequest('PUT', 'item/' + document.getElementById('editThreadEntryid').value, callback, null); 
 	},
 	startUrlChangeListener : function() {
 		setTimeout(Fuji.urlChangeListener, 300);
