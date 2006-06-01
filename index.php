@@ -15,13 +15,7 @@
 <head>
 	<title>Fuji</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<?php
-	/*<link rel="stylesheet" type="text/css" href="css/fuji.css" />
-	<link rel="stylesheet" type="text/css" href="css/dark.css" />
-	<link rel="stylesheet" type="text/css" href="css/treeview.css" />
-	<link rel="stylesheet" type="text/css" href="css/dark-container.css" />	 */
-	StyleXML::getStyleXML()->getStyleSheets();	
-?>
+	<?php StyleXML::getStyleXML()->getStyleSheets(); ?>
 	<script type="text/javascript" src="js/yui/yahoo/yahoo.js"></script>
 	<script type="text/javascript" src="js/yui/dom/dom.js"></script>
 	<script type="text/javascript" src="js/yui/event/event.js"></script>

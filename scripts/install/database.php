@@ -87,7 +87,14 @@ class InstallDb
 							array('postpostprocessors',
 							array(
 							array('id', 'I', 'UNSIGNED', 'AUTO', 'KEY'),
-							array('name', 'X', 'NOTNULL') ) )
+							array('name', 'X', 'NOTNULL') ) ),
+							
+							array('styles',
+							array(
+							array('id', 'I', 'UNSIGNED', 'AUTO', 'KEY'),
+							array('name', 'X', 'NOTNULL'),
+							array('file', 'X', 'NOTNULL'),
+							array('isdefault', 'L', 'NOTNULL', 'DEFAULT' => '0')))							
 						);
 		foreach($entries as $entry)
 		{
@@ -134,6 +141,9 @@ class InstallDb
 		Database::execute("INSERT INTO viewtemplates (id, templateref, typeref, location) VALUES ('5', '2', '2', 'forum.php')");
 		Database::execute("INSERT INTO viewtemplates (id, templateref, typeref, location) VALUES ('6', '2', '3', 'forum.php')");
 		Database::execute("INSERT INTO viewtemplates (id, templateref, typeref, location) VALUES ('7', '2', '4', 'thread.php')");
+		
+		Database::execute("INSERT INTO styles (name, file, isdefault) VALUES ('Dark Fuji', 'dark.xml', '1')");
+		Database::execute("INSERT INTO styles (name, file) VALUES ('Default Fuji', 'default.xml')");
 	}
 }
 ?>
