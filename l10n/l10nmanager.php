@@ -8,8 +8,10 @@
 				$lang = UserManager::getUser()->language;
 				if (!file_exists('../l10n/'.$lang.'.php'))
 					$lang = 'default';
+				include_once "$lang.php";
 			}
-			include_once "$lang.php";
+			else
+				include_once "default.php";
 		}
 	}
 ?>
