@@ -9,17 +9,17 @@
 		<div id="postsActions" class="windowActions">
 			<?php
 				if (UserManager::getUser()->getRights($entry)->may_post) {
-					?><span id="actionReplyPost"><a href="javascript:Fuji.showReplyDialog()"><?php echo L10n::$reply ?></a></span><?php
+					?><span id="actionReplyPost"><a href="javascript:Fuji.showReplyDialog('<?php echo $entry->id ?>')"><?php echo L10n::$reply ?></a></span><?php
 				}
 				if (UserManager::getUser()->getRights($entry)->may_edit) {
 					?><span id="actionEditPost"><?php echo L10n::$edit ?></span><?php
 				}
 				if (UserManager::getUser()->getRights($entry)->may_delete) {
-					?><span id="actionDeletePost"><a href="javascript:Fuji.deleteDialog(Fuji.thread)"><?php echo L10n::$delete ?></a></span><?php
+					?><span id="actionDeletePost"><a href="javascript:Fuji.deleteDialog('<?php echo $entry->id ?>')"><?php echo L10n::$delete ?></a></span><?php
 				}
 			?>
 			<span><?php echo L10n::$search ?></span>
-			<span><a href="javascript:Fuji.reloadPosts()"><?php echo L10n::$refresh ?></a></span>
+			<span><a href="javascript:Fuji.reloadItem('item/<?php echo $entry->id ?>')"><?php echo L10n::$refresh ?></a></span>
 		</div>
 		<div id="postsListDiv">
 			<div class="postDiv">

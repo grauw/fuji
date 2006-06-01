@@ -10,17 +10,17 @@
 		<div id="threadsActions" class="windowActions">
 			<?php
 				if (UserManager::getUser()->getRights($entry)->may_post) {
-					?><span id="actionNewThread"><a href="javascript:Fuji.showNewThreadDialog()"><?php echo L10n::$new ?></a></span><?php
+					?><span id="actionNewThread"><a href="javascript:Fuji.showNewThreadDialog('<?php echo $entry->id ?>',<?php echo $entry->getParent()->type ?>)"><?php echo L10n::$new ?></a></span><?php
 				}
 				if (UserManager::getUser()->getRights($entry)->may_edit) {
-					?><span id="actionEditThread"><a href="javascript:Fuji.showEditThreadDialog()"><?php echo L10n::$edit ?></a></span><?php
+					?><span id="actionEditThread"><a href="javascript:Fuji.showEditThreadDialog('<?php echo $entry->id ?>')"><?php echo L10n::$edit ?></a></span><?php
 				}
 				if (UserManager::getUser()->getRights($entry)->may_delete) {
-					?><span id="actionDeleteThread"><a href="javascript:Fuji.deleteDialog(Fuji.forum)"><?php echo L10n::$delete ?></a></span><?php
+					?><span id="actionDeleteThread"><a href="javascript:Fuji.deleteDialog('<?php echo $entry->id ?>')"><?php echo L10n::$delete ?></a></span><?php
 				}
 			?>
 			<span><?php echo L10n::$search ?></span>
-			<span><a href="javascript:Fuji.reloadThreads()"><?php echo L10n::$refresh ?></a></span>
+			<span><a href="javascript:Fuji.reloadItem('item/<?php echo $entry->id ?>')"><?php echo L10n::$refresh ?></a></span>
 		</div>
 		<div id="threadsTableDiv">
 			<div id="threadsTableDiv" may_post="<?php echo UserManager::getUser()->getRights($entry)->may_post ?>" may_edit="<?php echo UserManager::getUser()->getRights($entry)->may_edit ?>" may_delete="<?php echo UserManager::getUser()->getRights($entry)->may_delete ?>">

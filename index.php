@@ -28,7 +28,7 @@
 	<script type="text/javascript"><?php echo "Fuji.user = " . UserManager::getUser()->id .";\n"?></script>
 </head>
 <body onload="Fuji.init()">
-	<h1 class="logoDiv logo window">Fuji</h1>
+	<a href="/"><h1 class="logoDiv logo window">Fuji</h1></a>
 	<div id="foraDiv" class="window">
 		<div id="foraTreeDiv"></div>
 	</div>
@@ -46,7 +46,7 @@
 			<form id="newThreadF" name="newThreadF" method="POST" action="item/">
 				<input id='newThreadRef' name='ref' type='hidden' value='' />
 				<input id='newThreadUserref' name='userref' type='hidden' value='' />
-				<input id='newThreadType' name='type' type='hidden' value='4' />
+				<input id='newThreadType' name='type' type='hidden' value='' />
 				<?php echo L10n::$title ?>: <input id='newThreadT' name='title' type='text' value='' /><br />
 				<?php echo L10n::$message ?>: <textarea id='newThreadContent' name='content' type='text' value=''></textarea>
 			</form>

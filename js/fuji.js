@@ -1,8 +1,7 @@
 Fuji = {
 	NS : 'http://fuji.sourceforge.net/ns',
 	
-	forum : 0,
-	thread : 0,
+	itemid : 0,
 	replyDialog : null,
 	newThreadDialog : null,
 	editThreadDialog : null,
@@ -105,22 +104,13 @@ Fuji = {
 			oMenuListDiv.removeChild(oMenuListDiv.firstChild);
 	},
 	reloadFora : function() {
+
 		Fuji.clearFora();
 		Fuji.loadFora();
 	},
-	reloadThreads : function() {
-		oTarget = document.getElementById('threadsTableDiv');
-		alert('test');
-		Fuji.loadThreads(Fuji.forum);
-	},
-	reloadPosts : function() {
-		oTarget = document.getElementById('postsListDiv');
-		Fuji.loadPosts(Fuji.thread);
-	},
 	reloadAll : function() {
-		Fuji.reloadItem();
-		Fuji.reloadThreads();
-		Fuji.reloadPosts();
+		alert("eec");
+		Fuji.reloadItem("item/1");
 	},
 	createReplyDialog : function() {
 		var replyDialog = new YAHOO.widget.Dialog("replyDialog", { visible: false, fixedCenter: true});
@@ -140,27 +130,28 @@ Fuji = {
 		replyDialog.render();
 		Fuji.replyDialog = replyDialog;
 	},
-	showReplyDialog : function() {
+	showReplyDialog : function(id) {
 		Fuji.replyDialog.show();
 	},
 	createNewThreadDialog : function() {
-		var newThreadDialog = new YAHOO.widget.Dialog("newThreadDialog", { visible: false, fixedCenter: true });
+		Fuji.newThreadDialog = new YAHOO.widget.Dialog("newThreadDialog", { visible: false, fixedCenter: true });
 		var handleCancel = function() {
 			document.getElementById('newThreadF').reset();			
 			this.cancel();
 		}
 		var handleSubmit = function() {
-			document.getElementById('newThreadRef').value = Fuji.forum;
-			document.getElementById('newThreadUserref').value = Fuji.user;
 			this.submit();
+			Fuji.reloadItem("item/" + document.getElementById('newThreadRef').value);
 		}
-		newThreadDialog.cfg.queueProperty("buttons", [ { text:"Submit", handler:handleSubmit, isDefault:true },
+		Fuji.newThreadDialog.cfg.queueProperty("buttons", [ { text:"Submit", handler:handleSubmit, isDefault:true },
 											   { text:"Cancel", handler:handleCancel } ]);
-		newThreadDialog.cfg.queueProperty("onsuccess", Fuji.reloadThreads);
-		newThreadDialog.render();
-		Fuji.newThreadDialog = newThreadDialog;
+		Fuji.newThreadDialog.render();
 	},
-	showNewThreadDialog : function() {
+	showNewThreadDialog : function(id, partype) {
+		document.getElementById('newThreadType').value = partype + 2; 
+		document.getElementById('newThreadRef').value = id;
+		document.getElementById('newThreadUserref').value = Fuji.user;
+		
 		Fuji.newThreadDialog.show();
 	},	
 	resetThreadsActions : function(p, e, r) {
@@ -192,7 +183,7 @@ Fuji = {
 			document.getElementById('actionDeletePost').style.display = 'none';					
 	},
 	deleteDialog : function(iId) {
-		var deleteThreadDialog = new YAHOO.widget.SimpleDialog("dlg", { 
+		Fuji.deleteThreadDialog = new YAHOO.widget.SimpleDialog("dlg", { 
 			width: "20em", 
 			effect:{effect:YAHOO.widget.ContainerEffect.FADE,
 		        duration:0.25}, 
@@ -200,9 +191,9 @@ Fuji = {
 			modal:true,
 			draggable:false });
 
-		deleteThreadDialog.setHeader("Warning");
-		deleteThreadDialog.setBody("Are you sure you want to delete this item?");
-		deleteThreadDialog.cfg.setProperty("icon", YAHOO.widget.SimpleDialog.ICON_WARN);		
+		Fuji.deleteThreadDialog.setHeader("Warning");
+		Fuji.deleteThreadDialog.setBody("Are you sure you want to delete this item?");
+		Fuji.deleteThreadDialog.cfg.setProperty("icon", YAHOO.widget.SimpleDialog.ICON_WARN);		
 		
 		var handleOK = function() {
 			Fuji.deleteItem(iId);
@@ -212,13 +203,13 @@ Fuji = {
 			this.hide();
 		}
 		
-		deleteThreadDialog.cfg.queueProperty("buttons", [ { text:"OK", handler:handleOK }, { text:"Cancel", handler:handleCancel } ]);
-		deleteThreadDialog.render(document.body);
+		Fuji.deleteThreadDialog.cfg.queueProperty("buttons", [ { text:"OK", handler:handleOK }, { text:"Cancel", handler:handleCancel } ]);
+		Fuji.deleteThreadDialog.render(document.body);
 	},
 	deleteItem : function(iId) {
 		var callback =
 		{
-			success: function(o) {Fuji.forum = 2; Fuji.thread = 0; Fuji.reloadAll();},
+			success: function(o) {Fuji.reloadAll();},
 			failure: function(o) {alert('failure')},
 			argument: []
 		}
