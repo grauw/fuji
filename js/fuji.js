@@ -10,27 +10,37 @@ Fuji = {
 		if (document.getElementById(uri)) {
 			Fuji.selectDeckItem(document.getElementById(uri));
 		} else {
-			var callback =
-			{
-				success: Fuji.loadItemNode,
-				failure: function(o) {alert('failure: ',o.argument.uri)},
-				argument: { uri: uri }
-			}
-			YAHOO.util.Connect.asyncRequest('GET', uri, callback, null); 
+			Fuji.reloadItem(uri);
 		}
 	},
-	reloadItem : function(uri) {
-		if (document.getElementById(uri)) {
-			var oElm = document.getElementById(uri);
-			oElm.parentNode.removeChild(oElm);
+	reloadItem : function(uri, depth) {
+		if (depth != undefined) {
+			for (var i=0; i<depth; i++) {
+				Fuji.reloadItem(uri);
+				if (document.getElementById(uri)) {
+					if (document.getElementById(uri).hasAttribute('parent')) {
+						uri = document.getElementById(uri).getAttribute('parent');
+					} else return;
+				} else return;
+			}
+			return;
 		}
-		loadItem(uri);
+		var callback =
+		{
+			success: Fuji.loadItemNode,
+			failure: function(o) {alert('failure: ',o.argument.uri)},
+			argument: { uri: uri }
+		}
+		YAHOO.util.Connect.asyncRequest('GET', uri, callback, null); 
 	},
 	loadItemNode : function(oXMLHttpObject) {
 		var oSource = oXMLHttpObject.responseXML;
 		var oTargetId = oSource.documentElement.getAttribute('loadcontext');
 		var oTarget = document.getElementById(oTargetId);
 		var oContent = oSource.getElementsByTagNameNS(Fuji.NS,'content')[0];
+		if (document.getElementById(uri)) {
+			document.getElementById(uri).parentNode.removeChild(document.getElementById(uri));
+		}
 		var oTargetDiv = document.createElement('div');
 		oTargetDiv.id = oXMLHttpObject.argument.uri;
 		oTarget.appendChild(oTargetDiv);
