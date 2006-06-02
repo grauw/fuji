@@ -23,7 +23,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="<?php echo L10n::$language ?>" xml:lang="<?php echo L10n::$language ?>">
 <head>
 	<title>Profile</title>
-	<?php StyleXML::getStyleXML()->getStyleSheets() ?>
+	<?php StyleXML::getStyleXML(1)->getStyleSheets() ?>
 </head>
 <body>
 </body>

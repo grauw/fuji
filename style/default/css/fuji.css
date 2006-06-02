@@ -129,3 +129,11 @@ a:visited {
   padding: 0px;
   margin: 0px;
 }
+#profileDiv {
+  width: 400px;
+}
+#profileInfoDiv {
+  width: 400px;
+  height: 200px;
+  overflow: hidden;
+}

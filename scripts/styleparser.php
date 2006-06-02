@@ -10,7 +10,7 @@ class StyleXML {
 	function __construct($xmldoc, $depth=0)
 	{
 		$this->doc = DOMDocument::load($xmldoc);
-		$this->path = StyleXML::getPath($depth); 		
+		$this->path = StyleXML::getPath($depth);		
 	}
 	
 	static function getStyleXML($depth = 0)
@@ -18,7 +18,7 @@ class StyleXML {
 		$data = Database::getArray("SELECT * FROM " . Database::$db_tprefix . "styles WHERE isdefault = true");
 		$selected = $data[0];
 		
-		return new StyleXML(StyleXML::getPath($depth)."style/".$selected[2], 0);
+		return new StyleXML(StyleXML::getPath($depth)."style/".$selected[2], $depth);
 	}
 	
 	function getStylesheets()
@@ -36,7 +36,7 @@ class StyleXML {
 	static function getPath($depth)
 	{
 		$path = "";
-		for($n = 0; n<$depth; $n++)
+		for($n = 0; $n<$depth; $n++)
 		{
 			$path .= "../";
 		}
