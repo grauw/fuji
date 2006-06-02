@@ -5,7 +5,7 @@
 	loadcontext="threadsDiv"
 	parent="item/1">
 	<fuji:content>
-		<h2 class="windowTitle"><?php echo $entry->title ?> - <?php echo L10n::$threads ?></h2>
+		<h2 class="windowTitle"><?php echo L10n::$threads ?> - <?php echo $entry->title ?></h2>
 		<div id="threadPath" class="windowInfo"></div> 
 		<div id="threadsActions" class="windowActions">
 			<?php

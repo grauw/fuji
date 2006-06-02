@@ -32,6 +32,10 @@ h5 {
   width: 100%;
   border-bottom: 1px solid;
 }
+.windowActions span {
+  padding-left: 3px;
+  padding-right: 3px;
+}
 .logoDiv {
   margin: 10px;
   position: absolute;
@@ -96,11 +100,9 @@ h5 {
 .postContent {
   padding: 5px;
 }
-#postsActions {
-  display: none;
-}
 #threadsTableDiv table {
   border-spacing: 0px;
+  border-collapse: collapse;
   width: 100%;
 }
 #threadsTableDiv table td{
@@ -122,7 +124,8 @@ a:visited {
 #deleteThreadSelect {
   width: 100%;
 }
-#menuItems ul {
+#menuListDiv div ul {
   list-style-type: none;
   padding: 0px;
+  margin: 0px;
 }

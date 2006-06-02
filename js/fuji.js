@@ -24,17 +24,22 @@ Fuji = {
 		}
 		var callback =
 		{
-			success: Fuji.loadItemNode,
+			success: Fuji.loadNode,
 			failure: function(o) {alert('failure: ',o.argument.uri)},
 			argument: { uri: uri }
 		}
 		YAHOO.util.Connect.asyncRequest('GET', uri, callback, null); 
 	},
-	loadItemNode : function(oXMLHttpObject) {
+	loadNode : function(oXMLHttpObject) {
 		var oSource = oXMLHttpObject.responseXML;
+		if(!oSource.documentElement) //Internet Explorer-hack
+		{
+			oSource = new ActiveXObject("Microsoft.XMLDOM");
+			oSource.loadXML(oXMLHttpObject.responseText);
+		}
 		var oTargetId = oSource.documentElement.getAttribute('loadcontext');
 		var oTarget = document.getElementById(oTargetId);
-		var oContent = oSource.getElementsByTagNameNS(Fuji.NS,'content')[0];
+		var oContent = Fuji.Util.getElementsByTagNameNS(oSource,Fuji.NS,'content')[0];
 		if (document.getElementById(oXMLHttpObject.argument.uri)) {
 			document.getElementById(oXMLHttpObject.argument.uri).parentNode.removeChild(document.getElementById(oXMLHttpObject.argument.uri));
 		}
@@ -42,13 +47,13 @@ Fuji = {
 		oTargetDiv.id = oXMLHttpObject.argument.uri;
 		oTarget.appendChild(oTargetDiv);
 		for (var i=0; i < oContent.childNodes.length; i++) {
-			oTargetDiv.appendChild(document.importNode(oContent.childNodes.item(i), true));
+			oTargetDiv.appendChild(Fuji.Util.importNode(oContent.childNodes.item(i), true));
 		}
-		if (oSource.documentElement.hasAttribute('parent')) {
+		if (Fuji.Util.hasAttribute(oSource.documentElement, 'parent')) {
 			oTargetDiv.setAttribute('parent',oSource.documentElement.getAttribute('parent'));
 		}
 		Fuji.selectDeckItem(oTargetDiv);
-		var oLoadHandler = oSource.getElementsByTagNameNS(Fuji.NS,'loadhandler');
+		var oLoadHandler = Fuji.Util.getElementsByTagNameNS(oSource, Fuji.NS,'loadhandler');
 		if (oLoadHandler.length) {
 			eval(oLoadHandler[0].firstChild.nodeValue)
 		}
@@ -61,25 +66,18 @@ Fuji = {
 			}
 		}
 		oElm.style.display = '';
-		if (oElm.hasAttribute('parent')) {
+		if (Fuji.Util.hasAttribute(oElm, 'parent')) {
 			Fuji.loadItem(oElm.getAttribute('parent'));
 		}
 	},
 	loadMenu : function() {
 		var callback =
 		{
-			success: Fuji.loadMenuNode,
+			success: Fuji.loadNode,
 			failure: function(o) {alert('failure')},
 			argument: []
 		}
 		YAHOO.util.Connect.asyncRequest('GET', 'menu/', callback, null); 
-	},
-	loadMenuNode : function(oElm) {
-		Fuji.clearMenu();
-		var oSource = oElm.responseXML;
-		var oTarget = document.getElementById('menuListDiv');
-		var oMenu = oSource.getElementById('menuItems');
-		oTarget.appendChild(oMenu);
 	},
 	clearFora : function() {
 		var oForaTreeDiv = document.getElementById('foraTreeDiv');
@@ -152,34 +150,6 @@ Fuji = {
 		
 		Fuji.newThreadDialog.show();
 	},	
-	resetThreadsActions : function(p, e, r) {
-		if(p == '1')
-			document.getElementById('actionNewThread').style.display = 'inline';
-		else
-			document.getElementById('actionNewThread').style.display = 'none';
-		if(e == '1')
-			document.getElementById('actionEditThread').style.display = 'inline';
-		else
-			document.getElementById('actionEditThread').style.display = 'none';
-		if(r == '1')
-			document.getElementById('actionDeleteThread').style.display = 'inline';			
-		else
-			document.getElementById('actionDeleteThread').style.display = 'none';					
-	},
-	resetPostsActions : function(p, e, r) {
-		if(p == '1')
-			document.getElementById('actionReplyPost').style.display = 'inline';
-		else
-			document.getElementById('actionReplyPost').style.display = 'none';
-		if(e == '1')
-			document.getElementById('actionEditPost').style.display = 'inline';
-		else
-			document.getElementById('actionEditPost').style.display = 'none';
-		if(r == '1')
-			document.getElementById('actionDeletePost').style.display = 'inline';			
-		else
-			document.getElementById('actionDeletePost').style.display = 'none';					
-	},
 	deleteDialog : function(iId) {
 		Fuji.deleteThreadDialog = new YAHOO.widget.SimpleDialog("dlg", { 
 			width: "20em", 
@@ -282,7 +252,21 @@ Fuji = {
 		Fuji.startUrlChangeListener();
 	}
 }
-Fuji.util = {
+Fuji.Util = {
+	// Opera and IE don't have these defined on the nodes themselves :(
+	ELEMENT_NODE                : 1,
+	ATTRIBUTE_NODE              : 2,
+	TEXT_NODE                   : 3,
+	CDATA_SECTION_NODE          : 4,
+	ENTITY_REFERENCE_NODE       : 5,
+	ENTITY_NODE                 : 6,
+	PROCESSING_INSTRUCTION_NODE : 7,
+	COMMENT_NODE                : 8,
+	DOCUMENT_NODE               : 9,
+	DOCUMENT_TYPE_NODE          : 10,
+	DOCUMENT_FRAGMENT_NODE      : 11,
+	NOTATION_NODE               : 12,
+	
 	getSelectedItems : function(oSelect) {
 		var aSelectItems = oSelect.getElementsByTagName('option');
 		var selected = "";
@@ -293,5 +277,64 @@ Fuji.util = {
 				else
 					selected += "," + aSelectItems[n].value;
 		return selected;
-	}
+	},
+	getElementsByTagNameNS : function (oNode, sNs, sLocalName) {
+		if (oNode.getElementsByTagNameNS) {
+			return oNode.getElementsByTagNameNS(sNs, sLocalName);
+		} else {
+			var oElements = oNode.getElementsByTagName('fuji:' + sLocalName);
+			var aResult = [];
+			for (var i=0; i<oElements.length; i++) {
+				var oElm = oElements.item(i);
+				if (oElm.namespaceURI == sNs && oElm.nodeName == (oElm.prefix + ':' + sLocalName)) {
+					aResult.push(oElm);
+				}
+			}
+		}
+		return aResult;
+	},
+	importNode : function (oNode, deep) {
+		if(document.importNode) {
+			return document.importNode(oNode, deep);
+		} else {
+			var oNew;
+			switch (oNode.nodeType) {
+				case Fuji.Util.ELEMENT_NODE:
+					if (oNode.prefix) {
+						sNodeName = oNode.nodeName.substring(oNode.nodeName.indexOf(':')+1);
+					} else {
+						sNodeName = oNode.nodeName;
+					}
+					oNew = document.createElement(sNodeName);
+					for(var i = 0; i < oNode.attributes.length; i++){
+						oNew.setAttribute(oNode.attributes[i].name, oNode.attributes[i].value);
+					}
+					if (oNode.style) oNew.style.cssText = oNode.style.cssText;
+					if (oNode.getAttribute('style') != null) oNew.style.cssText = oNode.getAttribute('style');
+					if (oNode.getAttribute('class') != null) oNew.className = oNode.getAttribute('class');
+					
+					if(deep && oNode.hasChildNodes()){
+						for(var oChild = oNode.firstChild; oChild; oChild = oChild.nextSibling){
+							var oImportedChildNode = Fuji.Util.importNode(oChild, true);
+							if (oImportedChildNode) oNew.appendChild(oImportedChildNode);
+						}
+					}
+					break;
+				case Fuji.Util.TEXT_NODE:
+					oNew = document.createTextNode(oNode.nodeValue);
+					break;
+			}
+			return oNew;
+		}
+	},
+	hasAttribute : function (oNode, sName) {
+		if (oNode.hasAttribute) {
+			return oNode.hasAttribute(sName);
+		} else {
+			for (var i=0; i<oNode.attributes.length; i++) {
+				if (oNode.attributes.item(i).nodeName == sName) return true;
+			}
+			return false;
+		}
+	}	
 }
