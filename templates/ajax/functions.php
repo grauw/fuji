@@ -1,7 +1,7 @@
 <?php
-require_once '../l10n/l10nmanager.php';
 require_once 'css/stylesheets.php';
 require_once 'template.php';
+require_once '../scripts/l10nmanager.php';
 
 class AJAX_Template extends Template {
 	

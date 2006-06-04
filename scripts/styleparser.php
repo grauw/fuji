@@ -42,6 +42,10 @@ class StyleXML {
 		}
 		return $path;
 	}
+	
+	static function getStyles()
+	{
+		return Database::getArray("SELECT * FROM " . Database::$db_tprefix . "styles");		
+	}
 }
-
 ?>

@@ -1,12 +1,9 @@
 <?php
+	require_once("scripts/l10nmanager.php");
 	require_once("scripts/usermanager.php");
 	require_once("scripts/styleparser.php");
 	UserManager::authenticate();
-	
-	if(isset(UserManager::getUser()->language))
-		require_once("l10n/" . UserManager::getUser()->language . ".php");
-	else
-		require_once("l10n/default.php");
+	L10nManager::loadL10n();
 ?>
 <!DOCTYPE html 
      PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
@@ -75,5 +72,61 @@
 			</form>
 		</div>
 	</div>
+	<div id="prefDialog">
+		<div id="prefTitle" class="hd"><?php echo L10n::$preferences ?></div>
+		<div id="prefForm" class="bd">
+			<form id="prefF" name="prefF" method="POST" action="account/">
+				<fieldset>
+					<legend><?php echo L10n::$password ?></legend>
+					<p><?php echo L10n::$enter_your_new_password ?>:<br />
+					<input id='prefPass1' name='pass1' type='password' value='' />
+					</p>
+					<p><?php echo L10n::$reenter_your_new_password ?>:<br />
+					<input id='prefPass2' name='pass2' type='password' value='' />
+					</p>
+				</fieldset>
+				<fieldset>
+					<legend><?php echo L10n::$lang ?></legend>
+					<select id='prefLang' name='language'>
+						<?php
+								$l10ns = L10nManager::getL10ns();
+								$lang;
+								if(isset(UserManager::getUser()->language))
+									$lang = UserManager::getUser()->language;
+								foreach($l10ns as $l10n)
+								{ 
+									echo '<option value="' . $l10n['id'] . '"' . ($l10n['id'] == $lang ? ' selected="Selected"' : '') .  '>' . $l10n['name'] . '</option>';
+								}
+						?>
+					</select>
+				</fieldset>
+				<fieldset>
+					<legend><?php echo L10n::$style ?></legend>
+					<select id='prefStyle' name='style'>
+						<?php
+								$styles = StyleXML::getStyles();
+								$s;
+								if(isset(UserManager::getUser()->style))
+									$s = UserManager::getUser()->style;
+								foreach($styles as $style)
+								{ 
+									echo '<option value="' . $style['id'] . '"' . ($style['id'] == $s ? ' selected="Selected"' : '') .  '>' . $style['name'] . '</option>';
+								}
+						?>
+					</select>
+				</fieldset>				
+				<fieldset>
+					<legend><?php echo L10n::$profile ?></legend>
+					<p><?php echo L10n::$email_address ?>:<br />
+					<input id='prefEmail' name='email' type='text' value='<?php echo UserManager::getUser()->email ?>' />
+					<input id='prefShowEmail' name='showEmail' type='checkbox' <?php if(UserManager::getUser()->email_visible) echo 'checked="Checked"' ?>><?php echo L10n::$visible_in_profile ?></input>
+					</p>
+					<p><?php echo L10n::$profile_photo ?> (URL):<br />
+					<input id='prefPhoto' name='photo' type='text' value='<?php if(isset(UserManager::getUser()->photo)) echo UserManager::getUser()->photo ?>' />
+					</p>
+				</fieldset>
+			</form>
+		</div>
+	</div>	
 </body>
 </html>

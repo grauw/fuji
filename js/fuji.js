@@ -3,6 +3,7 @@ Fuji = {
 	replyDialog : null,
 	newThreadDialog : null,
 	editThreadDialog : null,
+	preferencesDialog : null,
 	loadItem : function(uri) {
 		if (document.getElementById(uri)) {
 			Fuji.selectDeckItem(document.getElementById(uri));
@@ -242,11 +243,29 @@ Fuji = {
 		var uri = hash.indexOf('#') != -1 ? hash.substr(hash.indexOf('#')+1) : hash;
 		Fuji.loadItem(uri);
 	},
+	createPreferencesDialog : function() {
+		var preferencesDialog = new YAHOO.widget.Dialog("prefDialog", { visible: false, fixedCenter: true, width: '325px' });
+		var handleCancel = function() {
+			this.cancel();
+		}
+		var handleSubmit = function() {
+			Fuji.preferencesDialog.hide();
+		}
+		preferencesDialog.cfg.queueProperty("buttons", [ { text:"OK", handler:handleSubmit, isDefault:true },
+											   { text:"Cancel", handler:handleCancel} ]);
+		preferencesDialog.cfg.queueProperty("onsuccess", Fuji.reloadThreads);
+		preferencesDialog.render();
+		Fuji.preferencesDialog = preferencesDialog;
+	},
+	showPreferencesDialog : function() {
+		Fuji.preferencesDialog.show();
+	},
 	init : function() {
 		Fuji.loadMenu();
 		Fuji.createReplyDialog();
 		Fuji.createNewThreadDialog();
 		Fuji.createEditThreadDialog();
+		Fuji.createPreferencesDialog();
 		Fuji.loadItem('item/1');
 		if (location.hash == '') location.hash='#item/2';
 		Fuji.startUrlChangeListener();

@@ -1,7 +1,7 @@
 <?php
 	require_once "styleparser.php";
 	require_once "usermanager.php";
-	require_once "../l10n/l10nmanager.php";		
+	require_once "l10nmanager.php";		
 
 	UserManager::authenticate();	
 	$user;
