@@ -75,7 +75,7 @@
 	<div id="prefDialog">
 		<div id="prefTitle" class="hd"><?php echo L10n::$preferences ?></div>
 		<div id="prefForm" class="bd">
-			<form id="prefF" name="prefF" method="POST" action="account/">
+			<form id="prefF" name="prefF" method="POST" action="preferences">
 				<fieldset>
 					<legend><?php echo L10n::$password ?></legend>
 					<p><?php echo L10n::$enter_your_new_password ?>:<br />

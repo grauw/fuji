@@ -249,11 +249,31 @@ Fuji = {
 			this.cancel();
 		}
 		var handleSubmit = function() {
-			Fuji.preferencesDialog.hide();
+			var oPrefPass1 = document.getElementById('prefPass1');
+			var oPrefPass2 = document.getElementById('prefPass2');
+			var oPrefEmail = document.getElementById('prefEmail');
+			var oPrefPhoto = document.getElementById('prefPhoto');			
+			if(oPrefPass1.value != oPrefPass2.value)
+				alert('Passwords do not match');
+			else
+			{
+				if(oPrefEmail.value == '')
+					alert('E-mail address cannot be empty');
+				else
+				{
+					if(oPrefPhoto.value && oPrefPhoto.value.indexOf('http://') != 0)
+						alert('Photo URL must begin with http://');
+					else
+					{
+						this.submit();
+						this.hide();
+					}
+				}
+			}
 		}
 		preferencesDialog.cfg.queueProperty("buttons", [ { text:"OK", handler:handleSubmit, isDefault:true },
 											   { text:"Cancel", handler:handleCancel} ]);
-		preferencesDialog.cfg.queueProperty("onsuccess", Fuji.reloadThreads);
+		preferencesDialog.cfg.queueProperty("onsuccess", function() {location.reload();});
 		preferencesDialog.render();
 		Fuji.preferencesDialog = preferencesDialog;
 	},
