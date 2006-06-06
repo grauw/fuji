@@ -34,16 +34,14 @@
 </head>
 <body onload="Fuji.init()">
 	<a href="/"><h1 class="logoDiv logo window">Fuji</h1></a>
-	<div id="foraDiv" class="window">
+	<div id="foraDiv">
 		<div id="foraTreeDiv"></div>
 	</div>
-	<div id="menuDiv" class="window">
+	<div id="menuDiv">
 		<h2 class="windowTitle"><?php echo L10n::$menu ?></h2>
 		<div id="menuListDiv"></div>
 	</div>
-	<div id="threadsDiv" class="window">
-	</div>
-	<div id="postsDiv" class="window">
+	<div id="threadsDiv">
 	</div>
 	<div id="createDialog" style="display: none">
 		<div id="createTitle" class="hd"><?php echo L10n::$new ?></div>

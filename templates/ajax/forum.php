@@ -69,5 +69,6 @@
 			</table>
 			</div>
 		</div>
+		<div id="item/<?php echo $entry->id ?>_postsDiv" class="postsContainer"></div>
 	</fuji:content>
 </fuji:item>

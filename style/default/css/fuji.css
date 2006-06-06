@@ -22,14 +22,12 @@ h5 {
 }
 .windowTitle {
   height: 24px;
-  width: 100%;
   padding-top: 2px;
   font-size: 12pt;
   font-weight: bold;
 }
 .windowActions {
   height: 1.5em;
-  width: 100%;
   border-bottom: 1px solid;
 }
 .windowActions span {
@@ -68,20 +66,15 @@ h5 {
   position: absolute;
   top: 0px;
   left: 210px;
-  height: 300px;
   width: 600px;
   overflow: auto;
-}
-#postsDiv {
-  margin: 10px;
-  position: absolute;
-  top: 310px;
-  left: 210px;
-  width: 600px;
 }
 #foraTree {
   overflow: auto;
   height: 270px;
+}
+.postsContainer {
+	margin-top: 10px;
 }
 .forumPostDiv {
   border-bottom: 1px solid;

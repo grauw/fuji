@@ -11,50 +11,67 @@ Fuji = {
 			Fuji.reloadItem(uri);
 		}
 	},
+	
+	/**
+	 * @param {Int} depth how many parents to reload recursively (optional, default: 0 = none)
+	 */
 	reloadItem : function(uri, depth) {
-		if (depth != undefined) {
-			for (var i=0; i<depth; i++) {
-				Fuji.reloadItem(uri);
-				if (document.getElementById(uri)) {
-					if (document.getElementById(uri).hasAttribute('parent')) {
-						uri = document.getElementById(uri).getAttribute('parent');
-					} else return;
+		if (depth == undefined) depth = 0;
+		for (var i=0; i<=depth; i++) {
+			Fuji.reloadItemWithChild(uri);
+			if (document.getElementById(uri)) {
+				if (document.getElementById(uri).hasAttribute('parent')) {
+					uri = document.getElementById(uri).getAttribute('parent');
 				} else return;
-			}
-			return;
+			} else return;
 		}
+	},
+	reloadItemWithChild : function(uri, oDocument, sURI) {
 		var callback =
 		{
-			success: Fuji.loadNode,
+			success: Fuji.loadSuccess,
 			failure: function(o) {alert('failure: ',o.argument.uri)},
-			argument: { uri: uri }
+			argument: { uri: uri, oDocument: oDocument, sURI: sURI }
 		}
-		YAHOO.util.Connect.asyncRequest('GET', uri, callback, null); 
+		YAHOO.util.Connect.asyncRequest('GET', uri, callback, null);
 	},
-	loadNode : function(oXMLHttpObject) {
-		var oSource = oXMLHttpObject.responseXML;
-		if(!oSource.documentElement) //Internet Explorer-hack
+	loadSuccess : function(oXMLHttpObject) {
+		var oDocument = oXMLHttpObject.responseXML;
+		if(!oDocument.documentElement) //Internet Explorer-hack
 		{
-			oSource = new ActiveXObject("Microsoft.XMLDOM");
-			oSource.loadXML(oXMLHttpObject.responseText);
+			oDocument = new ActiveXObject("Microsoft.XMLDOM");
+			oDocument.loadXML(oXMLHttpObject.responseText);
 		}
-		var oTargetId = oSource.documentElement.getAttribute('loadcontext');
-		var oTarget = document.getElementById(oTargetId);
-		var oContent = Fuji.Util.getElementsByTagNameNS(oSource,Fuji.NS,'content')[0];
-		if (document.getElementById(oXMLHttpObject.argument.uri)) {
-			document.getElementById(oXMLHttpObject.argument.uri).parentNode.removeChild(document.getElementById(oXMLHttpObject.argument.uri));
+		Fuji.loadDocument(oDocument, oXMLHttpObject.argument.uri);
+		if (oXMLHttpObject.argument.oDocument) {
+			Fuji.loadDocument(oXMLHttpObject.argument.oDocument, oXMLHttpObject.argument.sURI);
 		}
+	},
+	loadDocument : function(oDocument, sURI) {
+		if (Fuji.Util.hasAttribute(oDocument.documentElement, 'parent')) {
+			var sParentURI = oDocument.documentElement.getAttribute('parent');
+			if (!document.getElementById(sParentURI)) {
+				Fuji.reloadItemWithChild(sParentURI, oDocument, sURI);
+				return;
+			}
+		}
+		var oContent = Fuji.Util.getElementsByTagNameNS(oDocument,Fuji.NS,'content')[0];
+		var oOldNode = document.getElementById(sURI);
+		if (oOldNode) oOldNode.parentNode.removeChild(oOldNode);
 		var oTargetDiv = document.createElement('div');
-		oTargetDiv.id = oXMLHttpObject.argument.uri;
-		oTarget.appendChild(oTargetDiv);
+		oTargetDiv.id = sURI;
 		for (var i=0; i < oContent.childNodes.length; i++) {
 			oTargetDiv.appendChild(Fuji.Util.importNode(oContent.childNodes.item(i), true));
 		}
-		if (Fuji.Util.hasAttribute(oSource.documentElement, 'parent')) {
-			oTargetDiv.setAttribute('parent',oSource.documentElement.getAttribute('parent'));
+		var oTargetId = oDocument.documentElement.getAttribute('loadcontext');
+		var oTarget = document.getElementById(oTargetId);
+		oTarget.appendChild(oTargetDiv);
+		if (Fuji.Util.hasAttribute(oDocument.documentElement, 'parent')) {
+			var sParentURI = oDocument.documentElement.getAttribute('parent');
+			oTargetDiv.setAttribute('parent', sParentURI);
 		}
 		Fuji.selectDeckItem(oTargetDiv);
-		var oLoadHandler = Fuji.Util.getElementsByTagNameNS(oSource, Fuji.NS,'loadhandler');
+		var oLoadHandler = Fuji.Util.getElementsByTagNameNS(oDocument, Fuji.NS,'loadhandler');
 		if (oLoadHandler.length) {
 			eval(oLoadHandler[0].firstChild.nodeValue)
 		}
@@ -74,7 +91,7 @@ Fuji = {
 	loadMenu : function() {
 		var callback =
 		{
-			success: Fuji.loadNode,
+			success: Fuji.loadSuccess,
 			failure: function(o) {alert('failure')},
 			argument: []
 		}
