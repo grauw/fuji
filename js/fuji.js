@@ -1,8 +1,8 @@
 Fuji = {
 	NS : 'http://fuji.sourceforge.net/ns',
-	replyDialog : null,
-	newThreadDialog : null,
-	editThreadDialog : null,
+	createDialog : null,
+	deleteDialog : null,
+	editDialog : null,
 	preferencesDialog : null,
 	loadItem : function(uri) {
 		if (document.getElementById(uri)) {
@@ -109,50 +109,33 @@ Fuji = {
 		location.hash='#item/2';
 		Fuji.reloadItem("item/2");
 	},
-	createReplyDialog : function() {
-		var replyDialog = new YAHOO.widget.Dialog("replyDialog", { visible: false, fixedCenter: true});
-		var handleCancel = function() {
-			document.getElementById('replyF').reset();			
-			this.cancel();
+	newCreateDialog : function(iId, iType) {
+		if(!Fuji.createDialog)
+		{
+			Fuji.createDialog = new YAHOO.widget.Dialog("createDialog", { visible: false, fixedCenter: true });
+			var handleCancel = function() {
+				this.cancel();
+				document.getElementById('createF').reset();			
+				this.hide();
+			}
+			var handleSubmit = function() {
+				document.getElementById('createType').value = iType; 
+				document.getElementById('createRef').value = iId;
+				this.submit();
+				document.getElementById('createF').reset();			
+				this.hide();
+				Fuji.reloadItem("item/" + document.getElementById('createRef').value);
+				}
+			Fuji.createDialog.cfg.queueProperty("buttons", [ { text:"Submit", handler:handleSubmit, isDefault:true },
+												   { text:"Cancel", handler:handleCancel } ]);
+			Fuji.createDialog.cfg.queueProperty("onsuccess", Fuji.reloadThreads);
+			Fuji.createDialog.render();
 		}
-		var handleSubmit = function() {
-			document.getElementById('replyRef').value = Fuji.thread;
-			document.getElementById('replyUserref').value = Fuji.user;
-			Fuji.reloadThreads();
-			this.submit();
-		}
-		replyDialog.cfg.queueProperty("buttons", [ { text:"Submit", handler:handleSubmit, isDefault:true },
-											   { text:"Cancel", handler:handleCancel } ]);
-		replyDialog.cfg.queueProperty("onsuccess", Fuji.reloadPosts);
-		replyDialog.render();
-		Fuji.replyDialog = replyDialog;
+		document.getElementById('createDialog').style.display = 'block';
+		Fuji.createDialog.show();
 	},
-	showReplyDialog : function(id) {
-		Fuji.replyDialog.show();
-	},
-	createNewThreadDialog : function() {
-		Fuji.newThreadDialog = new YAHOO.widget.Dialog("newThreadDialog", { visible: false, fixedCenter: true });
-		var handleCancel = function() {
-			document.getElementById('newThreadF').reset();			
-			this.cancel();
-		}
-		var handleSubmit = function() {
-			this.submit();
-			Fuji.reloadItem("item/" + document.getElementById('newThreadRef').value);
-		}
-		Fuji.newThreadDialog.cfg.queueProperty("buttons", [ { text:"Submit", handler:handleSubmit, isDefault:true },
-											   { text:"Cancel", handler:handleCancel } ]);
-		Fuji.newThreadDialog.render();
-	},
-	showNewThreadDialog : function(id, partype) {
-		document.getElementById('newThreadType').value = partype + 2; 
-		document.getElementById('newThreadRef').value = id;
-		document.getElementById('newThreadUserref').value = Fuji.user;
-		
-		Fuji.newThreadDialog.show();
-	},	
-	deleteDialog : function(iId) {
-		Fuji.deleteThreadDialog = new YAHOO.widget.SimpleDialog("dlg", { 
+	newDeleteDialog : function(iId) {
+		Fuji.deleteDialog = new YAHOO.widget.SimpleDialog("dlg", { 
 			width: "20em", 
 			effect:{effect:YAHOO.widget.ContainerEffect.FADE,
 		        duration:0.25}, 
@@ -160,9 +143,9 @@ Fuji = {
 			modal:true,
 			draggable:false });
 
-		Fuji.deleteThreadDialog.setHeader("Warning");
-		Fuji.deleteThreadDialog.setBody("Are you sure you want to delete this item?");
-		Fuji.deleteThreadDialog.cfg.setProperty("icon", YAHOO.widget.SimpleDialog.ICON_WARN);		
+		Fuji.deleteDialog.setHeader("Warning");
+		Fuji.deleteDialog.setBody("Are you sure you want to delete this item?");
+		Fuji.deleteDialog.cfg.setProperty("icon", YAHOO.widget.SimpleDialog.ICON_WARN);		
 		
 		var handleOK = function() {
 			Fuji.deleteItem(iId);
@@ -172,64 +155,64 @@ Fuji = {
 			this.hide();
 		}
 		
-		Fuji.deleteThreadDialog.cfg.queueProperty("buttons", [ { text:"OK", handler:handleOK }, { text:"Cancel", handler:handleCancel } ]);
-		Fuji.deleteThreadDialog.render(document.body);
+		Fuji.deleteDialog.cfg.queueProperty("buttons", [ { text:"OK", handler:handleOK }, { text:"Cancel", handler:handleCancel } ]);
+		Fuji.deleteDialog.render(document.body);
 	},
 	deleteItem : function(iId) {
 		var callback =
 		{
-			success: function(o) {Fuji.reloadAll();},
+			success: function(o) {Fuji.reloadItem('item/' + iId)},
 			failure: function(o) {alert('failure')},
 			argument: []
 		}
 		YAHOO.util.Connect.asyncRequest('DELETE', 'item/' + iId, callback, null); 
 	},
-	createEditThreadDialog : function() {
-		var editThreadDialog = new YAHOO.widget.Dialog("editThreadDialog", { visible: false, fixedCenter: true, width: '200px' });
-		var handleCancel = function() {
-			document.getElementById('editThreadForm').reset();
-			this.cancel();
+	newEditDialog : function(iId) {
+		if(!Fuji.editDialog)		
+		{
+			Fuji.editDialog = new YAHOO.widget.Dialog("editDialog", { visible: false, fixedCenter: true, width: '200px' });
+			var handleCancel = function() {
+				document.getElementById('editF').reset();
+				this.cancel();
+			}
+			var handleSubmit = function() {
+				Fuji.editThread();
+				this.hide();
+			}
+			Fuji.editDialog.cfg.queueProperty("buttons", [ { text:"OK", handler:handleSubmit, isDefault:true },
+												   { text:"Cancel", handler:handleCancel} ]);
+			Fuji.editDialog.cfg.queueProperty("onsuccess", Fuji.reloadThreads);
+			Fuji.editDialog.render();
 		}
-		var handleSubmit = function() {
-			Fuji.editThread();
-			Fuji.editThreadDialog.hide();
-		}
-		editThreadDialog.cfg.queueProperty("buttons", [ { text:"OK", handler:handleSubmit, isDefault:true },
-											   { text:"Cancel", handler:handleCancel} ]);
-		editThreadDialog.cfg.queueProperty("onsuccess", Fuji.reloadThreads);
-		editThreadDialog.render();
-		Fuji.editThreadDialog = editThreadDialog;
-	},
-	showEditThreadDialog : function(id) {
 		var callback =
 		{
 			success: Fuji.updateEditDialog,
 			failure: function(o) {alert('failure')},
 			argument: []
 		}
-		document.getElementById('editThreadEntryid').value = id;
-		document.getElementById('editThreadUserid').value = Fuji.user;
-		YAHOO.util.Connect.asyncRequest('GET', 'item/' + id + '/source', callback, null); 
-		Fuji.editThreadDialog.show();
+		document.getElementById('editEntryid').value = iId;
+		YAHOO.util.Connect.asyncRequest('GET', 'item/' + iId + '/source', callback, null); 		
+		document.getElementById('editDialog').style.display = 'block';		
+		Fuji.editDialog.show();
 	},
 	updateEditDialog : function(oElm) {
 		var oSource = oElm.responseXML;
-		var oEditThreadTitle = document.getElementById('editThreadT');
-		var oEditThreadContent = document.getElementById('editThreadContent');
-		oEditThreadTitle.value = oSource.getElementById('title').innerHTML;
-		oEditThreadContent.value = oSource.getElementById('content').innerHTML;	
+		var oEditTitle = document.getElementById('editT');
+		var oEditContent = document.getElementById('editContent');
+		oEditTitle.value = oSource.getElementById('title').innerHTML;
+		oEditContent.value = oSource.getElementById('content').innerHTML;	
 
 	},
 	editThread : function() {
+		var iId = document.getElementById('editEntryid').value;
 		var callback =
 		{
-			success: function(o) {Fuji.reloadAll()},
+			success: function(o) {Fuji.reloadItem('item/' + iId)},
 			failure: function(o) {alert('failure')},
 			argument: []
 		}
-		YAHOO.util.Connect.setForm('editThreadF');
-		alert('item/' + document.getElementById('editThreadEntryid').value);
-		YAHOO.util.Connect.asyncRequest('PUT', 'item/' + document.getElementById('editThreadEntryid').value, callback, null); 
+		YAHOO.util.Connect.setForm('editF');
+		YAHOO.util.Connect.asyncRequest('PUT', 'item/' + iId, callback, null); 
 	},
 	startUrlChangeListener : function() {
 		setTimeout(Fuji.urlChangeListener, 300);
@@ -243,49 +226,46 @@ Fuji = {
 		var uri = hash.indexOf('#') != -1 ? hash.substr(hash.indexOf('#')+1) : hash;
 		Fuji.loadItem(uri);
 	},
-	createPreferencesDialog : function() {
-		var preferencesDialog = new YAHOO.widget.Dialog("prefDialog", { visible: false, fixedCenter: true, width: '325px' });
-		var handleCancel = function() {
-			this.cancel();
-		}
-		var handleSubmit = function() {
-			var oPrefPass1 = document.getElementById('prefPass1');
-			var oPrefPass2 = document.getElementById('prefPass2');
-			var oPrefEmail = document.getElementById('prefEmail');
-			var oPrefPhoto = document.getElementById('prefPhoto');			
-			if(oPrefPass1.value != oPrefPass2.value)
-				alert('Passwords do not match');
-			else
-			{
-				if(oPrefEmail.value == '')
-					alert('E-mail address cannot be empty');
+	newPreferencesDialog : function() {
+		if(!Fuji.preferencesDialog)
+		{
+			Fuji.preferencesDialog = new YAHOO.widget.Dialog("prefDialog", { visible: false, fixedCenter: true, width: '325px' });
+			var handleCancel = function() {
+				this.cancel();
+			}
+			var handleSubmit = function() {
+				var oPrefPass1 = document.getElementById('prefPass1');
+				var oPrefPass2 = document.getElementById('prefPass2');
+				var oPrefEmail = document.getElementById('prefEmail');
+				var oPrefPhoto = document.getElementById('prefPhoto');			
+				if(oPrefPass1.value != oPrefPass2.value)
+					alert('Passwords do not match');
 				else
 				{
-					if(oPrefPhoto.value && oPrefPhoto.value.indexOf('http://') != 0)
-						alert('Photo URL must begin with http://');
+					if(oPrefEmail.value == '')
+						alert('E-mail address cannot be empty');
 					else
 					{
-						this.submit();
-						this.hide();
+						if(oPrefPhoto.value && oPrefPhoto.value.indexOf('http://') != 0)
+							alert('Photo URL must begin with http://');
+						else
+						{
+							this.submit();
+							this.hide();
+						}
 					}
 				}
 			}
+			Fuji.preferencesDialog.cfg.queueProperty("buttons", [ { text:"OK", handler:handleSubmit, isDefault:true },
+												   { text:"Cancel", handler:handleCancel} ]);
+			Fuji.preferencesDialog.cfg.queueProperty("onsuccess", function() {location.reload();});
+			Fuji.preferencesDialog.render();
 		}
-		preferencesDialog.cfg.queueProperty("buttons", [ { text:"OK", handler:handleSubmit, isDefault:true },
-											   { text:"Cancel", handler:handleCancel} ]);
-		preferencesDialog.cfg.queueProperty("onsuccess", function() {location.reload();});
-		preferencesDialog.render();
-		Fuji.preferencesDialog = preferencesDialog;
-	},
-	showPreferencesDialog : function() {
+		document.getElementById('prefDialog').style.display = 'block';
 		Fuji.preferencesDialog.show();
 	},
 	init : function() {
 		Fuji.loadMenu();
-		Fuji.createReplyDialog();
-		Fuji.createNewThreadDialog();
-		Fuji.createEditThreadDialog();
-		Fuji.createPreferencesDialog();
 		Fuji.loadItem('item/1');
 		if (location.hash == '') location.hash='#item/2';
 		Fuji.startUrlChangeListener();

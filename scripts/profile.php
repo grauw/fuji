@@ -22,13 +22,13 @@
      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="<?php echo L10n::$language ?>" xml:lang="<?php echo L10n::$language ?>">
 <head>
-	<title>Profile</title>
+	<title><?php echo L10n::$profile ?></title>
 	<?php StyleXML::getStyleXML(1)->getStyleSheets() ?>
 </head>
 <body>
 </body>
 	<div id="profileDiv" class="window">
-		<h2 class="windowTitle">Profile</h2>
+		<h2 class="windowTitle"><?php echo L10n::$profile ?></h2>
 		<div id="profileInfoDiv">
 			<table>
 				<tr><td rowspan="4"><?php if(isset($user->picture)) { ?><img width="60" src="<?php echo $user->picture ?>" alt="picture"></img><?php } ?></td><td><?php echo L10n::$name ?>:</td><td><?php echo $user->nickname ?></td></tr>

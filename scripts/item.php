@@ -66,7 +66,6 @@ class Item {
 	
 	function httpDelete()
 	{	
-		UserManager::authenticate();
 		$id = intval($_GET['id']);			
 		if(UserManager::getUser()->getRights($id)->may_delete)
 		{

@@ -122,16 +122,21 @@ class User extends Dataclass {
 		$userrights = array();
 		if($entry->userref == $this->id)
 			$userrights += Rights::$owner_rights;
-		foreach($groups as $group)
+		if(count($userrights) > 0)
 		{
-			$rights = $group->getRights($entry);
-			$rightsdata = $rights->getData();
-			$userrights = array_merge_recursive($userrights, $rightsdata);
+			foreach($groups as $group)
+			{
+				$rights = $group->getRights($entry);
+				$rightsdata = $rights->getData();
+				$userrights = array_merge_recursive($userrights, $rightsdata);
+			}
+			$userrights = array_map(create_function('$value', 'if(is_array($value)) return max($value); else return $value;'), $userrights);
+			unset($userrights['groupid']);
+			$userrights += array('userid' => $this->id);
+			return new Rights($userrights);
 		}
-		$userrights = array_map(create_function('$value', 'if(is_array($value)) return max($value); else return $value;'), $userrights);
-		unset($userrights['groupid']);
-		$userrights += array('userid' => $this->id);
-		return new Rights($userrights);
+		else
+			return new Rights(array('entryid' => $entry->id, 'userid' => $this->id, 'may_read' => '0', 'may_post' => '0', 'may_edit' => '0', 'may_delete' => '0'));
 	}
 	/**
 	 * Returns the number of posts by this user

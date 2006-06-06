@@ -22,7 +22,6 @@
 	<script type="text/javascript" src="js/yui/animation/animation.js"></script>
 	<script type="text/javascript" src="js/yui/dragdrop/dragdrop.js"></script>
 	<script type="text/javascript" src="js/fuji.js"></script>
-	<script type="text/javascript"><?php echo "Fuji.user = " . UserManager::getUser()->id .";\n"?></script>
 </head>
 <body onload="Fuji.init()">
 	<a href="/"><h1 class="logoDiv logo window">Fuji</h1></a>
@@ -37,42 +36,28 @@
 	</div>
 	<div id="postsDiv" class="window">
 	</div>
-	<div id="newThreadDialog">
-		<div id="newThreadTitle" class="hd"><?php echo L10n::$new_thread ?></div>
-		<div id="newThreadForm" class="bd">
-			<form id="newThreadF" name="newThreadF" method="POST" action="item/">
-				<input id='newThreadRef' name='ref' type='hidden' value='' />
-				<input id='newThreadUserref' name='userref' type='hidden' value='' />
-				<input id='newThreadType' name='type' type='hidden' value='' />
-				<?php echo L10n::$title ?>: <input id='newThreadT' name='title' type='text' value='' /><br />
-				<?php echo L10n::$message ?>: <textarea id='newThreadContent' name='content' type='text' value=''></textarea>
+	<div id="createDialog" style="display: none">
+		<div id="createTitle" class="hd"><?php echo L10n::$new ?></div>
+		<div id="createForm" class="bd">
+			<form id="createF" name="createF" method="POST" action="item/">
+				<input id='createRef' name='ref' type='hidden' value='' />
+				<input id='createType' name='type' type='hidden' value='' />
+				<?php echo L10n::$title ?>: <input id='createT' name='title' type='text' value='' /><br />
+				<?php echo L10n::$message ?>: <textarea id='createContent' name='content' type='text' value=''></textarea>
 			</form>
 		</div>
 	</div>
-	<div id="editThreadDialog">
-		<div id="editThreadTitle" class="hd"><?php echo L10n::$edit_thread ?></div>
-		<div id="editThreadForm" class="bd">
-			<form id="editThreadF" name="editThreadF" method="POST" enctype="text/plain">
-				<input id='editThreadEntryid' name='entryid' type='hidden' value='' />
-				<input id='editThreadUserid' name='userid' type='hidden' value='' />
-				<?php echo L10n::$title ?>: <input id='editThreadT' name='title' type='text' value='' /><br />
-				<?php echo L10n::$message ?>: <textarea id='editThreadContent' name='content' type='text' value=''></textarea>
+	<div id="editDialog" style="display: none">
+		<div id="editTitle" class="hd"><?php echo L10n::$edit_thread ?></div>
+		<div id="editForm" class="bd">
+			<form id="editF" name="editF" method="POST" enctype="text/plain">
+				<input id='editEntryid' name='entryid' type='hidden' value='' />
+				<?php echo L10n::$title ?>: <input id='editT' name='title' type='text' value='' /><br />
+				<?php echo L10n::$message ?>: <textarea id='editContent' name='content' type='text' value=''></textarea>
 			</form>
 		</div>
 	</div>	
-	<div id="replyDialog">
-		<div id="replyTitle" class="hd"><?php echo L10n::$reply ?></div>
-		<div id="replyForm" class="bd">
-			<form id="replyF" name="replyF" method="POST" action="item/">
-				<input id='replyRef' name='ref' type='hidden' value='' />
-				<input id='replyUserref' name='userref' type='hidden' value='' />
-				<input id='replyType' name='type' type='hidden' value='4' />
-				<?php echo L10n::$title ?>: <input id='replyT' name='title' type='text' value='' /><br />
-				<?php echo L10n::$message ?>: <textarea id='replyContent' name='content' type='text' value=''></textarea>
-			</form>
-		</div>
-	</div>
-	<div id="prefDialog">
+	<div id="prefDialog" style="display: none">
 		<div id="prefTitle" class="hd"><?php echo L10n::$preferences ?></div>
 		<div id="prefForm" class="bd">
 			<form id="prefF" name="prefF" method="POST" action="preferences">
