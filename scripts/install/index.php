@@ -25,6 +25,7 @@
 			
 	</head>
 	<body>
+<?php if($_SERVER['REMOTE_ADDR'] == '127.0.0.1') { ?>	
 		<div id="mainWindow" class="window">
 		<form action="install" method="post">
 		  <div class="windowTitle">Fuji Installer</div>
@@ -55,5 +56,6 @@
 		  </div>
 		  </form>
 		</div>
+<?php } else echo 'The Fuji Installer must be run from localhost.'?>		
 	</body>
 </html>

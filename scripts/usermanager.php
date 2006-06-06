@@ -12,7 +12,7 @@
 			{
 				Database::connect();
 				$user = User::getUserByName($nickname);
-				if($user->checkPassword($pwd))
+				if($user && $user->checkPassword($pwd))
 				{
 					//$_SESSION['user'] = $user->getId();
 					return true;
