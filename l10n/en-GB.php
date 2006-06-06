@@ -18,6 +18,7 @@ class L10n {
 	static $language = 'en-GB';
 	static $logged_in_as = 'Logged in as';
 	static $login = 'Login';
+	static $logout = 'Logout';
 	static $member_of = 'Member of';
 	static $menu = 'Menu';
 	static $message = 'Message';
