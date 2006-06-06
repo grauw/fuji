@@ -1,8 +1,8 @@
 <?php
 
 class L10n {
-	static $cancel = 'Cancel';
 	static $admin = 'Administrator';
+	static $cancel = 'Cancel';
 	static $delete = 'Delete';
 	static $edit = 'Edit';
 	static $email = 'E-Mail';
@@ -44,6 +44,7 @@ class L10n {
 	static $title = 'Title';
 	static $topic = 'Topic';
 	static $type_unsupported = 'Post type not supported here';
+	static $users = 'Users';
 	static $visible_in_profile = 'Visible in profile';	
 	static $warning = 'Warning';
 }

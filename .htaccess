@@ -31,3 +31,6 @@ RewriteRule ^install$ scripts/install/index.php
 
 # GET /preferences
 RewriteRule ^preferences$ scripts/preferences.php [L,QSA]
+
+# GET /users/
+RewriteRule ^users/$ scripts/userlist.php [L,QSA]

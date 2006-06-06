@@ -1,8 +1,8 @@
 <?php
 
 class L10n {
-	static $cancel = 'Annuleren';
 	static $admin = 'Beheerder';
+	static $cancel = 'Annuleren';
 	static $delete = 'Verwijderen';
 	static $edit = 'Bewerken';
 	static $email = 'E-Mail';
@@ -44,6 +44,7 @@ class L10n {
 	static $title = 'Titel';
 	static $topic = 'Onderwerp';
 	static $type_unsupported = 'Berichttype wordt hier niet ondersteund';
+	static $users = 'Gebruikers';
 	static $visible_in_profile = 'Zichtbaar in profiel';
 	static $warning = 'Waarschuwing';	
 }
