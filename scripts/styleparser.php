@@ -14,10 +14,15 @@ class StyleXML {
 	}
 	
 	static function getStyleXML($depth = 0)
-	{	
-		$data = Database::getArray("SELECT * FROM " . Database::$db_tprefix . "styles WHERE isdefault = true");
+	{
+		if (isset(UserManager::getUser()->style))
+		{
+			$data = Database::getArray("SELECT * FROM " . Database::$db_tprefix . "styles WHERE id =".UserManager::getUser()->style); 
+		}
+		else {
+			$data = Database::getArray("SELECT * FROM " . Database::$db_tprefix . "styles WHERE isdefault = true");
+		}
 		$selected = $data[0];
-		
 		return new StyleXML(self::getPath($depth)."style/".$selected[2], $depth);
 	}
 	

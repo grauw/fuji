@@ -269,7 +269,15 @@ Fuji = {
 		Fuji.loadItem('item/1');
 		if (location.hash == '') location.hash='#item/2';
 		Fuji.startUrlChangeListener();
+	},
+	login : function() {
+		var callback = {
+			success: function(o) {window.location.reload()},
+			failure: function(o) {alert('failure')}
+		}
+		YAHOO.util.Connect.asyncRequest('POST', 'logout', callback); 
 	}
+	
 }
 Fuji.Util = {
 	// Opera and IE don't have these defined on the nodes themselves :(

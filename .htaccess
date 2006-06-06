@@ -27,10 +27,13 @@ RewriteRule ^profile/(\d+)$ scripts/profile.php?id=$1 [L,QSA]
 RewriteRule ^profile/$ scripts/profile.php [L,QSA]
 
 # GET /install
-RewriteRule ^install$ scripts/install/index.php
+RewriteRule ^install$ scripts/install/index.php [L,QSA]
 
 # GET /preferences
 RewriteRule ^preferences$ scripts/preferences.php [L,QSA]
+
+# POST /logout
+RewriteRule ^logout$ scripts/logout.php [L,QSA]
 
 # GET /users/
 RewriteRule ^users/$ scripts/userlist.php [L,QSA]
