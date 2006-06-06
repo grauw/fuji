@@ -45,7 +45,7 @@ class Item {
 		if(isset($_POST['entryid']))
 		{
 			$entry = Entry::getEntry($_POST['entryid']);
-			if($entry && UserManager::getUser()->getRights($_POST['entryid'])->may_edit)
+			if($entry && UserManager::getUser()->getRights(Entry::getEntry($_POST['entryid']))->may_edit)
 			{
 				if($_POST['content'] != $entry->getContent()) $entry->updateContent($_POST['content']);
 				if($_POST['content'] != $entry->title) $entry->title = $_POST['title'];
@@ -59,7 +59,7 @@ class Item {
 			$data['type'] = $_POST['type'];
 			$data['content'] = $_POST['content'];
 			
-			if(UserManager::getUser()->getRights($data['ref'])->may_post);
+			if(UserManager::getUser()->getRights(Entry::getEntry($data['ref']))->may_post);
 				$entry = Entry::addEntry($data);
 		}
 	}
@@ -68,7 +68,7 @@ class Item {
 	{	
 		UserManager::authenticate();
 		$id = intval($_GET['id']);			
-		if(UserManager::getUser()->getRights($id)->may_delete)
+		if(UserManager::getUser()->getRights(Entry::getEntry($id))->may_delete)
 		{
 			$entry = Entry::getEntry($id);
 			if($entry)	$entry->remove();
@@ -80,7 +80,7 @@ class Item {
 		UserManager::authenticate();		
 		$id = intval($_GET['id']);
 		$entry = Entry::getEntry($id);
-		if($entry && UserManager::getUser()->getRights($_POST['entryid'])->may_edit)
+		if($entry && UserManager::getUser()->getRights(Entry::getEntry($_POST['entryid']))->may_edit)
 		{
 			$entry->updateContent($_POST['content']);
 			$entry->title = $_POST['title'];

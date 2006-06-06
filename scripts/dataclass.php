@@ -28,9 +28,6 @@ require_once 'database.php';
 		function __set($name, $value) {
 			$this->data[$name] = $value;
 			$result = Database::execute("UPDATE " . Database::$db_tprefix . $this->getTable() . " SET $name='$value' WHERE id='$this->id'");
-			$file = fopen('../test', 'wb');
-			fwrite($file, "UPDATE " . Database::$db_tprefix . $this->getTable() . " SET $name='$value' WHERE id='$this->id'");
-			fclose($file);
 		}
 		
 		function __isset($name) {

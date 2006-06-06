@@ -9,13 +9,13 @@
 		<div id="postsActions" class="windowActions">
 			<?php
 				if (UserManager::getUser()->getRights($entry)->may_post) {
-					?><span id="actionReplyPost"><a href="javascript:Fuji.newCreateDialog('<?php echo $entry->id ?>')"><?php echo L10n::$reply ?></a></span><?php
+					?><span id="actionReplyPost"><a href="javascript:Fuji.newCreateDialog('<?php echo $entry->id ?>', '4')"><?php echo L10n::$reply ?></a></span><?php
 				}
 				if (UserManager::getUser()->getRights($entry)->may_edit) {
-					?><span id="actionEditPost"><a href="javascript:Fuji.newEditDialog('<?php echo $entry->id ?>')"><?php echo L10n::$edit ?></a></span><?php
+					?><span id="actionEditPost"><a href="javascript:Fuji.newEditDialog('<?php echo $entry->id ?>', '<?php echo $entry->ref ?>')"><?php echo L10n::$edit ?></a></span><?php
 				}
 				if (UserManager::getUser()->getRights($entry)->may_delete) {
-					?><span id="actionDeletePost"><a href="javascript:Fuji.newDeleteDialog('<?php echo $entry->id ?>')"><?php echo L10n::$delete ?></a></span><?php
+					?><span id="actionDeletePost"><a href="javascript:Fuji.newDeleteDialog('<?php echo $entry->id ?>', '<?php echo $entry->ref ?>')"><?php echo L10n::$delete ?></a></span><?php
 				}
 			?>
 			<!--<span><?php echo L10n::$search ?></span>-->
@@ -40,10 +40,10 @@
 						<span><?php echo $post->modified ?></span>
 						<?php
 							if (UserManager::getUser()->getRights($post)->may_edit) {
-								?><span><a href="javascript:Fuji.newEditDialog('<?php echo $post->id ?>')"><?php echo L10n::$edit ?></a></span><?php
+								?><span><a href="javascript:Fuji.newEditDialog('<?php echo $post->id ?>', '<?php echo $post->ref ?>')"><?php echo L10n::$edit ?></a></span><?php
 							}
 							if (UserManager::getUser()->getRights($post)->may_delete) {
-								?><span><a href="javascript:Fuji.newDeleteDialog('<?php echo $post->id ?>')"><?php echo L10n::$delete ?></a></span><?php
+								?><span><a href="javascript:Fuji.newDeleteDialog('<?php echo $post->id ?>', '<?php echo $post->ref ?>')"><?php echo L10n::$delete ?></a></span><?php
 							}
 						?>
 					</h4>

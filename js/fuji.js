@@ -134,7 +134,7 @@ Fuji = {
 		document.getElementById('createDialog').style.display = 'block';
 		Fuji.createDialog.show();
 	},
-	newDeleteDialog : function(iId) {
+	newDeleteDialog : function(iId, iPId) {
 		Fuji.deleteDialog = new YAHOO.widget.SimpleDialog("dlg", { 
 			width: "20em", 
 			effect:{effect:YAHOO.widget.ContainerEffect.FADE,
@@ -148,7 +148,7 @@ Fuji = {
 		Fuji.deleteDialog.cfg.setProperty("icon", YAHOO.widget.SimpleDialog.ICON_WARN);		
 		
 		var handleOK = function() {
-			Fuji.deleteItem(iId);
+			Fuji.deleteItem(iId, iPId);
 			this.hide();
 		}
 		var handleCancel = function() {
@@ -158,16 +158,16 @@ Fuji = {
 		Fuji.deleteDialog.cfg.queueProperty("buttons", [ { text:Fuji.messages.ok, handler:handleOK }, { text:Fuji.messages.cancel, handler:handleCancel } ]);
 		Fuji.deleteDialog.render(document.body);
 	},
-	deleteItem : function(iId) {
+	deleteItem : function(iId, iPId) {
 		var callback =
 		{
-			success: function(o) {Fuji.reloadItem('item/' + iId)},
+			success: function(o) {Fuji.reloadItem('item/' + iPId)},
 			failure: function(o) {alert('failure')},
 			argument: []
 		}
 		YAHOO.util.Connect.asyncRequest('DELETE', 'item/' + iId, callback, null); 
 	},
-	newEditDialog : function(iId) {
+	newEditDialog : function(iId, iPId) {
 		if(!Fuji.editDialog)		
 		{
 			Fuji.editDialog = new YAHOO.widget.Dialog("editDialog", { visible: false, fixedCenter: true, width: '200px' });
@@ -181,7 +181,7 @@ Fuji = {
 			}
 			Fuji.editDialog.cfg.queueProperty("buttons", [ { text:Fuji.messages.ok, handler:handleSubmit, isDefault:true },
 												   { text:Fuji.messages.cancel, handler:handleCancel} ]);
-			Fuji.editDialog.cfg.queueProperty("onsuccess", Fuji.reloadThreads);
+			Fuji.editDialog.cfg.queueProperty("onsuccess", Fuji.reloadItem('item/' + iPId));
 			Fuji.editDialog.render();
 		}
 		var callback =

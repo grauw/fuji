@@ -10,13 +10,13 @@
 		<div id="threadsActions" class="windowActions">
 			<?php
 				if (UserManager::getUser()->getRights($entry)->may_post) {
-					?><span id="actionNewThread"><a href="javascript:Fuji.newCreateDialog('<?php echo $entry->id ?>', '4')"><?php echo L10n::$new ?></a></span><?php
+					?><span id="actionNewThread"><a href="javascript:Fuji.newCreateDialog('<?php echo $entry->id ?>', '<?php echo $entry->type + 1 ?>')"><?php echo L10n::$new ?></a></span><?php
 				}
 				if (UserManager::getUser()->getRights($entry)->may_edit) {
-					?><span id="actionEditThread"><a href="javascript:Fuji.newEditDialog('<?php echo $entry->id ?>')"><?php echo L10n::$edit ?></a></span><?php
+					?><span id="actionEditThread"><a href="javascript:Fuji.newEditDialog('<?php echo $entry->id ?>', '<?php echo $entry->ref ?>')"><?php echo L10n::$edit ?></a></span><?php
 				}
 				if (UserManager::getUser()->getRights($entry)->may_delete) {
-					?><span id="actionDeleteThread"><a href="javascript:Fuji.newDeleteDialog('<?php echo $entry->id ?>')"><?php echo L10n::$delete ?></a></span><?php
+					?><span id="actionDeleteThread"><a href="javascript:Fuji.newDeleteDialog('<?php echo $entry->id ?>', '<?php echo $entry->ref ?>')"><?php echo L10n::$delete ?></a></span><?php
 				}
 			?>
 			<!--<span><?php echo L10n::$search ?></span>-->
