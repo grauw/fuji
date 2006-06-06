@@ -112,6 +112,20 @@ class User extends Dataclass {
 	}
 	
 	/**
+	 * Check if user is root/admin
+	 * @returns true if roo/admin, false otherwise
+	 */
+	function isAdmin()
+	{
+		/*print_r($this);*/
+		$root = Entry::getRoot();
+		$rights = $this->getRights($root);
+		if($rights->may_read == 1 && $rights->may_post == 1 && $rights->may_edit == 1 && $rights->may_delete == 1)
+			return true;
+		else return false;
+	}
+	
+	/**
 	 * Get the rights this user has at a specified entry
 	 * @param {Entry} $enty the entry to be checked
 	 * @returns Rights about the entry/user

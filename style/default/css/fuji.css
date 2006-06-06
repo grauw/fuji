@@ -137,3 +137,11 @@ a:visited {
   height: 200px;
   overflow: hidden;
 }
+#newThreadDialog{
+  height: 300px;
+  width: 400px;
+}
+#editThreadDialog{
+  height: 300px;
+  width: 400px;
+}

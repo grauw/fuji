@@ -2,6 +2,7 @@
 
 class L10n {
 	static $cancel = 'Cancel';
+	static $admin = 'Administrator';
 	static $delete = 'Delete';
 	static $edit = 'Edit';
 	static $email = 'E-Mail';

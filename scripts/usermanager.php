@@ -53,5 +53,15 @@
 					self::$user = User::getUserByName('anonymous');
 			return self::$user;
 		}
+		
+		static function isAdmin()
+		{
+			if(!isset(self::$user))
+				if(isset($_SERVER['PHP_AUTH_USER']))
+					self::$user = User::getUserByName($_SERVER['PHP_AUTH_USER']);
+				else
+					self::$user = User::getUserByName('anonymous');
+			return self::$user->isAdmin();
+		}
 	}	
 ?>
