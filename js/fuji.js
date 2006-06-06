@@ -126,8 +126,8 @@ Fuji = {
 				this.hide();
 				Fuji.reloadItem("item/" + document.getElementById('createRef').value);
 				}
-			Fuji.createDialog.cfg.queueProperty("buttons", [ { text:"Submit", handler:handleSubmit, isDefault:true },
-												   { text:"Cancel", handler:handleCancel } ]);
+			Fuji.createDialog.cfg.queueProperty("buttons", [ { text:Fuji.messages.ok, handler:handleSubmit, isDefault:true },
+												   { text:Fuji.messages.cancel, handler:handleCancel } ]);
 			Fuji.createDialog.cfg.queueProperty("onsuccess", Fuji.reloadThreads);
 			Fuji.createDialog.render();
 		}
@@ -143,8 +143,8 @@ Fuji = {
 			modal:true,
 			draggable:false });
 
-		Fuji.deleteDialog.setHeader("Warning");
-		Fuji.deleteDialog.setBody("Are you sure you want to delete this item?");
+		Fuji.deleteDialog.setHeader(Fuji.messages.warning);
+		Fuji.deleteDialog.setBody(Fuji.messages.sure_delete_item);
 		Fuji.deleteDialog.cfg.setProperty("icon", YAHOO.widget.SimpleDialog.ICON_WARN);		
 		
 		var handleOK = function() {
@@ -155,7 +155,7 @@ Fuji = {
 			this.hide();
 		}
 		
-		Fuji.deleteDialog.cfg.queueProperty("buttons", [ { text:"OK", handler:handleOK }, { text:"Cancel", handler:handleCancel } ]);
+		Fuji.deleteDialog.cfg.queueProperty("buttons", [ { text:Fuji.messages.ok, handler:handleOK }, { text:Fuji.messages.cancel, handler:handleCancel } ]);
 		Fuji.deleteDialog.render(document.body);
 	},
 	deleteItem : function(iId) {
@@ -179,8 +179,8 @@ Fuji = {
 				Fuji.editThread();
 				this.hide();
 			}
-			Fuji.editDialog.cfg.queueProperty("buttons", [ { text:"OK", handler:handleSubmit, isDefault:true },
-												   { text:"Cancel", handler:handleCancel} ]);
+			Fuji.editDialog.cfg.queueProperty("buttons", [ { text:Fuji.messages.ok, handler:handleSubmit, isDefault:true },
+												   { text:Fuji.messages.cancel, handler:handleCancel} ]);
 			Fuji.editDialog.cfg.queueProperty("onsuccess", Fuji.reloadThreads);
 			Fuji.editDialog.render();
 		}
@@ -239,15 +239,15 @@ Fuji = {
 				var oPrefEmail = document.getElementById('prefEmail');
 				var oPrefPhoto = document.getElementById('prefPhoto');			
 				if(oPrefPass1.value != oPrefPass2.value)
-					alert('Passwords do not match');
+					alert(Fuji.messages.passwords_do_not_match);
 				else
 				{
 					if(oPrefEmail.value == '')
-						alert('E-mail address cannot be empty');
+						alert(Fuji.messages.email_empty);
 					else
 					{
 						if(oPrefPhoto.value && oPrefPhoto.value.indexOf('http://') != 0)
-							alert('Photo URL must begin with http://');
+							alert(Fuji.messages.invalid_url);
 						else
 						{
 							this.submit();
@@ -256,8 +256,8 @@ Fuji = {
 					}
 				}
 			}
-			Fuji.preferencesDialog.cfg.queueProperty("buttons", [ { text:"OK", handler:handleSubmit, isDefault:true },
-												   { text:"Cancel", handler:handleCancel} ]);
+			Fuji.preferencesDialog.cfg.queueProperty("buttons", [ { text:Fuji.messages.ok, handler:handleSubmit, isDefault:true },
+												   { text:Fuji.messages.cancel, handler:handleCancel} ]);
 			Fuji.preferencesDialog.cfg.queueProperty("onsuccess", function() {location.reload();});
 			Fuji.preferencesDialog.render();
 		}

@@ -22,6 +22,15 @@
 	<script type="text/javascript" src="js/yui/animation/animation.js"></script>
 	<script type="text/javascript" src="js/yui/dragdrop/dragdrop.js"></script>
 	<script type="text/javascript" src="js/fuji.js"></script>
+	<script type="text/javascript">Fuji.messages = 	{ 	warning : '<?php echo L10n::$warning ?>',
+														sure_delete_item : '<?php echo L10n::$sure_delete_item ?>',
+														passwords_do_not_match : '<?php echo L10n::$passwords_do_not_match ?>',
+														email_empty : '<?php echo L10n::$email_empty ?>',
+														invalid_url : '<?php echo L10n::$invalid_url ?>',
+														ok : '<?php echo L10n::$ok ?>',
+														cancel : '<?php echo L10n::$cancel ?>'
+													}
+	</script>
 </head>
 <body onload="Fuji.init()">
 	<a href="/"><h1 class="logoDiv logo window">Fuji</h1></a>
@@ -48,12 +57,12 @@
 		</div>
 	</div>
 	<div id="editDialog" style="display: none">
-		<div id="editTitle" class="hd"><?php echo L10n::$edit_thread ?></div>
+		<div id="editTitle" class="hd"><?php echo L10n::$edit ?></div>
 		<div id="editForm" class="bd">
 			<form id="editF" name="editF" method="POST" enctype="text/plain">
 				<input id='editEntryid' name='entryid' type='hidden' value='' />
-				<?php echo L10n::$title ?>: <input id='editT' name='title' type='text' value='' /><br />
-				<?php echo L10n::$message ?>: <textarea id='editContent' name='content' type='text' value=''></textarea>
+				<?php echo L10n::$title ?><input id='editT' name='title' type='text' value='' /><br />
+				<?php echo L10n::$message ?><textarea id='editContent' name='content' type='text' value=''></textarea>
 			</form>
 		</div>
 	</div>	
@@ -63,10 +72,10 @@
 			<form id="prefF" name="prefF" method="POST" action="preferences">
 				<fieldset>
 					<legend><?php echo L10n::$password ?></legend>
-					<p><?php echo L10n::$enter_your_new_password ?>:<br />
+					<p><?php echo L10n::$enter_your_new_password ?><br />
 					<input id='prefPass1' name='pass1' type='password' value='' />
 					</p>
-					<p><?php echo L10n::$reenter_your_new_password ?>:<br />
+					<p><?php echo L10n::$reenter_your_new_password ?><br />
 					<input id='prefPass2' name='pass2' type='password' value='' />
 					</p>
 				</fieldset>
@@ -102,11 +111,11 @@
 				</fieldset>				
 				<fieldset>
 					<legend><?php echo L10n::$profile ?></legend>
-					<p><?php echo L10n::$email_address ?>:<br />
+					<p><?php echo L10n::$email_address ?><br />
 					<input id='prefEmail' name='email' type='text' value='<?php echo UserManager::getUser()->email ?>' />
 					<input id='prefShowEmail' name='showEmail' type='checkbox' <?php if(UserManager::getUser()->email_visible) echo 'checked="Checked"' ?>><?php echo L10n::$visible_in_profile ?></input>
 					</p>
-					<p><?php echo L10n::$profile_photo ?> (URL):<br />
+					<p><?php echo L10n::$profile_photo ?><br />
 					<input id='prefPhoto' name='photo' type='text' value='<?php if(isset(UserManager::getUser()->photo)) echo UserManager::getUser()->photo ?>' />
 					</p>
 				</fieldset>

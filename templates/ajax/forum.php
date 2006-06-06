@@ -19,7 +19,7 @@
 					?><span id="actionDeleteThread"><a href="javascript:Fuji.newDeleteDialog('<?php echo $entry->id ?>')"><?php echo L10n::$delete ?></a></span><?php
 				}
 			?>
-			<span><?php echo L10n::$search ?></span>
+			<!--<span><?php echo L10n::$search ?></span>-->
 			<span><a href="javascript:Fuji.reloadItem('item/<?php echo $entry->id ?>')"><?php echo L10n::$refresh ?></a></span>
 		</div>
 		<div id="threadsTableDiv">
