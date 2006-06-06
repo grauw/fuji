@@ -8,7 +8,7 @@
 		
 		static function logIn($nickname, $pwd)
 		{
-			if(!$_SERVER['PHP_AUTH_USER'])
+			if(!$_SESSION['user'])
 			{
 				Database::connect();
 				$user = User::getUserByName($nickname);
