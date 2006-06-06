@@ -59,6 +59,18 @@ class Entry extends Dataclass {
 	}
 	
 	/**
+	 * Get the root entry
+	 * @returns the root Entry
+	 */
+	static function getRoot() {
+		$data = Database::getArray("SELECT * FROM " . DbVar::$db_tprefix . "entries WHERE ref IS NULL");
+		if(count($data) != 1) echo 'fout';
+		$entrydata = $data[0];
+		if($entrydata)
+			return new Entry($entrydata);
+	}
+	
+	/**
 	 * Get entry's content
 	 * @returns content as String
 	 */
