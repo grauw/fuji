@@ -161,13 +161,13 @@ Fuji = {
 	deleteItem : function(iId, iPId) {
 		var callback =
 		{
-			success: function(o) {Fuji.reloadItem('item/' + iPId)},
+			success: function(o) {Fuji.reloadItem('item/' + iPId); location.hash='#item/' + iPId},
 			failure: function(o) {alert('failure')},
 			argument: []
 		}
 		YAHOO.util.Connect.asyncRequest('DELETE', 'item/' + iId, callback, null); 
 	},
-	newEditDialog : function(iId, iPId) {
+	newEditDialog : function(iId) {
 		if(!Fuji.editDialog)		
 		{
 			Fuji.editDialog = new YAHOO.widget.Dialog("editDialog", { visible: false, fixedCenter: true, width: '200px' });
@@ -181,7 +181,7 @@ Fuji = {
 			}
 			Fuji.editDialog.cfg.queueProperty("buttons", [ { text:Fuji.messages.ok, handler:handleSubmit, isDefault:true },
 												   { text:Fuji.messages.cancel, handler:handleCancel} ]);
-			Fuji.editDialog.cfg.queueProperty("onsuccess", Fuji.reloadItem('item/' + iPId));
+			Fuji.editDialog.cfg.queueProperty("onsuccess", Fuji.reloadItem('item/' + iId, 999));
 			Fuji.editDialog.render();
 		}
 		var callback =
@@ -212,7 +212,7 @@ Fuji = {
 			argument: []
 		}
 		YAHOO.util.Connect.setForm('editF');
-		YAHOO.util.Connect.asyncRequest('PUT', 'item/' + iId, callback, null); 
+		YAHOO.util.Connect.asyncRequest('POST', 'item/' + iId, callback, null); 
 	},
 	startUrlChangeListener : function() {
 		setTimeout(Fuji.urlChangeListener, 300);

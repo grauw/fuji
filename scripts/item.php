@@ -45,7 +45,7 @@ class Item {
 		if(isset($_POST['entryid']))
 		{
 			$entry = Entry::getEntry($_POST['entryid']);
-			if($entry && UserManager::getUser()->getRights(Entry::getEntry($_POST['entryid']))->may_edit)
+			if($entry && UserManager::getUser()->getRights($entry)->may_edit)
 			{
 				if($_POST['content'] != $entry->getContent()) $entry->updateContent($_POST['content']);
 				if($_POST['content'] != $entry->title) $entry->title = $_POST['title'];
