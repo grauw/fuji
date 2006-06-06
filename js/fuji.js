@@ -1,9 +1,14 @@
 Fuji = {
 	NS : 'http://fuji.sourceforge.net/ns',
-	createDialog : null,
-	deleteDialog : null,
-	editDialog : null,
-	preferencesDialog : null,
+	createDialog : null,		//pointer to the create dialog
+	deleteDialog : null,		//pointer to the delete dialog
+	editDialog : null,			//pointer to the edit dialog
+	preferencesDialog : null,	//pointer to the preferences dialog
+	
+	/**
+	 * Loads the item with the specified URI using XMLHttpRequest
+	 * @param {String} uri The URI to the item
+	 */		
 	loadItem : function(uri) {
 		if (document.getElementById(uri)) {
 			Fuji.selectDeckItem(document.getElementById(uri));
@@ -13,8 +18,10 @@ Fuji = {
 	},
 	
 	/**
-	 * @param {Int} depth how many parents to reload recursively (optional, default: 0 = none)
-	 */
+	 * Reloads the item with the specified URI, and go up the tree depth nodes
+	 * @param {String} uri The URI to the item
+	 * @param {Int} depth Number of parents to reload recursively (optional, default: 0 = none)
+	 */	
 	reloadItem : function(uri, depth) {
 		if (depth == undefined) depth = 0;
 		for (var i=0; i<=depth; i++) {
@@ -26,6 +33,13 @@ Fuji = {
 			} else return;
 		}
 	},
+	
+	/**
+	 * Reloads the item with the specified URI, and when loaded optionally also processes another document
+	 * @param {String} uri The URI to the item
+	 * @param {XMLDocument} oDocument the document to process additionally (optional)
+	 * @param {XMLDocument} sURI the URI of the document to process additionally (optional)
+	 */		
 	reloadItemWithChild : function(uri, oDocument, sURI) {
 		var callback =
 		{
@@ -35,6 +49,11 @@ Fuji = {
 		}
 		YAHOO.util.Connect.asyncRequest('GET', uri, callback, null);
 	},
+	
+	/**
+	 * Handles the response of the loadItem/reloadItem request
+	 * @param {Object} oXMLHttpObject The response object
+	 */		
 	loadSuccess : function(oXMLHttpObject) {
 		var oDocument = oXMLHttpObject.responseXML;
 		if(!oDocument.documentElement) //Internet Explorer-hack
@@ -47,6 +66,12 @@ Fuji = {
 			Fuji.loadDocument(oXMLHttpObject.argument.oDocument, oXMLHttpObject.argument.sURI);
 		}
 	},
+	
+	/**
+	 * Processes from a fuji:item document into a forum page
+	 * @param {XMLDocument} oDocument The document object
+	 * @param {String} sURI The document URI
+	 */
 	loadDocument : function(oDocument, sURI) {
 		if (Fuji.Util.hasAttribute(oDocument.documentElement, 'parent')) {
 			var sParentURI = oDocument.documentElement.getAttribute('parent');
@@ -76,6 +101,11 @@ Fuji = {
 			eval(oLoadHandler[0].firstChild.nodeValue)
 		}
 	},
+	
+	/**
+	 * Makes the given item oElm visible and hides all the other loaded items
+	 * @param {Object} oElm The item to make visible
+	 */
 	selectDeckItem : function(oElm) {
 		for (var i=0; i < oElm.parentNode.childNodes.length; i++) {
 			var oDeckItem = oElm.parentNode.childNodes.item(i);
@@ -88,6 +118,10 @@ Fuji = {
 			Fuji.loadItem(oElm.getAttribute('parent'));
 		}
 	},
+	
+	/**
+	 * Loads the menu
+	 */
 	loadMenu : function() {
 		var callback =
 		{
@@ -97,35 +131,12 @@ Fuji = {
 		}
 		YAHOO.util.Connect.asyncRequest('GET', 'menu/', callback, null); 
 	},
-	clearFora : function() {
-		var oForaTreeDiv = document.getElementById('foraTreeDiv');
-		while(oForaTreeDiv.hasChildNodes())
-			oForaTreeDiv.removeChild(oForaTreeDiv.firstChild);
-	},
-	clearThreads : function() {
-		var oThreadsTableDiv = document.getElementById('threadsTableDiv');
-		while(oThreadsTableDiv.hasChildNodes())
-			oThreadsTableDiv.removeChild(oThreadsTableDiv.firstChild);
-	},
-	clearPosts : function() {
-		var oPostsListDiv = document.getElementById('postsListDiv');
-		while(oPostsListDiv.hasChildNodes())
-			oPostsListDiv.removeChild(oPostsListDiv.firstChild);
-	},
-	clearMenu : function() {
-		var oMenuListDiv = document.getElementById('menuListDiv');
-		while(oMenuListDiv.hasChildNodes())
-			oMenuListDiv.removeChild(oMenuListDiv.firstChild);
-	},
-	reloadFora : function() {
-
-		Fuji.clearFora();
-		Fuji.loadFora();
-	},
-	reloadAll : function() {
-		location.hash='#item/2';
-		Fuji.reloadItem("item/2");
-	},
+	
+	/**
+	 * Creates a new create item dialog (if it doesn't exist), and shows the dialog
+	 * @param {Int} iId The id of the item to add a new item to
+	 * @param {Int} iType The type of the new item
+	 */
 	newCreateDialog : function(iId, iType) {
 		if(!Fuji.createDialog)
 		{
@@ -151,6 +162,12 @@ Fuji = {
 		document.getElementById('createDialog').style.display = 'block';
 		Fuji.createDialog.show();
 	},
+	
+	/**
+	 * Creates a new delete item dialog (if it doesn't exist), and shows the dialog
+	 * @param {Int} iId The id of the item to be deleted
+	 * @param {Int} iPId The id of the item's parent
+	 */	
 	newDeleteDialog : function(iId, iPId) {
 		Fuji.deleteDialog = new YAHOO.widget.SimpleDialog("dlg", { 
 			width: "20em", 
@@ -175,6 +192,12 @@ Fuji = {
 		Fuji.deleteDialog.cfg.queueProperty("buttons", [ { text:Fuji.messages.ok, handler:handleOK }, { text:Fuji.messages.cancel, handler:handleCancel } ]);
 		Fuji.deleteDialog.render(document.body);
 	},
+	
+	/**
+	 * Handles the DELETE request to delete the item (due to problems with YUI)
+	 * @param {Int} iId The id of the item to be deleted
+	 * @param {Int} iPId The id of the item's parent
+	 */			
 	deleteItem : function(iId, iPId) {
 		var callback =
 		{
@@ -184,6 +207,11 @@ Fuji = {
 		}
 		YAHOO.util.Connect.asyncRequest('DELETE', 'item/' + iId, callback, null); 
 	},
+	
+	/**
+	 * Creates a new edit item dialog (if it doesn't exist), and shows the dialog
+	 * @param {Int} iId The id of the item to be edit
+	 */		
 	newEditDialog : function(iId) {
 		if(!Fuji.editDialog)		
 		{
@@ -212,6 +240,11 @@ Fuji = {
 		document.getElementById('editDialog').style.display = 'block';		
 		Fuji.editDialog.show();
 	},
+	
+	/**
+	 * Handles the response of the data request for the edit item dialog
+	 * @param {Object} oElm The response of the request
+	 */		
 	updateEditDialog : function(oElm) {
 		var oSource = oElm.responseXML;
 		var oEditTitle = document.getElementById('editT');
@@ -220,6 +253,10 @@ Fuji = {
 		oEditContent.value = oSource.getElementById('content').innerHTML;	
 
 	},
+	
+	/**
+	 * Handles the EDIT request to delete the item (due to problems with YUI)
+	 */		
 	editThread : function() {
 		var iId = document.getElementById('editEntryid').value;
 		var callback =
@@ -231,18 +268,35 @@ Fuji = {
 		YAHOO.util.Connect.setForm('editF');
 		YAHOO.util.Connect.asyncRequest('POST', 'item/' + iId, callback, null); 
 	},
+	
+	/**
+	 * Starts the URL change listener
+	 */	
 	startUrlChangeListener : function() {
 		setTimeout(Fuji.urlChangeListener, 300);
 	},
+	
+	/**
+	 * Listens for changes to the URL
+	 */
 	urlChangeListener : function() {
 		if (location.hash != Fuji.currentURLHash) Fuji.urlChangeCallback(location.hash);
 		Fuji.currentURLHash = location.hash;
 		Fuji.startUrlChangeListener();
 	},
+	
+	/**
+	 * Loads an item when the URL has changed
+	 * @param {String} hash The URI
+	 */
 	urlChangeCallback : function(hash) {
 		var uri = hash.indexOf('#') != -1 ? hash.substr(hash.indexOf('#')+1) : hash;
 		Fuji.loadItem(uri);
 	},
+	
+	/**
+	 * Creates a new user preferences dialog (if it doesn't exist), and shows the dialog
+	 */
 	newPreferencesDialog : function() {
 		if(!Fuji.preferencesDialog)
 		{
@@ -281,12 +335,20 @@ Fuji = {
 		document.getElementById('prefDialog').style.display = 'block';
 		Fuji.preferencesDialog.show();
 	},
+	
+	/**
+	 * Initialises items when the page is loaded
+	 */
 	init : function() {
 		Fuji.loadMenu();
 		Fuji.loadItem('item/1');
 		if (location.hash == '') location.hash='#item/2';
 		Fuji.startUrlChangeListener();
 	},
+	
+	/**
+	 * Handles the login request
+	 */	
 	login : function() {
 		var callback = {
 			success: function(o) {window.location.reload()},
@@ -311,6 +373,9 @@ Fuji.Util = {
 	DOCUMENT_FRAGMENT_NODE      : 11,
 	NOTATION_NODE               : 12,
 	
+	/**
+	 * Substitutes a missing getSelectedItems-function
+	 */
 	getSelectedItems : function(oSelect) {
 		var aSelectItems = oSelect.getElementsByTagName('option');
 		var selected = "";
@@ -322,6 +387,10 @@ Fuji.Util = {
 					selected += "," + aSelectItems[n].value;
 		return selected;
 	},
+	
+	/**
+	 * Substitutes a missing getElementsByTagNameNS-function
+	 */	
 	getElementsByTagNameNS : function (oNode, sNs, sLocalName) {
 		if (oNode.getElementsByTagNameNS) {
 			return oNode.getElementsByTagNameNS(sNs, sLocalName);
@@ -337,6 +406,10 @@ Fuji.Util = {
 		}
 		return aResult;
 	},
+	
+	/**
+	 * Substitutes a missing importNode-function
+	 */	
 	importNode : function (oNode, deep) {
 		if(document.importNode) {
 			return document.importNode(oNode, deep);
@@ -371,6 +444,10 @@ Fuji.Util = {
 			return oNew;
 		}
 	},
+
+	/**
+	 * Substitutes a missing hasAttribute-function
+	 */		
 	hasAttribute : function (oNode, sName) {
 		if (oNode.hasAttribute) {
 			return oNode.hasAttribute(sName);
