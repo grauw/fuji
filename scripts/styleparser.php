@@ -41,6 +41,12 @@ class StyleXML {
 		}
 		return $path;
 	}
+	
+	static function getStyles()
+	{
+	//waarvoor wordt deze gebruikt?
+		return Database::getArray("SELECT * FROM " . Database::$db_tprefix . "styles ");
+	}
 }
 
 ?>
