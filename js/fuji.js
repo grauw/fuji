@@ -226,9 +226,9 @@ Fuji = {
 			}
 			Fuji.editDialog.cfg.queueProperty("buttons", [ { text:Fuji.messages.ok, handler:handleSubmit, isDefault:true },
 												   { text:Fuji.messages.cancel, handler:handleCancel} ]);
-			Fuji.editDialog.cfg.queueProperty("onsuccess", Fuji.reloadItem('item/' + iId, 999));
 			Fuji.editDialog.render();
 		}
+		Fuji.editDialog.cfg.queueProperty("onsuccess", Fuji.reloadItem('item/' + iId, 999));
 		var callback =
 		{
 			success: Fuji.updateEditDialog,
