@@ -138,6 +138,8 @@ Fuji = {
 	 * @param {Int} iType The type of the new item
 	 */
 	newCreateDialog : function(iId, iType) {
+		document.getElementById('createType').value = iType; 
+		document.getElementById('createRef').value = iId;
 		if(!Fuji.createDialog)
 		{
 			Fuji.createDialog = new YAHOO.widget.Dialog("createDialog", { visible: false, fixedCenter: true });
@@ -147,8 +149,6 @@ Fuji = {
 				this.hide();
 			}
 			var handleSubmit = function() {
-				document.getElementById('createType').value = iType; 
-				document.getElementById('createRef').value = iId;
 				this.submit();
 				document.getElementById('createF').reset();			
 				this.hide();
