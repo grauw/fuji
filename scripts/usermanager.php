@@ -27,25 +27,37 @@
 		}
 		static function authenticate()
 		{
+			//self::forceAuthenticate();
 			if (!isset($_SERVER['PHP_AUTH_USER'])) {
+				header('WWW-Authenticate: Basic realm="Forum"');
+				header('HTTP/1.0 401 Unauthorized');
 				$_SERVER['PHP_AUTH_USER'] = 'anonymous';
 				$_SERVER['PHP_AUTH_PW'] = 'da39a3ee5e6b4b0d3255bfef95601890afd80709';
 			} else {
 				if(UserManager::logIn($_SERVER['PHP_AUTH_USER'], $_SERVER['PHP_AUTH_PW'])) {
 				}
 				else {
-					self::forceAuthenticate();
+					header('WWW-Authenticate: Basic realm="Forum"');
+					header('HTTP/1.0 401 Unauthorized');
+					$_SERVER['PHP_AUTH_USER'] = 'anonymous';
+					$_SERVER['PHP_AUTH_PW'] = 'da39a3ee5e6b4b0d3255bfef95601890afd80709';
+				
+					//self::forceAuthenticate();
 				}
 			}
 		}
 		
 		static function forceAuthenticate()
 		{
-			unset($_SERVER['PHP_AUTH_USER']);
-			unset($_SERVER['PHP_AUTH_PW']);
+			//unset($_SERVER['PHP_AUTH_USER']);
+			//unset($_SERVER['PHP_AUTH_PW']);
 			
 			header('WWW-Authenticate: Basic realm="Forum"');
 			header('HTTP/1.0 401 Unauthorized');
+			if(UserManager::logIn($_SERVER['PHP_AUTH_USER'], $_SERVER['PHP_AUTH_PW']))
+			{
+				
+			}
 			//$_SERVER['PHP_AUTH_USER'] = 'anonymous';
 			//$_SERVER['PHP_AUTH_PW'] = 'da39a3ee5e6b4b0d3255bfef95601890afd80709';
 		}
