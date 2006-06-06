@@ -20,6 +20,7 @@ class BBCode extends Processor {
 
 
         //$regexp= "<([A-Z][A-Z0-9]*)[^>]*>.*?</\1>";
+        
         if($input) {
                    $output = preg_match_all($regexp, $input, $matches);//, PREG_PATTERN_ORDER);// + PREG_OFFSET_CAPTURE);
                 

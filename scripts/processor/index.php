@@ -13,18 +13,20 @@ groot item 1 en 35245
 [*] item 2
 [/list]';*/
 
-$string = 'Dit is [b] [i] hallo [/b] [/i]  [quote="Reyn"] Hallo [/quote] [url=http://lfl] een link [/url] een erg [a] [b] [i] leuke   test [/i][/b] [/a] fwe [b] fjieowf[/b]'
+$string = '--- Begin ---
+Dit is [b] [i] hallo [/b] [/i]  [quote="Reyn"] Hallo [/quote] [url=http://lfl] een link [/url] een erg [a] [b] [i] leuke   test [/i][/b] [/a] fwe [b] fjieowf[/b]'
        .
-       '[list][*]Rood
-       [*]Blauw
-       [*]Geel
-       [/list]
+'[list][*]Rood
+[*]Blauw
+[*]Geel
+[/list]
 
-       [i]
-       Hallo 2
-       [/i]
+[i]
+Hallo 2
+[/i]
 
-       --- Einde ---';
+--- Einde ---
+';
 
 print "<pre>";
 print_r($bbcode->parse($string));
