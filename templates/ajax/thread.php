@@ -27,6 +27,8 @@
 						<span><?php echo $entry->title ?></span>
 						<span><a href="profile/<?php echo User::getUser($entry->userref)->id ?>" target="_blank"><?php echo User::getUser($entry->userref)->nickname ?></a></span>
 						<span><?php echo $entry->modified ?></span>
+						<span><a href="javascript:Fuji.showEditPostDialog('<?php echo $entry->id ?>')"><?php echo L10n::$edit ?></a></span>
+						<span><a href="javascript:Fuji.deleteDialog('<?php echo $entry->id ?>')"><?php echo L10n::$delete ?></a></span>
 					</h3>
 					<div class="postContent"><?php echo $entry->getContent() ?></div>
 			</div>
@@ -38,6 +40,17 @@
 						<span><?php echo $post->title ?></span>
 						<span><a href="profile/<?php echo User::getUser($entry->userref)->id ?>" target="_blank"><?php echo User::getUser($entry->userref)->nickname ?></a></span>
 						<span><?php echo $post->modified ?></span>
+						<?php
+							if (UserManager::getUser()->getRights($post)->may_edit) {
+								?><span><a href="javascript:Fuji.showEditPostDialog('<?php echo $post->id ?>')"><?php echo L10n::$edit ?></a></span><?php
+							}
+							if (UserManager::getUser()->getRights($post)->may_delete) {
+								?><span><a href="javascript:Fuji.deleteDialog('<?php echo $post->id ?>')"><?php echo L10n::$delete ?></a></span><?php
+							}
+						?>
+
+						<span><a href="javascript:Fuji.showEditPostDialog('<?php echo $post->id ?>')"><?php echo L10n::$edit ?></a></span>
+						<span><a href="javascript:Fuji.deleteDialog('<?php echo $post->id ?>')"><?php echo L10n::$delete ?></a></span>
 					</h4>
 					<div class="postContent"><?php echo $post->getContent() ?></div>
 				
