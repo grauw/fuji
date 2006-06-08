@@ -23,7 +23,7 @@ class Userlist {
 		$entry = Entry::getRoot();
 		if (UserManager::getUser()->getRights($entry)->may_read) {
 			$template = Template::getTemplate(2);
-			$template->apply($entry, $template);
+			$template->apply('user', $template);
 		}
 		else {
 			$template = Template::getTemplate(2);
@@ -37,6 +37,6 @@ class Userlist {
 		header('Allow: GET, POST, DELETE, PUT', true, '405');
 	}
 	
-}	
+}
 	
 ?>

@@ -8,8 +8,13 @@ class AJAX_Template extends Template {
 	function apply($entry, Template $template) {
 		L10nManager::loadL10n();
 		$template = $this;
-		$templateview = $this->getTemplateView($entry->type);
-		include_once $templateview->location;
+		if($entry == 'user'){
+			/*$templateview = $this->getTemplateView($entry->type);*/
+			include_once '../templates/ajax/userlist.php';/*$templateview->location;*/
+		}else{
+			$templateview = $this->getTemplateView($entry->type);
+			include_once $templateview->location;
+		}
 	}
 	
 	function applyMenu(Template $template) {
