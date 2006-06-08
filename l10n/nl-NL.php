@@ -17,8 +17,8 @@ class L10n {
 	static $lang = 'Taal';
 	static $language = 'nl-NL';
 	static $logged_in_as = 'Ingelogd als';
-	static $login = 'Login';
-	static $logout = 'Log uit';
+	static $login = 'Inloggen';
+	static $logout = 'Uitloggen';
 	static $member_of = 'Lid van';
 	static $menu = 'Menu';
 	static $message = 'Bericht';
