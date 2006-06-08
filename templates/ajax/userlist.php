@@ -21,7 +21,7 @@
 						if(count($userids) > 0){
 						foreach($userids as $userid) { $user = User::getUser($userid['id']);?>
 					<tr userid=<?php echo "'$user->id'" ?> class="tableUser">
-						<td><a href="proflie/<?php echo $user->id ?>"><?php echo $user->nickname ?></a></td>
+						<td><a href="../profile/<?php echo $user->id ?>"><?php echo $user->nickname ?></a></td>
 						<td><?php if($user->email_visible) echo $user->email ?></td>
 						<td><?php $groups = $user->getGroups(); foreach($groups as $group) $groupstring .= $group->name . ','; echo rtrim($groupstring, ','); unset($groupstring);?></td>
 						<td><?php echo $user->getPosts() ?></td>

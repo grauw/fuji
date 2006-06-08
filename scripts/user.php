@@ -112,8 +112,20 @@ class User extends Dataclass {
 	}
 	
 	/**
+	 * Check if the user is in a certain group
+	 * @param {String} $group the group to check
+	 * @returns array with Groups the user is in
+	 */
+	function isInGroup($group)
+	{
+		$groups = $this->getGroups();
+		foreach($groups as $usergroup) if($usergroup->name == $group) return true;
+		return false;
+	}
+	
+	/**
 	 * Check if user is root/admin
-	 * @returns true if roo/admin, false otherwise
+	 * @returns true if root/admin, false otherwise
 	 */
 	function isAdmin()
 	{

@@ -1,7 +1,8 @@
 <?php
 	require_once "styleparser.php";
 	require_once "usermanager.php";
-	require_once "l10nmanager.php";		
+	require_once "l10nmanager.php";
+	require_once "group.php";		
 
 	UserManager::authenticate();	
 	$user;
@@ -16,6 +17,15 @@
 	}
 	
 	L10nManager::loadL10n();
+	
+	if($_POST['updated']){
+		$groups = Database::getArray("SELECT name FROM " . DbVar::$db_tprefix . "groups");
+		foreach($groups as $group){
+			$name = $group['name'];
+			if($_POST[$name]) Group::getGroupByName($name)->addUser($user);
+			else Group::getGroupByName($name)->removeUser($user);
+		}
+	}
 ?>
 <!DOCTYPE html 
      PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
@@ -32,11 +42,30 @@
 		<div id="profileInfoDiv">
 			<table>
 				<tr><td rowspan="4"><?php if(isset($user->picture)) { ?><img width="60" src="<?php echo $user->picture ?>" alt="picture"></img><?php } ?></td><td><?php echo L10n::$name ?>:</td><td><?php echo $user->nickname ?></td></tr>
-				<tr><td><?php if(isset($user->email) && $user->email_visible) { ?><?php echo L10n::$email ?>:</td><?php } ?><td><?php if(isset($user->email) && $user->email_visible) echo $user->email; ?></td></tr>
+				<?php if(isset($user->email) && $user->email_visible) { ?><tr><td><?php echo L10n::$email ?>:</td><td><?php echo $user->email; ?></td></tr><?php } ?>
 				<tr><td><?php echo L10n::$posts ?>:</td><td><?php echo $user->getPosts() ?></td></tr>
-				<tr><td><?php echo L10n::$member_of ?>:</td><td><?php $groups = $user->getGroups(); foreach($groups as $group) echo $group->name . "<br />" ?></td></tr>
+				<tr><td><?php echo L10n::$member_of ?>:</td>
+				<?php if(!$_GET['edit']){ /*not editting*/?>
+				<td><?php $groups = $user->getGroups(); foreach($groups as $group) echo $group->name . "<br />" ?></td></tr>
+				<?php }else{ /*editting*/?>
+				<td><form name="updateGroup" action="../profile/<?php echo $user->id; ?>" method="post">
+				<?php	$groups = Database::getArray("SELECT name FROM " . DbVar::$db_tprefix . "groups");
+						foreach($groups as $group){?>
+							<label><input type="checkbox" <?php echo 'name="'.$group['name'].'"'; if($user->IsInGroup($group['name'])) echo ' checked="checked"';  ?> />
+							<?php echo $group['name']?></label><br />
+						<?php } ?>
+				<input type="hidden" name="updated" value="true" />
+				</form></td></tr>
+				<?php } ?>
 			</table>
 		</div>
+		<?php if(UserManager::isAdmin() && !$_GET['edit']){?>
+		<form action="../editprofile/<?php echo $user->id; ?>" method="post">
+		<input type="submit" value="<?php echo L10n::$edit ?>">
+		</form>
+		<?php }else if(UserManager::isAdmin()){ ?>
+		<input type="submit" value="<?php echo L10n::$edit ?>" onClick="document.updateGroup.submit()">
+		<?php } ?>
 	</div>
 </html>
 
