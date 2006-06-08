@@ -89,6 +89,7 @@ Fuji = {
 			oTargetDiv.appendChild(Fuji.Util.importNode(oContent.childNodes.item(i), true));
 		}
 		var oTargetId = oDocument.documentElement.getAttribute('loadcontext');
+		alert(oTargetId);
 		var oTarget = document.getElementById(oTargetId);
 		oTarget.appendChild(oTargetDiv);
 		if (Fuji.Util.hasAttribute(oDocument.documentElement, 'parent')) {
@@ -260,7 +261,7 @@ Fuji = {
 		var iId = document.getElementById('editEntryid').value;
 		var callback =
 		{
-			success: function(o) {Fuji.reloadItem('item/' + iId, 999)},
+			success: function(o) {alert(iId); Fuji.reloadItem('item/' + iId, 999)},
 			failure: function(o) {alert('failure')},
 			argument: []
 		}
