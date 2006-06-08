@@ -359,7 +359,7 @@ Fuji = {
 	logout : function() {
 		var callback = {
 			success: function(o) {window.location.reload()},
-			failure: function(o) {alert('failure')}
+			failure: function(o) {window.location.reload()}
 		}
 		YAHOO.util.Connect.asyncRequest('POST', 'logout', callback);
  	}	
