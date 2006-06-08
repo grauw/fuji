@@ -16,7 +16,8 @@ class BBCode extends Processor {
         // $regexp = '/(.*?)(?:\[([\/?A-Za-z]+)(?:=([A-Za-z]+))?\])|(.+)/';
         // $regexp = '/(.*?)(?:\[([\/?A-Za-z]+)(?:=([a-zA-Z0-9:&%\/\#\$\-\_\.\+!\*\'\(\),]+)|(\*))?\])|(.+)/';
 
-        $regexp = '/((?:.|\r\n)*?)(?:\[([\/?A-Za-z]+|\*)(?:=([^]?]+)|(\*)?)?\])|((:?.|\r\n)+)/';
+        //$regexp = '/((?:.|\r\n)*?)(?:\[([\/?A-Za-z]+|\*)(?:=([^]?]+)|(\*)?)?\])|((:?.|\r\n)+)/';
+        $regexp = '/([^[]*?)(?:\[([\/?A-Za-z]+|\*)(?:=([^]?]+)|(\*)?)?\])|([^[]+)/';
 
 
         //$regexp= "<([A-Z][A-Z0-9]*)[^>]*>.*?</\1>";
@@ -27,7 +28,7 @@ class BBCode extends Processor {
                    $match=true;
         }
         
-        
+
         print_r($matches);
         
         //$matches = $this->checkTagOrder($matches);
@@ -48,8 +49,9 @@ class BBCode extends Processor {
             $result .= $texts[$i] . $this->convertTag($tags[$i], $tagextra[$i]) . $trailer[$i];
         }
 
-        print "\n\nresult: ".$result;
-        
+        print nl2br("\n\nresult: ".$result);
+
+
         // parse [b] strings
         //return preg_replace("[
         //           [tag]   tekst   [/tag]

@@ -20,11 +20,18 @@ Dit is [b] [i] hallo [/b] [/i]  [quote="Reyn"] Hallo [/quote] [url=http://lfl] e
 [*]Blauw
 [*]Geel
 [/list]
-
+[list=1][*]Rood
+[*]Blauw
+[*]Geel
+[/list]
+[list=a][*]Rood
+[*]Blauw
+[*]Geel
+[/list]
 [i]
 Hallo 2
-[/i]
-
+[/i] fwefe
+fewfwef
 --- Einde ---
 ';
 
