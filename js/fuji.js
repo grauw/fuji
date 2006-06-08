@@ -228,7 +228,6 @@ Fuji = {
 												   { text:Fuji.messages.cancel, handler:handleCancel} ]);
 			Fuji.editDialog.render();
 		}
-		Fuji.editDialog.cfg.queueProperty("onsuccess", Fuji.reloadItem('item/' + iId, 999));
 		var callback =
 		{
 			success: Fuji.updateEditDialog,
@@ -261,7 +260,7 @@ Fuji = {
 		var iId = document.getElementById('editEntryid').value;
 		var callback =
 		{
-			success: function(o) {Fuji.reloadItem('item/' + iId)},
+			success: function(o) {Fuji.reloadItem('item/' + iId, 999)},
 			failure: function(o) {alert('failure')},
 			argument: []
 		}

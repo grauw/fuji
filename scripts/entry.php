@@ -95,7 +95,7 @@ class Entry extends Dataclass {
 	 * Update entry's content
 	 */
 	function updateContent($data) {
-		Database::execute("UPDATE FROM " . Database::$db_tprefix . "content SET content = '$data' WHERE id = '$this->contentref'");
+		Database::execute("UPDATE " . Database::$db_tprefix . "content SET content = '$data' WHERE id = '$this->contentref'");
 	}
 	
 	/**
