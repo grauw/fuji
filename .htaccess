@@ -32,8 +32,11 @@ RewriteRule ^install$ scripts/install/index.php [L,QSA]
 # GET /preferences
 RewriteRule ^preferences$ scripts/preferences.php [L,QSA]
 
+# POST /login
+RewriteRule ^login$ scripts/loginout.php?action=login [L,QSA]
+
 # POST /logout
-RewriteRule ^logout$ scripts/logout.php [L,QSA]
+RewriteRule ^logout$ scripts/loginout.php?action=logout [L,QSA]
 
 # GET /users/
 RewriteRule ^users/$ scripts/userlist.php [L,QSA]

@@ -354,9 +354,15 @@ Fuji = {
 			success: function(o) {window.location.reload()},
 			failure: function(o) {alert('failure')}
 		}
-		YAHOO.util.Connect.asyncRequest('POST', 'logout', callback); 
-	}
-	
+		YAHOO.util.Connect.asyncRequest('POST', 'login', callback);
+	},
+	logout : function() {
+		var callback = {
+			success: function(o) {window.location.reload()},
+			failure: function(o) {alert('failure')}
+		}
+		YAHOO.util.Connect.asyncRequest('POST', 'logout', callback);
+ 	}	
 }
 Fuji.Util = {
 	// Opera and IE don't have these defined on the nodes themselves :(

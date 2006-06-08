@@ -18,6 +18,7 @@ if($_GET['action'] == 'logout')
 }
 if($_GET['action'] == 'login')
 {
+	header('WWW-Authenticate: Basic realm="Forum"');
 	header('HTTP/1.0 401 Unauthorized');
 }
 ?>
