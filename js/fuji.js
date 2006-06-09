@@ -142,7 +142,7 @@ Fuji = {
 		document.getElementById('createRef').value = iId;
 		if(!Fuji.createDialog)
 		{
-			Fuji.createDialog = new YAHOO.widget.Dialog("createDialog", { visible: false, fixedCenter: true });
+			Fuji.createDialog = new YAHOO.widget.Dialog("createDialog", { visible: false, fixedCenter: true, width: '300px' });
 			var handleCancel = function() {
 				this.cancel();
 				document.getElementById('createF').reset();			
@@ -215,7 +215,7 @@ Fuji = {
 	newEditDialog : function(iId) {
 		if(!Fuji.editDialog)		
 		{
-			Fuji.editDialog = new YAHOO.widget.Dialog("editDialog", { visible: false, fixedCenter: true, width: '200px' });
+			Fuji.editDialog = new YAHOO.widget.Dialog("editDialog", { visible: false, fixedCenter: true, width: '300px' });
 			var handleCancel = function() {
 				document.getElementById('editF').reset();
 				this.cancel();

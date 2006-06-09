@@ -46,21 +46,29 @@
 	<div id="createDialog" style="display: none">
 		<div id="createTitle" class="hd"><?php echo L10n::$new ?></div>
 		<div id="createForm" class="bd">
-			<form id="createF" name="createF" method="POST" action="item/">
+			<form id="createF" name="createF" class="createEditF" method="POST" action="item/">
 				<input id='createRef' name='ref' type='hidden' value='' />
 				<input id='createType' name='type' type='hidden' value='' />
-				<?php echo L10n::$title ?>: <input id='createT' name='title' type='text' value='' /><br />
-				<?php echo L10n::$message ?>: <textarea id='createContent' name='content' type='text' value=''></textarea>
+				<div><span><?php echo L10n::$title ?></span><input id='createT' class="createEditT" name='title' type='text' value='' /></div>
+				<div>	<img src="style/default/graphics/button-bold.gif" />
+						<img src="style/default/graphics/button-italic.gif" />
+						<img src="style/default/graphics/button-underline.gif" />
+				</div>
+				<div><textarea id='createCtent' class="createEditContent" name='content' type='text' value=''></textarea></div>
 			</form>
 		</div>
 	</div>
 	<div id="editDialog" style="display: none">
 		<div id="editTitle" class="hd"><?php echo L10n::$edit ?></div>
 		<div id="editForm" class="bd">
-			<form id="editF" name="editF" method="POST" enctype="text/plain">
+			<form id="editF" name="editF" class="createEditF" method="POST" enctype="text/plain">
 				<input id='editEntryid' name='entryid' type='hidden' value='' />
-				<?php echo L10n::$title ?><input id='editT' name='title' type='text' value='' /><br />
-				<?php echo L10n::$message ?><textarea id='editContent' name='content' type='text' value=''></textarea>
+				<div><span><?php echo L10n::$title ?></span><input id='editT' class="createEditT" name='title' type='text' value='' /></div>
+				<div>	<img src="style/default/graphics/button-bold.gif" />
+						<img src="style/default/graphics/button-italic.gif" />
+						<img src="style/default/graphics/button-underline.gif" />
+				</div>
+				<div><textarea id='editContent' class="createEditContent" name='content' type='text' value=''></textarea></div>
 			</form>
 		</div>
 	</div>	

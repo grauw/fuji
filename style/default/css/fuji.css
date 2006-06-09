@@ -138,3 +138,20 @@ a:visited {
   height: 300px;
   width: 400px;
 }
+.dialogToolbar {
+  height: 1.5em;
+}
+.createEditF div {
+  margin-top: 3px;
+  margin-bottom: 3px;
+}
+.createEditF div span {
+  margin-right: 10px;
+}
+.createEditT {
+  width: 253px;
+}
+.createEditContent {
+  height: 100px;
+  width: 288px;
+}
