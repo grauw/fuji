@@ -53,6 +53,8 @@ class L10n {
 	static $users = 'Users';
 	static $visible_in_profile = 'Visible in profile';	
 	static $warning = 'Warning';
+	static $new_group = 'New group';
+
 }
 
 ?>

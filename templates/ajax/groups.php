@@ -5,6 +5,9 @@
 	loadcontext="threadsDiv">
 	<fuji:content>
 		<h2 class="windowTitle"><?php echo L10n::$groups; ?></h2>
+		<div id="groupActions" class="windowActions">
+			<a href="javascript:Fuji.newGroup()"><?php echo L10n::$new_group ?></a>
+		</div>
 		<div id="userTableDiv">
 			<table id="threadsTable">
 				<thead>

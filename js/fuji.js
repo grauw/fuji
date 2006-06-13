@@ -4,6 +4,7 @@ Fuji = {
 	deleteDialog : null,		//pointer to the delete dialog
 	editDialog : null,			//pointer to the edit dialog
 	preferencesDialog : null,	//pointer to the preferences dialog
+	newGroupDialog : null,		//pointer to the new group dialog
 	
 	/**
 	 * Loads the item with the specified URI using XMLHttpRequest
@@ -361,7 +362,28 @@ Fuji = {
 			failure: function(o) {window.location.reload()}
 		}
 		YAHOO.util.Connect.asyncRequest('POST', 'logout', callback);
- 	}	
+ 	},
+	newGroup : function() {
+		if(!Fuji.newGroupDialog)
+		{
+			Fuji.newGroupDialog = new YAHOO.widget.Dialog("newGroupDialog", { visible: false, fixedCenter: true, width: '500px' });
+			var handleCancel = function() {
+				this.cancel();
+				document.getElementById('newGroupF').reset();			
+				this.hide();
+			}
+			var handleSubmit = function() {
+				this.submit();
+				document.getElementById('newGroupF').reset();			
+				this.hide();
+				}
+			Fuji.newGroupDialog.cfg.queueProperty("buttons", [ { text:Fuji.messages.ok, handler:handleSubmit, isDefault:true },
+												   { text:Fuji.messages.cancel, handler:handleCancel } ]);
+			Fuji.newGroupDialog.render();
+		}
+		document.getElementById('newGroupDialog').style.display = 'block';
+		Fuji.newGroupDialog.show();
+	}
 }
 Fuji.Util = {
 	// Opera and IE don't have these defined on the nodes themselves :(

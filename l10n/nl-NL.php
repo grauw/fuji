@@ -53,6 +53,7 @@ class L10n {
 	static $users = 'Gebruikers';
 	static $visible_in_profile = 'Zichtbaar in profiel';
 	static $warning = 'Waarschuwing';	
+	static $new_group = 'Nieuwe groep';
 }
 
 ?>
