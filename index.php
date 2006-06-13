@@ -75,8 +75,8 @@
 	<div id="newGroupDialog" style="display: none">
 		<div id="newGroupTitle" class="hd"><?php echo L10n::$new_group ?></div>
 		<div id="newGroupForm" class="bd">
-			<form id="newGroupF" name="newGroupF" class="createEditF" method="POST" action="group/">
-				<input id='newGroupName' name='groupname' type='text' value='' />
+			<form id="newGroupF" name="newGroupF" class="createEditF" method="POST" action="groups/">
+				<input id="newGroupName" name='groupName' type="text" value='' />
 			</form>
 		</div>
 	</div>	

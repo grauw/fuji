@@ -11,6 +11,8 @@ class Item {
 		$method = $_SERVER['REQUEST_METHOD'];
 		if ($method == 'GET') {
 			$this->httpGet();
+		} elseif ($method == 'POST') {
+			$this->httpPost();
 		} else {
 			$this->httpMethodNotAllowed();
 		}
@@ -30,10 +32,18 @@ class Item {
 		}
 	}
 	
+	function httpPost()
+	{
+		UserManager::authenticate();
+		$data['name'] = $_POST['groupName'];
+		$group = Group::addGroup($data);
+		
+	}
+	
 	function httpMethodNotAllowed()
 	{
 		// 405 Method Not Allowed
-		header('Allow: GET, POST, DELETE, PUT', true, '405');
+		header('Allow: GET, POST', true, '405');
 	}
 	
 }	

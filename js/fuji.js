@@ -373,7 +373,9 @@ Fuji = {
 				this.hide();
 			}
 			var handleSubmit = function() {
+				alert(this.id);
 				this.submit();
+				alert('ohoh1');
 				document.getElementById('newGroupF').reset();			
 				this.hide();
 				}
