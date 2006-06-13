@@ -25,29 +25,36 @@
 		{
 			unset($_SESSION['user']);
 		}
-		static function authenticate()
+		static function authenticate($force=false)
 		{
-			//self::forceAuthenticate();
-			if (!isset($_SERVER['PHP_AUTH_USER'])) {
-				header('WWW-Authenticate: Basic realm="Forum"');
-				header('HTTP/1.0 401 Unauthorized');
-				$_SERVER['PHP_AUTH_USER'] = 'anonymous';
-				//$_SERVER['PHP_AUTH_PW'] = 'da39a3ee5e6b4b0d3255bfef95601890afd80709';
-				// 2times sha1 is not a good idea!
-				$_SERVER['PHP_AUTH_PW'] = '';
-
-			} else {
-				if(UserManager::logIn($_SERVER['PHP_AUTH_USER'], $_SERVER['PHP_AUTH_PW'])) {
-				}
-				else {
+			if($force)
+			{		
+				//self::forceAuthenticate();
+				if (!isset($_SERVER['PHP_AUTH_USER'])) {
 					header('WWW-Authenticate: Basic realm="Forum"');
 					header('HTTP/1.0 401 Unauthorized');
-					$_SERVER['PHP_AUTH_USER'] = 'anonymous';
+					//$_SERVER['PHP_AUTH_USER'] = 'anonymous';
 					//$_SERVER['PHP_AUTH_PW'] = 'da39a3ee5e6b4b0d3255bfef95601890afd80709';
-					$_SERVER['PHP_AUTH_PW'] = '';
-
-					//self::forceAuthenticate();
+					// 2times sha1 is not a good idea!
+					//$_SERVER['PHP_AUTH_PW'] = '';
+	
+				} else {
+					if(UserManager::logIn($_SERVER['PHP_AUTH_USER'], $_SERVER['PHP_AUTH_PW'])) {
+					}
+					else {
+						header('WWW-Authenticate: Basic realm="Forum"');
+						header('HTTP/1.0 401 Unauthorized');
+						//$_SERVER['PHP_AUTH_USER'] = 'anonymous';
+						//$_SERVER['PHP_AUTH_PW'] = 'da39a3ee5e6b4b0d3255bfef95601890afd80709';
+						//$_SERVER['PHP_AUTH_PW'] = '';
+	
+						//self::forceAuthenticate();
+					}
 				}
+			}
+			else
+			{
+				UserManager::LogIn('anonymous', '');
 			}
 		}
 		
