@@ -1,6 +1,7 @@
 <?php
 	require_once "register1.php";
 	require_once "register2.php";
+	require_once "../styleparser.php";
 	if(isset($_POST['phase']))
 		$current_phase = $_POST['phase'];
 	else
@@ -16,9 +17,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<?php echo $xhtml_template->language ?>">
 	<head>
 		<title>Fuji User Registration</title>
-		<link rel="stylesheet" type="text/css" href="../../css/fuji.css" />
-		<link rel="stylesheet" type="text/css" href="../../css/wizard.css" />
-		<link rel="stylesheet" type="text/css" href="../../css/fuji-blue.css" />		
+		<?php 
+			$style = StyleXML::getStyleXML(2);
+			$style->getStylesheets();	
+		?>
 	</head>
 	<body>
 		<div id="mainWindow" class="window">
