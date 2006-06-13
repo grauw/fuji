@@ -49,3 +49,6 @@ RewriteRule ^profile/(\d+)/updated$ scripts/profile.php?updated=true [L,QSA]
 
 # GET /groups/
 RewriteRule ^groups/$ scripts/groups.php [L,QSA]
+
+# GET /users/<groupid>
+RewriteRule ^users/(\d+)$  scripts/userlist.php?groupid=$1 [L,QSA]

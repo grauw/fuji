@@ -5,7 +5,7 @@
 	loadcontext="threadsDiv">
 	<fuji:content>
 		<h2 class="windowTitle"><?php echo L10n::$users; ?></h2>
-		<div id="userTableDiv">
+		<div id="threadsTableDiv">
 			<table id="threadsTable">
 				<thead>
 					<tr>
@@ -17,7 +17,8 @@
 				</thead>
 				<tbody>
 				<?php 	require_once 'user.php';
-						$userids = Database::getArray("SELECT id FROM " . Database::$db_tprefix . "users");
+						if(isset($template->groupid)) $userids = Database::getArray("SELECT userid AS id FROM " . Database::$db_tprefix . "groupmembers WHERE groupid=".$template->groupid);
+						else $userids = Database::getArray("SELECT id FROM " . Database::$db_tprefix . "users");
 						if(count($userids) > 0){
 						foreach($userids as $userid) { $user = User::getUser($userid['id']);?>
 					<tr userid=<?php echo "'$user->id'" ?> class="tableUser">

@@ -10,6 +10,7 @@ class L10n {
 	static $email_empty = 'E-Mail address cannot be empty';
 	static $enter_your_new_password = 'Enter your new password';
 	static $error_insufficient_rights = 'You have insufficient rights to access this resource.';
+	static $error_no_groups = 'This forum has no groups';
 	static $error_no_posts = 'This thread has no posts';
 	static $error_no_threads = 'This forum has no threads';
 	static $error_no_users = 'This forum has no users';

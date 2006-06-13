@@ -5,16 +5,20 @@ require_once '../scripts/l10nmanager.php';
 
 class AJAX_Template extends Template {
 	
+	public $groupid = null;
+	
 	function apply($entry, Template $template) {
 		L10nManager::loadL10n();
 		$template = $this;
-		/*TODO applyUserlist*/
-		if($entry == 'user'){
-			include_once '../templates/ajax/userlist.php';
-		}else{
-			$templateview = $this->getTemplateView($entry->type);
-			include_once $templateview->location;
-		}
+		$templateview = $this->getTemplateView($entry->type);
+		include_once $templateview->location;
+	}
+	
+	function applyUserlist(Template $template, $groupid=null) {
+		if(isset($groupid)) $this->groupid = $groupid;
+		L10nManager::loadL10n();
+		$template = $this;
+		include_once '../templates/ajax/userlist.php';
 	}
 	
 	function applyMenu(Template $template) {

@@ -10,6 +10,7 @@ class L10n {
 	static $email_empty = 'E-mailadres mag niet leeg zijn';		
 	static $enter_your_new_password = 'Voer uw nieuwe wachtwoord in';
 	static $error_insufficient_rights = 'U heeft onvoldoende rechten om deze pagina te bekijken.';
+	static $error_no_groups = 'Dit forum heeft geen groepen';
 	static $error_no_posts = 'Deze thread heeft geen berichten';
 	static $error_no_threads = 'Dit forum heeft geen threads';
 	static $error_no_users = 'Dit forum heeft geen gebruikers';

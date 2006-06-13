@@ -8,7 +8,7 @@
 		<div id="groupActions" class="windowActions">
 			<a href="javascript:Fuji.newGroup()"><?php echo L10n::$new_group ?></a>
 		</div>
-		<div id="userTableDiv">
+		<div id="threadsTableDiv">
 			<table id="threadsTable">
 				<thead>
 					<tr>
@@ -26,12 +26,12 @@
 						if(count($groups)>0){
 						foreach($groups as $group) { $grouprights = $group->getRights(Entry::getRoot());?>
 					<tr>
-						<td><?php echo $group->name ?></td>
+						<td><a href="../#users/<?php echo $group->id ?>"><?php echo $group->name ?></a></td>
 						<td><?php echo $grouprights->toString() ?></td>
 						<td><?php echo $group->getNumMembers() ?></td>
 					</tr>
 					<?php } ?>
-				<?php } else echo L10n::$error_no_users ?>
+				<?php } else echo L10n::$error_no_groups ?>
 				</tbody>
 			</table>
 		</div>
