@@ -7,5 +7,15 @@ require_once "database.php";
 		static function getTable() {
 			return 'grouprights';
 		}
+		
+		function toString(){
+			$string = '';
+			if($this->may_read) $string .= 'read, ';
+			if($this->may_post) $string .= 'post, ';
+			if($this->may_edit) $string .= 'edit, ';
+			if($this->may_delete) $string .= 'delete, ';
+			$string = rtrim($string, ', ');
+			return $string;
+		}
 }
 ?>

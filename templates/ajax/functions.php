@@ -8,9 +8,9 @@ class AJAX_Template extends Template {
 	function apply($entry, Template $template) {
 		L10nManager::loadL10n();
 		$template = $this;
+		/*TODO applyUserlist*/
 		if($entry == 'user'){
-			/*$templateview = $this->getTemplateView($entry->type);*/
-			include_once '../templates/ajax/userlist.php';/*$templateview->location;*/
+			include_once '../templates/ajax/userlist.php';
 		}else{
 			$templateview = $this->getTemplateView($entry->type);
 			include_once $templateview->location;
@@ -21,6 +21,12 @@ class AJAX_Template extends Template {
 		L10nManager::loadL10n();
 		$template = $this;
 		include_once '../templates/ajax/menu.php';
+	}
+	
+	function applyGroups(Template $template) {
+		L10nManager::loadL10n();
+		$template = $this;
+		include_once '../templates/ajax/groups.php';
 	}
 	
 	function failInsufficientRights(Template $template) {

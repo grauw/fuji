@@ -46,6 +46,18 @@ class Group extends Dataclass {
 	}
 	
 	/**
+	 * Get all group names
+	 * @returns String array with group names
+	 */
+	static function getGroupNames()
+	{		
+		$data = Database::getArray("SELECT name FROM " . Database::$db_tprefix . "groups");
+		$return = Array();
+		foreach($data as $row) array_push($return, $row['name']);
+		return $return;			
+	}
+	
+	/**
 	 * Add a user to the group
 	 * @param {User} $user the user to be added
 	 */
@@ -90,6 +102,15 @@ class Group extends Dataclass {
 			return $this->getRights($entry->getParent());
 		else
 			return new Rights(array());
+	}
+	
+	/**
+	 * Get group member count
+	 * @returns int value of number of members in group
+	 */
+	function getNumMembers() {
+		$data = Database::getArray("SELECT COUNT(*) AS num_members FROM " . Database::$db_tprefix . "groupmembers WHERE groupid = '$this->id'");
+		return $data[0]['num_members'];
 	}
 	
 	/**

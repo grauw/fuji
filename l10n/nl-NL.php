@@ -15,6 +15,7 @@ class L10n {
 	static $error_no_users = 'Dit forum heeft geen gebruikers';
 	static $fora = 'Fora';
 	static $group = 'Groep';
+	static $groups = 'Groepen';
 	static $invalid_url = 'Foutieve URL';	
 	static $lang = 'Taal';
 	static $language = 'nl-NL';
@@ -27,6 +28,7 @@ class L10n {
 	static $modified = 'Laatst gewijzigd';
 	static $name = 'Naam';
 	static $new = 'Nieuw';
+	static $num_members = 'Aantal leden';
 	static $ok = 'OK';
 	static $password = 'Wachtwoord';
 	static $passwords_do_not_match = 'Wachtwoorden komen niet overeen';	
@@ -40,6 +42,7 @@ class L10n {
 	static $register = 'Registreer';
 	static $replies = 'Reacties';
 	static $reply = 'Reageren';
+	static $rights = 'Rechten';
 	static $search = 'Zoeken';
 	static $style = 'Stijl';
 	static $sure_delete_item = 'Weet u zeker dat u dit bericht wilt verwijderen?';	

@@ -14,6 +14,7 @@
 				echo '<li><a href="profile/" target="_blank">'.L10n::$profile.'</a></li>'."\n";
 				echo '<li><a href="javascript:Fuji.newPreferencesDialog()">'.L10n::$preferences.'</a></li>'."\n";
 				echo '<li><a href="#users/">'.L10n::$users.'</a></li>'."\n";
+				if(UserManager::isAdmin()) echo '<li><a href="#groups/">'.L10n::$groups.'</a></li>'."\n";
 				echo '<li><a href="javascript:Fuji.logout()">'.L10n::$logout.'</a></li>'."\n";
 			}
 			echo '</ul>'."\n";

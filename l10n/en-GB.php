@@ -15,6 +15,7 @@ class L10n {
 	static $error_no_users = 'This forum has no users';
 	static $fora = 'Fora';
 	static $group = 'Group';
+	static $groups = 'Groups';
 	static $invalid_url = 'Invalid URL';
 	static $lang = 'Language';
 	static $language = 'en-GB';
@@ -27,6 +28,7 @@ class L10n {
 	static $modified = 'Last modified';
 	static $name = 'Name';
 	static $new = 'New';
+	static $num_members = 'Number of members';
 	static $ok = 'OK';
 	static $password = 'Password';
 	static $passwords_do_not_match = 'Passwords do not match';
@@ -40,6 +42,7 @@ class L10n {
 	static $register = 'Register';
 	static $replies = 'Replies';
 	static $reply = 'Reply';
+	static $rights = 'Rights';
 	static $search = 'Search';
 	static $style = 'Style';
 	static $sure_delete_item = 'Are you sure you want to delete this item';

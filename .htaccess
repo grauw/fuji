@@ -46,3 +46,6 @@ RewriteRule ^editprofile/(\d+)$ scripts/profile.php?id=$1&edit=true [L,QSA]
 
 # POST /profile/<id>/updated
 RewriteRule ^profile/(\d+)/updated$ scripts/profile.php?updated=true [L,QSA]
+
+# GET /groups/
+RewriteRule ^groups/$ scripts/groups.php [L,QSA]
