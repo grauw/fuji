@@ -1,7 +1,7 @@
 <?php
 include_once '../adodb_lite/adodb.inc.php';
 include_once '../adodb_lite/adodb-exceptions.inc.php'; 
-include_once 'database.php';
+if(isset($_POST['db_host'])) include_once 'database.php';
 include_once 'box.php';
 
 class Install1 {   
