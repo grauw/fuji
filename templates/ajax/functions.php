@@ -24,9 +24,7 @@ class AJAX_Template extends Template {
 	}
 	
 	function failInsufficientRights(Template $template) {
-		L10nManager::loadL10n();
-		$template = $this;
-		include_once 'error.php';		
+		header('HTTP/1.0 401 Unauthorized');		
 	}
 	
 	public function getPrefix()
