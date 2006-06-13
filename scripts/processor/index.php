@@ -14,9 +14,13 @@ groot item 1 en 35245
 [/list]';*/
 
 $string = '--- Begin ---
-Dit is [b] [i] hallo [/b] [/i]  [quote="Reyn"] Hallo [/quote] [url=http://lfl] een link [/url] een erg [a] [b] [i] leuke   test [/i][/b] [/a] fwe [b] fjieowf[/b]'
+Dit is [b] [i] hallo [/b] [/i]  [quote="Reyn"] Hallo [/quote] [url=http://lfl]een link[/url] [url]www.google.nl[/url] een erg [a] [b] [i] leuke   test [/i][/b] [/a] fwe [b] fjieowf[/b]'
        .
-'[list][*]Rood
+'[img] http://msnbcmedia.msn.com/j/msnbc/Components/Video/Webcasts/entertainmentbuzz.vsmall.jpg [/img]
+[url=http://www.msn.com][img] http://msnbcmedia.msn.com/j/msnbc/Components/Video/Webcasts/entertainmentbuzz.vsmall.jpg [/img][/url]
+
+
+[list][*]Rood
 [*]Blauw
 [*]Geel
 [/list]
@@ -29,6 +33,8 @@ Dit is [b] [i] hallo [/b] [/i]  [quote="Reyn"] Hallo [/quote] [url=http://lfl] e
 [*]Geel
 [/list]
 [i]
+
+
 Hallo 2
 [/i] fwefe
 fewfwef

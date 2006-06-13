@@ -48,7 +48,8 @@ class BBCode extends Processor {
 
             // check ook meteen de goede volgorde
 
-            $result .= $texts[$i] . $this->convertTag($tags[$i], $tagextra[$i]) . $trailer[$i];
+            if ($tags[$i-1] != "img")
+                $result .= $texts[$i] . $this->convertTag($tags[$i], $tagextra[$i], $texts[$i+1]) . $trailer[$i];
         }
 
         print nl2br("\n\nresult: ".$result);
@@ -59,10 +60,11 @@ class BBCode extends Processor {
         //           [tag]   tekst   [/tag]
     }
 
-    function convertTag($tag) {
+    function convertTag() {
         $tag = func_get_arg(0);
         $tagextra = func_get_arg(1);
-        
+        $text = func_get_arg(2);
+
         $tagsArray = array(
             "b" => "<b>",
             "/b" => "</b>",
@@ -72,11 +74,38 @@ class BBCode extends Processor {
             "/u" => "</u>",
             "code" => "<div class=\"code\">",
             "/code" => "</div>",
+            "/quote" => "</div>",
+            "/url" => "</a>",
+            "/img" => "</img>",
             "*" => "</li><li>"
         );
 
         if(array_key_exists($tag, $tagsArray)) {
             return $tagsArray[$tag];
+        }
+        else if ($tag == "img") {
+             return "<img src='$text' alt='' border='0'>";
+        }
+        else if ($tag == "url")
+        {
+           if ($tagextra == "")
+           {   
+               $text = trim($text);
+               return "<a href='$text'>";
+           }
+           else
+           {    return "<a href='$tagextra'>";
+           }
+        }
+        else if($tag == "quote")
+        {
+           if($tagextra == "")
+              return "<div class='quoter'> Quote:</div><div class='quote'>";
+           else {
+            if(substr($tagextra,0 ,6) == "&quot;" && substr($tagextra, (strlen($tagextra)-6),6) == "&quot;")  $tagextra = substr($tagextra, 6, strlen($tagextra)-12);
+
+            return "<div class='quoter'> $tagextra wrote:</div><div class='quote'>";
+            }
         }
         else
         {   
