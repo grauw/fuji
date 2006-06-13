@@ -62,13 +62,13 @@ class Install1 {
 		?>
 		<table>
 			<tr><td>Type</td><td><select name='db_type'><option value='mysql'>mysql</option><option value='postgre'>postgre(sql)</option><option value='mssql'>MSSQL</option></select></td></tr>
-			<tr><td>Host</td><td><input name='db_host' type='text' value='<?php echo DbVar::$db_host; ?>' /></td></tr>
-			<tr><td>User</td><td><input name='db_user' type='text' value='<?php echo DbVar::$db_user; ?>' /></td></tr>
-			<tr><td>Password</td><td><input name='db_pwd' type='password' value='<?php echo DbVar::$db_pwd; ?>' /></td></tr>
-			<tr><td>Port</td><td><input name='db_port' type='text' value='<?php echo DbVar::$db_port; ?>' /></td></tr>
-			<tr><td>Database name</td><td><input name='db_name' type='text' value='<?php echo DbVar::$db_name; ?>' /></td></tr>
-			<tr><td>Table prefix</td><td><input name='db_tprefix' type='text' value='<?php echo DbVar::$db_tprefix; ?>' /></td></tr>
-			<tr><td>Create database</td><td><input name='db_create' type='checkbox' value='true'/></td></tr>
+			<tr><td>Host</td><td><input name='db_host' type='text' value='' /></td></tr>
+			<tr><td>User</td><td><input name='db_user' type='text' value='' /></td></tr>
+			<tr><td>Password</td><td><input name='db_pwd' type='password' value='' /></td></tr>
+			<tr><td>Port</td><td><input name='db_port' type='text' value='' /></td></tr>
+			<tr><td>Database name</td><td><input name='db_name' type='text' value='' /></td></tr>
+			<tr><td>Table prefix</td><td><input name='db_tprefix' type='text' value='' /></td></tr>
+			<tr><td>Create database</td><td><input name='db_create' type='checkbox' value=''/></td></tr>
 		</table>
 		<?php global $target_phase, $current_phase;
 			  $target_phase = $current_phase;
