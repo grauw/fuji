@@ -20,7 +20,6 @@
 				}
 			?>
 			<!--<span><?php echo L10n::$search ?></span>-->
-			<span><a href="javascript:Fuji.reloadItem('item/<?php echo $entry->id ?>')"><?php echo L10n::$refresh ?></a></span>
 		</div>
 		<div id="threadsTableDiv">
 			<div id="threadsTableDiv" may_post="<?php echo UserManager::getUser()->getRights($entry)->may_post ?>" may_edit="<?php echo UserManager::getUser()->getRights($entry)->may_edit ?>" may_delete="<?php echo UserManager::getUser()->getRights($entry)->may_delete ?>">

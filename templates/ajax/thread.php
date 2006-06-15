@@ -21,7 +21,6 @@ else {$contextId = $entry->getParent()->id;} ?>
 				}
 			?>
 			<!--<span><?php echo L10n::$search ?></span>-->
-			<span><a href="javascript:Fuji.reloadItem('item/<?php echo $entry->id ?>')"><?php echo L10n::$refresh ?></a></span>
 		</div>
 		<div id="postsListDiv">
 			<div class="postDiv">
