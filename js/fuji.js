@@ -5,6 +5,7 @@ Fuji = {
 	editDialog : null,			//pointer to the edit dialog
 	preferencesDialog : null,	//pointer to the preferences dialog
 	newGroupDialog : null,		//pointer to the new group dialog
+	editGroupDialog : null,		//pointer to the new group dialog
 	
 	/**
 	 * Loads the item with the specified URI using XMLHttpRequest
@@ -385,6 +386,38 @@ Fuji = {
 		}
 		document.getElementById('newGroupDialog').style.display = 'block';
 		Fuji.newGroupDialog.show();
+	},
+	editGroup : function(groupId) {
+		/*sTitle = document.getElementById('editGroupTitle').innerHTML;
+		document.getElementById('editGroupTitle').innerHTML = sTitle + ': ' + groupName;*/
+		aElm = document.getElementsByName('rights');
+		for(var i in aElm) if(aElm[i].parentNode.id == groupId){
+			rights = aElm[i].innerHTML.split(", ");
+			break;
+		}
+		if(rights != '') for(var i in rights) document.getElementById(rights[i]).checked = true;
+		document.getElementById('groupId').value = groupId;
+		if(!Fuji.editGroupDialog)
+		{
+			Fuji.editGroupDialog = new YAHOO.widget.Dialog("editGroupDialog", { visible: false, fixedCenter: true, width: '500px' });
+			var handleCancel = function() {
+				this.cancel();
+				document.getElementById('editGroupF').reset();
+				/*document.getElementById('editGroupTitle').innerHTML = document.getElementById('editGroupTitle').innerHTML.substr(0, document.getElementById('editGroupTitle').innerHTML.length-2-groupName.length);*/
+				this.hide();
+			}
+			var handleSubmit = function() {
+				this.submit();
+				//alert('ohoh1');
+				document.getElementById('editGroupF').reset();
+				this.hide();
+				}
+			Fuji.editGroupDialog.cfg.queueProperty("buttons", [ { text:Fuji.messages.ok, handler:handleSubmit, isDefault:true },
+												   { text:Fuji.messages.cancel, handler:handleCancel } ]);
+			Fuji.editGroupDialog.render();
+		}
+		document.getElementById('editGroupDialog').style.display = 'block';
+		Fuji.editGroupDialog.show();
 	}
 }
 Fuji.Util = {

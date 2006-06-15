@@ -15,6 +15,7 @@
 						<td><?php echo L10n::$name ?></td>
 						<td><?php echo L10n::$rights ?></td>
 						<td><?php echo L10n::$num_members ?></td>
+						<td><?php echo L10n::$actions ?></td>
 					</tr>
 				</thead>
 				<tbody>
@@ -25,10 +26,11 @@
 						foreach($groupnames as $groupname) array_push($groups, Group::getGroupByName($groupname));
 						if(count($groups)>0){
 						foreach($groups as $group) { $grouprights = $group->getRights(Entry::getRoot());?>
-					<tr>
+					<tr id="<?php echo $group->id ?>" name="<?php echo $group->id ?>">
 						<td><a href="../#users/<?php echo $group->id ?>"><?php echo $group->name ?></a></td>
-						<td><?php echo $grouprights->toString() ?></td>
+						<td name="rights"><?php echo $grouprights->toString() ?></td>
 						<td><?php echo $group->getNumMembers() ?></td>
+						<td><a href="javascript:Fuji.editGroup('<?php echo $group->id ?>')"><?php echo L10n::$edit ?></a></td>
 					</tr>
 					<?php } ?>
 				<?php } else echo L10n::$error_no_groups ?>

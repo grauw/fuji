@@ -79,7 +79,19 @@
 				<input id="newGroupName" name='groupName' type="text" value='' />
 			</form>
 		</div>
-	</div>	
+	</div>
+	<div id="editGroupDialog" style="display: none">
+		<div id="editGroupTitle" class="hd"><?php echo L10n::$edit_group ?></div>
+		<div id="editGroupForm" class="bd">
+			<form id="editGroupF" name="editGroupF" class="createEditF" method="POST" action="groups/">
+				<label><input type="checkbox" name="read" id="read" /><?php echo L10n::$read ?></label><br />
+				<label><input type="checkbox" name="post" id="post" /><?php echo L10n::$post ?></label><br />
+				<label><input type="checkbox" name="edit" id="edit" /><?php echo L10n::$edit ?></label><br />
+				<label><input type="checkbox" name="delete" id="delete" /><?php echo L10n::$delete ?></label><br />
+				<input type="hidden" name="groupId" id="groupId" />
+			</form>
+		</div>
+	</div>
 	<div id="prefDialog" style="display: none">
 		<div id="prefTitle" class="hd"><?php echo L10n::$preferences ?></div>
 		<div id="prefForm" class="bd">
