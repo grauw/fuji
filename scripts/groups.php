@@ -39,6 +39,11 @@ class Item {
 		if($_POST['groupName']){
 			$data['name'] = $_POST['groupName'];
 			$group = Group::addGroup($data);
+			if($_POST['read']) $array['may_read'] = 1; else $array['may_read'] = 0;
+			if($_POST['post']) $array['may_post'] = 1; else $array['may_post'] = 0;
+			if($_POST['edit']) $array['may_edit'] = 1; else $array['may_edit'] = 0;
+			if($_POST['delete']) $array['may_delete'] = 1; else $array['may_delete'] = 0;
+			$group->updateRights($array);
 		}
 		if($_POST['groupId']){
 			$array = array();
