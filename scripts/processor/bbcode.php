@@ -14,15 +14,7 @@ class BBCode extends Processor {
 
         $input = htmlspecialchars($input);
 
-        // $regexp = '/(.*?)(?:\[([\/?A-Za-z]+)(?:=([A-Za-z]+))?\])|(.+)/';
-        // $regexp = '/(.*?)(?:\[([\/?A-Za-z]+)(?:=([a-zA-Z0-9:&%\/\#\$\-\_\.\+!\*\'\(\),]+)|(\*))?\])|(.+)/';
-
-        //$regexp = '/((?:.|\r\n)*?)(?:\[([\/?A-Za-z]+|\*)(?:=([^]?]+)|(\*)?)?\])|((:?.|\r\n)+)/';
         $regexp = '/([^[]*?)(?:\[([\/?A-Za-z]+|\*)(?:=([^]?]+)|(\*)?)?\])|([^[]+)/';
-        $regexp = '/([^[]*?)(?:\[([\/?A-Za-z]+|\*)(?:=([^]?]+)|(\*)?)?\])|([^[]+)/';
-
-
-        //$regexp= "<([A-Z][A-Z0-9]*)[^>]*>.*?</\1>";
 
         if($input) {
                    $output = preg_match_all($regexp, $input, $matches);//, PREG_PATTERN_ORDER);// + PREG_OFFSET_CAPTURE);
@@ -31,14 +23,13 @@ class BBCode extends Processor {
         }
 
 
-        print_r($matches);
-
-        //$matches = $this->checkTagOrder($matches);
+        //print_r($matches);
 
         $texts    = $matches[1];
         $tags     = $matches[2];
         $tagextra = $matches[3];
         $trailer  = $matches[4];
+		$rest	  = $matches[5]; 	
 
         $result = "";
         $length = count($texts);
@@ -48,16 +39,14 @@ class BBCode extends Processor {
 
             // check ook meteen de goede volgorde
 
-            if ($tags[$i-1] != "img")
+			if ($tags[$i-1] != "img")
                 $result .= $texts[$i] . $this->convertTag($tags[$i], $tagextra[$i], $texts[$i+1]) . $trailer[$i];
         }
 
-        print nl2br("\n\nresult: ".$result);
+		//print nl2br("\n\nresult: ".$result.$rest[count($rest)-1]);
+		
+		return $result.$rest[count($rest)-1];
 
-
-        // parse [b] strings
-        //return preg_replace("[
-        //           [tag]   tekst   [/tag]
     }
 
     function convertTag() {
@@ -133,19 +122,4 @@ class BBCode extends Processor {
              }
         }
     }
-
-    /*function checkTagOrder() {
-        
-        $matches = func_get_arg(0);
-        
-        $texts    = $matches[1];
-        $tags     = $matches[2];
-        $tagextra = $matches[3];
-        $trailer  = $matches[4];
-
-        $stack = array();
-
-        for($i=0;$i<
-        
-    }*/
 }

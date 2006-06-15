@@ -42,6 +42,6 @@ fewfwef
 ';
 
 print "<pre>";
-print_r($bbcode->parse($string));
+print($bbcode->parse($string));
 print "</pre>";
 ?>

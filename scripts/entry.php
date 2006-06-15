@@ -2,6 +2,8 @@
 require_once 'dataclass.php';
 require_once 'database.php';
 require_once 'usermanager.php';
+// Hardcoded BBCode parser, may need changing.
+require_once 'processor/bbcode.php';
 
 class Entry extends Dataclass {
 	
@@ -77,10 +79,11 @@ class Entry extends Dataclass {
 	function getContent() {
 		if(isset($this->contentref))
 		{
+			$bbcode = new BBCode();
 			$data = Database::getArray("SELECT content FROM " . DbVar::$db_tprefix . "content WHERE id = '$this->contentref'");
 			$contentdata = $data[0];
 			if($contentdata['content'])
-				return $contentdata['content'];
+				return $bbcode->parse($contentdata['content']);
 		}
 	}
 	
