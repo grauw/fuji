@@ -16,7 +16,6 @@
 				echo '<li><a href="#users/">'.L10n::$users.'</a></li>'."\n";
 				if(UserManager::isAdmin()) echo '<li><a href="#groups/">'.L10n::$groups.'</a></li>'."\n";
 				echo '<li><a href="javascript:Fuji.logout()">'.L10n::$logout.'</a></li>'."\n";
-				echo Entry::getEntry(2);
 			}
 			echo '</ul>'."\n";
 		?>
