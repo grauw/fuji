@@ -393,6 +393,45 @@ Fuji = {
 		}
 	},	
 	
+	newConfigRightsDialog : function() {
+		if(!Fuji.newConfigRightsDialog)
+		{
+			Fuji.preferencesDialog = new YAHOO.widget.Dialog("prefDialog", { visible: false, fixedCenter: true, effect:{effect:YAHOO.widget.ContainerEffect.FADE, duration:0.25},  width: '325px' });
+			var handleCancel = function() {
+				this.cancel();
+			}
+			var handleSubmit = function() {
+				var oPrefPass1 = document.getElementById('prefPass1');
+				var oPrefPass2 = document.getElementById('prefPass2');
+				var oPrefEmail = document.getElementById('prefEmail');
+				var oPrefPhoto = document.getElementById('prefPhoto');			
+				if(oPrefPass1.value != oPrefPass2.value)
+					alert(Fuji.messages.passwords_do_not_match);
+				else
+				{
+					if(oPrefEmail.value == '')
+						alert(Fuji.messages.email_empty);
+					else
+					{
+						if(oPrefPhoto.value && oPrefPhoto.value.indexOf('http://') != 0)
+							alert(Fuji.messages.invalid_url);
+						else
+						{
+							this.submit();
+							this.hide();
+						}
+					}
+				}
+			}
+			Fuji.preferencesDialog.cfg.queueProperty("buttons", [ { text:Fuji.messages.ok, handler:handleSubmit, isDefault:true },
+												   { text:Fuji.messages.cancel, handler:handleCancel} ]);
+			Fuji.preferencesDialog.cfg.queueProperty("onsuccess", function() {location.reload();});
+			Fuji.preferencesDialog.render();
+		}
+		document.getElementById('prefDialog').style.display = 'block';
+		Fuji.preferencesDialog.show();
+	},
+	
 	/**
 	 * Initialises items when the page is loaded
 	 */

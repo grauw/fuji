@@ -124,5 +124,18 @@ class Group extends Dataclass {
 		$groupdata = $data[0];
 		return new Group($groupdata);				
 	}
+	
+	/**
+	 * Get all groups
+	 * @returns Group-array
+	 */
+	function getAllGroups()
+	{
+		echo count($data);
+		$data2 = array();
+		$data = Database::getArray("SELECT * FROM " . Database::$db_tprefix . "groups");
+		echo count($data);
+		//for ($i = 0; i < count($data); $i++ )$data2[i] = new Group($data[i]);
+	}
 }
 ?>

@@ -109,6 +109,7 @@
 			</form>
 		</div>
 	</div>
+	<div id="configRightsDialog" style="display: none" />
 	<div id="prefDialog" style="display: none">
 		<div id="prefTitle" class="hd"><?php echo L10n::$preferences ?></div>
 		<div id="prefForm" class="bd">

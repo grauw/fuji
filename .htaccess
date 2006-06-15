@@ -53,3 +53,7 @@ RewriteRule ^groups/$ scripts/groups.php [L,QSA]
 
 # GET /users/<groupid>
 RewriteRule ^users/(\d+)$  scripts/userlist.php?groupid=$1 [L,QSA]
+
+
+# GET /config_rights/<id>
+RewriteRule ^config_rights/(\d+)$ scripts/config_rights.php?id=$1 [L,QSA]
