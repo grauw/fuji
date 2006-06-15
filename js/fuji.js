@@ -374,11 +374,10 @@ Fuji = {
 				this.hide();
 			}
 			var handleSubmit = function() {
-				alert(this.id);
 				this.submit();
-				alert('ohoh1');
 				document.getElementById('newGroupF').reset();			
 				this.hide();
+				window.location.reload()
 				}
 			Fuji.newGroupDialog.cfg.queueProperty("buttons", [ { text:Fuji.messages.ok, handler:handleSubmit, isDefault:true },
 												   { text:Fuji.messages.cancel, handler:handleCancel } ]);
@@ -411,7 +410,8 @@ Fuji = {
 				//alert('ohoh1');
 				document.getElementById('editGroupF').reset();
 				this.hide();
-				}
+				window.location.reload()
+			}
 			Fuji.editGroupDialog.cfg.queueProperty("buttons", [ { text:Fuji.messages.ok, handler:handleSubmit, isDefault:true },
 												   { text:Fuji.messages.cancel, handler:handleCancel } ]);
 			Fuji.editGroupDialog.render();
