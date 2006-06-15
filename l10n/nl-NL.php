@@ -1,6 +1,7 @@
 <?php
 
 class L10n {
+	static $actions	= 'Acties';
 	static $admin = 'Beheerder';
 	static $cancel = 'Annuleren';
 	static $contact_administrator = 'Neem contact op met de serverbeheerder voor meer informatie.';	

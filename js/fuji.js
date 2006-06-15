@@ -425,6 +425,7 @@ Fuji = {
 			Fuji.newGroupDialog = new YAHOO.widget.Dialog("newGroupDialog", { visible: false, fixedCenter: true, width: '500px' });
 			var handleCancel = function() {
 				this.cancel();
+				alert('error');
 				document.getElementById('newGroupF').reset();			
 				this.hide();
 			}
@@ -432,10 +433,10 @@ Fuji = {
 				this.submit();
 				document.getElementById('newGroupF').reset();			
 				this.hide();
-				window.location.reload()
 				}
 			Fuji.newGroupDialog.cfg.queueProperty("buttons", [ { text:Fuji.messages.ok, handler:handleSubmit, isDefault:true },
 												   { text:Fuji.messages.cancel, handler:handleCancel } ]);
+			Fuji.newGroupDialog.cfg.queueProperty("onsuccess", function() {Fuji.reloadItem("groups/");});
 			Fuji.newGroupDialog.render();
 		}
 		document.getElementById('newGroupDialog').style.display = 'block';
