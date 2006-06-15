@@ -28,15 +28,20 @@ class Item {
 		UserManager::authenticate();
 		$id = isset($_GET['id']) ? intval($_GET['id']) : 1;
 		$entry = Entry::getEntry($id);
-		if (UserManager::getUser()->getRights($entry)->may_read) {
-			$template = Template::getTemplate(2);
-			$template->apply($entry, $template);
+		if($entry)
+		{
+			if (UserManager::getUser()->getRights($entry)->may_read) {
+				$template = Template::getTemplate(2);
+				$template->apply($entry, $template);
+			}
+			else {			
+				$lang = UserManager::getUser()->language;
+				$template = Template::getTemplate(2);
+				$template->failInsufficientRights($template);
+			}
 		}
-		else {			
-			$lang = UserManager::getUser()->language;
-			$template = Template::getTemplate(2);
-			$template->failInsufficientRights($template);
-		}
+		else
+		header('HTTP/1.0 404 Not Found');			
 	}
 	
 	function httpPost()
@@ -72,6 +77,7 @@ class Item {
 		{
 			$entry = Entry::getEntry($id);
 			if($entry)	$entry->remove();
+			else		header('HTTP/1.0 404 Not Found');
 		}
 	}
 	

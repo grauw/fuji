@@ -5,6 +5,7 @@ Fuji = {
 	editDialog : null,			//pointer to the edit dialog
 	preferencesDialog : null,	//pointer to the preferences dialog
 	newGroupDialog : null,		//pointer to the new group dialog
+	errorDialog : null,			//pointer to the error dialog	
 	editGroupDialog : null,		//pointer to the new group dialog
 	
 	/**
@@ -46,7 +47,7 @@ Fuji = {
 		var callback =
 		{
 			success: Fuji.loadSuccess,
-			failure: function(o) {alert('failure: ',o.argument.uri)},
+			failure: Fuji.newErrorDialog,
 			argument: { uri: uri, oDocument: oDocument, sURI: sURI }
 		}
 		YAHOO.util.Connect.asyncRequest('GET', uri, callback, null);
@@ -128,7 +129,7 @@ Fuji = {
 		var callback =
 		{
 			success: Fuji.loadSuccess,
-			failure: function(o) {alert('failure')},
+			failure: Fuji.newErrorDialog,
 			argument: []
 		}
 		YAHOO.util.Connect.asyncRequest('GET', 'menu/', callback, null); 
@@ -144,7 +145,7 @@ Fuji = {
 		document.getElementById('createRef').value = iId;
 		if(!Fuji.createDialog)
 		{
-			Fuji.createDialog = new YAHOO.widget.Dialog("createDialog", { visible: false, fixedCenter: true, width: '300px' });
+			Fuji.createDialog = new YAHOO.widget.Dialog("createDialog", { visible: false, fixedCenter: true, effect:{effect:YAHOO.widget.ContainerEffect.FADE, duration:0.25}, width: '300px' });
 			var handleCancel = function() {
 				this.cancel();
 				document.getElementById('createF').reset();			
@@ -204,7 +205,7 @@ Fuji = {
 		var callback =
 		{
 			success: function(o) {Fuji.reloadItem('item/' + iPId); location.hash='#item/' + iPId},
-			failure: function(o) {alert('failure')},
+			failure: Fuji.newErrorDialog,
 			argument: []
 		}
 		YAHOO.util.Connect.asyncRequest('DELETE', 'item/' + iId, callback, null); 
@@ -217,7 +218,7 @@ Fuji = {
 	newEditDialog : function(iId) {
 		if(!Fuji.editDialog)		
 		{
-			Fuji.editDialog = new YAHOO.widget.Dialog("editDialog", { visible: false, fixedCenter: true, width: '300px' });
+			Fuji.editDialog = new YAHOO.widget.Dialog("editDialog", { visible: false, fixedCenter: true, effect:{effect:YAHOO.widget.ContainerEffect.FADE, duration:0.25}, width: '300px' });
 			var handleCancel = function() {
 				document.getElementById('editF').reset();
 				this.cancel();
@@ -233,7 +234,7 @@ Fuji = {
 		var callback =
 		{
 			success: Fuji.updateEditDialog,
-			failure: function(o) {alert('failure')},
+			failure: Fuji.newErrorDialog,
 			argument: []
 		}
 		document.getElementById('editEntryid').value = iId;
@@ -263,7 +264,7 @@ Fuji = {
 		var callback =
 		{
 			success: function(o) {Fuji.reloadItem('item/' + iId, 999)},
-			failure: function(o) {alert('failure')},
+			failure: Fuji.newErrorDialog,
 			argument: []
 		}
 		YAHOO.util.Connect.setForm('editF');
@@ -301,7 +302,7 @@ Fuji = {
 	newPreferencesDialog : function() {
 		if(!Fuji.preferencesDialog)
 		{
-			Fuji.preferencesDialog = new YAHOO.widget.Dialog("prefDialog", { visible: false, fixedCenter: true, width: '325px' });
+			Fuji.preferencesDialog = new YAHOO.widget.Dialog("prefDialog", { visible: false, fixedCenter: true, effect:{effect:YAHOO.widget.ContainerEffect.FADE, duration:0.25},  width: '325px' });
 			var handleCancel = function() {
 				this.cancel();
 			}
@@ -338,6 +339,60 @@ Fuji = {
 	},
 	
 	/**
+	 * Creates an error message dialog
+	 * @param oResponse The XMLHTTPRequest response-object
+	 */
+	newErrorDialog : function(oResponse) {
+		if(!Fuji.errorDialog)
+		{
+			Fuji.errorDialog = new YAHOO.widget.SimpleDialog("dlg", { 
+				width: "400px", 
+				effect:{effect:YAHOO.widget.ContainerEffect.FADE, duration:0.25}, 
+				fixedcenter:true,
+				modal:true,
+				draggable:false });
+	
+			Fuji.errorDialog.setHeader(Fuji.messages.error);
+			
+			var sErrorMessage = '<p>' + Fuji.messages.error_loading_resource + ' ' + oResponse.argument.uri + '.</p>';
+			if(oResponse.status == '401')
+			{
+				sErrorMessage += '<p>' + Fuji.messages.error_insufficient_rights + '</p>';
+				sErrorMessage += '<p>' + Fuji.messages.possible_reasons;
+				sErrorMessage += '<ul><li>' + Fuji.messages.error_restricted_forum + '</li>';
+				sErrorMessage += '<li>' + Fuji.messages.error_rights_revoked + '</li>';
+				sErrorMessage += '<li>' + Fuji.messages.error_anonymous + '</li>';
+				sErrorMessage += '<li>' + Fuji.messages.error_server_misconfiguration + '</li></ul></p>';
+			}
+			else if(oResponse.status == '404')
+			{
+				sErrorMessage += '<p>' + Fuji.messages.error_resource_cannot_be_found + '</p>';
+				sErrorMessage += '<p>' + Fuji.messages.possible_reasons;
+				sErrorMessage += '<ul><li>' + Fuji.messages.error_resource_cannot_be_found + '</li>';
+				sErrorMessage += '<li>' + Fuji.messages.error_invalid_url + '</li>';
+				sErrorMessage += '<li>' + Fuji.messages.error_server_misconfiguration + '</li></ul></p>';
+			}
+			else
+			{
+				sErrorMessage += '<p>' + Fuji.messages.error_unknown + ' ' + oResponse.status + ' ' + oResponse.statusText + '.</p>';
+				sErrorMessage += '<p>' + Fuji.messages.possible_reasons;
+				sErrorMessage += '<ul><li>' + Fuji.messages.error_server_misconfiguration + '</li>';
+				sErrorMessage += '<li>' + Fuji.messages.error_bug + '</li></ul></p>';
+				sErrorMessage += '<p>' + Fuji.messages.contact_administrator + '</p>'
+			}
+			Fuji.errorDialog.setBody(sErrorMessage);
+			Fuji.errorDialog.cfg.setProperty("icon", YAHOO.widget.SimpleDialog.ICON_BLOCK);		
+			
+			var handleOK = function() {
+				this.hide();
+			}
+			
+			Fuji.errorDialog.cfg.queueProperty("buttons", [ { text:Fuji.messages.ok, handler:handleOK } ]);
+			Fuji.errorDialog.render(document.body);
+		}
+	},	
+	
+	/**
 	 * Initialises items when the page is loaded
 	 */
 	init : function() {
@@ -353,14 +408,14 @@ Fuji = {
 	login : function() {
 		var callback = {
 			success: function(o) {window.location.reload()},
-			failure: function(o) {alert('failure')}
+			failure: Fuji.newErrorDialog
 		}
 		YAHOO.util.Connect.asyncRequest('POST', 'login', callback);
 	},
 	logout : function() {
 		var callback = {
 			success: function(o) {window.location.reload()},
-			failure: function(o) {window.location.reload()}
+			failure: Fuji.newErrorDialog
 		}
 		YAHOO.util.Connect.asyncRequest('POST', 'logout', callback);
  	},
