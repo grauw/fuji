@@ -82,13 +82,7 @@ class InstallDb
 							array('may_post', 'L', 'NOTNULL', 'DEFAULT' => '0'),
 							array('may_edit', 'L', 'NOTNULL', 'DEFAULT' => '0'),
 							array('may_delete', 'L', 'NOTNULL', 'DEFAULT' => '0') ) ),
-
-/*							array('sessions',
-							array(
-							array('id', 'C', 40, 'KEY'),
-							array('data', 'C', 255, 'NOTNULL'),							
-							array('lastused', 'C', 255, 'NOTNULL') ) ),
-*/							
+					
 							array('postpostprocessors',
 							array(
 							array('id', 'I', 'UNSIGNED', 'AUTO', 'KEY'),
@@ -98,20 +92,21 @@ class InstallDb
 							array(
 							array('id', 'I', 'UNSIGNED', 'AUTO', 'KEY'),
 							array('name', 'X', 'NOTNULL'),
-							array('file', 'X', 'NOTNULL'),
-							array('isdefault', 'L', 'NOTNULL', 'DEFAULT' => '0'))),
+							array('file', 'X', 'NOTNULL'))),
 							
 							array('languages',
 							array(
 							array('id', 'C', 5, 'KEY'),
-							array('name', 'C', 255, 'NOTNULL')))							
+							array('name', 'C', 255, 'NOTNULL'))),
+							
+							array('defaults',
+							array(
+							array('name', 'C', 255, 'KEY'),
+							array('value', 'C', 255, 'NOTNULL')))							
 						);
 		foreach($entries as $entry)
 		{
 			$result = $dict->ExecuteSQLArray($dict->CreateTableSQL(DbVar::$db_tprefix . $entry[0], $entry[1]));
-			/*if($result == 2) echo '<font style="color:green">' . $entry[0] . " was executed successfully</font><br />";
-			elseif($result == 1) echo '<font style="color:yellow">' . $entry[0] . " was executed with errors</font><br />";
-			elseif($result == 0) echo '<font style="color:red">' . $entry[0] . " was not executed</font><br />";*/
 		}
 	}
 	
@@ -151,10 +146,12 @@ class InstallDb
 		Database::execute("INSERT INTO viewtemplates (templateref, typeref, location) VALUES ('2', '2', 'forum.php')");
 		Database::execute("INSERT INTO viewtemplates (templateref, typeref, location) VALUES ('2', '3', 'forum.php')");
 		Database::execute("INSERT INTO viewtemplates (templateref, typeref, location) VALUES ('2', '4', 'thread.php')");		
-		Database::execute("INSERT INTO styles (name, file, isdefault) VALUES ('Dark Fuji', 'dark.xml', '1')");
 		Database::execute("INSERT INTO styles (name, file) VALUES ('Default Fuji', 'default.xml')");
+		Database::execute("INSERT INTO styles (name, file) VALUES ('Dark Fuji', 'dark.xml')");
 		Database::execute("INSERT INTO languages (id, name) VALUES ('en-GB', 'English (Great Britain)')");
 		Database::execute("INSERT INTO languages (id, name) VALUES ('nl-NL', 'Nederlands (Nederland)')");
+		Database::execute("INSERT INTO defaults (name, value) VALUES ('language', 'en-GB')");
+		Database::execute("INSERT INTO defaults (name, value) VALUES ('style', 'Default Fuji')");
 	}
 }
 ?>

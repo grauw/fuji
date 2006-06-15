@@ -20,7 +20,9 @@ class StyleXML {
 			$data = Database::getArray("SELECT * FROM " . Database::$db_tprefix . "styles WHERE id =".UserManager::getUser()->style); 
 		}
 		else {
-			$data = Database::getArray("SELECT * FROM " . Database::$db_tprefix . "styles WHERE isdefault = true");
+			$default = Database::getArray("SELECT value FROM " . Database::$db_tprefix . "defaults WHERE name = 'style'");
+			$default = $default[0][0];
+			$data = Database::getArray("SELECT * FROM " . Database::$db_tprefix . "styles WHERE name = '$default'");
 		}
 		$selected = $data[0];
 		return new StyleXML(self::getPath($depth)."style/".$selected[2], $depth);
