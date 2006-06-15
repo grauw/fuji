@@ -58,6 +58,7 @@ Fuji = {
 	 * @param {Object} oXMLHttpObject The response object
 	 */		
 	loadSuccess : function(oXMLHttpObject) {
+		if(!oXMLHttpObject.responseXML) return; //To prevent loops when you have insufficient rights
 		var oDocument = oXMLHttpObject.responseXML;
 		if(!oDocument.documentElement) //Internet Explorer-hack
 		{

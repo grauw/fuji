@@ -148,7 +148,7 @@ class User extends Dataclass {
 		$userrights = array();
 		if($entry->userref == $this->id)
 			$userrights += Rights::$owner_rights;
-		if(count($userrights) > 0)
+		if(count($groups) > 0)
 		{
 			foreach($groups as $group)
 			{
