@@ -35,7 +35,6 @@ class Item {
 				$template->apply($entry, $template);
 			}
 			else {			
-				$lang = UserManager::getUser()->language;
 				$template = Template::getTemplate(2);
 				$template->failInsufficientRights($template);
 			}
