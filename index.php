@@ -101,11 +101,11 @@
 		<div id="editGroupTitle" class="hd"><?php echo L10n::$edit_group ?></div>
 		<div id="editGroupForm" class="bd">
 			<form id="editGroupF" name="editGroupF" class="createEditF" method="POST" action="groups/">
-				<label><input type="checkbox" name="read" id="read" /><?php echo L10n::$read ?></label><br />
-				<label><input type="checkbox" name="post" id="post" /><?php echo L10n::$post ?></label><br />
-				<label><input type="checkbox" name="edit" id="edit" /><?php echo L10n::$edit ?></label><br />
-				<label><input type="checkbox" name="delete" id="delete" /><?php echo L10n::$delete ?></label><br />
-				<input type="hidden" name="groupId" id="groupId" />
+				<label><input type="checkbox" name="editGroupRead" id="editGroupRead" /><?php echo L10n::$read ?></label><br />
+				<label><input type="checkbox" name="editGroupPost" id="editGroupPost" /><?php echo L10n::$post ?></label><br />
+				<label><input type="checkbox" name="editGroupEdit" id="editGroupEdit" /><?php echo L10n::$edit ?></label><br />
+				<label><input type="checkbox" name="editGroupDelete" id="editGroupDelete" /><?php echo L10n::$delete ?></label><br />
+				<input type="hidden" name="editGroupId" id="editGroupId" />
 			</form>
 		</div>
 	</div>

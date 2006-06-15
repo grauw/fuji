@@ -7,6 +7,7 @@ class L10n {
 	static $contact_administrator = 'Neem contact op met de serverbeheerder voor meer informatie.';	
 	static $delete = 'Verwijderen';
 	static $edit = 'Bewerken';
+	static $edit_group = 'Bewerk groep';
 	static $email = 'E-mail';
 	static $email_address = 'E-mailadres';
 	static $email_empty = 'E-mailadres mag niet leeg zijn';		
@@ -48,6 +49,7 @@ class L10n {
 	static $password = 'Wachtwoord';
 	static $passwords_do_not_match = 'Wachtwoorden komen niet overeen';	
 	static $possible_reasons = 'Mogelijke oorzaken:';
+	static $post = 'Schrijven';	
 	static $poster = 'Afzender';
 	static $posts = 'Berichten';
 	static $preferences = 'Voorkeuren';	

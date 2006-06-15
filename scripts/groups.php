@@ -39,19 +39,19 @@ class Item {
 		if($_POST['groupName']){
 			$data['name'] = $_POST['groupName'];
 			$group = Group::addGroup($data);
-			if($_POST['read']) $array['may_read'] = 1; else $array['may_read'] = 0;
-			if($_POST['post']) $array['may_post'] = 1; else $array['may_post'] = 0;
-			if($_POST['edit']) $array['may_edit'] = 1; else $array['may_edit'] = 0;
-			if($_POST['delete']) $array['may_delete'] = 1; else $array['may_delete'] = 0;
+			if($_POST['newGroupRead']) $array['may_read'] = 1; else $array['may_read'] = 0;
+			if($_POST['newGroupPost']) $array['may_post'] = 1; else $array['may_post'] = 0;
+			if($_POST['newGroupEdit']) $array['may_edit'] = 1; else $array['may_edit'] = 0;
+			if($_POST['newGroupDelete']) $array['may_delete'] = 1; else $array['may_delete'] = 0;
 			$group->updateRights($array);
 		}
-		if($_POST['groupId']){
+		if($_POST['editGroupId']){
 			$array = array();
-			$group = Group::getGroup($_POST['groupId']);
-			if($_POST['read']) $array['may_read'] = 1; else $array['may_read'] = 0;
-			if($_POST['post']) $array['may_post'] = 1; else $array['may_post'] = 0;
-			if($_POST['edit']) $array['may_edit'] = 1; else $array['may_edit'] = 0;
-			if($_POST['delete']) $array['may_delete'] = 1; else $array['may_delete'] = 0;
+			$group = Group::getGroup($_POST['editGroupId']);
+			if($_POST['editGroupRead']) $array['may_read'] = 1; else $array['may_read'] = 0;
+			if($_POST['editGroupPost']) $array['may_post'] = 1; else $array['may_post'] = 0;
+			if($_POST['editGroupEdit']) $array['may_edit'] = 1; else $array['may_edit'] = 0;
+			if($_POST['editGroupDelete']) $array['may_delete'] = 1; else $array['may_delete'] = 0;
 			$group->updateRights($array);
 		}
 		

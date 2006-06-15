@@ -442,34 +442,28 @@ Fuji = {
 		document.getElementById('newGroupDialog').style.display = 'block';
 		Fuji.newGroupDialog.show();
 	},
-	editGroup : function(groupId) {
-		/*sTitle = document.getElementById('editGroupTitle').innerHTML;
-		document.getElementById('editGroupTitle').innerHTML = sTitle + ': ' + groupName;*/
-		aElm = document.getElementsByName('rights');
-		for(var i in aElm) if(aElm[i].parentNode.id == groupId){
-			rights = aElm[i].innerHTML.split(", ");
-			break;
-		}
-		if(rights != '') for(var i in rights) document.getElementById(rights[i]).checked = true;
-		document.getElementById('groupId').value = groupId;
+	editGroup : function(groupId, rRead, rPost, rEdit, rDelete) {
+		document.getElementById('editGroupId').value = groupId;
+		document.getElementById('editGroupRead').checked = rRead;
+		document.getElementById('editGroupPost').checked = rPost;
+		document.getElementById('editGroupEdit').checked = rEdit;
+		document.getElementById('editGroupDelete').checked = rDelete;
 		if(!Fuji.editGroupDialog)
 		{
 			Fuji.editGroupDialog = new YAHOO.widget.Dialog("editGroupDialog", { visible: false, fixedCenter: true, width: '500px' });
 			var handleCancel = function() {
 				this.cancel();
 				document.getElementById('editGroupF').reset();
-				/*document.getElementById('editGroupTitle').innerHTML = document.getElementById('editGroupTitle').innerHTML.substr(0, document.getElementById('editGroupTitle').innerHTML.length-2-groupName.length);*/
 				this.hide();
 			}
 			var handleSubmit = function() {
 				this.submit();
-				//alert('ohoh1');
 				document.getElementById('editGroupF').reset();
 				this.hide();
-				window.location.reload()
 			}
 			Fuji.editGroupDialog.cfg.queueProperty("buttons", [ { text:Fuji.messages.ok, handler:handleSubmit, isDefault:true },
 												   { text:Fuji.messages.cancel, handler:handleCancel } ]);
+			Fuji.editGroupDialog.cfg.queueProperty("onsuccess", function() {Fuji.reloadItem("groups/");});
 			Fuji.editGroupDialog.render();
 		}
 		document.getElementById('editGroupDialog').style.display = 'block';

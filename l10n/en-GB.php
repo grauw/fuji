@@ -7,6 +7,7 @@ class L10n {
 	static $contact_administrator = 'Contact the server administrator for more information.';
 	static $delete = 'Delete';
 	static $edit = 'Edit';
+	static $edit_group = 'Edit group';
 	static $email = 'E-Mail';
 	static $email_address = 'E-Mail address';
 	static $email_empty = 'E-Mail address cannot be empty';
@@ -48,6 +49,7 @@ class L10n {
 	static $password = 'Password';
 	static $passwords_do_not_match = 'Passwords do not match';
 	static $possible_reasons = 'Possible reasons:';
+	static $post = 'Post';
 	static $poster = 'Poster';
 	static $posts = 'Posts';
 	static $preferences = 'Preferences';
