@@ -53,6 +53,7 @@ class L10n {
 	static $preferences = 'Voorkeuren';	
 	static $profile = 'Profiel';
 	static $profile_photo = 'Profielfoto';
+	static $read = 'Lezen';
 	static $reenter_your_new_password = 'Voer uw nieuwe wachtwoord nogmaals in';	
 	static $refresh = 'Vernieuwen';
 	static $register = 'Registreer';

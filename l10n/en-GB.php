@@ -53,6 +53,7 @@ class L10n {
 	static $preferences = 'Preferences';
 	static $profile = 'Profile';
 	static $profile_photo = 'Profile photo';
+	static $read = 'Read';
 	static $reenter_your_new_password = 'Reenter your new password';
 	static $refresh = 'Refresh';
 	static $register = 'Register';
@@ -69,6 +70,7 @@ class L10n {
 	static $users = 'Users';
 	static $visible_in_profile = 'Visible in profile';	
 	static $warning = 'Warning';
+
 }
 
 ?>
