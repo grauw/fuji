@@ -55,8 +55,10 @@
 							<td><a href="#item/<?php echo $post->id ?>"><?php echo $post->title ?></a></td>
 							<td><a href="profile/<?php echo User::getUser($entry->userref)->id ?>" target="_blank"><?php echo User::getUser($entry->userref)->nickname ?></a></td>
 							<td><?php echo count($post->getChildren()) ?></td>
-							<td><?php echo $post->modified ?></td>
-						
+							<td><?php echo $post->modified?><?php 
+								if (UserManager::isAdmin()) 
+								{ ?><a href="javascript:Fuji.newConfigRightsDialog('<?php echo $entry->id ?>')"><?php echo L10n::$config_rights ?></a><?php } ?>
+							</td>
 						<?php } else { ?>
 						<tr entryid="<?php echo $post->id ?>" entrytitle="<?php echo $post->title ?>" class="tableUnsupportedEntry">				
 							(<?php echo L10n::$type_unsupported ?>)

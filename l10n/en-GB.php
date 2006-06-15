@@ -4,6 +4,7 @@ class L10n {
 	static $actions	= 'Actions';
 	static $admin = 'Administrator';
 	static $cancel = 'Cancel';
+	static $config_rights = 'Configure rights';
 	static $contact_administrator = 'Contact the server administrator for more information.';
 	static $delete = 'Delete';
 	static $edit = 'Edit';
