@@ -21,6 +21,8 @@ else {$contextId = $entry->getParent()->id;} ?>
 				}
 			?>
 			<!--<span><?php echo L10n::$search ?></span>-->
+			<span><a type="application/rss+xml" href="rss/<?php echo $entry->id ?>"><img style="vertical-align: middle" src="style/default/graphics/feed-icon.gif" border="0" alt="<?php echo L10n::$subscribe_to_rss ?>" /></a><a type="application/rss+xml" href="rss/<?php echo $entry->id ?>">&#160;RSS</a></span>
+			<span><a type="application/atom+xml" href="atom/<?php echo $entry->id ?>"><img style="vertical-align: middle" src="style/default/graphics/feed-icon.gif" border="0" alt="<?php echo L10n::$subscribe_to_atom ?>" /></a><a type="application/atom+xml" href="atom/<?php echo $entry->id ?>">&#160;Atom</a></span>
 		</div>
 		<div id="postsListDiv">
 			<div class="postDiv">

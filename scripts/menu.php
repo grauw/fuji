@@ -21,7 +21,7 @@ class Menu {
 	{
 		UserManager::authenticate();
 		$action = isset($_GET['action']) ? $_GET['action'] : 0;
-		$template = Template::getTemplate(2);
+		$template = Template::getTemplate('AJAX');
 		$template->applyMenu($template);
 	}
 	

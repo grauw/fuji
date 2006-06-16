@@ -29,6 +29,22 @@ class Entry extends Dataclass {
 	}
 	
 	/**
+	 * Get entries by type
+	 * @param String orderby The column to order the entries by
+	 * @param String limit The limit of entries
+	 * @returns array of Entries
+	 */
+	static function getEntriesByType($type, $orderby = null, $limit = null) {
+		$entries = array();
+		$entriesdata = Database::getArray("SELECT * FROM " . DbVar::$db_tprefix . "entries WHERE type = '$type'" . (isset($orderby) ? " ORDER BY $orderby" : "") . (isset($limit) ? " LIMIT $limit" : ""));
+		foreach($entriesdata as $entrydata)
+		{
+			array_push($entries, new Entry($entrydata));
+		}
+		return $entries;
+	}	
+	
+	/**
 	 * adds an Entry to the entry table. If content is given it adds content to the content table.
 	 * @param {array}  $data hash/assoc array. Key = column name in table, value is value.
 	 * @returns the new Entry
@@ -103,11 +119,13 @@ class Entry extends Dataclass {
 	
 	/**
 	 * Get entry's children
+	 * @param String orderby The column to order the entries by
+	 * @param String limit The limit of children
 	 * @returns array of child Entries
 	 */
-	function getChildren() {
+	function getChildren($orderby = null, $limit = null) {
 		$children = array();
-		$childrendata = Database::getArray("SELECT * FROM " . DbVar::$db_tprefix . "entries WHERE ref = '$this->id'");
+		$childrendata = Database::getArray("SELECT * FROM " . DbVar::$db_tprefix . "entries WHERE ref = '$this->id'" . (isset($orderby) ? " ORDER BY $orderby" : "") . (isset($limit) ? " LIMIT $limit" : ""));
 		foreach($childrendata as $entrydata)
 		{
 			array_push($children, new Entry($entrydata));

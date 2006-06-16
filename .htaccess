@@ -54,6 +54,17 @@ RewriteRule ^groups/$ scripts/groups.php [L,QSA]
 # GET /users/<groupid>
 RewriteRule ^users/(\d+)$  scripts/userlist.php?groupid=$1 [L,QSA]
 
-
 # GET /config_rights/<id>
 RewriteRule ^config_rights/(\d+)$ scripts/config_rights.php?id=$1 [L,QSA]
+
+# GET /rss/<id>
+RewriteRule ^rss/(\d+)$ scripts/rss.php?id=$1 [L,QSA]
+
+# GET /rss/
+RewriteRule ^rss/$ scripts/rss.php [L,QSA]
+
+# GET /atom/<id>
+RewriteRule ^atom/(\d+)$ scripts/atom.php?id=$1 [L,QSA]
+
+# GET /atom/<id>
+RewriteRule ^atom/$ scripts/atom.php [L,QSA]

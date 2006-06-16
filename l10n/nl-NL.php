@@ -65,6 +65,8 @@ class L10n {
 	static $rights = 'Rechten';
 	static $search = 'Zoeken';
 	static $style = 'Stijl';
+	static $subscribe_to_atom = 'Abonneer op Atom feed';
+	static $subscribe_to_rss = 'Abonneer op RSS feed';	
 	static $sure_delete_item = 'Weet u zeker dat u dit bericht wilt verwijderen?';	
 	static $threads = 'Threads';
 	static $title = 'Titel';

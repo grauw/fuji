@@ -13,6 +13,10 @@
 	<title>Fuji</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<?php StyleXML::getStyleXML()->getStyleSheets(); ?>
+	<link id="rsslink" rel="alternate" type="application/rss+xml" href="rss/" />
+	<link id="atomlink" rel="alternate" type="application/atom+xml" href="atom/" />
+	<link rel="home" type="application/rss+xml" href="rss/" />
+	<link rel="home" type="application/atom+xml" href="atom/" />
 	<script type="text/javascript" src="js/yui/yahoo/yahoo.js"></script>
 	<script type="text/javascript" src="js/yui/dom/dom.js"></script>
 	<script type="text/javascript" src="js/yui/event/event.js"></script>

@@ -65,6 +65,8 @@ class L10n {
 	static $rights = 'Rights';
 	static $search = 'Search';
 	static $style = 'Style';
+	static $subscribe_to_atom = 'Subscribe to Atom feed';
+	static $subscribe_to_rss = 'Subscribe to RSS feed';
 	static $sure_delete_item = 'Are you sure you want to delete this item';
 	static $threads = 'Threads';
 	static $title = 'Title';

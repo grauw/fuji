@@ -31,11 +31,11 @@ class Item {
 		if($entry)
 		{
 			if (UserManager::getUser()->getRights($entry)->may_read) {
-				$template = Template::getTemplate(2);
+				$template = Template::getTemplate('AJAX');
 				$template->apply($entry, $template);
 			}
 			else {			
-				$template = Template::getTemplate(2);
+				$template = Template::getTemplate('AJAX');
 				$template->failInsufficientRights($template);
 			}
 		}

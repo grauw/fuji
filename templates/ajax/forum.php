@@ -20,6 +20,8 @@
 				}
 			?>
 			<!--<span><?php echo L10n::$search ?></span>-->
+			<span><a type="application/rss+xml" href="rss/<?php echo $entry->id ?>"><img style="vertical-align: middle" src="style/default/graphics/feed-icon.gif" border="0" alt="<?php echo L10n::$subscribe_to_rss ?>" /></a><a type="application/rss+xml" href="rss/<?php echo $entry->id ?>">&#160;RSS</a></span>
+			<span><a type="application/atom+xml" href="atom/<?php echo $entry->id ?>"><img style="vertical-align: middle" src="style/default/graphics/feed-icon.gif" border="0" alt="<?php echo L10n::$subscribe_to_atom ?>" /></a><a type="application/atom+xml" href="atom/<?php echo $entry->id ?>">&#160;Atom</a></span>			
 		</div>
 		<div id="threadsTableDiv">
 			<div id="threadsTableDiv" may_post="<?php echo UserManager::getUser()->getRights($entry)->may_post ?>" may_edit="<?php echo UserManager::getUser()->getRights($entry)->may_edit ?>" may_delete="<?php echo UserManager::getUser()->getRights($entry)->may_delete ?>">

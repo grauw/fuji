@@ -18,6 +18,8 @@ Fuji = {
 		} else {
 			Fuji.reloadItem(uri);
 		}
+		document.getElementById('rsslink').href = 'rss/' + uri.replace('item/','');
+		document.getElementById('atomlink').href = 'atom/' + uri.replace('item/','');		
 	},
 	
 	/**
