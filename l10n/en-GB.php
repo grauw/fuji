@@ -3,6 +3,8 @@
 class L10n {
 	static $actions	= 'Actions';
 	static $admin = 'Administrator';
+	static $at = 'at';
+	static $back = 'Back';
 	static $cancel = 'Cancel';
 	static $config_rights = 'Configure rights';
 	static $contact_administrator = 'Contact the server administrator for more information.';
@@ -51,6 +53,7 @@ class L10n {
 	static $passwords_do_not_match = 'Passwords do not match';
 	static $possible_reasons = 'Possible reasons:';
 	static $post = 'Post';
+	static $posted_by = 'Posted by';
 	static $poster = 'Poster';
 	static $posts = 'Posts';
 	static $preferences = 'Preferences';

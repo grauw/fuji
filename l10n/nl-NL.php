@@ -3,6 +3,8 @@
 class L10n {
 	static $actions	= 'Acties';
 	static $admin = 'Beheerder';
+	static $at = 'op';
+	static $back = 'Terug';
 	static $cancel = 'Annuleren';
 	static $config_rights = 'Configureer rechten';
 	static $contact_administrator = 'Neem contact op met de serverbeheerder voor meer informatie.';	
@@ -50,7 +52,8 @@ class L10n {
 	static $password = 'Wachtwoord';
 	static $passwords_do_not_match = 'Wachtwoorden komen niet overeen';	
 	static $possible_reasons = 'Mogelijke oorzaken:';
-	static $post = 'Schrijven';	
+	static $post = 'Schrijven';
+	static $posted_by = 'Gepost door';	
 	static $poster = 'Afzender';
 	static $posts = 'Berichten';
 	static $preferences = 'Voorkeuren';	

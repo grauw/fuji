@@ -140,6 +140,7 @@ class InstallDb
 		Database::execute("INSERT INTO templates (name, public, basedir) VALUES ('AJAX', '1', 'templates/ajax/functions.php')");
 		Database::execute("INSERT INTO templates (name, public, basedir) VALUES ('RSS', '1', 'templates/rss/functions.php')");
 		Database::execute("INSERT INTO templates (name, public, basedir) VALUES ('Atom', '1', 'templates/atom/functions.php')");
+		Database::execute("INSERT INTO templates (name, public, basedir) VALUES ('WML', '1', 'templates/wml/functions.php')");
 		Database::execute("INSERT INTO viewtemplates (templateref, typeref, location) VALUES ('1', '1', 'main.php')");
 		Database::execute("INSERT INTO viewtemplates (templateref, typeref, location) VALUES ('1', '2', 'forum.php')");
 		Database::execute("INSERT INTO viewtemplates (templateref, typeref, location) VALUES ('1', '3', 'forum.php')");
@@ -156,6 +157,10 @@ class InstallDb
 		Database::execute("INSERT INTO viewtemplates (templateref, typeref, location) VALUES ('4', '2', 'forum.php')");
 		Database::execute("INSERT INTO viewtemplates (templateref, typeref, location) VALUES ('4', '3', 'forum.php')");
 		Database::execute("INSERT INTO viewtemplates (templateref, typeref, location) VALUES ('4', '4', 'thread.php')");
+		Database::execute("INSERT INTO viewtemplates (templateref, typeref, location) VALUES ('5', '1', 'main.php')");
+		Database::execute("INSERT INTO viewtemplates (templateref, typeref, location) VALUES ('5', '2', 'forum.php')");
+		Database::execute("INSERT INTO viewtemplates (templateref, typeref, location) VALUES ('5', '3', 'forum.php')");
+		Database::execute("INSERT INTO viewtemplates (templateref, typeref, location) VALUES ('5', '4', 'thread.php')");
 		Database::execute("INSERT INTO styles (name, file) VALUES ('Default Fuji', 'default.xml')");
 		Database::execute("INSERT INTO styles (name, file) VALUES ('Dark Fuji', 'dark.xml')");
 		Database::execute("INSERT INTO languages (id, name) VALUES ('en-GB', 'English (Great Britain)')");

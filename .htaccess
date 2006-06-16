@@ -66,5 +66,11 @@ RewriteRule ^rss/$ scripts/rss.php [L,QSA]
 # GET /atom/<id>
 RewriteRule ^atom/(\d+)$ scripts/atom.php?id=$1 [L,QSA]
 
-# GET /atom/<id>
+# GET /atom/
 RewriteRule ^atom/$ scripts/atom.php [L,QSA]
+
+# GET /wml/<id>
+RewriteRule ^wml/(\d+)$ scripts/wml.php?id=$1 [L,QSA]
+
+# GET /wml/
+RewriteRule ^wml/$ scripts/wml.php [L,QSA]
