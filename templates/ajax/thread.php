@@ -29,18 +29,18 @@ else {$contextId = $entry->getParent()->id;} ?>
 					<h3 class="postTitle">
 						<span><?php echo $entry->title ?></span>
 						<span><a href="profile/<?php echo User::getUser($entry->userref)->id ?>" target="_blank"><?php echo User::getUser($entry->userref)->nickname ?></a></span>
-						<span><?php echo $entry->modified ?></span>
+						<span><?php echo $entry->getFormattedDate('modified', L10n::$date_format) ?></span>
 					</h3>
 					<div class="postContent"><?php echo $entry->getContent() ?></div>
 			</div>
 			<?php 	if(count($entry) > 0)
-					foreach($entry->getChildren() as $post) { ?>
+					foreach($entry->getChildren('created') as $post) { ?>
 			<div class="postDiv">
 				<?php if ($post->type == Entry::$TYPE_POST) { ?>
 					<h4 class="postTitle">
 						<span><?php echo $post->title ?></span>
 						<span><a href="profile/<?php echo User::getUser($entry->userref)->id ?>" target="_blank"><?php echo User::getUser($entry->userref)->nickname ?></a></span>
-						<span><?php echo $post->modified ?></span>
+						<span><?php echo $entry->getFormattedDate('modified', L10n::$date_format) ?></span>
 						<?php
 							if (UserManager::getUser()->getRights($post)->may_edit) {
 								?><span><a href="javascript:Fuji.newEditDialog('<?php echo $post->id ?>')"><?php echo L10n::$edit ?></a></span><?php

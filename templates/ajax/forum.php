@@ -29,7 +29,7 @@
 						<div class="postTitle">
 							<span><?php echo $entry->title ?></span>
 							<span><a href="profile/<?php echo User::getUser($entry->userref)->id ?>" target="_blank"><?php echo User::getUser($entry->userref)->nickname ?></a></span>
-							<span><?php echo $entry->modified ?></span>
+							<span><?php echo $entry->getFormattedDate('modified', L10n::$date_format) ?></span>
 						</div>
 						<div class="postContent"><?php echo $entry->getContent() ?></div>
 				</div>	
@@ -44,20 +44,20 @@
 				</thead>
 				<tbody>
 				<?php 	if(count($entry->getChildren()) > 0)
-						foreach($entry->getChildren() as $post) { ?>
+						foreach($entry->getChildren('type, modified DESC') as $post) { ?>
 						<?php if ($post->type == Entry::$TYPE_FORUM) { ?>
 						<tr entryid="<?php echo $post->id ?>" entrytitle="<?php echo $post->title ?>" class="tableForumEntry">
 							<td><a href="#item/<?php echo $post->id ?>"><?php echo $post->title ?></a></td>
 							<td><a href="profile/<?php echo User::getUser($entry->userref)->id ?>" target="_blank"><?php echo User::getUser($entry->userref)->nickname ?></a></td>
 							<td><?php echo count($post->getChildren()) ?></td>
-							<td><?php echo $post->modified ?></td>
+							<td><?php echo $post->getFormattedDate('modified', L10n::$date_format) ?></td>
 						
 						<?php } else if ($post->type == Entry::$TYPE_POST) { ?>
 						<tr entryid="<?php echo $post->id ?>" entrytitle="<?php echo $post->title ?>" class="tableThreadEntry">				
 							<td><a href="#item/<?php echo $post->id ?>"><?php echo $post->title ?></a></td>
 							<td><a href="profile/<?php echo User::getUser($entry->userref)->id ?>" target="_blank"><?php echo User::getUser($entry->userref)->nickname ?></a></td>
 							<td><?php echo count($post->getChildren()) ?></td>
-							<td><?php echo $post->modified?><?php 
+							<td><?php echo $post->getFormattedDate('modified', L10n::$date_format) ?><?php 
 								if (UserManager::isAdmin()) 
 								{ ?><a href="javascript:Fuji.newConfigRightsDialog('<?php echo $entry->id ?>')"><?php echo L10n::$config_rights ?></a><?php } ?>
 							</td>

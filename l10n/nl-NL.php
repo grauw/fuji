@@ -7,7 +7,8 @@ class L10n {
 	static $back = 'Terug';
 	static $cancel = 'Annuleren';
 	static $config_rights = 'Configureer rechten';
-	static $contact_administrator = 'Neem contact op met de serverbeheerder voor meer informatie.';	
+	static $contact_administrator = 'Neem contact op met de serverbeheerder voor meer informatie.';
+	static $date_format = '%d-%m-%Y, %H:%i';	
 	static $delete = 'Verwijderen';
 	static $edit = 'Bewerken';
 	static $edit_group = 'Bewerk groep';

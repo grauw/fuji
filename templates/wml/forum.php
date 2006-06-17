@@ -6,8 +6,8 @@
 		<?php echo $entry->getContent() ?></p>
 		<p>
 		<?php 	if(count($entry) > 0)
-					foreach($entry->getChildren() as $post) { ?>
-						<a href="../wml/<?php echo $post->id ?>"><?php echo $post->title ?></a>, <?php echo User::getUser($post->userref)->nickname ?>, <?php echo $post->modified ?><br />
+					foreach($entry->getChildren('type, modified DESC') as $post) { ?>
+						<a href="../wml/<?php echo $post->id ?>"><?php echo $post->title ?></a>, <?php echo User::getUser($post->userref)->nickname ?>, <?php echo $post->getFormattedDate('modified', L10n::$date_format) ?><br />
 		<?php } ?>
 		</p>
 		<p><a href="../wml/<?php echo $entry->getParent()->id ?>"><?php echo L10n::$back ?></a></p>

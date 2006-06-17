@@ -163,5 +163,29 @@ class Entry extends Dataclass {
 		$this->removeChildren();
 		Database::execute("DELETE FROM " . Database::$db_tprefix . "entries WHERE id = '$this->id'");
 	}
+	
+	/**
+	 * Get the formatted date of this entry
+	 * @param string field The field of the date (created/modified)
+	 * @param string format The format of the date (see SQL documentation)
+	 * @returns string The formatted date
+	 */
+	function getFormattedDate($field, $format)
+	{
+		$date = Database::getArray("SELECT DATE_FORMAT($field, '$format') FROM " . DbVar::$db_tprefix . "entries WHERE id = '$this->id'");
+		return $date[0][0];
+	}
+	
+	function __set($name, $value) {
+		parent::__set($name, $value);
+		$this->updateDate();
+	}
+	
+	function updateDate() {
+		Database::execute("UPDATE " . Database::$db_tprefix . $this->getTable() . " SET modified=NOW() WHERE id='$this->id'");
+		$parent = $this->getParent();
+		if(isset($parent))
+			$parent->updateDate();
+	}
 }
 ?>
