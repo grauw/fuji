@@ -72,6 +72,8 @@ class Entry extends Dataclass {
 			
 			Database::execute("INSERT INTO " . Database::$db_tprefix . "entries ($keys, created, modified) VALUES ('$values', NOW(), NOW())");
 			$data['id'] = Database::insert_id();
+			if(isset($data->ref))
+				Entry::getEntry($data->ref)->updateDate();
 			return new Entry($data);
 		}
 	}
@@ -108,6 +110,7 @@ class Entry extends Dataclass {
 	 */
 	function removeContent() {
 		Database::execute("DELETE FROM " . Database::$db_tprefix . "content WHERE id = '$this->contentref'");
+		$this->updateDate();
 	}
 	
 	/**
@@ -115,6 +118,7 @@ class Entry extends Dataclass {
 	 */
 	function updateContent($data) {
 		Database::execute("UPDATE " . Database::$db_tprefix . "content SET content = '$data' WHERE id = '$this->contentref'");
+		$this->updateDate();
 	}
 	
 	/**
@@ -139,6 +143,7 @@ class Entry extends Dataclass {
 	function removeChildren() {
 		$children = $this->getChildren();
 		foreach($children as $child) $child->remove();
+		$this->updateDate();
 	}
 	
 	/**
@@ -162,6 +167,9 @@ class Entry extends Dataclass {
 		$this->removeContent();
 		$this->removeChildren();
 		Database::execute("DELETE FROM " . Database::$db_tprefix . "entries WHERE id = '$this->id'");
+		$parent = $this->getParent();
+		if(isset($parent))
+			$parent->updateDate();
 	}
 	
 	/**
