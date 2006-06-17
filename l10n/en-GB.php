@@ -47,9 +47,11 @@ class L10n {
 	static $modified = 'Last modified';
 	static $name = 'Name';
 	static $new = 'New';
-	static $new_group = 'New group';	
+	static $new_group = 'New group';
+	static $next = 'Next';	
 	static $num_members = 'Number of members';
 	static $ok = 'OK';
+	static $page = 'Page';
 	static $password = 'Password';
 	static $passwords_do_not_match = 'Passwords do not match';
 	static $possible_reasons = 'Possible reasons:';
@@ -58,6 +60,7 @@ class L10n {
 	static $poster = 'Poster';
 	static $posts = 'Posts';
 	static $preferences = 'Preferences';
+	static $previous = 'Previous';
 	static $profile = 'Profile';
 	static $profile_photo = 'Profile photo';
 	static $read = 'Read';

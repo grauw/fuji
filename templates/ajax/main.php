@@ -18,7 +18,7 @@
 							{
 								$title = $fora[$n]->title;
 								$id = $fora[$n]->id;
-								echo "var child$id = new YAHOO.widget.TextNode({label:\"$title\", href:\"#item/$id\"}, $parent, false);\n";
+								echo "var child$id = new YAHOO.widget.TextNode({label:\"$title\", href:\"#item/$id/\"}, $parent, false);\n";
 								addChildren($fora[$n], "child$id");
 							}
 						}

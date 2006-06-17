@@ -21,12 +21,13 @@ class WML {
 	{
 		UserManager::authenticate();
 		$id = isset($_GET['id']) ? intval($_GET['id']) : 1;
+		$page = isset($_GET['page']) ? intval($_GET['page']) : 1;
 		$entry = Entry::getEntry($id);
 		if($entry)
 		{
 			if (UserManager::getUser()->getRights($entry)->may_read) {
 				$template = Template::getTemplate('WML');
-				$template->apply($entry, $template);
+				$template->apply($entry, $page, $template);
 			}
 			else {			
 				$template = Template::getTemplate('WML');

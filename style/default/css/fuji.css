@@ -101,6 +101,9 @@ h5 {
 #threadsTableDiv table td{
   border-bottom: 1px solid;
 }
+#threadsTableDiv table tfoot{
+  height: 1.5em;
+}
 #threadsTableDiv table .tableForumEntry {
   font-weight: bold;
 }
@@ -137,6 +140,10 @@ a:visited {
 #editThreadDialog{
   height: 300px;
   width: 400px;
+}
+#threadPageSelector{
+  height: 1.5em;
+  border-top: solid 1px;
 }
 .dialogToolbar {
   height: 1.5em;

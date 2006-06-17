@@ -7,7 +7,7 @@
 		<p>
 		<?php 	if(count($entry) > 0)
 					foreach($entry->getChildren() as $post) { ?>
-						<a href="../wml/<?php echo $post->id ?>"><?php echo $post->title ?></a><br />
+						<a href="../wml/<?php echo $post->id ?>/"><?php echo $post->title ?></a><br />
 		<?php } ?>
 		</p>
 		<small>Powered by Fuji</small>

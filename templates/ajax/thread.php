@@ -1,3 +1,4 @@
+<?php $page_size = 5; ?>
 <?php echo $template->getPrefix();
 if($entry->getParent()->type == 4) {$contextId = $entry->getParent()->getParent()->id;} 
 else {$contextId = $entry->getParent()->id;} ?>
@@ -5,7 +6,7 @@ else {$contextId = $entry->getParent()->id;} ?>
 	xmlns:fuji="http://fuji.sourceforge.net/ns"
 	xml:lang="<?php echo L10n::$language ?>"
 	loadcontext="item/<?php echo $contextId?>_postsDiv"
-	parent="item/<?php echo $entry->getParent()->id ?>">
+	parent="item/<?php echo $entry->getParent()->id ?>/">
 	<fuji:content>
 		<h2 class="windowTitle"><?php echo L10n::$posts ?> - <?php echo $entry->title ?></h2>
 		<div id="postsActions" class="windowActions">
@@ -33,8 +34,9 @@ else {$contextId = $entry->getParent()->id;} ?>
 					</h3>
 					<div class="postContent"><?php echo $entry->getContent() ?></div>
 			</div>
-			<?php 	if(count($entry) > 0)
-					foreach($entry->getChildren('created') as $post) { ?>
+			<?php 	$num_of_children = count($entry->getChildren());
+					if($num_of_children > 0)
+					foreach($entry->getChildren('created', ($page - 1) * $page_size . ', ' . $page_size) as $post) { ?>
 			<div class="postDiv">
 				<?php if ($post->type == Entry::$TYPE_POST) { ?>
 					<h4 class="postTitle">
@@ -59,6 +61,12 @@ else {$contextId = $entry->getParent()->id;} ?>
 				<?php } ?>
 			</div>
 			<?php } else echo L10n::$error_no_posts ?>
+		</div>
+		<div id="threadPageSelector">
+			<?php echo L10n::$page?>&#160;
+			<?php if($page > 1) { ?><a href="#item/<?php echo $entry->id ?>/<?php echo $page - 1 ?>">&lt;&#160;</a><?php } ?>
+			<?php for($n = 1; $n <= $num_of_children / $page_size + 1; $n++) { if($n != $page) { ?><a href="#item/<?php echo $entry->id ?>/<?php echo $n ?>"><?php echo $n ?></a><?php } else { echo $n; } ?>&#160;<?php } ?>
+			<?php if($num_of_children / $page_size > $page) { ?><a href="#item/<?php echo $entry->id ?>/<?php echo $page + 1 ?>">&gt;</a><?php } ?>		
 		</div>
 	</fuji:content>
 </fuji:item>

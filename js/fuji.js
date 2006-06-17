@@ -18,8 +18,8 @@ Fuji = {
 		} else {
 			Fuji.reloadItem(uri);
 		}
-		document.getElementById('rsslink').href = 'rss/' + uri.replace('item/','');
-		document.getElementById('atomlink').href = 'atom/' + uri.replace('item/','');		
+		document.getElementById('rsslink').href = 'rss/' + uri.substring(0, uri.length-1).replace('item/','');
+		document.getElementById('atomlink').href = 'atom/' + uri.substring(0, uri.length-1).replace('item/','');		
 	},
 	
 	/**
@@ -158,7 +158,7 @@ Fuji = {
 				this.submit();
 				document.getElementById('createF').reset();			
 				this.hide();
-				Fuji.reloadItem("item/" + document.getElementById('createRef').value);
+				Fuji.reloadItem("item/" + document.getElementById('createRef').value + '/');
 				}
 			Fuji.createDialog.cfg.queueProperty("buttons", [ { text:Fuji.messages.ok, handler:handleSubmit, isDefault:true },
 												   { text:Fuji.messages.cancel, handler:handleCancel } ]);
@@ -207,11 +207,11 @@ Fuji = {
 	deleteItem : function(iId, iPId) {
 		var callback =
 		{
-			success: function(o) {Fuji.reloadItem('item/' + iPId); location.hash='#item/' + iPId},
+			success: function(o) {Fuji.reloadItem('item/' + iPId + '/'); location.hash='#item/' + iPId + '/'},
 			failure: Fuji.newErrorDialog,
 			argument: []
 		}
-		YAHOO.util.Connect.asyncRequest('DELETE', 'item/' + iId, callback, null); 
+		YAHOO.util.Connect.asyncRequest('DELETE', 'item/' + iId + '/', callback, null); 
 	},
 	
 	/**
@@ -266,12 +266,12 @@ Fuji = {
 		var iId = document.getElementById('editEntryid').value;
 		var callback =
 		{
-			success: function(o) {Fuji.reloadItem('item/' + iId, 999)},
+			success: function(o) {Fuji.reloadItem('item/' + iId + '/', 999)},
 			failure: Fuji.newErrorDialog,
 			argument: []
 		}
 		YAHOO.util.Connect.setForm('editF');
-		YAHOO.util.Connect.asyncRequest('POST', 'item/' + iId, callback, null); 
+		YAHOO.util.Connect.asyncRequest('POST', 'item/' + iId + '/', callback, null); 
 	},
 	
 	/**
@@ -439,8 +439,8 @@ Fuji = {
 	 */
 	init : function() {
 		Fuji.loadMenu();
-		Fuji.loadItem('item/1');
-		if (location.hash == '') location.hash='#item/2';
+		Fuji.loadItem('item/1/');
+		if (location.hash == '') location.hash='#item/2/';
 		Fuji.startUrlChangeListener();
 	},
 	

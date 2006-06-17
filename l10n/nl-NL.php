@@ -47,9 +47,11 @@ class L10n {
 	static $modified = 'Laatst gewijzigd';
 	static $name = 'Naam';
 	static $new = 'Nieuw';
-	static $new_group = 'Nieuwe groep';	
+	static $new_group = 'Nieuwe groep';
+	static $next = 'Next';	
 	static $num_members = 'Aantal leden';
 	static $ok = 'OK';
+	static $page = 'Pagina';
 	static $password = 'Wachtwoord';
 	static $passwords_do_not_match = 'Wachtwoorden komen niet overeen';	
 	static $possible_reasons = 'Mogelijke oorzaken:';
@@ -57,7 +59,8 @@ class L10n {
 	static $posted_by = 'Gepost door';	
 	static $poster = 'Afzender';
 	static $posts = 'Berichten';
-	static $preferences = 'Voorkeuren';	
+	static $preferences = 'Voorkeuren';
+	static $previous = 'Previous';	
 	static $profile = 'Profiel';
 	static $profile_photo = 'Profielfoto';
 	static $read = 'Lezen';

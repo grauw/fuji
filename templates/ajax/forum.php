@@ -1,9 +1,10 @@
+<?php $page_size = 30; ?>
 <?php echo $template->getPrefix() ?>
 <fuji:item xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:fuji="http://fuji.sourceforge.net/ns"
 	xml:lang="<?php echo L10n::$language ?>"
 	loadcontext="threadsDiv"
-	parent="item/1">
+	parent="item/1/">
 	<fuji:content>
 		<h2 class="windowTitle"><?php echo L10n::$threads ?> - <?php echo $entry->title ?></h2>
 		<div id="threadPath" class="windowInfo"></div> 
@@ -43,18 +44,19 @@
 					</tr>
 				</thead>
 				<tbody>
-				<?php 	if(count($entry->getChildren()) > 0)
-						foreach($entry->getChildren('type, modified DESC') as $post) { ?>
+				<?php 	$num_of_children = count($entry->getChildren());
+						if($num_of_children > 0)
+						foreach($entry->getChildren('type, modified DESC', ($page - 1) * $page_size . ', ' . $page_size) as $post) { ?>
 						<?php if ($post->type == Entry::$TYPE_FORUM) { ?>
 						<tr entryid="<?php echo $post->id ?>" entrytitle="<?php echo $post->title ?>" class="tableForumEntry">
-							<td><a href="#item/<?php echo $post->id ?>"><?php echo $post->title ?></a></td>
+							<td><a href="#item/<?php echo $post->id ?>/"><?php echo $post->title ?></a></td>
 							<td><a href="profile/<?php echo User::getUser($entry->userref)->id ?>" target="_blank"><?php echo User::getUser($entry->userref)->nickname ?></a></td>
 							<td><?php echo count($post->getChildren()) ?></td>
 							<td><?php echo $post->getFormattedDate('modified', L10n::$date_format) ?></td>
 						
 						<?php } else if ($post->type == Entry::$TYPE_POST) { ?>
 						<tr entryid="<?php echo $post->id ?>" entrytitle="<?php echo $post->title ?>" class="tableThreadEntry">				
-							<td><a href="#item/<?php echo $post->id ?>"><?php echo $post->title ?></a></td>
+							<td><a href="#item/<?php echo $post->id ?>/"><?php echo $post->title ?></a></td>
 							<td><a href="profile/<?php echo User::getUser($entry->userref)->id ?>" target="_blank"><?php echo User::getUser($entry->userref)->nickname ?></a></td>
 							<td><?php echo count($post->getChildren()) ?></td>
 							<td><?php echo $post->getFormattedDate('modified', L10n::$date_format) ?><?php 
@@ -69,6 +71,16 @@
 					</tr>
 				<?php } else echo L10n::$error_no_threads ?>
 				</tbody>
+				<tfoot>
+					<tr>
+						<td colspan="4">
+							<?php echo L10n::$page?>&#160;
+							<?php if($page > 1) { ?><a href="#item/<?php echo $entry->id ?>/<?php echo $page - 1 ?>">&lt;&#160;</a><?php } ?>
+							<?php for($n = 1; $n <= $num_of_children / $page_size + 1; $n++) { if($n != $page) { ?><a href="#item/<?php echo $entry->id ?>/<?php echo $n ?>"><?php echo $n ?></a><?php } else { echo $n; } ?>&#160;<?php } ?>
+							<?php if($num_of_children / $page_size > $page) { ?><a href="#item/<?php echo $entry->id ?>/<?php echo $page + 1 ?>">&gt;</a><?php } ?>
+						</td>
+					</tr>
+				</tfoot>
 			</table>
 			</div>
 		</div>
