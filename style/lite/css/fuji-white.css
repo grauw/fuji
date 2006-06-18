@@ -1,0 +1,80 @@
+html {
+  color: #111111;
+}
+.logo {
+  background: url(../graphics/fuji.jpg) no-repeat;
+}
+.logoDiv {	
+  border-color: #ffffff;
+  background-color: #e2e2e1;  
+  color: #ffffff;
+}
+.window {
+  border-color: #ffffff;	
+}
+.windowTitle {
+  background-image: url(../graphics/bar.png);
+  background-color: #e2e2e1;
+  border-color: #ffffff;
+}
+.windowActions {
+  background-color: #f6f6f5;
+  border-color: #ffffff;
+}
+#foraDiv {
+  background-color: #fafaf9;
+}
+#menuDiv {
+  background-color: #e2e2e1;
+}
+#menuDiv h2 {
+  background-image: none;
+  background-color: none;
+}
+#threadsDiv {
+  background-color: #fafaf9;
+}
+#postsDiv {
+  background-color: #fafaf9;
+}
+.forumPostDiv {
+  border-color: #ffffff;
+}
+.postDiv {
+  border-color: #ffffff;
+}
+.postTitle {
+  background-color: #f2f2f1;
+  border-color: #ffffff;
+}
+.postContent {
+  background-color: #fafaf9;
+}
+#threadsTableDiv table thead {
+  background-color: #f2f2f1;
+}
+#threadsTableDiv table tfoot {
+  background-color: #f2f2f1;
+}
+#threadsTableDiv table td {
+  border-color: #ffffff;	
+}
+#threadsTableDiv table .tableForumEntry {
+  background-color: #fbfbfa;
+}
+#threadsTableDiv table .tableThreadEntry {
+  background-color: #fafaf9;
+}
+#threadPageSelector{
+  background-color: #f2f2f1;
+  border-color: #ffffff;  
+}
+#profileInfoDiv {
+  background-color: #fafaf9;	
+}
+a:link {
+  color: #111111;
+}
+a:visited {
+  color: #111111;
+}

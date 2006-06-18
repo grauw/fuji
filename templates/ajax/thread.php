@@ -39,7 +39,7 @@ else {$contextId = $entry->getParent()->id;} ?>
 					foreach($entry->getChildren('created', ($page - 1) * $page_size . ', ' . $page_size) as $post) { ?>
 			<div class="postDiv">
 				<?php if ($post->type == Entry::$TYPE_POST) { ?>
-					<h4 class="postTitle">
+					<h3 class="postTitle">
 						<span><?php echo $post->title ?></span>
 						<span><a href="profile/<?php echo User::getUser($entry->userref)->id ?>" target="_blank"><?php echo User::getUser($entry->userref)->nickname ?></a></span>
 						<span><?php echo $entry->getFormattedDate('modified', L10n::$date_format) ?></span>
@@ -51,7 +51,7 @@ else {$contextId = $entry->getParent()->id;} ?>
 								?><span><a href="javascript:Fuji.newDeleteDialog('<?php echo $post->id ?>', '<?php echo $post->ref ?>')"><?php echo L10n::$delete ?></a></span><?php
 							}
 						?>
-					</h4>
+					</h3>
 					<div class="postContent"><?php echo $post->getContent() ?></div>
 				
 				<?php } else { ?>

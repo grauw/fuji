@@ -163,6 +163,7 @@ class InstallDb
 		Database::execute("INSERT INTO viewtemplates (templateref, typeref, location) VALUES ('5', '4', 'thread.php')");
 		Database::execute("INSERT INTO styles (name, file) VALUES ('Default Fuji', 'default.xml')");
 		Database::execute("INSERT INTO styles (name, file) VALUES ('Dark Fuji', 'dark.xml')");
+		Database::execute("INSERT INTO styles (name, file) VALUES ('Fuji Lite', 'lite.xml')");
 		Database::execute("INSERT INTO languages (id, name) VALUES ('en-GB', 'English (Great Britain)')");
 		Database::execute("INSERT INTO languages (id, name) VALUES ('nl-NL', 'Nederlands (Nederland)')");
 		Database::execute("INSERT INTO defaults (name, value) VALUES ('language', 'en-GB')");

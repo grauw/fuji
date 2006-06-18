@@ -50,7 +50,7 @@
 	</script>
 </head>
 <body onload="Fuji.init()">
-	<a href="/"><h1 class="logoDiv logo window">Fuji</h1></a>
+	<a href="http://fuji.sourceforge.net"><h1 class="logoDiv logo window">Fuji</h1></a>
 	<div id="foraDiv">
 		<div id="foraTreeDiv"></div>
 	</div>

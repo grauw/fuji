@@ -1,0 +1,176 @@
+body {
+  font-family: Verdana, Helvetica, sans-serif;
+  font-size: 10pt;
+}
+h1 {
+  font-size: 20pt;
+  margin: 0px;
+}
+h2 {
+  margin: 0px;
+}
+h3 {
+  margin: 0px;
+  font-size: 10pt;
+  font-weight: normal;
+}
+h4 {
+  margin: 0px;
+  font-weight: normal;
+}
+h5 {
+  margin: 0px;
+  font-weight: normal;  
+}
+.window {
+}
+.windowTitle {
+  height: 24px;
+  padding-top: 2px;
+  font-size: 12pt;
+  font-weight: bold;
+  border: 1px solid;
+}
+.windowActions {
+  height: 1.5em;
+  border-bottom: 1px solid;
+}
+.windowActions span {
+  padding-left: 3px;
+  padding-right: 3px;
+}
+.logoDiv {
+  margin: 10px;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  height: 80px;
+  width: 200px;
+}
+
+#foraDiv {
+  margin: 10px;
+  position: absolute;
+  top: 90px;
+  left: 610px;
+  height: 300px;
+  width: 200px;
+}
+/*.menuDiv { */
+#menuDiv {
+  margin: 10px;
+  position: absolute;
+  top: 0px;
+  left: 200px;
+  height: 80px;
+  width: 610px;
+  text-align: right;  
+}
+#menuDiv h2 {
+  border: none;
+  display: none;
+}
+#menuDiv ul li {
+  float: right;
+  margin-right: 5px;
+}
+#threadsDiv {
+  margin: 10px;
+  position: absolute;
+  top: 90px;
+  left: 0px;
+  width: 600px;
+  overflow: auto;
+}
+#foraTree {
+  overflow: auto;
+  height: 270px;
+}
+.postsContainer {
+	margin-top: 10px;
+}
+.forumPostDiv {
+  border-bottom: 1px solid;
+}
+.postDiv {
+  border: 1px solid;
+  position: relative;
+  margin: 5px;
+}
+.postTitle {
+  border-bottom: 1px solid;
+}
+.postTitle span {
+  margin: 5px;
+}
+.postContent {
+  padding: 5px;
+}
+#threadsTableDiv table {
+  border-spacing: 0px;
+  border-collapse: collapse;
+  width: 100%;
+}
+#threadsTableDiv table td{
+  border-bottom: 1px solid;
+}
+#threadsTableDiv table tfoot{
+  height: 1.5em;
+}
+#threadsTableDiv table .tableForumEntry {
+}
+#threadsTableDiv table .tableThreadEntry {
+}
+#threadsTableDiv table .tableUnsupportedEntry {
+}
+a:link {
+  text-decoration: none;
+}
+a:visited {
+  text-decoration: none;
+}
+#deleteThreadSelect {
+  width: 100%;
+}
+#menuListDiv div ul {
+  list-style-type: none;
+  padding: 0px;
+  margin: 0px;
+}
+#profileDiv {
+  width: 400px;
+}
+#profileInfoDiv {
+  width: 400px;
+  height: 200px;
+  overflow: hidden;
+}
+#newThreadDialog{
+  height: 300px;
+  width: 400px;
+}
+#editThreadDialog{
+  height: 300px;
+  width: 400px;
+}
+#threadPageSelector{
+  height: 1.5em;
+  border-top: solid 1px;
+}
+.dialogToolbar {
+  height: 1.5em;
+}
+.createEditF div {
+  margin-top: 3px;
+  margin-bottom: 3px;
+}
+.createEditF div span {
+  margin-right: 10px;
+}
+.createEditT {
+  width: 253px;
+}
+.createEditContent {
+  height: 100px;
+  width: 288px;
+}
