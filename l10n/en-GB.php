@@ -8,6 +8,7 @@ class L10n {
 	static $cancel = 'Cancel';
 	static $config_rights = 'Configure rights';
 	static $contact_administrator = 'Contact the server administrator for more information.';
+	static $created = 'Created';
 	static $date_format = '%d/%m/%Y, %H:%i';
 	static $delete = 'Delete';
 	static $edit = 'Edit';

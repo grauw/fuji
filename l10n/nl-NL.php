@@ -8,6 +8,7 @@ class L10n {
 	static $cancel = 'Annuleren';
 	static $config_rights = 'Configureer rechten';
 	static $contact_administrator = 'Neem contact op met de serverbeheerder voor meer informatie.';
+	static $created = 'Aangemaakt';
 	static $date_format = '%d-%m-%Y, %H:%i';	
 	static $delete = 'Verwijderen';
 	static $edit = 'Bewerken';
@@ -48,7 +49,7 @@ class L10n {
 	static $name = 'Naam';
 	static $new = 'Nieuw';
 	static $new_group = 'Nieuwe groep';
-	static $next = 'Next';	
+	static $next = 'Volgende';	
 	static $num_members = 'Aantal leden';
 	static $ok = 'OK';
 	static $page = 'Pagina';
@@ -60,7 +61,7 @@ class L10n {
 	static $poster = 'Afzender';
 	static $posts = 'Berichten';
 	static $preferences = 'Voorkeuren';
-	static $previous = 'Previous';	
+	static $previous = 'Vorige';	
 	static $profile = 'Profiel';
 	static $profile_photo = 'Profielfoto';
 	static $read = 'Lezen';

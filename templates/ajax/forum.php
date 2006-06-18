@@ -40,18 +40,20 @@
 						<td><?php echo L10n::$topic ?></td>
 						<td><?php echo L10n::$poster ?></td>
 						<td><?php echo L10n::$replies ?></td>
+						<td><?php echo L10n::$created ?></td>
 						<td><?php echo L10n::$modified ?></td>
 					</tr>
 				</thead>
 				<tbody>
 				<?php 	$num_of_children = count($entry->getChildren());
 						if($num_of_children > 0)
-						foreach($entry->getChildren('type, modified DESC', ($page - 1) * $page_size . ', ' . $page_size) as $post) { ?>
+						foreach($entry->getChildren('type, created DESC', ($page - 1) * $page_size . ', ' . $page_size) as $post) { ?>
 						<?php if ($post->type == Entry::$TYPE_FORUM) { ?>
 						<tr entryid="<?php echo $post->id ?>" entrytitle="<?php echo $post->title ?>" class="tableForumEntry">
 							<td><a href="#item/<?php echo $post->id ?>/"><?php echo $post->title ?></a></td>
 							<td><a href="profile/<?php echo User::getUser($entry->userref)->id ?>" target="_blank"><?php echo User::getUser($entry->userref)->nickname ?></a></td>
 							<td><?php echo count($post->getChildren()) ?></td>
+							<td><?php echo $post->getFormattedDate('created', L10n::$date_format) ?></td>
 							<td><?php echo $post->getFormattedDate('modified', L10n::$date_format) ?></td>
 						
 						<?php } else if ($post->type == Entry::$TYPE_POST) { ?>
@@ -59,6 +61,7 @@
 							<td><a href="#item/<?php echo $post->id ?>/"><?php echo $post->title ?></a></td>
 							<td><a href="profile/<?php echo User::getUser($entry->userref)->id ?>" target="_blank"><?php echo User::getUser($entry->userref)->nickname ?></a></td>
 							<td><?php echo count($post->getChildren()) ?></td>
+							<td><?php echo $post->getFormattedDate('created', L10n::$date_format) ?></td>
 							<td><?php echo $post->getFormattedDate('modified', L10n::$date_format) ?><?php 
 								if (UserManager::isAdmin()) 
 								{ ?><a href="javascript:Fuji.newConfigRightsDialog('<?php echo $entry->id ?>')"><?php echo L10n::$config_rights ?></a><?php } ?>
@@ -73,7 +76,7 @@
 				</tbody>
 				<tfoot>
 					<tr>
-						<td colspan="4">
+						<td colspan="5">
 							<?php echo L10n::$page?>&#160;
 							<?php if($page > 1) { ?><a href="#item/<?php echo $entry->id ?>/<?php echo $page - 1 ?>">&lt;&#160;</a><?php } ?>
 							<?php for($n = 1; $n <= $num_of_children / $page_size + 1; $n++) { if($n != $page) { ?><a href="#item/<?php echo $entry->id ?>/<?php echo $n ?>"><?php echo $n ?></a><?php } else { echo $n; } ?>&#160;<?php } ?>

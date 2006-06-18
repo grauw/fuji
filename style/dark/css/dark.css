@@ -48,6 +48,9 @@
 #threadsTableDiv table thead {
   background-color: #5599ee;
 }
+#threadsTableDiv table tfoot {
+  background-color: #77bbff;
+}
 #threadsTableDiv table td {
   border-color: #3377cc;	
 }
@@ -56,6 +59,14 @@
 }
 #threadsTableDiv table .tableThreadEntry {
   background-color: #dfefff;
+}
+#threadPageSelector{
+  border-color: #3377cc;
+  background-color: #77bbff;
+}
+#threadPageSelector{
+  border-color: #3377cc;
+  background-color: #77bbff;
 }
 a:link {
   color: black;

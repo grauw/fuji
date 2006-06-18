@@ -7,7 +7,7 @@
 		<p>
 		<?php $num_of_children = count($entry->getChildren());	
 				if($num_of_children > 0)
-					foreach($entry->getChildren('type, modified DESC', ($page - 1) * 5 . ', 5') as $post) { ?>
+					foreach($entry->getChildren('type, created DESC', ($page - 1) * 5 . ', 5') as $post) { ?>
 						<a href="../<?php echo $post->id ?>/"><?php echo $post->title ?></a>, <?php echo User::getUser($post->userref)->nickname ?>, <?php echo $post->getFormattedDate('modified', L10n::$date_format) ?><br />
 		<?php } ?>
 		</p>
