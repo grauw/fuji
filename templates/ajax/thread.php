@@ -1,7 +1,10 @@
 <?php $page_size = 5; ?>
-<?php echo $template->getPrefix();
-if($entry->getParent()->type == 4) {$contextId = $entry->getParent()->getParent()->id;} 
-else {$contextId = $entry->getParent()->id;} ?>
+<?php echo $template->getPrefix(); ?>
+<?php
+$parentEntry = $entry;
+while($parentEntry->type == 4) $parentEntry = $parentEntry->getParent();
+$contextId = $parentEntry->id;
+?>
 <fuji:item xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:fuji="http://fuji.sourceforge.net/ns"
 	xml:lang="<?php echo L10n::$language ?>"
