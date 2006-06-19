@@ -67,9 +67,9 @@
 				<input id='createRef' name='ref' type='hidden' value='' />
 				<input id='createType' name='type' type='hidden' value='' />
 				<div><span><?php echo L10n::$title ?></span><input id='createT' class="createEditT" name='title' type='text' value='' /></div>
-				<div>	<img src="style/default/graphics/button-bold.gif" />
-						<img src="style/default/graphics/button-italic.gif" />
-						<img src="style/default/graphics/button-underline.gif" />
+				<div>	<img src="style/default/graphics/button-bold.png" />
+						<img src="style/default/graphics/button-italic.png" />
+						<img src="style/default/graphics/button-underline.png" />
 				</div>
 				<div><textarea id='createCtent' class="createEditContent" name='content' type='text' value=''></textarea></div>
 			</form>
@@ -81,9 +81,9 @@
 			<form id="editF" name="editF" class="createEditF" method="POST" enctype="text/plain">
 				<input id='editEntryid' name='entryid' type='hidden' value='' />
 				<div><span><?php echo L10n::$title ?></span><input id='editT' class="createEditT" name='title' type='text' value='' /></div>
-				<div>	<img src="style/default/graphics/button-bold.gif" />
-						<img src="style/default/graphics/button-italic.gif" />
-						<img src="style/default/graphics/button-underline.gif" />
+				<div>	<img src="style/default/graphics/button-bold.png" />
+						<img src="style/default/graphics/button-italic.png" />
+						<img src="style/default/graphics/button-underline.png" />
 				</div>
 				<div><textarea id='editContent' class="createEditContent" name='content' type='text' value=''></textarea></div>
 			</form>
