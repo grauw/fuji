@@ -1,3 +1,8 @@
+@import "container.css";
+@import "fuji-blue.css";
+@import "treeview.css";
+@import "wizard.css";
+
 body {
   font-family: Verdana, Helvetica, sans-serif;
   font-size: 10pt;
@@ -26,13 +31,14 @@ h5 {
   font-size: 12pt;
   font-weight: bold;
 }
-.windowActions {
-  height: 1.5em;
+ul.windowActions {
+  margin: 0;
+  padding: 0;
   border-bottom: 1px solid;
 }
-.windowActions span {
-  padding-left: 3px;
-  padding-right: 3px;
+ul.windowActions li {
+  display: inline;
+  padding: 0 3px;
 }
 .logoDiv {
   margin: 10px;

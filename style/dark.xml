@@ -5,7 +5,4 @@
 	<requires>Default Fuji</requires>
 	<description>Default Fuji supplied style (dark version)</description>
 	<css>dark/css/dark.css</css>
-	<css>dark/css/dark-container.css</css>
-	<css>default/css/treeview.css</css>
-	<css>default/css/fuji.css</css>
 </style>

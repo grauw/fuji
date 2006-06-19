@@ -1,3 +1,8 @@
+@import "container.css";
+@import "fuji-white.css";
+@import "treeview.css";
+@import "wizard.css";
+
 body {
   font-family: Verdana, Helvetica, sans-serif;
   font-size: 10pt;
@@ -31,13 +36,14 @@ h5 {
   font-weight: bold;
   border: 1px solid;
 }
-.windowActions {
-  height: 1.5em;
+ul.windowActions {
+  margin: 0;
+  padding: 0;
   border-bottom: 1px solid;
 }
-.windowActions span {
-  padding-left: 3px;
-  padding-right: 3px;
+ul.windowActions li {
+  display: inline;
+  padding: 0 3px;
 }
 .logoDiv {
   margin: 10px;
@@ -174,6 +180,7 @@ a:visited {
   height: 100px;
   width: 288px;
 }
+
 a.feed {
   padding-left: 15px;
   background: url('../graphics/feed-icon.png') 0 3px no-repeat;

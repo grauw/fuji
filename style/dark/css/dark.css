@@ -1,3 +1,7 @@
+@import "dark-container.css";
+@import "../../default/css/treeview.css";
+@import "../../default/css/fuji.css";
+
 .logo {
   background: url(../graphics/fuji.jpg) no-repeat;
 }
@@ -13,12 +17,21 @@
   height: 24px;
   color: white;
 }
-.windowActions {
+ul.windowActions {
+  margin: 0;
+  padding: 0;
   background-color: #77bbff;
   background-image: url(../graphics/bar2.png);
   height: 24px;
   color: black;
   border-color: #3377cc;
+}
+ul.windowActions li {
+  display: inline;
+  padding: 0 3px;
+}
+ul.windowActions a:hover {
+  color: white;
 }
 #foraDiv {
   background-color: #ccddff;
@@ -73,12 +86,6 @@ a:link {
 }
 a:visited {
   color: black;
-}
-.windowActions a:hover {
-  color: white;
-}
-.windowActions a:hover {
-  background-image: url(../graphics/plain.png);
 }
 a.feed {
   padding-left: 15px;
