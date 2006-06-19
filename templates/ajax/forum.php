@@ -6,35 +6,29 @@
 	loadcontext="threadsDiv"
 	parent="item/1/">
 	<fuji:content>
-		<h2 class="windowTitle"><?php echo L10n::$threads ?> - <?php echo $entry->title ?></h2>
-		<div id="threadPath" class="windowInfo"></div> 
-		<div id="threadsActions" class="windowActions">
+		<h2 class="windowTitle"><?php echo L10n::$threads ?> – <?php echo $entry->title ?></h2>
+		<ul id="threadsActions" class="windowActions">
 			<?php
 				if (UserManager::getUser()->getRights($entry)->may_post) {
-					?><span id="actionNewThread"><a href="javascript:Fuji.newCreateDialog('<?php echo $entry->id ?>', '<?php echo $entry->type + 1 ?>')"><?php echo L10n::$new ?></a></span><?php
+					?><li id="actionNewThread"><a href="javascript:Fuji.newCreateDialog('<?php echo $entry->id ?>', '<?php echo $entry->type + 1 ?>')"><?php echo L10n::$new ?></a></li><?php
 				}
 				if (UserManager::getUser()->getRights($entry)->may_edit) {
-					?><span id="actionEditThread"><a href="javascript:Fuji.newEditDialog('<?php echo $entry->id ?>')"><?php echo L10n::$edit ?></a></span><?php
+					?><li id="actionEditThread"><a href="javascript:Fuji.newEditDialog('<?php echo $entry->id ?>')"><?php echo L10n::$edit ?></a></li><?php
 				}
 				if (UserManager::getUser()->getRights($entry)->may_delete) {
-					?><span id="actionDeleteThread"><a href="javascript:Fuji.newDeleteDialog('<?php echo $entry->id ?>', '<?php echo $entry->ref ?>')"><?php echo L10n::$delete ?></a></span><?php
+					?><li id="actionDeleteThread"><a href="javascript:Fuji.newDeleteDialog('<?php echo $entry->id ?>', '<?php echo $entry->ref ?>')"><?php echo L10n::$delete ?></a></li><?php
 				}
 				if (UserManager::isAdmin()) { 
-					?><span id="actionConfigRights"><a href="javascript:Fuji.newConfigRightsDialog('<?php echo $entry->id ?>')"><?php echo L10n::$config_rights ?></a></span><?php
+					?><li id="actionConfigRights"><a href="javascript:Fuji.newConfigRightsDialog('<?php echo $entry->id ?>')"><?php echo L10n::$config_rights ?></a></li><?php
 				}				
 			?>
-			<!--<span><?php echo L10n::$search ?></span>-->
-			<span><a href="rss/<?php echo $entry->id ?>" rel="alternate" type="application/rss+xml" class="feed">RSS</a></span>
-			<span><a href="atom/<?php echo $entry->id ?>" rel="alternate" type="application/atom+xml" class="feed">Atom</a></span>			
-		</div>
+			<!--<li><?php echo L10n::$search ?></li>-->
+			<li><a href="rss/<?php echo $entry->id ?>" rel="alternate" type="application/rss+xml" class="feed">RSS</a></li>
+			<li><a href="atom/<?php echo $entry->id ?>" rel="alternate" type="application/atom+xml" class="feed">Atom</a></li>			
+		</ul>
 		<div id="threadsTableDiv">
 			<div id="threadsTableDiv" may_post="<?php echo UserManager::getUser()->getRights($entry)->may_post ?>" may_edit="<?php echo UserManager::getUser()->getRights($entry)->may_edit ?>" may_delete="<?php echo UserManager::getUser()->getRights($entry)->may_delete ?>">
 				<div class="forumPostDiv">
-						<div class="postTitle">
-							<span><?php echo $entry->title ?></span>
-							<span><a href="profile/<?php echo User::getUser($entry->userref)->id ?>" target="_blank"><?php echo User::getUser($entry->userref)->nickname ?></a></span>
-							<span><?php echo $entry->getFormattedDate('modified', L10n::$date_format) ?></span>
-						</div>
 						<div class="postContent"><?php echo $entry->getProcessedContent() ?></div>
 				</div>	
 			<table id="threadsTable">

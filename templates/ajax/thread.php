@@ -11,26 +11,26 @@ $contextId = $parentEntry->id;
 	loadcontext="item/<?php echo $contextId?>_postsDiv"
 	parent="item/<?php echo $entry->getParent()->id ?>/">
 	<fuji:content>
-		<h2 class="windowTitle"><?php echo L10n::$posts ?> - <?php echo $entry->title ?></h2>
-		<div id="postsActions" class="windowActions">
+		<h2 class="windowTitle"><?php echo L10n::$posts ?> – <?php echo $entry->title ?></h2>
+		<ul id="postsActions" class="windowActions">
 			<?php
 				if (UserManager::getUser()->getRights($entry)->may_post) {
-					?><span id="actionReplyPost"><a href="javascript:Fuji.newCreateDialog('<?php echo $entry->id ?>', '4')"><?php echo L10n::$reply ?></a></span><?php
+					?><li id="actionReplyPost"><a href="javascript:Fuji.newCreateDialog('<?php echo $entry->id ?>', '4')"><?php echo L10n::$reply ?></a></li><?php
 				}
 				if (UserManager::getUser()->getRights($entry)->may_edit) {
-					?><span id="actionEditPost"><a href="javascript:Fuji.newEditDialog('<?php echo $entry->id ?>')"><?php echo L10n::$edit ?></a></span><?php
+					?><li id="actionEditPost"><a href="javascript:Fuji.newEditDialog('<?php echo $entry->id ?>')"><?php echo L10n::$edit ?></a></li><?php
 				}
 				if (UserManager::getUser()->getRights($entry)->may_delete) {
-					?><span id="actionDeletePost"><a href="javascript:Fuji.newDeleteDialog('<?php echo $entry->id ?>', '<?php echo $entry->ref ?>')"><?php echo L10n::$delete ?></a></span><?php
+					?><li id="actionDeletePost"><a href="javascript:Fuji.newDeleteDialog('<?php echo $entry->id ?>', '<?php echo $entry->ref ?>')"><?php echo L10n::$delete ?></a></li><?php
 				}
 				if (UserManager::isAdmin()) { 
-					?><span id="actionConfigRights"><a href="javascript:Fuji.newConfigRightsDialog('<?php echo $entry->id ?>')"><?php echo L10n::$config_rights ?></a></span><?php
+					?><li id="actionConfigRights"><a href="javascript:Fuji.newConfigRightsDialog('<?php echo $entry->id ?>')"><?php echo L10n::$config_rights ?></a></li><?php
 				}						
 			?>
 			<!--<span><?php echo L10n::$search ?></span>-->
-			<span><a href="rss/<?php echo $entry->id ?>" rel="alternate" type="application/rss+xml" class="feed">RSS</a></span>
-			<span><a href="atom/<?php echo $entry->id ?>" rel="alternate" type="application/atom+xml" class="feed">Atom</a></span>
-		</div>
+			<li><a href="rss/<?php echo $entry->id ?>" rel="alternate" type="application/rss+xml" class="feed">RSS</a></li>
+			<li><a href="atom/<?php echo $entry->id ?>" rel="alternate" type="application/atom+xml" class="feed">Atom</a></li>
+		</ul>
 		<div id="postsListDiv">
 			<div class="postDiv">
 					<h3 class="postTitle">
