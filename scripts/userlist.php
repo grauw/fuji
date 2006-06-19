@@ -22,12 +22,12 @@ class Userlist {
 		UserManager::authenticate();
 		$entry = Entry::getRoot();
 		if (UserManager::getUser()->getRights($entry)->may_read) {
-			$template = Template::getTemplate(2);
+			$template = Template::getTemplate('AJAX');
 			if(isset($_GET['groupid'])) $template->applyUserlist($template, $_GET['groupid']);
 			else $template->applyUserlist($template);
 		}
 		else {
-			$template = Template::getTemplate(2);
+			$template = Template::getTemplate('AJAX');
 			$template->failInsufficientRights($template);
 		}
 	}

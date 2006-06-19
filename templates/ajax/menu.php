@@ -5,8 +5,12 @@
 	loadcontext="menuListDiv">
 	<fuji:content>
 		<?php
-			echo '<p>' . L10n::$logged_in_as . ' ' . UserManager::getUser()->nickname . '</p>';
+			if(UserManager::getUser()->nickname == 'anonymous')
+				echo '<p>' . L10n::$anonymous_user . '</p>';
+			else
+				echo '<p>' . L10n::$logged_in_as . ' ' . UserManager::getUser()->nickname . '</p>';
 			echo '<ul>'."\n";
+			echo '<li><a href="#statistics/">'.L10n::$statistics.'</a></li>'."\n";
 			if(UserManager::getUser()->nickname == 'anonymous'){
 				echo '<li><a href="javascript:Fuji.login()">'.L10n::$login.'</a></li>'."\n";
 				echo '<li><a href="scripts/register/">'.L10n::$register.'</a></li>'."\n";
@@ -19,7 +23,5 @@
 			}
 			echo '</ul>'."\n";
 		?>
-		<ul>
-		</ul>
 	</fuji:content>
 </fuji:menu>

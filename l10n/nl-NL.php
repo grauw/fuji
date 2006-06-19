@@ -3,6 +3,7 @@
 class L10n {
 	static $actions	= 'Acties';
 	static $admin = 'Beheerder';
+	static $anonymous_user = 'Anonieme gebruiker';
 	static $at = 'op';
 	static $back = 'Terug';
 	static $cancel = 'Annuleren';
@@ -47,11 +48,17 @@ class L10n {
 	static $menu = 'Menu';
 	static $message = 'Bericht';
 	static $modified = 'Laatst gewijzigd';
+	static $most_active_thread = 'Meest actieve onderwerp';
+	static $most_active_user = 'Meest actieve gebruiker';
+	static $most_used_language = 'Meest gebruikte taal';
+	static $most_used_style = 'Meest gebruikte stijl';	
 	static $name = 'Naam';
 	static $new = 'Nieuw';
+	static $newest_user = 'Nieuwste gebruiker';
 	static $new_group = 'Nieuwe groep';
 	static $next = 'Volgende';	
-	static $num_members = 'Aantal leden';
+	static $num_users = 'Aantal gebruikers';
+	static $num_posts = 'Aantal berichten';
 	static $ok = 'OK';
 	static $page = 'Pagina';
 	static $password = 'Wachtwoord';
@@ -59,7 +66,7 @@ class L10n {
 	static $please_wait = 'Een ogenblik geduld alstublieft...';
 	static $possible_reasons = 'Mogelijke oorzaken:';
 	static $post = 'Schrijven';
-	static $posted_by = 'Gepost door';	
+	static $posted_by = 'Geschreven door';	
 	static $poster = 'Afzender';
 	static $posts = 'Berichten';
 	static $preferences = 'Voorkeuren';
@@ -74,11 +81,12 @@ class L10n {
 	static $reply = 'Reageren';
 	static $rights = 'Rechten';
 	static $search = 'Zoeken';
+	static $statistics = 'Statistieken';
 	static $style = 'Stijl';
 	static $subscribe_to_atom = 'Abonneer op Atom feed';
 	static $subscribe_to_rss = 'Abonneer op RSS feed';	
 	static $sure_delete_item = 'Weet u zeker dat u dit bericht wilt verwijderen?';	
-	static $threads = 'Threads';
+	static $threads = 'Onderwerpen';
 	static $title = 'Titel';
 	static $topic = 'Onderwerp';
 	static $type_unsupported = 'Berichttype wordt hier niet ondersteund';

@@ -3,9 +3,9 @@ require_once 'usermanager.php';
 require_once 'template.php';
 require_once "utils/functions.php";
 
-new Item();
+new Groups();
 	
-class Item {
+class Groups {
 	
 	function __construct()
 	{
@@ -23,12 +23,12 @@ class Item {
 	{
 		UserManager::authenticate();
 		if (UserManager::isAdmin()) {
-			$template = Template::getTemplate(2);
+			$template = Template::getTemplate('AJAX');
 			$template->applyGroups($template);
 		}
 		else {			
 			$lang = UserManager::getUser()->language;
-			$template = Template::getTemplate(2);
+			$template = Template::getTemplate('AJAX');
 			$template->failInsufficientRights($template);
 		}
 	}

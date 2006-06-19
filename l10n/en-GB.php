@@ -3,6 +3,7 @@
 class L10n {
 	static $actions	= 'Actions';
 	static $admin = 'Administrator';
+	static $anonymous_user = 'Anonymous user';	
 	static $at = 'at';
 	static $back = 'Back';
 	static $cancel = 'Cancel';
@@ -47,11 +48,17 @@ class L10n {
 	static $menu = 'Menu';
 	static $message = 'Message';
 	static $modified = 'Last modified';
+	static $most_active_thread = 'Most active topic';
+	static $most_active_user = 'Most active user';
+	static $most_used_language = 'Most used language';
+	static $most_used_style = 'Most used style';	
 	static $name = 'Name';
 	static $new = 'New';
+	static $newest_user = 'Newest user';
 	static $new_group = 'New group';
 	static $next = 'Next';	
-	static $num_members = 'Number of members';
+	static $num_users = 'Number of users';
+	static $num_posts = 'Number of posts';
 	static $ok = 'OK';
 	static $page = 'Page';
 	static $password = 'Password';
@@ -74,6 +81,7 @@ class L10n {
 	static $reply = 'Reply';
 	static $rights = 'Rights';
 	static $search = 'Search';
+	static $statistics = 'Statistics';
 	static $style = 'Style';
 	static $subscribe_to_atom = 'Subscribe to Atom feed';
 	static $subscribe_to_rss = 'Subscribe to RSS feed';

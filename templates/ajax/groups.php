@@ -14,7 +14,7 @@
 					<tr>
 						<td><?php echo L10n::$name ?></td>
 						<td><?php echo L10n::$rights ?></td>
-						<td><?php echo L10n::$num_members ?></td>
+						<td><?php echo L10n::$num_users ?></td>
 						<td><?php echo L10n::$actions ?></td>
 					</tr>
 				</thead>

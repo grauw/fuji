@@ -46,7 +46,7 @@ ul.windowActions li {
   top: 0px;
   left: 0px;
   height: 80px;
-  width: 200px;
+  width: 100px;
 }
 
 #foraDiv {
@@ -61,9 +61,9 @@ ul.windowActions li {
   margin: 10px;
   position: absolute;
   top: 0px;
-  left: 200px;
+  left: 100px;
   height: 80px;
-  width: 610px;
+  width: 710px;
   text-align: right;  
 }
 #menuDiv h2 {

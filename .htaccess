@@ -80,3 +80,6 @@ RewriteRule ^wml/(\d+)/(\d+)$ scripts/wml.php?id=$1&page=$2 [L,QSA]
 
 # GET /wml/
 RewriteRule ^wml/$ scripts/wml.php [L,QSA]
+
+# GET /statistics/
+RewriteRule ^statistics/$ scripts/statistics.php [L,QSA]
