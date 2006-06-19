@@ -63,7 +63,6 @@ Fuji = {
 	 * @param {Object} oXMLHttpObject The response object
 	 */		
 	loadSuccess : function(oXMLHttpObject) {
-		Fuji.loadingDialog.hide();
 		if(!oXMLHttpObject.responseXML) return; //To prevent loops when you have insufficient rights
 		var oDocument = oXMLHttpObject.responseXML;
 		if(!oDocument.documentElement) //Internet Explorer-hack
@@ -75,6 +74,7 @@ Fuji = {
 		if (oXMLHttpObject.argument.oDocument) {
 			Fuji.loadDocument(oXMLHttpObject.argument.oDocument, oXMLHttpObject.argument.sURI);
 		}
+		Fuji.loadingDialog.hide();
 	},
 	
 	/**
@@ -392,6 +392,7 @@ Fuji = {
 			
 			var handleOK = function() {
 				this.hide();
+				Fuji.errorDialog = null;
 			}
 			
 			Fuji.errorDialog.cfg.queueProperty("buttons", [ { text:Fuji.messages.ok, handler:handleOK } ]);
@@ -405,7 +406,8 @@ Fuji = {
 		if(!Fuji.loadingDialog)
 		{
 			Fuji.loadingDialog = new YAHOO.widget.SimpleDialog("dlg", { 
-				width: "20em", 
+				visible:false,
+				width:"20em", 
 				fixedcenter:true,
 				modal:true,
 				close:false,
@@ -417,6 +419,7 @@ Fuji = {
 			
 			Fuji.loadingDialog.render(document.body);
 		}
+		Fuji.loadingDialog.show();
 	},		
 	newConfigRightsDialog : function() {
 		if(!Fuji.configRightsDialog)
