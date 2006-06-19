@@ -8,12 +8,14 @@ Fuji = {
 	errorDialog : null,			//pointer to the error dialog	
 	editGroupDialog : null,		//pointer to the new group dialog
 	configRightsDialog : null,	//pointer to the config rights dialog
+	loadingDialog : null,		//pointer to the loading dialog	
 	
 	/**
 	 * Loads the item with the specified URI using XMLHttpRequest
 	 * @param {String} uri The URI to the item
 	 */		
 	loadItem : function(uri) {
+		Fuji.newLoadingDialog();
 		if (document.getElementById(uri)) {
 			Fuji.selectDeckItem(document.getElementById(uri));
 		} else {
@@ -61,6 +63,7 @@ Fuji = {
 	 * @param {Object} oXMLHttpObject The response object
 	 */		
 	loadSuccess : function(oXMLHttpObject) {
+		Fuji.loadingDialog.hide();
 		if(!oXMLHttpObject.responseXML) return; //To prevent loops when you have insufficient rights
 		var oDocument = oXMLHttpObject.responseXML;
 		if(!oDocument.documentElement) //Internet Explorer-hack
@@ -395,7 +398,26 @@ Fuji = {
 			Fuji.errorDialog.render(document.body);
 		}
 	},	
+	/**
+	 * Creates a new loading dialog (if it doesn't exist), and shows the dialog
+	 */	
+	newLoadingDialog : function() {
+		if(!Fuji.loadingDialog)
+		{
+			Fuji.loadingDialog = new YAHOO.widget.SimpleDialog("dlg", { 
+				width: "20em", 
+				fixedcenter:true,
+				modal:true,
+				close:false,
+				draggable:false });
 	
+			Fuji.loadingDialog.setHeader(Fuji.messages.loading);
+			Fuji.loadingDialog.setBody(Fuji.messages.please_wait);
+			Fuji.loadingDialog.cfg.setProperty("icon", YAHOO.widget.SimpleDialog.ICON_INFO);		
+			
+			Fuji.loadingDialog.render(document.body);
+		}
+	},		
 	newConfigRightsDialog : function() {
 		if(!Fuji.configRightsDialog)
 		{

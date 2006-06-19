@@ -39,6 +39,7 @@ class L10n {
 	static $invalid_url = 'Foutieve URL';	
 	static $lang = 'Taal';
 	static $language = 'nl-NL';
+	static $loading = 'Bezig met laden';
 	static $logged_in_as = 'Ingelogd als';
 	static $login = 'Inloggen';
 	static $logout = 'Uitloggen';
@@ -54,7 +55,8 @@ class L10n {
 	static $ok = 'OK';
 	static $page = 'Pagina';
 	static $password = 'Wachtwoord';
-	static $passwords_do_not_match = 'Wachtwoorden komen niet overeen';	
+	static $passwords_do_not_match = 'Wachtwoorden komen niet overeen';
+	static $please_wait = 'Een ogenblik geduld alstublieft...';
 	static $possible_reasons = 'Mogelijke oorzaken:';
 	static $post = 'Schrijven';
 	static $posted_by = 'Gepost door';	

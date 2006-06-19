@@ -46,7 +46,9 @@
 														error_unknown					: '<?php echo L10n::$error_unknown ?>',
 														error_bug						: '<?php echo L10n::$error_bug ?>',
 														contact_administrator			: '<?php echo L10n::$contact_administrator ?>',
-														error_loading_resource			: '<?php echo L10n::$error_loading_resource ?>'
+														error_loading_resource			: '<?php echo L10n::$error_loading_resource ?>',
+														loading							: '<?php echo L10n::$loading ?>',
+														please_wait						: '<?php echo L10n::$please_wait ?>'
 													}
 	</script>
 </head>

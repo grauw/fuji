@@ -39,6 +39,7 @@ class L10n {
 	static $invalid_url = 'Invalid URL';
 	static $lang = 'Language';
 	static $language = 'en-GB';
+	static $loading = 'Loading';
 	static $logged_in_as = 'Logged in as';
 	static $login = 'Login';
 	static $logout = 'Logout';
@@ -56,6 +57,7 @@ class L10n {
 	static $password = 'Password';
 	static $passwords_do_not_match = 'Passwords do not match';
 	static $possible_reasons = 'Possible reasons:';
+	static $please_wait = 'Please wait a moment...';
 	static $post = 'Post';
 	static $posted_by = 'Posted by';
 	static $poster = 'Poster';
