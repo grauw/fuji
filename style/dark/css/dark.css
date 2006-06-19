@@ -75,9 +75,12 @@ a:visited {
   color: black;
 }
 .windowActions a:hover {
-	color: white;
+  color: white;
 }
 .windowActions a:hover {
-	background-image: url(../graphics/plain.png);
+  background-image: url(../graphics/plain.png);
 }
- 
+a.feed {
+  padding-left: 15px;
+  background: url('../graphics/feed-icon.png') 0 3px no-repeat;
+} 

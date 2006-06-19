@@ -7,6 +7,7 @@ Fuji = {
 	newGroupDialog : null,		//pointer to the new group dialog
 	errorDialog : null,			//pointer to the error dialog	
 	editGroupDialog : null,		//pointer to the new group dialog
+	configRightsDialog : null,	//pointer to the config rights dialog
 	
 	/**
 	 * Loads the item with the specified URI using XMLHttpRequest
@@ -371,7 +372,7 @@ Fuji = {
 			{
 				sErrorMessage += '<p>' + Fuji.messages.error_resource_cannot_be_found + '</p>';
 				sErrorMessage += '<p>' + Fuji.messages.possible_reasons;
-				sErrorMessage += '<ul><li>' + Fuji.messages.error_resource_cannot_be_found + '</li>';
+				sErrorMessage += '<ul><li>' + Fuji.messages.error_deleted_resource + '</li>';
 				sErrorMessage += '<li>' + Fuji.messages.error_invalid_url + '</li>';
 				sErrorMessage += '<li>' + Fuji.messages.error_server_misconfiguration + '</li></ul></p>';
 			}
@@ -396,42 +397,21 @@ Fuji = {
 	},	
 	
 	newConfigRightsDialog : function() {
-		if(!Fuji.newConfigRightsDialog)
+		if(!Fuji.configRightsDialog)
 		{
-			Fuji.preferencesDialog = new YAHOO.widget.Dialog("prefDialog", { visible: false, fixedCenter: true, effect:{effect:YAHOO.widget.ContainerEffect.FADE, duration:0.25},  width: '325px' });
+			Fuji.configRightsDialog = new YAHOO.widget.Dialog("configRightsDialog", { visible: false, fixedCenter: true, effect:{effect:YAHOO.widget.ContainerEffect.FADE, duration:0.25},  width: '325px' });
 			var handleCancel = function() {
 				this.cancel();
 			}
 			var handleSubmit = function() {
-				var oPrefPass1 = document.getElementById('prefPass1');
-				var oPrefPass2 = document.getElementById('prefPass2');
-				var oPrefEmail = document.getElementById('prefEmail');
-				var oPrefPhoto = document.getElementById('prefPhoto');			
-				if(oPrefPass1.value != oPrefPass2.value)
-					alert(Fuji.messages.passwords_do_not_match);
-				else
-				{
-					if(oPrefEmail.value == '')
-						alert(Fuji.messages.email_empty);
-					else
-					{
-						if(oPrefPhoto.value && oPrefPhoto.value.indexOf('http://') != 0)
-							alert(Fuji.messages.invalid_url);
-						else
-						{
-							this.submit();
-							this.hide();
-						}
-					}
-				}
 			}
-			Fuji.preferencesDialog.cfg.queueProperty("buttons", [ { text:Fuji.messages.ok, handler:handleSubmit, isDefault:true },
+			Fuji.configRightsDialog.cfg.queueProperty("buttons", [ { text:Fuji.messages.ok, handler:handleSubmit, isDefault:true },
 												   { text:Fuji.messages.cancel, handler:handleCancel} ]);
-			Fuji.preferencesDialog.cfg.queueProperty("onsuccess", function() {location.reload();});
-			Fuji.preferencesDialog.render();
+			Fuji.configRightsDialog.cfg.queueProperty("onsuccess", function() {});
+			Fuji.configRightsDialog.render();
 		}
-		document.getElementById('prefDialog').style.display = 'block';
-		Fuji.preferencesDialog.show();
+		document.getElementById('configRightsDialog').style.display = 'block';
+		Fuji.configRightsDialog.show();
 	},
 	
 	/**

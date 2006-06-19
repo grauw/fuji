@@ -39,6 +39,7 @@
 														error_restricted_forum			: '<?php echo L10n::$error_restricted_forum ?>',
 														error_rights_revoked			: '<?php echo L10n::$error_rights_revoked ?>',
 														error_anonymous					: '<?php echo L10n::$error_anonymous ?>',
+														error_deleted_resource			: '<?php echo L10n::$error_deleted_resource ?>',
 														error_server_misconfiguration	: '<?php echo L10n::$error_server_misconfiguration ?>',
 														error_resource_cannot_be_found	: '<?php echo L10n::$error_resource_cannot_be_found ?>',
 														error_invalid_url				: '<?php echo L10n::$error_invalid_url ?>',
@@ -113,7 +114,8 @@
 			</form>
 		</div>
 	</div>
-	<div id="configRightsDialog" style="display: none" />
+	<div id="configRightsDialog" style="display: none">
+	</div>
 	<div id="prefDialog" style="display: none">
 		<div id="prefTitle" class="hd"><?php echo L10n::$preferences ?></div>
 		<div id="prefForm" class="bd">

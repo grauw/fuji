@@ -1,4 +1,4 @@
-<?php $page_size = 5; ?>
+<?php $page_size = 20; ?>
 <?php echo $template->getPrefix(); ?>
 <?php
 $parentEntry = $entry;
@@ -23,6 +23,9 @@ $contextId = $parentEntry->id;
 				if (UserManager::getUser()->getRights($entry)->may_delete) {
 					?><span id="actionDeletePost"><a href="javascript:Fuji.newDeleteDialog('<?php echo $entry->id ?>', '<?php echo $entry->ref ?>')"><?php echo L10n::$delete ?></a></span><?php
 				}
+				if (UserManager::isAdmin()) { 
+					?><span id="actionConfigRights"><a href="javascript:Fuji.newConfigRightsDialog('<?php echo $entry->id ?>')"><?php echo L10n::$config_rights ?></a></span><?php
+				}						
 			?>
 			<!--<span><?php echo L10n::$search ?></span>-->
 			<span><a href="rss/<?php echo $entry->id ?>" rel="alternate" type="application/rss+xml" class="feed">RSS</a></span>
@@ -68,8 +71,8 @@ $contextId = $parentEntry->id;
 		<div id="threadPageSelector">
 			<?php echo L10n::$page?>&#160;
 			<?php if($page > 1) { ?><a href="#item/<?php echo $entry->id ?>/<?php echo $page - 1 ?>">&lt;&#160;</a><?php } ?>
-			<?php for($n = 1; $n <= $num_of_children / $page_size + 1; $n++) { if($n != $page) { ?><a href="#item/<?php echo $entry->id ?>/<?php echo $n ?>"><?php echo $n ?></a><?php } else { echo $n; } ?>&#160;<?php } ?>
-			<?php if($num_of_children / $page_size > $page) { ?><a href="#item/<?php echo $entry->id ?>/<?php echo $page + 1 ?>">&gt;</a><?php } ?>		
+			<?php for($n = 1; $n <= max(0, $num_of_children - 1) / $page_size + 1; $n++) { if($n != $page) { ?><a href="#item/<?php echo $entry->id ?>/<?php echo $n ?>"><?php echo $n ?></a><?php } else { echo $n; } ?>&#160;<?php } ?>
+			<?php if(max(0, $num_of_children - 1) / $page_size > $page) { ?><a href="#item/<?php echo $entry->id ?>/<?php echo $page + 1 ?>">&gt;</a><?php } ?>		
 		</div>
 	</fuji:content>
 </fuji:item>

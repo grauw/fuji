@@ -1,4 +1,4 @@
-<?php $page_size = 30; ?>
+<?php $page_size = 8; ?>
 <?php echo $template->getPrefix() ?>
 <fuji:item xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:fuji="http://fuji.sourceforge.net/ns"
@@ -19,6 +19,9 @@
 				if (UserManager::getUser()->getRights($entry)->may_delete) {
 					?><span id="actionDeleteThread"><a href="javascript:Fuji.newDeleteDialog('<?php echo $entry->id ?>', '<?php echo $entry->ref ?>')"><?php echo L10n::$delete ?></a></span><?php
 				}
+				if (UserManager::isAdmin()) { 
+					?><span id="actionConfigRights"><a href="javascript:Fuji.newConfigRightsDialog('<?php echo $entry->id ?>')"><?php echo L10n::$config_rights ?></a></span><?php
+				}				
 			?>
 			<!--<span><?php echo L10n::$search ?></span>-->
 			<span><a href="rss/<?php echo $entry->id ?>" rel="alternate" type="application/rss+xml" class="feed">RSS</a></span>
@@ -62,10 +65,7 @@
 							<td><a href="profile/<?php echo User::getUser($entry->userref)->id ?>" target="_blank"><?php echo User::getUser($entry->userref)->nickname ?></a></td>
 							<td><?php echo count($post->getChildren()) ?></td>
 							<td><?php echo $post->getFormattedDate('created', L10n::$date_format) ?></td>
-							<td><?php echo $post->getFormattedDate('modified', L10n::$date_format) ?><?php 
-								if (UserManager::isAdmin()) 
-								{ ?> <a href="javascript:Fuji.newConfigRightsDialog('<?php echo $entry->id ?>')"><?php echo L10n::$config_rights ?></a><?php } ?>
-							</td>
+							<td><?php echo $post->getFormattedDate('modified', L10n::$date_format) ?></td>
 						<?php } else { ?>
 						<tr entryid="<?php echo $post->id ?>" entrytitle="<?php echo $post->title ?>" class="tableUnsupportedEntry">				
 							(<?php echo L10n::$type_unsupported ?>)
@@ -79,8 +79,8 @@
 						<td colspan="5">
 							<?php echo L10n::$page?>&#160;
 							<?php if($page > 1) { ?><a href="#item/<?php echo $entry->id ?>/<?php echo $page - 1 ?>">&lt;&#160;</a><?php } ?>
-							<?php for($n = 1; $n <= $num_of_children / $page_size + 1; $n++) { if($n != $page) { ?><a href="#item/<?php echo $entry->id ?>/<?php echo $n ?>"><?php echo $n ?></a><?php } else { echo $n; } ?>&#160;<?php } ?>
-							<?php if($num_of_children / $page_size > $page) { ?><a href="#item/<?php echo $entry->id ?>/<?php echo $page + 1 ?>">&gt;</a><?php } ?>
+							<?php for($n = 1; $n <= max(0, $num_of_children - 1) / $page_size + 1; $n++) { if($n != $page) { ?><a href="#item/<?php echo $entry->id ?>/<?php echo $n ?>"><?php echo $n ?></a><?php } else { echo $n; } ?>&#160;<?php } ?>
+							<?php if(max(0, $num_of_children - 1) / $page_size > $page) { ?><a href="#item/<?php echo $entry->id ?>/<?php echo $page + 1 ?>">&gt;</a><?php } ?>
 						</td>
 					</tr>
 				</tfoot>

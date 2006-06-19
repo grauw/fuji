@@ -162,3 +162,7 @@ a:visited {
   height: 100px;
   width: 288px;
 }
+a.feed {
+  padding-left: 15px;
+  background: url('../graphics/feed-icon.png') 0 3px no-repeat;
+}
