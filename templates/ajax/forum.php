@@ -21,8 +21,8 @@
 				}
 			?>
 			<!--<span><?php echo L10n::$search ?></span>-->
-			<span><a type="application/rss+xml" href="rss/<?php echo $entry->id ?>" class="feed">RSS</a></span>
-			<span><a type="application/atom+xml" href="atom/<?php echo $entry->id ?>" class="feed">Atom</a></span>			
+			<span><a href="rss/<?php echo $entry->id ?>" rel="alternate" type="application/rss+xml" class="feed">RSS</a></span>
+			<span><a href="atom/<?php echo $entry->id ?>" rel="alternate" type="application/atom+xml" class="feed">Atom</a></span>			
 		</div>
 		<div id="threadsTableDiv">
 			<div id="threadsTableDiv" may_post="<?php echo UserManager::getUser()->getRights($entry)->may_post ?>" may_edit="<?php echo UserManager::getUser()->getRights($entry)->may_edit ?>" may_delete="<?php echo UserManager::getUser()->getRights($entry)->may_delete ?>">

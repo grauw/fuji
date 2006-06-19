@@ -25,8 +25,8 @@ $contextId = $parentEntry->id;
 				}
 			?>
 			<!--<span><?php echo L10n::$search ?></span>-->
-			<span><a type="application/rss+xml" href="rss/<?php echo $entry->id ?>" class="feed">RSS</a></span>
-			<span><a type="application/atom+xml" href="atom/<?php echo $entry->id ?>" class="feed">Atom</a></span>
+			<span><a href="rss/<?php echo $entry->id ?>" rel="alternate" type="application/rss+xml" class="feed">RSS</a></span>
+			<span><a href="atom/<?php echo $entry->id ?>" rel="alternate" type="application/atom+xml" class="feed">Atom</a></span>
 		</div>
 		<div id="postsListDiv">
 			<div class="postDiv">
