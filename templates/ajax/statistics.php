@@ -38,30 +38,66 @@
 				</tr>																	
 				<tr>
 					<td><?php echo L10n::$most_used_language ?></td>
-					<td><?php	$most_used_lang = Database::getArray('SELECT language,count(*) FROM users GROUP BY language HAVING count(*) >= ALL(SELECT count(*) FROM users GROUP BY language)');
-								$most_used_lang_id = $most_used_lang[0][0];
-								$most_used_lang_count = $most_used_lang[0][1];
-								if(!$most_used_lang_id)
+					<td><?php	$langs = Database::getArray('SELECT language,count(*) FROM users GROUP BY language');
+								$default_lang = Database::getArray("SELECT value FROM defaults WHERE name = 'language'");
+								$default_lang_name = $default_lang[0][0];
+								$default_lang_count;
+								foreach($langs as $lang)
 								{
-									$most_used_lang_id = Database::getArray("SELECT value FROM defaults WHERE name = 'language'");
-									$most_used_lang_id = $most_used_lang_id[0][0]; 
+									if(!$lang[0])
+										$default_lang_count = $lang[1];
 								}
-								$most_used_lang_name = Database::getArray("SELECT name FROM languages WHERE id = '$most_used_lang_id'");
-								$most_used_lang_name = $most_used_lang_name[0][0];
-								echo "$most_used_lang_name ($most_used_lang_count)"	?>
+								$most_used_lang_name = '';
+								$most_used_lang_count = -1;
+								foreach($langs as $lang)
+								{
+									$lang_name = $lang[0];
+									$lang_count = $lang[1];
+									if($lang_name == $default_lang_name)
+										$lang_count += $default_lang_count;
+									if(!$lang_name)
+										$lang_name = $default_lang_name;									 
+									if($lang_count > $most_used_lang_count)
+									{
+										$most_used_lang_name = $lang_name;
+										$most_used_lang_count = $lang_count;
+									}
+								}
+								$most_used_lang_full_name = Database::getArray("SELECT name FROM languages WHERE id = '$most_used_lang_name'");								
+								$most_used_lang_full_name = $most_used_lang_full_name[0][0];
+								echo "$most_used_lang_full_name ($most_used_lang_count)"	?>
 					</td>
 				</tr>
 				<tr>
 					<td><?php echo L10n::$most_used_style ?></td>
-					<td><?php	$most_used_style = Database::getArray('SELECT style,count(*) FROM users GROUP BY style HAVING count(*) >= ALL(SELECT count(*) FROM users GROUP BY style)');
-								$most_used_style_name = $most_used_style[0][0];
-								$most_used_style_count = $most_used_style[0][1];
-								if(!$most_used_style_name)
-									$most_used_style_name = Database::getArray("SELECT value FROM defaults WHERE name = 'style'"); 
-								else
-									$most_used_style_name = Database::getArray("SELECT name FROM styles WHERE id = '$most_used_style_name'");
-								$most_used_style_name = $most_used_style_name[0][0];
-								echo "$most_used_style_name ($most_used_style_count)" ?>
+					<td><?php	$styles = Database::getArray('SELECT style,count(*) FROM users GROUP BY style');
+								$default_style = Database::getArray("SELECT value FROM defaults WHERE name = 'style'");
+								$default_style_name = $default_style[0][0];
+								$default_style_count;
+								foreach($styles as $style)
+								{
+									if(!$style[0])
+										$default_style_count = $style[1];
+								}
+								$most_used_style_name = '';
+								$most_used_style_count = -1;
+								foreach($styles as $style)
+								{
+									$style_name = $style[0];
+									$style_count = $style[1];
+									if($style_name == $default_style_name)
+										$style_count += $default_style_count; 
+									if(!$style_name)
+										$style_name = $default_style_name;
+									if($style_count > $most_used_style_count)
+									{
+										$most_used_style_name = $style_name;
+										$most_used_style_count = $style_count;
+									}
+								}
+								$most_used_style_full_name = Database::getArray("SELECT id FROM styles WHERE id = '$most_used_style_name'");								
+								$most_used_style_full_name = $most_used_style_full_name[0][0];
+								echo "$most_used_style_full_name ($most_used_style_count)"	?>
 					</td>
 				</tr>
 				<tr>
