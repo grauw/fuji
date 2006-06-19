@@ -1,8 +1,3 @@
-@import "container.css";
-@import "fuji-white.css";
-@import "treeview.css";
-@import "wizard.css";
-
 body {
   font-family: Verdana, Helvetica, sans-serif;
   font-size: 10pt;
@@ -62,7 +57,6 @@ ul.windowActions li {
   height: 300px;
   width: 200px;
 }
-/*.menuDiv { */
 #menuDiv {
   margin: 10px;
   position: absolute;
@@ -77,8 +71,7 @@ ul.windowActions li {
   display: none;
 }
 #menuDiv ul li {
-  float: right;
-  margin-right: 5px;
+  display: inline;
 }
 #threadsDiv {
   margin: 10px;
@@ -93,7 +86,7 @@ ul.windowActions li {
   height: 270px;
 }
 .postsContainer {
-	margin-top: 10px;
+  margin-top: 10px;
 }
 .forumPostDiv {
   border-bottom: 1px solid;
@@ -180,7 +173,6 @@ a:visited {
   height: 100px;
   width: 288px;
 }
-
 a.feed {
   padding-left: 15px;
   background: url('../graphics/feed-icon.png') 0 3px no-repeat;
