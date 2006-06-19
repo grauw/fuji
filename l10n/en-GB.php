@@ -9,7 +9,7 @@ class L10n {
 	static $config_rights = 'Configure rights';
 	static $contact_administrator = 'Contact the server administrator for more information.';
 	static $created = 'Created';
-	static $date_format = '%d/%m/%Y, %H:%i';
+	static $date_format = '%d/%m/%Y&#160;%H:%i';
 	static $delete = 'Delete';
 	static $edit = 'Edit';
 	static $edit_group = 'Edit group';

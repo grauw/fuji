@@ -9,7 +9,7 @@ class L10n {
 	static $config_rights = 'Configureer rechten';
 	static $contact_administrator = 'Neem contact op met de serverbeheerder voor meer informatie.';
 	static $created = 'Aangemaakt';
-	static $date_format = '%d-%m-%Y, %H:%i';	
+	static $date_format = '%d-%m-%Y&#160;%H:%i';	
 	static $delete = 'Verwijderen';
 	static $edit = 'Bewerken';
 	static $edit_group = 'Bewerk groep';
