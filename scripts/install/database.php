@@ -91,8 +91,8 @@ class InstallDb
 							array('styles',
 							array(
 							array('id', 'I', 'UNSIGNED', 'AUTO', 'KEY'),
-							array('name', 'X', 'NOTNULL'),
-							array('file', 'X', 'NOTNULL'))),
+							array('name', 'C', 255, 'NOTNULL'),
+							array('file', 'C', 255, 'NOTNULL'))),
 							
 							array('languages',
 							array(
