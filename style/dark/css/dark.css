@@ -18,17 +18,11 @@
   color: white;
 }
 ul.windowActions {
-  margin: 0;
-  padding: 0;
   background-color: #77bbff;
   background-image: url(../graphics/bar2.png);
   height: 24px;
   color: black;
   border-color: #3377cc;
-}
-ul.windowActions li {
-  display: inline;
-  padding: 0 3px;
 }
 ul.windowActions a:hover {
   color: white;
