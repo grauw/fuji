@@ -3021,12 +3021,12 @@ YAHOO.widget.Dialog.prototype.init = function(el, userConfig) {
 * Prepares the Dialog's internal FORM object, creating one if one is not currently present.
 */
 YAHOO.widget.Dialog.prototype.registerForm = function() {
-	var form = this.element.getElementsByTagName("FORM")[0];
+	var form = this.element.getElementsByTagName("form")[0];
 
 	if (! form) {
 		var formHTML = "<form name=\"frm_" + this.id + "\" action=\"\"></form>";
 		this.body.innerHTML += formHTML;
-		form = this.element.getElementsByTagName("FORM")[0];
+		form = this.element.getElementsByTagName("form")[0];
 	}
 
 	this.firstFormElement = function() {
