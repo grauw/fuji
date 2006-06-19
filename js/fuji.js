@@ -512,6 +512,10 @@ Fuji = {
 		}
 		document.getElementById('editGroupDialog').style.display = 'block';
 		Fuji.editGroupDialog.show();
+	},
+	addTags : function(oElm, sTags) {
+		oElm.value += sTags;
+		oElm.focus();
 	}
 }
 Fuji.Util = {

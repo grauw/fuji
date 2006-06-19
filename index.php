@@ -70,9 +70,13 @@
 				<input id='createRef' name='ref' type='hidden' value='' />
 				<input id='createType' name='type' type='hidden' value='' />
 				<div><span><?php echo L10n::$title ?></span><input id='createT' class="createEditT" name='title' type='text' value='' /></div>
-				<div>	<img src="style/default/graphics/button-bold.png" />
-						<img src="style/default/graphics/button-italic.png" />
-						<img src="style/default/graphics/button-underline.png" />
+				<div>	<img alt="Bold" src="style/default/graphics/button-bold.png" onclick="Fuji.addTags(document.getElementById('createCtent'), '[b][/b]')" />
+						<img alt="Italic" src="style/default/graphics/button-italic.png" onclick="Fuji.addTags(document.getElementById('createCtent'), '[i][/i]')" />
+						<img alt="Underline" src="style/default/graphics/button-underline.png" onclick="Fuji.addTags(document.getElementById('createCtent'), '[u][/u]')" />
+						<img alt="Code" src="style/default/graphics/button-code.png" onclick="Fuji.addTags(document.getElementById('createCtent'), '[code][/code]')" />
+						<img alt="Quote" src="style/default/graphics/button-quote.png" onclick="Fuji.addTags(document.getElementById('createCtent'), '[quote][/quote]')" />
+						<img alt="URL" src="style/default/graphics/button-url.png" onclick="Fuji.addTags(document.getElementById('createCtent'), '[url][/url]')" />
+						<img alt="Image" src="style/default/graphics/button-image.png" onclick="Fuji.addTags(document.getElementById('createCtent'), '[img][/img]')" />
 				</div>
 				<div><textarea id='createCtent' class="createEditContent" name='content' type='text' value=''></textarea></div>
 			</form>
@@ -84,9 +88,13 @@
 			<form id="editF" name="editF" class="createEditF" method="POST" enctype="text/plain">
 				<input id='editEntryid' name='entryid' type='hidden' value='' />
 				<div><span><?php echo L10n::$title ?></span><input id='editT' class="createEditT" name='title' type='text' value='' /></div>
-				<div>	<img src="style/default/graphics/button-bold.png" />
-						<img src="style/default/graphics/button-italic.png" />
-						<img src="style/default/graphics/button-underline.png" />
+				<div>	<img alt="Bold" src="style/default/graphics/button-bold.png" onclick="Fuji.addTags(document.getElementById('editContent'), '[b][/b]')" />
+						<img alt="Italic" src="style/default/graphics/button-italic.png" onclick="Fuji.addTags(document.getElementById('editContent'), '[i][/i]')" />
+						<img alt="Underline" src="style/default/graphics/button-underline.png" onclick="Fuji.addTags(document.getElementById('editContent'), '[u][/u]')" />
+						<img alt="Code" src="style/default/graphics/button-code.png" onclick="Fuji.addTags(document.getElementById('editContent'), '[code][/code]')" />
+						<img alt="Quote" src="style/default/graphics/button-quote.png" onclick="Fuji.addTags(document.getElementById('editContent'), '[quote][/quote]')" />
+						<img alt="URL" src="style/default/graphics/button-url.png" onclick="Fuji.addTags(document.getElementById('editContent'), '[url][/url]')" />
+						<img alt="Image" src="style/default/graphics/button-image.png" onclick="Fuji.addTags(document.getElementById('editContent'), '[img][/img]')" />
 				</div>
 				<div><textarea id='editContent' class="createEditContent" name='content' type='text' value=''></textarea></div>
 			</form>
