@@ -3,7 +3,7 @@
 <wml>
 	<card>
 		<p><b><?php echo $entry->title ?></b><br />
-		<?php echo $entry->getContent() ?></p>
+		<?php echo $entry->getProcessedContent() ?></p>
 		<p>
 		<?php 	if(count($entry) > 0)
 					foreach($entry->getChildren() as $post) { ?>

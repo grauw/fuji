@@ -3,7 +3,7 @@
 <wml>
 	<card>
 		<p><b><?php echo $entry->title ?></b><br />
-		<?php echo $entry->getContent() ?></p>
+		<?php echo $entry->getProcessedContent() ?></p>
 		<p>
 		<?php $num_of_children = count($entry->getChildren());	
 				if($num_of_children > 0)

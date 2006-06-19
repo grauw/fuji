@@ -35,7 +35,7 @@
 							<span><a href="profile/<?php echo User::getUser($entry->userref)->id ?>" target="_blank"><?php echo User::getUser($entry->userref)->nickname ?></a></span>
 							<span><?php echo $entry->getFormattedDate('modified', L10n::$date_format) ?></span>
 						</div>
-						<div class="postContent"><?php echo $entry->getContent() ?></div>
+						<div class="postContent"><?php echo $entry->getProcessedContent() ?></div>
 				</div>	
 			<table id="threadsTable">
 				<thead>

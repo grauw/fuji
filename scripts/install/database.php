@@ -20,6 +20,7 @@ class InstallDb
 							array('ref', 'I', 'UNSIGNED'),
 							array('userref', 'I', 'UNSIGNED', 'NOTNULL'),
 							array('title', 'C', 255, 'NOTNULL'),
+//							array('processor', 'I1', 'NOTNULL') ) ),
 							array('contentref', 'I', 'UNSIGNED'),
 							array('created', 'datetime'),
 							array('modified', 'datetime'),
@@ -119,13 +120,13 @@ class InstallDb
 		Database::execute("INSERT INTO entries (id, ref, contentref, userref, title, created, modified, type) VALUES ('5', '3', '5', '1', 'First post!!1!1', NOW(), NOW(), '4')");
 		Database::execute("INSERT INTO entries (id, ref, contentref, userref, title, created, modified, type) VALUES ('6', '3', '6', '1', 'Second post!!1!1', NOW(), NOW(), '4')");
 		Database::execute("INSERT INTO entries (id, ref, contentref, userref, title, created, modified, type) VALUES ('7', '4', '7', '1', 'Third post!!1!1', NOW(), NOW(), '4')");
-		Database::execute("INSERT INTO content (id, content, processor) VALUES ('1', 'SUPAHF0RAH!', '0')");
-		Database::execute("INSERT INTO content (id, content, processor) VALUES ('2', 'Hallo', '0')");
-		Database::execute("INSERT INTO content (id, content, processor) VALUES ('3', 'Hallo hallo', '0')");
-		Database::execute("INSERT INTO content (id, content, processor) VALUES ('4', 'Hallo hallo hallo', '0')");
-		Database::execute("INSERT INTO content (id, content, processor) VALUES ('5', 'Hallo hallo hallo hallo', '0')");
-		Database::execute("INSERT INTO content (id, content, processor) VALUES ('6', 'Hallo hallo hallo hallo hallo', '0')");
-		Database::execute("INSERT INTO content (id, content, processor) VALUES ('7', 'Tset tste tset', '0')");
+		Database::execute("INSERT INTO content (id, content, processor) VALUES ('1', '<p>SUPAHF0RAH!</p>', '0')");
+		Database::execute("INSERT INTO content (id, content, processor) VALUES ('2', '<p>Hallo</p>', '0')");
+		Database::execute("INSERT INTO content (id, content, processor) VALUES ('3', '<p>Hallo hallo</p>', '0')");
+		Database::execute("INSERT INTO content (id, content, processor) VALUES ('4', '<p>Hallo hallo hallo</p>', '0')");
+		Database::execute("INSERT INTO content (id, content, processor) VALUES ('5', '<p>Hallo hallo hallo hallo</p>', '0')");
+		Database::execute("INSERT INTO content (id, content, processor) VALUES ('6', '<p>Hallo hallo hallo hallo hallo</p>', '0')");
+		Database::execute("INSERT INTO content (id, content, processor) VALUES ('7', '<p>Tset tste tset</p>', '0')");
 		Database::execute("INSERT INTO users (nickname, email, password, templateref, inputmethod) VALUES ('root', 'root@localhost', '" . sha1('root') . "', '1', '1')");
 		Database::execute("INSERT INTO users (nickname, email, password, templateref, inputmethod) VALUES ('anonymous', 'anonymous@localhost', '" . sha1('') . "', '1', '1')");
 		Database::execute("INSERT INTO groups (name) VALUES ('Operators')");
@@ -164,6 +165,7 @@ class InstallDb
 		Database::execute("INSERT INTO styles (name, file) VALUES ('Default Fuji', 'default.xml')");
 		Database::execute("INSERT INTO styles (name, file) VALUES ('Dark Fuji', 'dark.xml')");
 		Database::execute("INSERT INTO styles (name, file) VALUES ('Fuji Lite', 'lite.xml')");
+		Database::execute("INSERT INTO styles (name, file) VALUES ('Modern', 'modern.xml')");
 		Database::execute("INSERT INTO languages (id, name) VALUES ('en-GB', 'English (Great Britain)')");
 		Database::execute("INSERT INTO languages (id, name) VALUES ('nl-NL', 'Nederlands (Nederland)')");
 		Database::execute("INSERT INTO defaults (name, value) VALUES ('language', 'en-GB')");

@@ -38,7 +38,7 @@ $contextId = $parentEntry->id;
 						<span><a href="profile/<?php echo User::getUser($entry->userref)->id ?>" target="_blank"><?php echo User::getUser($entry->userref)->nickname ?></a></span>
 						<span><?php echo $entry->getFormattedDate('modified', L10n::$date_format) ?></span>
 					</h3>
-					<div class="postContent"><?php echo $entry->getContent() ?></div>
+					<div class="postContent"><?php echo $entry->getProcessedContent() ?></div>
 			</div>
 			<?php 	$num_of_children = count($entry->getChildren());
 					if($num_of_children > 0)
@@ -58,7 +58,7 @@ $contextId = $parentEntry->id;
 							}
 						?>
 					</h3>
-					<div class="postContent"><?php echo $post->getContent() ?></div>
+					<div class="postContent"><?php echo $post->getProcessedContent() ?></div>
 				
 				<?php } else { ?>
 				

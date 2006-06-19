@@ -16,7 +16,7 @@
 	
 	<h1><?php echo $entry->title ?></h1>
 	
-	<p><?php echo $entry->getContent() ?></p>
+	<?php echo $entry->getProcessedContent() ?>
 	
 	<ul>
 		<?php foreach($entry->getChildren() as $post) { ?>
@@ -25,7 +25,7 @@
 			
 				<h2><a href="/item/<?php echo $post->id ?>"><?php echo $post->title ?></a></h2>
 				
-				<?php echo $post->getContent() ?>
+				<?php echo $post->getProcessedContent() ?>
 			
 			<?php } else { ?>
 			

@@ -3,13 +3,13 @@
 <wml>
 	<card>
 		<p><b><?php echo $entry->title ?></b><br />
-		<?php echo $entry->getContent() ?><br />
+		<?php echo $entry->getProcessedContents() ?><br />
 		<?php echo L10n::$posted_by ?> <?php echo User::getUser($entry->userref)->nickname ?> <?php echo L10n::$at ?> <?php echo $entry->getFormattedDate('modified', L10n::$date_format) ?></p>
 		<?php $num_of_children = count($entry->getChildren());	
 				if($num_of_children > 0)
 					foreach($entry->getChildren('created', ($page - 1) * 3 . ', 3') as $post) { ?>
 						<p><b><?php echo $post->title ?></b><br />
-						<?php echo $post->getContent() ?><br />
+						<?php echo $post->getProcessedContent() ?><br />
 						<?php echo L10n::$posted_by ?> <?php echo User::getUser($post->userref)->nickname ?> <?php echo L10n::$at ?> <?php echo $post->getFormattedDate('modified', L10n::$date_format) ?></p>
 		<?php } ?>
 		<p><?php if($page > 1) { ?><a href="../<?php echo $entry->id ?>/<?php echo $page - 1 ?>">&lt; <?php echo L10n::$previous ?></a>&nbsp;<?php } ?>

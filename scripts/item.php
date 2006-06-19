@@ -52,7 +52,7 @@ class Item {
 			$entry = Entry::getEntry($_POST['entryid']);
 			if($entry && UserManager::getUser()->getRights($entry)->may_edit)
 			{
-				if($_POST['content'] != $entry->getContent()) $entry->updateContent($_POST['content']);
+				if($_POST['content'] != $entry->getProcessedContent()) $entry->updateContent($_POST['content']);
 				if($_POST['title'] != $entry->title) $entry->title = $_POST['title'];
 			}
 		}

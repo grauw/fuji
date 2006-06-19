@@ -16,7 +16,7 @@
 	
 	<h1><?php echo $entry->title; echo 'eej' ?></h1>
 	
-	<p><?php echo $entry->getContent() ?></p>
+	<?php echo $entry->getProcessedContent() ?>
 	
 	<?php recur($entry) ?>
 	<?php function recur($entry) { ?>
@@ -27,7 +27,7 @@
 				
 				<h2><?php echo $post->title ?></h2>
 				
-				<?php echo $post->getContent() ?>
+				<?php echo $post->getProcessedContent() ?>
 				
 				<?php recur($post) ?>
 				
@@ -38,7 +38,7 @@
 				
 				<h2><a href="/item/<?php echo $post->id ?>"><?php echo $post->title ?></a></h2>
 				
-				<?php echo $post->getContent() ?>
+				<?php echo $post->getProcessedContent() ?>
 				
 			</li>
 			<?php } ?>

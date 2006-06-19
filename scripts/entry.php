@@ -50,7 +50,7 @@ class Entry extends Dataclass {
 	 * @returns the new Entry
 	 */
 	static function addEntry($data) {
-		$default_proc = 0;
+		$default_proc = 1;
 		if(count($data) > 0)
 		{
 			if(array_key_exists('content', $data) && $data['content'] != null && $data['content'] !== '')
@@ -91,17 +91,34 @@ class Entry extends Dataclass {
 	}
 	
 	/**
+	 * Get entry's processed content
+	 * @returns content as String
+	 */
+	function getProcessedContent() {
+		if(isset($this->contentref))
+		{
+			$data = Database::getArray("SELECT content, processor FROM " . DbVar::$db_tprefix . "content WHERE id = '$this->contentref'");
+			$contentdata = $data[0];
+			if ($contentdata['processor'] == '0') {
+				return $contentdata['content'];
+			}
+			else if ($contentdata['processor'] == '1') {
+				$bbcode = new BBCode();
+				return $bbcode->parse($contentdata['content']);
+			}
+		}
+	}
+	
+	/**
 	 * Get entry's content
 	 * @returns content as String
 	 */
 	function getContent() {
 		if(isset($this->contentref))
 		{
-			$bbcode = new BBCode();
 			$data = Database::getArray("SELECT content FROM " . DbVar::$db_tprefix . "content WHERE id = '$this->contentref'");
-			$contentdata = $data[0];
-			if($contentdata['content'])
-				return $bbcode->parse($contentdata['content']);
+			// TODO: not returning 'processor' information
+			return $data[0]['content'];
 		}
 	}
 	
