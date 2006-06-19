@@ -1,58 +1,86 @@
 <?php	
 
+require_once 'dataclass.php';
 require_once "database.php";
 
-class StyleXML {
+class Stylesheet extends Dataclass {
 	
-	private $doc = null;
-	private $path = '';
-
-	function __construct($xmldoc, $depth=0)
+	private $default;
+	
+	static function getTable() { return 'styles'; }
+	
+	function __construct($data, $default = FALSE)
 	{
-		$this->doc = DOMDocument::load($xmldoc);
-		$this->path = self::getPath($depth); 		
+		parent::__construct($data);
+		$this->default = $default;
 	}
 	
-	static function getStyleXML($depth = 0)
+	/**
+	 * returns an array of Stylesheet-objects
+	 * @returns Stylesheet
+	 */
+	static function getStylesheets()
 	{
-		if (isset(UserManager::getUser()->style))
-		{
-			$style = UserManager::getUser()->style;
-			$data = Database::getArray("SELECT * FROM " . Database::$db_tprefix . "styles WHERE id = '$style'"); 
-		}
-		else {
+		if (isset(UserManager::getUser()->style)) {
+			$primarystyle = UserManager::getUser()->style;
+		} else {
 			$default = Database::getArray("SELECT value FROM " . Database::$db_tprefix . "defaults WHERE name = 'style'");
-			$default = $default[0][0];
-			$data = Database::getArray("SELECT * FROM " . Database::$db_tprefix . "styles WHERE id = '$default'");
+			$primarystyle = $default[0][0];
 		}
-		$selected = $data[0];
-		return new StyleXML(self::getPath($depth)."style/".$selected['file'], $depth);
+		$stylesheets = array();
+		$data = Database::getArray("SELECT * FROM " . DbVar::$db_tprefix . "styles");
+		foreach ($data as $value) {
+			array_push($stylesheets, new Stylesheet($value, $value['id']==$primarystyle));
+		}
+		return $stylesheets;
 	}
 	
-	function getStylesheets()
-	{
-		$elems = $this->doc->getElementsByTagName('css');
-		foreach ($elems as $elem)
-		{
-			$value = $elem->nodeValue;
-			
-			echo '<link rel="stylesheet" type="text/css" href="'.$this->path.'style/'.$value.'" />'; 
-		}
+	/**
+	 * returns a Stylesheet-object given its id
+	 * @param {Int} $id Stylesheet to be returned
+	 * @returns Stylesheet
+	 */
+	static function getStylesheet($id) {
+		$data = Database::getArray("SELECT * FROM " . DbVar::$db_tprefix . "styles WHERE id = '$id'");
+		$styledata = $data[0];
+		if($styledata)
+			return new Stylesheet($styledata);
 	}
 	
-	static function getPath($depth)
+	static function getStylesheetsHTML()
 	{
-		$path = "";
-		for($n = 0; $n<$depth; $n++)
-		{
-			$path .= "../";
+		$stylesheetsarr = Stylesheet::getStylesheets();
+		$stylesheets = '';
+		foreach ($stylesheetsarr as $value) {
+			$stylesheets .= $value->getStylesheetHTML();
 		}
-		return $path;
+		return $stylesheets;
+	}
+	
+	static function getStylesheetsXML()
+	{
+		$stylesheetsarr = Stylesheet::getStylesheets();
+		$stylesheets = '';
+		foreach ($stylesheetsarr as $value) {
+			$stylesheets .= $value->getStylesheetXML();
+		}
+		return $stylesheets;
+	}
+	
+	function getStylesheetHTML()
+	{
+		return '<link rel="'.($this->default ? '' : 'alternate ').'stylesheet" type="text/css" href="'.$this->file.'" title="'.$this->name.'" />'."\n"; 
+	}
+	
+	function getStylesheetXML()
+	{
+		return '<?xml-stylesheet href="'.$this->file.'" title="'.$this->name.'"'.($this->default ? '' : ' alternate="yes"').' type="text/css" ?'.">\n";
 	}
 	
 	static function getStyles()
 	{
-		return Database::getArray("SELECT * FROM " . Database::$db_tprefix . "styles");
+	//waarvoor wordt deze gebruikt?
+		return Database::getArray("SELECT * FROM " . Database::$db_tprefix . "styles ");
 	}
 }
 

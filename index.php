@@ -2,8 +2,10 @@
 	require_once("scripts/l10nmanager.php");
 	require_once("scripts/usermanager.php");
 	require_once("scripts/styleparser.php");
+	require_once("scripts/xhtml.php");
 	UserManager::authenticate();
 	L10nManager::loadL10n();
+	echo XHTML::pageHeaders();
 ?>
 <!DOCTYPE html 
      PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
@@ -11,12 +13,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="<?php echo L10n::$language ?>" xml:lang="<?php echo L10n::$language ?>">
 <head>
 	<title>Fuji</title>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<?php StyleXML::getStyleXML()->getStyleSheets(); ?>
+	<?php echo XHTML::headContent(); ?>
 	<link id="rsslink" rel="alternate" type="application/rss+xml" href="rss/" />
 	<link id="atomlink" rel="alternate" type="application/atom+xml" href="atom/" />
-	<link rel="home" type="application/rss+xml" href="rss/" />
-	<link rel="home" type="application/atom+xml" href="atom/" />
 	<script type="text/javascript" src="js/yui/yahoo/yahoo.js"></script>
 	<script type="text/javascript" src="js/yui/dom/dom.js"></script>
 	<script type="text/javascript" src="js/yui/event/event.js"></script>
@@ -158,7 +157,7 @@
 					<legend><?php echo L10n::$style ?></legend>
 					<select id='prefStyle' name='style'>
 						<?php
-								$styles = StyleXML::getStyles();
+								$styles = Stylesheet::getStyles();
 								$s;
 								if(isset(UserManager::getUser()->style))
 									$s = UserManager::getUser()->style;
