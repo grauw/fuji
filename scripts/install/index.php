@@ -18,11 +18,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<?php echo $xhtml_template->language ?>">
 	<head>
 		<title>Fuji Installer</title>
-		<?php
-		$style = new StyleXML("../../style/default.xml");
-		$style->getStyleSheets();
-		?>
-			
+		<link rel="stylesheet" href="style/default/css/fuji.css" type="text/css" />
+		<link rel="stylesheet" href="style/default/css/install.css" type="text/css" />
 	</head>
 	<body>
 <?php if($_SERVER['REMOTE_ADDR'] == '127.0.0.1') { ?>	
