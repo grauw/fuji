@@ -61,7 +61,6 @@ class BBCode extends Processor {
                  if ($tags[$i] == 'img')
                     $lock = true;
                  array_push($this->tagsStack, $tags[$i]);
-                 print_r($this->tagsStack);
                  $result .= $texts[$i].$this->convertTag($tags[$i], $tagextra[$i], $texts[$i+1]) . $trailer[$i];
               }
               else
