@@ -15,7 +15,6 @@ Fuji = {
 	 * @param {String} uri The URI to the item
 	 */		
 	loadItem : function(uri) {
-		Fuji.newLoadingDialog();
 		if (document.getElementById(uri)) {
 			Fuji.selectDeckItem(document.getElementById(uri));
 		} else {
@@ -31,6 +30,7 @@ Fuji = {
 	 * @param {Int} depth Number of parents to reload recursively (optional, default: 0 = none)
 	 */	
 	reloadItem : function(uri, depth) {
+		Fuji.newLoadingDialog();
 		if (depth == undefined) depth = 0;
 		for (var i=0; i<=depth; i++) {
 			Fuji.reloadItemWithChild(uri);
@@ -49,13 +49,19 @@ Fuji = {
 	 * @param {XMLDocument} sURI the URI of the document to process additionally (optional)
 	 */		
 	reloadItemWithChild : function(uri, oDocument, sURI) {
+		Fuji.newLoadingDialog();
 		var callback =
 		{
 			success: Fuji.loadSuccess,
-			failure: Fuji.newErrorDialog,
+			failure: Fuji.loadFailure,
 			argument: { uri: uri, oDocument: oDocument, sURI: sURI }
 		}
 		YAHOO.util.Connect.asyncRequest('GET', uri, callback, null);
+	},
+	
+	loadFailure : function(oXMLHttpObject) {
+		Fuji.loadingDialog.hide();
+		Fuji.newErrorDialog(oXMLHttpObject);
 	},
 	
 	/**
