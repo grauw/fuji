@@ -743,7 +743,7 @@ YAHOO.widget.Module.prototype = {
 
 			el = document.getElementById(el);
 			if (! el) {
-				el = document.createElement("DIV");
+				el = document.createElement("div");
 				el.id = elId;
 			}
 		}
@@ -796,7 +796,7 @@ YAHOO.widget.Module.prototype = {
 	initResizeMonitor : function() {
 		var resizeMonitor = document.getElementById("_yuiResizeMonitor");
 		if (! resizeMonitor) {
-			resizeMonitor = document.createElement("DIV");
+			resizeMonitor = document.createElement("div");
 			resizeMonitor.style.position = "absolute";
 			resizeMonitor.id = "_yuiResizeMonitor";
 			resizeMonitor.style.width = "1em";
@@ -822,7 +822,7 @@ YAHOO.widget.Module.prototype = {
 	*/	
 	setHeader : function(headerContent) {
 		if (! this.header) {
-			this.header = document.createElement("DIV");
+			this.header = document.createElement("div");
 			this.header.className = YAHOO.widget.Module.CSS_HEADER;
 		}
 		
@@ -843,7 +843,7 @@ YAHOO.widget.Module.prototype = {
 	*/	
 	appendToHeader : function(element) {
 		if (! this.header) {
-			this.header = document.createElement("DIV");
+			this.header = document.createElement("div");
 			this.header.className = YAHOO.widget.Module.CSS_HEADER;
 		}
 		
@@ -859,7 +859,7 @@ YAHOO.widget.Module.prototype = {
 	*/		
 	setBody : function(bodyContent) {
 		if (! this.body) {
-			this.body = document.createElement("DIV");
+			this.body = document.createElement("div");
 			this.body.className = YAHOO.widget.Module.CSS_BODY;
 		}
 
@@ -881,7 +881,7 @@ YAHOO.widget.Module.prototype = {
 	*/
 	appendToBody : function(element) {
 		if (! this.body) {
-			this.body = document.createElement("DIV");
+			this.body = document.createElement("div");
 			this.body.className = YAHOO.widget.Module.CSS_BODY;
 		}
 
@@ -897,7 +897,7 @@ YAHOO.widget.Module.prototype = {
 	*/	
 	setFooter : function(footerContent) {
 		if (! this.footer) {
-			this.footer = document.createElement("DIV");
+			this.footer = document.createElement("div");
 			this.footer.className = YAHOO.widget.Module.CSS_FOOTER;
 		}
 
@@ -918,7 +918,7 @@ YAHOO.widget.Module.prototype = {
 	*/
 	appendToFooter : function(element) {
 		if (! this.footer) {
-			this.footer = document.createElement("DIV");
+			this.footer = document.createElement("div");
 			this.footer.className = YAHOO.widget.Module.CSS_FOOTER;
 		}
 
@@ -2479,7 +2479,7 @@ YAHOO.widget.Panel.prototype.configClose = function(type, args, obj) {
 
 	if (val) {
 		if (! this.close) {
-			this.close = document.createElement("DIV");
+			this.close = document.createElement("div");
 			YAHOO.util.Dom.addClass(this.close, "close");
 
 			if (this.isSecure) {
@@ -2533,7 +2533,7 @@ YAHOO.widget.Panel.prototype.configUnderlay = function(type, args, obj) {
 			YAHOO.util.Dom.addClass(this.element, "shadow");
 
 			if (! this.underlay) { // create if not already in DOM
-				this.underlay = document.createElement("DIV");
+				this.underlay = document.createElement("div");
 				this.underlay.className = "underlay";
 				this.underlay.innerHTML = "&#160;";
 				this.element.appendChild(this.underlay);
@@ -2619,7 +2619,7 @@ YAHOO.widget.Panel.prototype.buildWrapper = function() {
 
 	YAHOO.util.Dom.addClass(this.innerElement, "panel");
 
-	var wrapper = document.createElement("DIV");
+	var wrapper = document.createElement("div");
 	wrapper.className = YAHOO.widget.Panel.CSS_PANEL_CONTAINER;
 	wrapper.id = elementClone.id + "_c";
 	
@@ -2748,7 +2748,7 @@ YAHOO.widget.Panel.prototype.registerDragDrop = function() {
 */
 YAHOO.widget.Panel.prototype.buildMask = function() {
 	if (! this.mask) {
-		this.mask = document.createElement("DIV");
+		this.mask = document.createElement("div");
 		this.mask.id = this.id + "_mask";
 		this.mask.className = "mask";
 		this.mask.innerHTML = "&#160;";
@@ -3086,13 +3086,13 @@ YAHOO.widget.Dialog.prototype.configButtons = function(type, args, obj) {
 	var buttons = args[0];
 	if (buttons != "none") {
 		this.buttonSpan = null;
-		this.buttonSpan = document.createElement("SPAN");
+		this.buttonSpan = document.createElement("span");
 		this.buttonSpan.className = "button-group";
 
 		for (var b=0;b<buttons.length;b++) {
 			var button = buttons[b];
 
-			var htmlButton = document.createElement("BUTTON");
+			var htmlButton = document.createElement("button");
 
 			if (button.isDefault) {
 				htmlButton.className = "default";

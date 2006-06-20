@@ -743,7 +743,7 @@ YAHOO.widget.Module.prototype = {
 
 			el = document.getElementById(el);
 			if (! el) {
-				el = document.createElement("DIV");
+				el = document.createElement("div");
 				el.id = elId;
 			}
 		}
@@ -796,7 +796,7 @@ YAHOO.widget.Module.prototype = {
 	initResizeMonitor : function() {
 		var resizeMonitor = document.getElementById("_yuiResizeMonitor");
 		if (! resizeMonitor) {
-			resizeMonitor = document.createElement("DIV");
+			resizeMonitor = document.createElement("div");
 			resizeMonitor.style.position = "absolute";
 			resizeMonitor.id = "_yuiResizeMonitor";
 			resizeMonitor.style.width = "1em";
@@ -822,7 +822,7 @@ YAHOO.widget.Module.prototype = {
 	*/	
 	setHeader : function(headerContent) {
 		if (! this.header) {
-			this.header = document.createElement("DIV");
+			this.header = document.createElement("div");
 			this.header.className = YAHOO.widget.Module.CSS_HEADER;
 		}
 		
@@ -843,7 +843,7 @@ YAHOO.widget.Module.prototype = {
 	*/	
 	appendToHeader : function(element) {
 		if (! this.header) {
-			this.header = document.createElement("DIV");
+			this.header = document.createElement("div");
 			this.header.className = YAHOO.widget.Module.CSS_HEADER;
 		}
 		
@@ -859,7 +859,7 @@ YAHOO.widget.Module.prototype = {
 	*/		
 	setBody : function(bodyContent) {
 		if (! this.body) {
-			this.body = document.createElement("DIV");
+			this.body = document.createElement("div");
 			this.body.className = YAHOO.widget.Module.CSS_BODY;
 		}
 
@@ -881,7 +881,7 @@ YAHOO.widget.Module.prototype = {
 	*/
 	appendToBody : function(element) {
 		if (! this.body) {
-			this.body = document.createElement("DIV");
+			this.body = document.createElement("div");
 			this.body.className = YAHOO.widget.Module.CSS_BODY;
 		}
 
@@ -897,7 +897,7 @@ YAHOO.widget.Module.prototype = {
 	*/	
 	setFooter : function(footerContent) {
 		if (! this.footer) {
-			this.footer = document.createElement("DIV");
+			this.footer = document.createElement("div");
 			this.footer.className = YAHOO.widget.Module.CSS_FOOTER;
 		}
 
@@ -918,7 +918,7 @@ YAHOO.widget.Module.prototype = {
 	*/
 	appendToFooter : function(element) {
 		if (! this.footer) {
-			this.footer = document.createElement("DIV");
+			this.footer = document.createElement("div");
 			this.footer.className = YAHOO.widget.Module.CSS_FOOTER;
 		}
 
