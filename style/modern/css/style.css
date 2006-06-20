@@ -47,8 +47,58 @@ h1 {
 }
 
 
-/* Threads list & thread shared */
 /* Threads list */
 
+#threadsDiv table {
+	border-spacing: 0;
+	width: 100%;
+}
+#threadsDiv table th {
+	border: 1px solid #6c0;
+	border-color: #af4 #6c0 #6c0 #af4;
+	background: #8e0;
+	font-weight: normal;
+	padding: .1em .2em;
+}
+#threadsDiv table th:first-child {
+	width: 50%;
+}
+#threadsDiv table td {
+	border: solid #6c0;
+	border-width: 0;
+	background: #9f0;
+	text-align: center;
+	padding: .1em .3em;
+}
+#threadsDiv table td:first-child {
+	text-align: left;
+	padding: 0;
+}
+#threadsDiv table td:first-child a {
+	padding: .1em .3em;
+}
+#threadsDiv table td a {
+	display: block;
+}
+#threadsDiv table tr.even td {
+	background: #94f800;
+}
+#threadsDiv table tr:hover td {
+	background: #90f500;
+}
+
+
 /* Thread */
+
+.postsContainer .postDiv.even {
+	background: #90f500;
+}
+
+.postsContainer .postDiv {
+	border-top: 2px solid #8e0;
+	padding-bottom: 1em;
+}
+.postsContainer .postDiv:first-child {
+	border-top: none;
+}
 

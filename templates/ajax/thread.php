@@ -31,23 +31,24 @@ $contextId = $parentEntry->id;
 			?><li><a href="atom/<?php echo $entry->id ?>" rel="alternate" type="application/atom+xml" class="feed">Atom</a></li>
 		</ul>
 		<div class="postsListDiv content">
-			<div class="postDiv">
+			<div class="postDiv odd">
 					<h3 class="postTitle">
 						<span><?php echo $entry->title ?></span>
-						<span><a href="profile/<?php echo User::getUser($entry->userref)->id ?>" target="_blank"><?php echo User::getUser($entry->userref)->nickname ?></a></span>
-						<span><?php echo $entry->getFormattedDate('modified', L10n::$date_format) ?></span>
+						<span>(Posted by <a href="profile/<?php echo User::getUser($entry->userref)->id ?>" target="_blank"><?php echo User::getUser($entry->userref)->nickname ?></a>
+							on <?php echo $entry->getFormattedDate('modified', L10n::$date_format) ?>)</span>
 					</h3>
 					<div class="postContent"><?php echo $entry->getProcessedContent() ?></div>
 			</div>
 			<?php 	$num_of_children = count($entry->getChildren());
+					$i = 1;
 					if($num_of_children > 0)
 					foreach($entry->getChildren('created', ($page - 1) * $page_size . ', ' . $page_size) as $post) { ?>
-			<div class="postDiv">
+			<div class="postDiv <?php echo $i++ % 2 ? 'even' : 'odd' ?>">
 				<?php if ($post->type == Entry::$TYPE_POST) { ?>
 					<h3 class="postTitle">
 						<span><?php echo $post->title ?></span>
-						<span><a href="profile/<?php echo User::getUser($entry->userref)->id ?>" target="_blank"><?php echo User::getUser($entry->userref)->nickname ?></a></span>
-						<span><?php echo $entry->getFormattedDate('modified', L10n::$date_format) ?></span>
+						<span>(Posted by <a href="profile/<?php echo User::getUser($entry->userref)->id ?>" target="_blank"><?php echo User::getUser($entry->userref)->nickname ?></a>
+							on <?php echo $entry->getFormattedDate('modified', L10n::$date_format) ?>)</span>
 						<?php
 							if (UserManager::getUser()->getRights($post)->may_edit) {
 								?><span><a href="javascript:Fuji.newEditDialog('<?php echo $post->id ?>')"><?php echo L10n::$edit ?></a></span><?php
@@ -58,6 +59,18 @@ $contextId = $parentEntry->id;
 						?>
 					</h3>
 					<div class="postContent"><?php echo $post->getProcessedContent() ?></div>
+					<?php /*
+						if (UserManager::getUser()->getRights($post)->may_edit || UserManager::getUser()->getRights($post)->may_delete) {
+						?><ul class="menu"><li>Actions:<ul><?php
+							if (UserManager::getUser()->getRights($post)->may_edit) {
+								?><span><a href="javascript:Fuji.newEditDialog('<?php echo $post->id ?>')"><?php echo L10n::$edit ?></a></span><?php
+							}
+							if (UserManager::getUser()->getRights($post)->may_delete) {
+								?><span><a href="javascript:Fuji.newDeleteDialog('<?php echo $post->id ?>', '<?php echo $post->ref ?>')"><?php echo L10n::$delete ?></a></span><?php
+							}
+						?></ul></li></ul><?php
+						}*/
+					?>
 				
 				<?php } else { ?>
 				

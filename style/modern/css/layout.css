@@ -1,6 +1,6 @@
 body {
 	position: relative;
-	max-width: 60em;
+	max-width: 70em;
 }
 
 .logoDiv {
@@ -21,5 +21,5 @@ body {
 }
 
 #threadsDiv {
-	max-width: 45em;
+	max-width: 55em;
 }

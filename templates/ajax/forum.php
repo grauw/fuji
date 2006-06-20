@@ -21,7 +21,7 @@
 				}
 				/*if (UserManager::isAdmin()) { 
 					?><li id="actionConfigRights"><a href="javascript:Fuji.newConfigRightsDialog('<?php echo $entry->id ?>')"><?php echo L10n::$config_rights ?></a></li><?php
-				}*/				
+				}*/
 			?><li><a href="rss/<?php echo $entry->id ?>" rel="alternate" type="application/rss+xml" class="feed">RSS</a></li><?php
 			?><li><a href="atom/<?php echo $entry->id ?>" rel="alternate" type="application/atom+xml" class="feed">Atom</a></li>			
 		</ul>
@@ -42,10 +42,11 @@
 				</thead>
 				<tbody>
 				<?php 	$num_of_children = count($entry->getChildren());
+						$i = 0;
 						if($num_of_children > 0)
 						foreach($entry->getChildren('type, created DESC', ($page - 1) * $page_size . ', ' . $page_size) as $post) { ?>
 						<?php if ($post->type == Entry::$TYPE_FORUM) { ?>
-						<tr entryid="<?php echo $post->id ?>" entrytitle="<?php echo $post->title ?>" class="tableForumEntry">
+						<tr entryid="<?php echo $post->id ?>" entrytitle="<?php echo $post->title ?>" class="tableForumEntry <?php echo $i++ % 2 ? 'even' : 'odd' ?>">
 							<td><a href="#item/<?php echo $post->id ?>/"><?php echo $post->title ?></a></td>
 							<td><a href="profile/<?php echo User::getUser($entry->userref)->id ?>" target="_blank"><?php echo User::getUser($entry->userref)->nickname ?></a></td>
 							<td><?php echo count($post->getChildren()) ?></td>
@@ -53,7 +54,7 @@
 							<td><?php echo $post->getFormattedDate('modified', L10n::$date_format) ?></td>
 						
 						<?php } else if ($post->type == Entry::$TYPE_POST) { ?>
-						<tr entryid="<?php echo $post->id ?>" entrytitle="<?php echo $post->title ?>" class="tableThreadEntry">				
+						<tr entryid="<?php echo $post->id ?>" entrytitle="<?php echo $post->title ?>" class="tableThreadEntry <?php echo $i++ % 2 ? 'even' : 'odd' ?>">				
 							<td><a href="#item/<?php echo $post->id ?>/"><?php echo $post->title ?></a></td>
 							<td><a href="profile/<?php echo User::getUser($entry->userref)->id ?>" target="_blank"><?php echo User::getUser($entry->userref)->nickname ?></a></td>
 							<td><?php echo count($post->getChildren()) ?></td>
