@@ -48,5 +48,10 @@
 		{
 			return Database::getArray("SELECT * FROM " . Database::$db_tprefix . "languages");
 		}
+		static function getDefaultL10n()
+		{
+			$data = Database::getArray("SELECT value FROM " . Database::$db_tprefix . "defaults WHERE name = 'language'");
+			return $data[0][0];	
+		}		
 	}
 ?>

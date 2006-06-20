@@ -5,7 +5,7 @@ require_once "database.php";
 
 class Stylesheet extends Dataclass {
 	
-	private $default;
+	public $default;
 	
 	static function getTable() { return 'styles'; }
 	
@@ -75,12 +75,6 @@ class Stylesheet extends Dataclass {
 	function getStylesheetXML()
 	{
 		return '<?xml-stylesheet href="'.$this->file.'" title="'.$this->name.'"'.($this->default ? '' : ' alternate="yes"').' type="text/css" ?'.">\n";
-	}
-	
-	static function getDefaultStyle()
-	{
-		$data = Database::getArray("SELECT value FROM " . Database::$db_tprefix . "defaults WHERE name = 'style'");
-		return $data[0][0];	
 	}
 }
 

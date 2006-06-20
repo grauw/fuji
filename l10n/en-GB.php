@@ -11,6 +11,8 @@ class L10n {
 	static $contact_administrator = 'Contact the server administrator for more information.';
 	static $created = 'Created';
 	static $date_format = '%d/%m/%Y&#160;%H:%i';
+	static $default_language = 'Default language';
+	static $default_style = 'Default style';
 	static $delete = 'Delete';
 	static $edit = 'Edit';
 	static $edit_group = 'Edit group';
@@ -37,9 +39,12 @@ class L10n {
 	static $fora = 'Fora';
 	static $group = 'Group';
 	static $groups = 'Groups';
+	static $gzip_compression = 'GZIP compression';
 	static $invalid_url = 'Invalid URL';
 	static $lang = 'Language';
 	static $language = 'en-GB';
+	static $least_cpu_load = 'Least cpu-load';
+	static $least_network_traffic = 'Least network-traffic';
 	static $loading = 'Loading';
 	static $logged_in_as = 'Logged in as';
 	static $login = 'Login';
@@ -81,6 +86,7 @@ class L10n {
 	static $reply = 'Reply';
 	static $rights = 'Rights';
 	static $search = 'Search';
+	static $server_settings = 'Server settings';	
 	static $statistics = 'Statistics';
 	static $style = 'Style';
 	static $subscribe_to_atom = 'Subscribe to Atom feed';

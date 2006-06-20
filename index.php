@@ -128,6 +128,48 @@
 		<div id="prefTitle" class="hd"><?php echo L10n::$preferences ?></div>
 		<div id="prefForm" class="bd">
 			<form id="prefF" name="prefF" method="POST" action="preferences">
+				<?php if(UserManager::getUser()->isAdmin()) { ?>
+				<fieldset>
+					<legend><?php echo L10n::$server_settings ?></legend>
+					<p><?php echo L10n::$default_language ?><br />
+					<select name='default_language'>
+						<?php
+								$l10ns = L10nManager::getL10ns();
+								$lang = L10nManager::getDefaultL10n();
+								foreach($l10ns as $l10n)
+								{ 
+									echo '<option value="' . $l10n['id'] . '"' . ($l10n['id'] == $lang ? ' selected="Selected"' : '') .  '>' . $l10n['name'] . '</option>';
+								}
+						?>
+					</select>
+					</p>
+					<p><?php echo L10n::$default_style ?><br />
+					<select name='default_style'>
+						<?php
+								$styles = Stylesheet::getStylesheets();
+								foreach($styles as $style)
+								{
+									echo '<option value="' . $style->name . '"' . ($style->default ? ' selected="Selected"' : '') .  '>' . $style->name . '</option>';
+								}
+						?>
+					</select>
+					</p>
+					<p><?php echo L10n::$gzip_compression ?><br />
+					<select name='gzip'>
+						<option value="0">0 (<?php echo L10n::$least_cpu_load ?>)</option>
+						<option value="1">1</option>
+						<option value="2">2</option>
+						<option value="3">3</option>
+						<option value="4">4</option>
+						<option value="5">5</option>
+						<option value="6" selected="Selected">6</option>
+						<option value="7">7</option>
+						<option value="8">8</option>
+						<option value="9">9 (<?php echo L10n::$least_network_traffic ?>)</option>
+					</select>
+					</p>				
+				</fieldset>
+				<?php } ?>
 				<fieldset>
 					<legend><?php echo L10n::$password ?></legend>
 					<p><?php echo L10n::$enter_your_new_password ?><br />
@@ -161,10 +203,10 @@
 								if(isset(UserManager::getUser()->style))
 									$s = UserManager::getUser()->style;
 								else
-									$s = Stylesheet::getDefaultStyle();
+									$s = '';
 								foreach($styles as $style)
 								{ 
-									echo '<option value="' . $style->name . '"' . ($style->name == $s ? ' selected="Selected"' : '') .  '>' . $style->name . '</option>';
+									echo '<option value="' . $style->name . '"' . (($style->name == $s) || ($s == '' && $style->name == $style->default) ? ' selected="Selected"' : '') .  '>' . $style->name . '</option>';
 								}
 						?>
 					</select>

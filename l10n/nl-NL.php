@@ -10,7 +10,9 @@ class L10n {
 	static $config_rights = 'Configureer rechten';
 	static $contact_administrator = 'Neem contact op met de serverbeheerder voor meer informatie.';
 	static $created = 'Aangemaakt';
-	static $date_format = '%d-%m-%Y&#160;%H:%i';	
+	static $date_format = '%d-%m-%Y&#160;%H:%i';
+	static $default_language = 'Standaardtaal';
+	static $default_style = 'Standaardstijl';		
 	static $delete = 'Verwijderen';
 	static $edit = 'Bewerken';
 	static $edit_group = 'Bewerk groep';
@@ -37,9 +39,12 @@ class L10n {
 	static $fora = 'Fora';
 	static $group = 'Groep';
 	static $groups = 'Groepen';
+	static $gzip_compression = 'GZIP-compressie';	
 	static $invalid_url = 'Foutieve URL';	
 	static $lang = 'Taal';
 	static $language = 'nl-NL';
+	static $least_cpu_load = 'Minste processorbelasting';
+	static $least_network_traffic = 'Minste netwerkverkeer';	
 	static $loading = 'Bezig met laden';
 	static $logged_in_as = 'Ingelogd als';
 	static $login = 'Inloggen';
@@ -81,6 +86,7 @@ class L10n {
 	static $reply = 'Reageren';
 	static $rights = 'Rechten';
 	static $search = 'Zoeken';
+	static $server_settings = 'Serverinstellingen';	
 	static $statistics = 'Statistieken';
 	static $style = 'Stijl';
 	static $subscribe_to_atom = 'Abonneer op Atom feed';
