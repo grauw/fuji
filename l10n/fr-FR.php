@@ -31,7 +31,7 @@ class L10n {
 	static $error_no_posts = 'Cet sujet n\'avez pas des messages';
 	static $error_no_threads = 'Cet forum n\'avez pas des sujets';
 	static $error_no_users = 'Cet forum n\'avez pas des utilisateurs';
-	static $error_resource_cannot_be_found = 'La ressource ne pouvait pas été trouvé.';
+	static $error_resource_cannot_be_found = 'La ressource ne pouvait pas être trouvé.';
 	static $error_restricted_forum = 'Vous n\'êtes pas autorisé d\'accesser le forum ou le sujet.';
 	static $error_rights_revoked = 'Vos droits sont révoqué (banni).';
 	static $error_server_misconfiguration = 'Un configuration invalide du serveur.';
