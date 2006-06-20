@@ -6,8 +6,9 @@
 	loadcontext="threadsDiv"
 	parent="item/1/">
 	<fuji:content>
+		<div class="forumContainer box">
 		<h2 class="windowTitle"><?php echo L10n::$threads ?> – <?php echo $entry->title ?></h2>
-		<ul id="threadsActions" class="windowActions">
+		<ul id="threadsActions" class="windowActions menu">
 			<?php
 				if (UserManager::getUser()->getRights($entry)->may_post) {
 					?><li id="actionNewThread"><a href="javascript:Fuji.newCreateDialog('<?php echo $entry->id ?>', '<?php echo $entry->type + 1 ?>')"><?php echo L10n::$new ?></a></li><?php
@@ -21,24 +22,22 @@
 				/*if (UserManager::isAdmin()) { 
 					?><li id="actionConfigRights"><a href="javascript:Fuji.newConfigRightsDialog('<?php echo $entry->id ?>')"><?php echo L10n::$config_rights ?></a></li><?php
 				}*/				
-			?>
-			<!--<li><?php echo L10n::$search ?></li>-->
-			<li><a href="rss/<?php echo $entry->id ?>" rel="alternate" type="application/rss+xml" class="feed">RSS</a></li>
-			<li><a href="atom/<?php echo $entry->id ?>" rel="alternate" type="application/atom+xml" class="feed">Atom</a></li>			
+			?><li><a href="rss/<?php echo $entry->id ?>" rel="alternate" type="application/rss+xml" class="feed">RSS</a></li><?php
+			?><li><a href="atom/<?php echo $entry->id ?>" rel="alternate" type="application/atom+xml" class="feed">Atom</a></li>			
 		</ul>
-		<div id="threadsTableDiv">
-			<div id="threadsTableDiv" may_post="<?php echo UserManager::getUser()->getRights($entry)->may_post ?>" may_edit="<?php echo UserManager::getUser()->getRights($entry)->may_edit ?>" may_delete="<?php echo UserManager::getUser()->getRights($entry)->may_delete ?>">
+		<div class="threadsTableDiv content">
+			<div may_post="<?php echo UserManager::getUser()->getRights($entry)->may_post ?>" may_edit="<?php echo UserManager::getUser()->getRights($entry)->may_edit ?>" may_delete="<?php echo UserManager::getUser()->getRights($entry)->may_delete ?>">
 				<div class="forumPostDiv">
 						<div class="postContent"><?php echo $entry->getProcessedContent() ?></div>
 				</div>	
-			<table id="threadsTable">
+			<table class="threadsTable">
 				<thead>
 					<tr>
-						<td><?php echo L10n::$topic ?></td>
-						<td><?php echo L10n::$poster ?></td>
-						<td><?php echo L10n::$replies ?></td>
-						<td><?php echo L10n::$created ?></td>
-						<td><?php echo L10n::$modified ?></td>
+						<th><?php echo L10n::$topic ?></th>
+						<th><?php echo L10n::$poster ?></th>
+						<th><?php echo L10n::$replies ?></th>
+						<th><?php echo L10n::$created ?></th>
+						<th><?php echo L10n::$modified ?></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -68,18 +67,15 @@
 					</tr>
 				<?php } else echo L10n::$error_no_threads ?>
 				</tbody>
-				<tfoot>
-					<tr>
-						<td colspan="5">
-							<?php echo L10n::$page?>&#160;
-							<?php if($page > 1) { ?><a href="#item/<?php echo $entry->id ?>/<?php echo $page - 1 ?>">&lt;&#160;</a><?php } ?>
-							<?php for($n = 1; $n <= max(0, $num_of_children - 1) / $page_size + 1; $n++) { if($n != $page) { ?><a href="#item/<?php echo $entry->id ?>/<?php echo $n ?>"><?php echo $n ?></a><?php } else { echo $n; } ?>&#160;<?php } ?>
-							<?php if(max(0, $num_of_children - 1) / $page_size > $page) { ?><a href="#item/<?php echo $entry->id ?>/<?php echo $page + 1 ?>">&gt;</a><?php } ?>
-						</td>
-					</tr>
-				</tfoot>
 			</table>
 			</div>
+		</div>
+		<div class="threadPageSelector pager">
+			<?php echo L10n::$page?>&#160;
+			<?php if($page > 1) { ?><a href="#item/<?php echo $entry->id ?>/<?php echo $page - 1 ?>">&lt;&#160;</a><?php } ?>
+			<?php for($n = 1; $n <= max(0, $num_of_children - 1) / $page_size + 1; $n++) { if($n != $page) { ?><a href="#item/<?php echo $entry->id ?>/<?php echo $n ?>"><?php echo $n ?></a><?php } else { echo $n; } ?>&#160;<?php } ?>
+			<?php if(max(0, $num_of_children - 1) / $page_size > $page) { ?><a href="#item/<?php echo $entry->id ?>/<?php echo $page + 1 ?>">&gt;</a><?php } ?>
+		</div>
 		</div>
 		<div id="item/<?php echo $entry->id ?>_postsDiv" class="postsContainer"></div>
 	</fuji:content>

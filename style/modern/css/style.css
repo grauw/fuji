@@ -1,7 +1,54 @@
-body {
-  font-family: Verdana, Helvetica, sans-serif;
+/* Global */
+
+html {
+	font-family: Verdana, Helvetica, sans-serif;
+	color: #339;
+}
+a {
+	color: #f60;
 }
 a.feed {
-  padding-left: 15px;
-  background: url('graphics/feed-icon.png') 0 3px no-repeat;
+	padding-left: 15px;
+	background: url('graphics/feed-icon.png') 0 3px no-repeat;
 }
+
+
+/* Logo */
+
+h1 {
+	background: #9f0;
+	-moz-border-radius: 10px;
+	border-top: 2px solid #8d0;
+	border-bottom: 2px solid #bf9;
+}
+
+
+/* Menu */
+
+#menuDiv h2 {
+	display: none;
+}
+#menuDiv * {
+	margin-top: 0;
+}
+#menuDiv ul {
+	margin: 0;
+	padding: 0;
+}
+#menuDiv li {
+	display: inline;
+}
+
+
+/* Forum list */
+
+#foraDiv h2 {
+	margin-top: 0;
+}
+
+
+/* Threads list & thread shared */
+/* Threads list */
+
+/* Thread */
+

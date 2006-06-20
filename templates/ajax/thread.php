@@ -11,8 +11,9 @@ $contextId = $parentEntry->id;
 	loadcontext="item/<?php echo $contextId?>_postsDiv"
 	parent="item/<?php echo $entry->getParent()->id ?>/">
 	<fuji:content>
+		<div class="threadContainer box">
 		<h2 class="windowTitle"><?php echo L10n::$posts ?> – <?php echo $entry->title ?></h2>
-		<ul id="postsActions" class="windowActions">
+		<ul id="postsActions" class="windowActions menu">
 			<?php
 				if (UserManager::getUser()->getRights($entry)->may_post) {
 					?><li id="actionReplyPost"><a href="javascript:Fuji.newCreateDialog('<?php echo $entry->id ?>', '4')"><?php echo L10n::$reply ?></a></li><?php
@@ -26,12 +27,10 @@ $contextId = $parentEntry->id;
 				/*if (UserManager::isAdmin()) { 
 					?><li id="actionConfigRights"><a href="javascript:Fuji.newConfigRightsDialog('<?php echo $entry->id ?>')"><?php echo L10n::$config_rights ?></a></li><?php
 				}*/						
-			?>
-			<!--<span><?php echo L10n::$search ?></span>-->
-			<li><a href="rss/<?php echo $entry->id ?>" rel="alternate" type="application/rss+xml" class="feed">RSS</a></li>
-			<li><a href="atom/<?php echo $entry->id ?>" rel="alternate" type="application/atom+xml" class="feed">Atom</a></li>
+			?><li><a href="rss/<?php echo $entry->id ?>" rel="alternate" type="application/rss+xml" class="feed">RSS</a></li><?php
+			?><li><a href="atom/<?php echo $entry->id ?>" rel="alternate" type="application/atom+xml" class="feed">Atom</a></li>
 		</ul>
-		<div id="postsListDiv">
+		<div class="postsListDiv content">
 			<div class="postDiv">
 					<h3 class="postTitle">
 						<span><?php echo $entry->title ?></span>
@@ -68,11 +67,12 @@ $contextId = $parentEntry->id;
 			</div>
 			<?php } else echo L10n::$error_no_posts ?>
 		</div>
-		<div id="threadPageSelector">
+		<div class="threadPageSelector pager">
 			<?php echo L10n::$page?>&#160;
 			<?php if($page > 1) { ?><a href="#item/<?php echo $entry->id ?>/<?php echo $page - 1 ?>">&lt;&#160;</a><?php } ?>
 			<?php for($n = 1; $n <= max(0, $num_of_children - 1) / $page_size + 1; $n++) { if($n != $page) { ?><a href="#item/<?php echo $entry->id ?>/<?php echo $n ?>"><?php echo $n ?></a><?php } else { echo $n; } ?>&#160;<?php } ?>
 			<?php if(max(0, $num_of_children - 1) / $page_size > $page) { ?><a href="#item/<?php echo $entry->id ?>/<?php echo $page + 1 ?>">&gt;</a><?php } ?>		
+		</div>
 		</div>
 	</fuji:content>
 </fuji:item>

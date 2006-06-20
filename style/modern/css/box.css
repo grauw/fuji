@@ -1,0 +1,60 @@
+/**** Box layout ****
+ *
+ * HTML structure:
+ *
+ * <div class="box">
+ *    <h2>Title</h2>
+ *    <ul class="menu"/>
+ *    <div class="content"/>
+ *    <div class="pager"/>
+ * </div>
+ *
+ */
+.box {
+	background: #9f0;
+	-moz-border-radius: 10px;
+	border-top: 2px solid #8d0;
+	border-bottom: 2px solid #bf9;
+	margin-top: 1em;
+}
+
+.box h2 {
+	margin: 0;
+	-moz-border-radius: 6px;
+	background-color: #8d0;
+	font-size: large;
+	padding: 0 .32em;
+}
+.box ul.menu {
+	margin: 0;
+	padding: 5px 0;
+	background: #90f500;
+}
+.box ul.menu li {
+	display: inline;
+}
+.box ul.menu a {
+	margin: 0 .3em;
+	padding: 0 5px;
+	-moz-border-radius: 4px;
+	background-color: #8d0;
+	color: white;
+	text-decoration: none;
+	border: 1px solid #7c0;
+}
+.box ul.menu a:hover {
+	background-color: #6b0;
+	color: white;
+}
+.box ul.menu a.feed {
+	padding: 0 5px 0 20px;
+	background-position: 5px 3px;
+}
+.box .content {
+	padding: 0.5em;
+}
+.box .pager {
+	text-align: right;
+}
+
+

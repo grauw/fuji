@@ -1,0 +1,25 @@
+body {
+	position: relative;
+	max-width: 60em;
+}
+
+.logoDiv {
+	padding: 20px;
+	margin: 0;
+}
+
+#menuDiv {
+	position: absolute;
+	top: 13px;
+	right: 20px;
+}
+
+#foraDiv {
+	float: right;
+	width: 14em;
+	min-height: 15em;
+}
+
+#threadsDiv {
+	max-width: 45em;
+}
