@@ -58,7 +58,7 @@ class InstallDb
 							array('email_visible', 'L', 'NOTNULL', 'DEFAULT' => '0'),
 							array('password', 'C', 40, 'NOTNULL'),
 							array('language', 'C', 5),
-							array('style', 'I'),
+							array('style', 'C', 255),
 							array('picture', 'C', 255),
 							array('visual_effects', 'L', 'NOTNULL', 'DEFAULT' => '1'),
 							array('templateref', 'I', 'UNSIGNED', 'NOTNULL', 'DEFAULT' => '2'),
