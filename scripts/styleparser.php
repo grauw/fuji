@@ -30,14 +30,14 @@ class Stylesheet extends Dataclass {
 		$stylesheets = array();
 		$data = Database::getArray("SELECT * FROM " . DbVar::$db_tprefix . "styles");
 		foreach ($data as $value) {
-			array_push($stylesheets, new Stylesheet($value, $value['id']==$primarystyle));
+			array_push($stylesheets, new Stylesheet($value, $value['name']==$primarystyle));
 		}
 		return $stylesheets;
 	}
 	
 	/**
 	 * returns a Stylesheet-object given its id
-	 * @param {Int} $id Stylesheet to be returned
+	 * @param {String} $id Stylesheet to be returned
 	 * @returns Stylesheet
 	 */
 	static function getStylesheet($id) {

@@ -25,8 +25,13 @@ class Install1 {
 			$db->Connect($_POST['db_host'], $_POST['db_user'], $_POST['db_pwd'], $_POST['db_name']);
 			echo "A functioning database has been found and configured at the supplied address.";
 			$this->configDatabase();
-			new InstallDb();
-			
+			$idb = new InstallDb();
+			$idb->createTables();
+			$idb->addDefaultRows();
+			$idb->addDefaultLanguage('en-GB');
+			$idb->addDefaultStyle('Default Fuji');
+			$idb->addRootUser('root', 'root@localhost', 'root');
+			$idb->addWelcomeMessage('en-GB');
 		}			
 		catch(exception $e) {
 			if($db->createDatabase = true) echo "A database could not be created at the supplied address:";

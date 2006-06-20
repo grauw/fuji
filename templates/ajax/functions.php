@@ -2,6 +2,7 @@
 require_once 'css/stylesheets.php';
 require_once 'template.php';
 require_once '../scripts/l10nmanager.php';
+require_once '../scripts/database.php';
 
 class AJAX_Template extends Template {
 	
@@ -108,11 +109,13 @@ class AJAX_Template extends Template {
 	
 	public function outputGZIP()
 	{
+		$gzip_level = Database::getArray("SELECT value FROM " . Database::$db_tprefix . "defaults WHERE name = 'gzip'");
+		$gzip_level = $gzip_level[0][0];
 		$contents = ob_get_contents();
 		ob_end_clean();
 		header("Content-Encoding: gzip");
 		$output = "\x1f\x8b\x08\x00\x00\x00\x00\x00";
-		$output .= substr(gzcompress($contents), 0, -4);
+		$output .= substr(gzcompress($contents, $gzip_level), 0, -4);
 		echo $output; 
 		exit();	
 	}

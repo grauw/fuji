@@ -10,36 +10,36 @@
 			<table id="threadsTable">
 				<tr>
 					<td><?php echo L10n::$num_users ?></td>
-					<td><?php	$n = Database::getArray('SELECT COUNT(*) FROM users'); echo $n[0][0]; ?></td>
+					<td><?php	$n = Database::getArray('SELECT COUNT(*) ' . Database::$db_tprefix . 'FROM users'); echo $n[0][0]; ?></td>
 				</tr>
 				<tr>
 					<td><?php echo L10n::$num_posts ?></td>
-					<td><?php	$n = Database::getArray('SELECT COUNT(*) FROM entries'); echo $n[0][0]; ?></td>
+					<td><?php	$n = Database::getArray('SELECT COUNT(*) ' . Database::$db_tprefix . 'FROM entries'); echo $n[0][0]; ?></td>
 				</tr>
 				<tr>
 					<td><?php echo L10n::$most_active_user ?></td>
-					<td><?php	$most_active_user = Database::getArray('SELECT userref,count(*) FROM entries GROUP BY userref HAVING count(*) >= ALL(SELECT count(*) FROM entries GROUP BY userref)');
+					<td><?php	$most_active_user = Database::getArray('SELECT userref,count(*) FROM ' . Database::$db_tprefix . 'entries GROUP BY userref HAVING count(*) >= ALL(SELECT count(*) FROM entries GROUP BY userref)');
 								$most_active_user_id = $most_active_user[0][0];
 								$most_active_user_count = $most_active_user[0][1];
-								$most_active_user_name = Database::getArray("SELECT nickname FROM users WHERE id = '$most_active_user_id'");
+								$most_active_user_name = Database::getArray("SELECT nickname FROM " . Database::$db_tprefix . "users WHERE id = '$most_active_user_id'");
 								$most_active_user_name = $most_active_user_name[0][0]; 
 								echo "<a href=\"profile/$most_active_user_id\" target=\"_blank\">$most_active_user_name</a> ($most_active_user_count)"?>
 					</td>
 				</tr>
 				<tr>
 					<td><?php echo L10n::$most_active_thread ?></td>
-					<td><?php	$most_active_thread = Database::getArray("SELECT ref,count(*) FROM entries GROUP BY ref HAVING count(*) >= ALL(SELECT count(*) FROM entries WHERE type = '4' GROUP BY ref)");
+					<td><?php	$most_active_thread = Database::getArray("SELECT ref,count(*) FROM " . Database::$db_tprefix . "entries GROUP BY ref HAVING count(*) >= ALL(SELECT count(*) FROM entries WHERE type = '4' GROUP BY ref)");
 								$most_active_thread_id = $most_active_thread[0][0];
 								$most_active_thread_count = $most_active_thread[0][1];
-								$most_active_thread_title = Database::getArray("SELECT title FROM entries WHERE id = '$most_active_thread_id'");
+								$most_active_thread_title = Database::getArray("SELECT title FROM " . Database::$db_tprefix . "entries WHERE id = '$most_active_thread_id'");
 								$most_active_thread_title = $most_active_thread_title[0][0];					
 								echo "<a href=\"#item/$most_active_thread_id/\">$most_active_thread_title</a> ($most_active_thread_count)" ?>
 					</td>
 				</tr>																	
 				<tr>
 					<td><?php echo L10n::$most_used_language ?></td>
-					<td><?php	$langs = Database::getArray('SELECT language,count(*) FROM users GROUP BY language');
-								$default_lang = Database::getArray("SELECT value FROM defaults WHERE name = 'language'");
+					<td><?php	$langs = Database::getArray('SELECT language,count(*) FROM ' . Database::$db_tprefix . 'users GROUP BY language');
+								$default_lang = Database::getArray("SELECT value FROM " . Database::$db_tprefix . "defaults WHERE name = 'language'");
 								$default_lang_name = $default_lang[0][0];
 								$default_lang_count;
 								foreach($langs as $lang)
@@ -63,14 +63,14 @@
 										$most_used_lang_count = $lang_count;
 									}
 								}
-								$most_used_lang_full_name = Database::getArray("SELECT name FROM languages WHERE id = '$most_used_lang_name'");								
+								$most_used_lang_full_name = Database::getArray("SELECT name FROM " . Database::$db_tprefix . "languages WHERE id = '$most_used_lang_name'");								
 								$most_used_lang_full_name = $most_used_lang_full_name[0][0];
 								echo "$most_used_lang_full_name ($most_used_lang_count)"	?>
 					</td>
 				</tr>
 				<tr>
 					<td><?php echo L10n::$most_used_style ?></td>
-					<td><?php	$styles = Database::getArray('SELECT style,count(*) FROM users GROUP BY style');
+					<td><?php	$styles = Database::getArray('SELECT style,count(*) FROM ' . Database::$db_tprefix . 'users GROUP BY style');
 								$default_style = Database::getArray("SELECT value FROM defaults WHERE name = 'style'");
 								$default_style_name = $default_style[0][0];
 								$default_style_count;
@@ -95,14 +95,14 @@
 										$most_used_style_count = $style_count;
 									}
 								}
-								$most_used_style_full_name = Database::getArray("SELECT id FROM styles WHERE id = '$most_used_style_name'");								
+								$most_used_style_full_name = Database::getArray("SELECT id FROM " . Database::$db_tprefix . "styles WHERE id = '$most_used_style_name'");								
 								$most_used_style_full_name = $most_used_style_full_name[0][0];
 								echo "$most_used_style_full_name ($most_used_style_count)"	?>
 					</td>
 				</tr>
 				<tr>
 					<td><?php echo L10n::$newest_user ?></td>
-					<td><?php	$newest_member = Database::getArray('SELECT id, nickname FROM users GROUP BY id HAVING id >= ALL(SELECT id FROM users)');
+					<td><?php	$newest_member = Database::getArray('SELECT id, nickname ' . Database::$db_tprefix . 'FROM users GROUP BY id HAVING id >= ALL(SELECT id FROM users)');
 								$newest_member_id = $newest_member[0][0];
 								$newest_member_name = $newest_member[0][1];
 								echo "<a href=\"profile/$newest_member_id\" target=\"_blank\">$newest_member_name</a>"?>
