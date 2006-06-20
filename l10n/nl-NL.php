@@ -26,11 +26,11 @@ class L10n {
 	static $error_invalid_url = 'U heeft een verkeerde URL ingevoerd of aangeklikt.';	
 	static $error_loading_resource = 'Fout bij het laden van de pagina';	
 	static $error_no_groups = 'Dit forum heeft geen groepen';
-	static $error_no_posts = 'Deze thread heeft geen berichten';
+	static $error_no_posts = 'Dit onderwerp heeft geen berichten';
 	static $error_no_threads = 'Dit forum heeft geen threads';
 	static $error_no_users = 'Dit forum heeft geen gebruikers';
 	static $error_resource_cannot_be_found = 'De pagina kon niet gevonden worden.';
-	static $error_restricted_forum = 'U probeert een forum of thread te bekijken met beperkte toegang.';
+	static $error_restricted_forum = 'U probeert een forum of onderwerp te bekijken met beperkte toegang.';
 	static $error_rights_revoked = 'Uw rechten zijn ingetrokken (verbannen).';
 	static $error_server_misconfiguration = 'Een foutieve server configuratie.';	
 	static $error_unknown = 'Onbekende fout.';	
