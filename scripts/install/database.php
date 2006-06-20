@@ -162,15 +162,15 @@ class InstallDb
 		Database::execute("INSERT INTO viewtemplates (templateref, typeref, location) VALUES ('5', '2', 'forum.php')");
 		Database::execute("INSERT INTO viewtemplates (templateref, typeref, location) VALUES ('5', '3', 'forum.php')");
 		Database::execute("INSERT INTO viewtemplates (templateref, typeref, location) VALUES ('5', '4', 'thread.php')");
-		Database::execute("INSERT INTO styles (name, file) VALUES ('Default Fuji', 'style/default/css/fuji.css')");
+		Database::execute("INSERT INTO styles (name, file) VALUES ('Default Fuji', 'style/default/css/default.css')");
 		Database::execute("INSERT INTO styles (name, file) VALUES ('Dark Fuji', 'style/dark/css/dark.css')");
-		Database::execute("INSERT INTO styles (name, file) VALUES ('Fuji Lite', 'style/lite/css/fuji-white.css')");
+		Database::execute("INSERT INTO styles (name, file) VALUES ('Fuji Lite', 'style/lite/css/lite.css')");
 		Database::execute("INSERT INTO styles (name, file) VALUES ('Modern', 'style/modern/css/modern.css')");
 		Database::execute("INSERT INTO styles (name, file) VALUES ('Basic', 'style/basic/css/basic.css')");
 		Database::execute("INSERT INTO languages (id, name) VALUES ('en-GB', 'English (Great Britain)')");
 		Database::execute("INSERT INTO languages (id, name) VALUES ('nl-NL', 'Nederlands (Nederland)')");
 		Database::execute("INSERT INTO defaults (name, value) VALUES ('language', 'en-GB')");
-		Database::execute("INSERT INTO defaults (name, value) VALUES ('style', 'Default Fuji')");
+		Database::execute("INSERT INTO defaults (name, value) VALUES ('style', '1')");
 	}
 }
 ?>
