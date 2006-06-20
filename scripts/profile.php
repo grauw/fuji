@@ -2,7 +2,8 @@
 	require_once "stylesheet.php";
 	require_once "usermanager.php";
 	require_once "l10nmanager.php";
-	require_once "group.php";		
+	require_once "group.php";
+	require_once "xhtml.php";	
 
 	UserManager::authenticate();	
 	$user;
@@ -18,6 +19,8 @@
 	
 	L10nManager::loadL10n();
 	
+	echo XHTML::pageHeaders();
+	
 	if($_POST['updated']){
 		$groups = Database::getArray("SELECT name FROM " . DbVar::$db_tprefix . "groups");
 		foreach($groups as $group){
@@ -32,8 +35,8 @@
      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="<?php echo L10n::$language ?>" xml:lang="<?php echo L10n::$language ?>">
 <head>
+	<link rel="stylesheet" href="../style/default/css/default.css" type="text/css" />
 	<title><?php echo L10n::$profile ?></title>
-	<?php StyleXML::getStyleXML(1)->getStyleSheets() ?>
 </head>
 <body>
 </body>
@@ -61,10 +64,10 @@
 		</div>
 		<?php if(UserManager::isAdmin() && !$_GET['edit']){?>
 		<form action="../editprofile/<?php echo $user->id; ?>" method="post">
-		<input type="submit" value="<?php echo L10n::$edit ?>">
+		<input type="submit" value="<?php echo L10n::$edit ?>" />
 		</form>
 		<?php }else if(UserManager::isAdmin()){ ?>
-		<input type="submit" value="<?php echo L10n::$edit ?>" onClick="document.updateGroup.submit()">
+		<input type="submit" value="<?php echo L10n::$edit ?>" onClick="document.updateGroup.submit()" />
 		<?php } ?>
 	</div>
 </html>
