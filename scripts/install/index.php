@@ -1,7 +1,6 @@
 <?php
 	require_once "install1.php";
 	require_once "install2.php";
-	require_once "../styleparser.php";
 	if(isset($_POST['phase']))
 		$current_phase = $_POST['phase'];
 	else
@@ -18,7 +17,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<?php echo $xhtml_template->language ?>">
 	<head>
 		<title>Fuji Installer</title>
-		<link rel="stylesheet" href="style/default/css/fuji.css" type="text/css" />
+		<link rel="stylesheet" href="style/default/css/default.css" type="text/css" />
 		<link rel="stylesheet" href="style/default/css/install.css" type="text/css" />
 	</head>
 	<body>

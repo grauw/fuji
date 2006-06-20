@@ -1,7 +1,7 @@
 <?php
 	require_once "register1.php";
 	require_once "register2.php";
-	require_once "../styleparser.php";
+	require_once "../xhtml.php";
 	if(isset($_POST['phase']))
 		$current_phase = $_POST['phase'];
 	else
@@ -10,6 +10,7 @@
 					 	array("Registration", new Register1()), 
 						array("Finish", new Register2())
 					);
+	//echo XHTML::pageHeaders();
 ?>
 <!DOCTYPE html
 	PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0//EN"
@@ -17,10 +18,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<?php echo $xhtml_template->language ?>">
 	<head>
 		<title>Fuji User Registration</title>
-		<?php 
-			$style = StyleXML::getStyleXML(2);
-			$style->getStylesheets();	
-		?>
+		<?php //echo XHTML::headContent(); ?>
+		<link rel="stylesheet" href="../../style/default/css/default.css"/>
+		<link rel="stylesheet" href="../../style/default/css/install.css"/>
 	</head>
 	<body>
 		<div id="mainWindow" class="window">
