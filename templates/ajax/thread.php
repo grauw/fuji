@@ -23,9 +23,9 @@ $contextId = $parentEntry->id;
 				if (UserManager::getUser()->getRights($entry)->may_delete) {
 					?><li id="actionDeletePost"><a href="javascript:Fuji.newDeleteDialog('<?php echo $entry->id ?>', '<?php echo $entry->ref ?>')"><?php echo L10n::$delete ?></a></li><?php
 				}
-				if (UserManager::isAdmin()) { 
+				/*if (UserManager::isAdmin()) { 
 					?><li id="actionConfigRights"><a href="javascript:Fuji.newConfigRightsDialog('<?php echo $entry->id ?>')"><?php echo L10n::$config_rights ?></a></li><?php
-				}						
+				}*/						
 			?>
 			<!--<span><?php echo L10n::$search ?></span>-->
 			<li><a href="rss/<?php echo $entry->id ?>" rel="alternate" type="application/rss+xml" class="feed">RSS</a></li>
