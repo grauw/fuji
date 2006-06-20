@@ -95,9 +95,7 @@
 										$most_used_style_count = $style_count;
 									}
 								}
-								$most_used_style_full_name = Database::getArray("SELECT id FROM " . Database::$db_tprefix . "styles WHERE id = '$most_used_style_name'");								
-								$most_used_style_full_name = $most_used_style_full_name[0][0];
-								echo "$most_used_style_full_name ($most_used_style_count)"	?>
+								echo "$most_used_style_name ($most_used_style_count)"	?>
 					</td>
 				</tr>
 				<tr>
