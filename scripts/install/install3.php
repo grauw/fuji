@@ -39,8 +39,8 @@ class Install3 {
 					<select name='style'>
 						<?php	$styles = Stylesheet::getStyles();
 								foreach($styles as $style)
-								{ 
-									echo '<option value="' . $style['name'] . '"' . '>' . $style['name'] . '</option>';
+								{
+									echo '<option value="' . $style['name'] . '"' . ($style['name'] == 'Default Fuji' ? 'selected="Selected"' : '') . '>' . $style['name'] . '</option>';
 								}
 						?>
 					</select>		

@@ -77,10 +77,10 @@ class Stylesheet extends Dataclass {
 		return '<?xml-stylesheet href="'.$this->file.'" title="'.$this->name.'"'.($this->default ? '' : ' alternate="yes"').' type="text/css" ?'.">\n";
 	}
 	
-	static function getStyles()
+	static function getDefaultStyle()
 	{
-	//waarvoor wordt deze gebruikt?
-		return Database::getArray("SELECT * FROM " . Database::$db_tprefix . "styles ");
+		$data = Database::getArray("SELECT value FROM " . Database::$db_tprefix . "defaults WHERE name = 'style'");
+		return $data[0][0];	
 	}
 }
 

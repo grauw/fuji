@@ -21,7 +21,7 @@ class XHTML {
 	static function headContent()
 	{
 		if (!XHTML::acceptsXHTML()) {
-			Stylesheet::getStyleSheetsHTML();
+			return Stylesheet::getStyleSheetsHTML();
 		}
 	}
 	

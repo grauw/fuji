@@ -156,13 +156,15 @@
 					<legend><?php echo L10n::$style ?></legend>
 					<select id='prefStyle' name='style'>
 						<?php
-								$styles = Stylesheet::getStyles();
+								$styles = Stylesheet::getStylesheets();
 								$s;
 								if(isset(UserManager::getUser()->style))
 									$s = UserManager::getUser()->style;
+								else
+									$s = Stylesheet::getDefaultStyle();
 								foreach($styles as $style)
 								{ 
-									echo '<option value="' . $style['name'] . '"' . ($style['name'] == $s ? ' selected="Selected"' : '') .  '>' . $style['name'] . '</option>';
+									echo '<option value="' . $style->name . '"' . ($style->name == $s ? ' selected="Selected"' : '') .  '>' . $style->name . '</option>';
 								}
 						?>
 					</select>
