@@ -34,8 +34,8 @@ $contextId = $parentEntry->id;
 			<div class="postDiv odd">
 					<h3 class="postTitle">
 						<span><?php echo $entry->title ?></span>
-						<span>(Posted by <a href="profile/<?php echo User::getUser($entry->userref)->id ?>" target="_blank"><?php echo User::getUser($entry->userref)->nickname ?></a>
-							on <?php echo $entry->getFormattedDate('modified', L10n::$date_format) ?>)</span>
+						<span>(<?php echo L10n::$posted_by ?> <a href="profile/<?php echo User::getUser($entry->userref)->id ?>" target="_blank"><?php echo User::getUser($entry->userref)->nickname ?></a>
+							<?php echo L10n::$on ?> <?php echo $entry->getFormattedDate('modified', L10n::$date_format) ?>)</span>
 					</h3>
 					<div class="postContent"><?php echo $entry->getProcessedContent() ?></div>
 			</div>

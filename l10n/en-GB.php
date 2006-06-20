@@ -64,6 +64,7 @@ class L10n {
 	static $next = 'Next';	
 	static $num_users = 'Number of users';
 	static $num_posts = 'Number of posts';
+	static $on = 'on';
 	static $ok = 'OK';
 	static $page = 'Page';
 	static $password = 'Password';

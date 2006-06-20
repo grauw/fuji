@@ -19,9 +19,9 @@ class Stylesheet extends Dataclass {
 	 * returns an array of Stylesheet-objects
 	 * @returns Stylesheet
 	 */
-	static function getStylesheets()
+	static function getStylesheets($user=true)
 	{
-		if (isset(UserManager::getUser()->style)) {
+		if ($user && isset(UserManager::getUser()->style)) {
 			$primarystyle = UserManager::getUser()->style;
 		} else {
 			$default = Database::getArray("SELECT value FROM " . Database::$db_tprefix . "defaults WHERE name = 'style'");
