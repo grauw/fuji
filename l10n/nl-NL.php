@@ -92,7 +92,9 @@ class L10n {
 	static $type_unsupported = 'Berichttype wordt hier niet ondersteund';
 	static $users = 'Gebruikers';
 	static $visible_in_profile = 'Zichtbaar in profiel';
-	static $warning = 'Waarschuwing';	
+	static $warning = 'Waarschuwing';
+	static $welcome = 'Welkom';
+	static $welcome_message = 'Welkom op uw Fuji Forum!';	
 }
 
 ?>

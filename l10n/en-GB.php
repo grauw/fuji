@@ -93,7 +93,8 @@ class L10n {
 	static $users = 'Users';
 	static $visible_in_profile = 'Visible in profile';	
 	static $warning = 'Warning';
-
+	static $welcome = 'Welcome';
+	static $welcome_message = 'Welcome to your Fuji Forum!';
 }
 
 ?>

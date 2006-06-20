@@ -180,10 +180,10 @@ class InstallDb
 		Database::execute("INSERT INTO " . Database::$db_tprefix . "users (nickname, email, password, templateref, inputmethod) VALUES ('$user', '$email', '" . sha1($pwd) . "', '1', '1')");
 	}	
 	
-	function addWelcomeMessage($lang)
+	function addWelcomeMessage($title, $message)
 	{
-		Database::execute("INSERT INTO " . Database::$db_tprefix . "entries (id, ref, contentref, userref, title, created, modified, type) VALUES ('4', '3', '4', '2', 'Welcome', NOW(), NOW(), '4')");
-		Database::execute("INSERT INTO " . Database::$db_tprefix . "content (id, content, processor) VALUES ('4', 'Welcome to your Fuji Forum!', '0')");				
+		Database::execute("INSERT INTO " . Database::$db_tprefix . "entries (id, ref, contentref, userref, title, created, modified, type) VALUES ('4', '3', '4', '2', '$title', NOW(), NOW(), '4')");
+		Database::execute("INSERT INTO " . Database::$db_tprefix . "content (id, content, processor) VALUES ('4', '$message', '0')");				
 	}	
 }
 ?>

@@ -1,6 +1,7 @@
 <?php
 	require_once "install1.php";
 	require_once "install2.php";
+	require_once "install3.php";
 	if(isset($_POST['phase']))
 		$current_phase = $_POST['phase'];
 	else
@@ -8,6 +9,7 @@
 	$phases = array(	array("Welcome", "<p>Welcome to the Fuji Installer!</p><p>This Installer will guide you through the steps required to setup your Fuji Forum.</p>"),
 					 	array("Database setup", new Install1()), 
 						array("Administrative account", new Install2()),
+						array("Server Configuration", new Install3()),
 						array("Finish", "<p>You have successfully completed the installer, and your Fuji Forum is ready to use!</p>")
 					);
 ?>
@@ -18,7 +20,7 @@
 	<head>
 		<title>Fuji Installer</title>
 		<link rel="stylesheet" href="style/default/css/default.css" type="text/css" />
-		<link rel="stylesheet" href="style/default/css/install.css" type="text/css" />
+		<link rel="stylesheet" href="style/default/css/wizard.css" type="text/css" />
 	</head>
 	<body>
 <?php if($_SERVER['REMOTE_ADDR'] == '127.0.0.1') { ?>	

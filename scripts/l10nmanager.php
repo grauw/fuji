@@ -33,6 +33,17 @@
 					require_once "l10n/$default.php";
 			}
 		}
+		static function manualLoadL10n($lang)
+		{
+			if (file_exists('../../l10n/'.$lang.'.php'))
+				require_once '../../l10n/'.$lang.'.php';
+			else
+				if (file_exists('../l10n/'.$lang.'.php'))
+					require_once '../l10n/'.$lang.'.php';
+				else
+					if (file_exists('l10n/'.$lang.'.php'))
+						require_once 'l10n/'.$lang.'.php';				
+		}
 		static function getL10ns()
 		{
 			return Database::getArray("SELECT * FROM " . Database::$db_tprefix . "languages");

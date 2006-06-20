@@ -1,8 +1,6 @@
 <?php
 include_once '../adodb_lite/adodb.inc.php';
 include_once '../adodb_lite/adodb-exceptions.inc.php'; 
-if(isset($_POST['db_host'])) include_once 'database.php';
-include_once 'box.php';
 
 class Install1 {   
     
@@ -10,6 +8,7 @@ class Install1 {
   {
 	if(isset($_POST['db_host']))
 	{
+		require_once 'database.php';
 		$this->tryDatabase();
 	}
 	else {
@@ -28,10 +27,6 @@ class Install1 {
 			$idb = new InstallDb();
 			$idb->createTables();
 			$idb->addDefaultRows();
-			$idb->addDefaultLanguage('en-GB');
-			$idb->addDefaultStyle('Default Fuji');
-			$idb->addRootUser('root', 'root@localhost', 'root');
-			$idb->addWelcomeMessage('en-GB');
 		}			
 		catch(exception $e) {
 			if($db->createDatabase = true) echo "A database could not be created at the supplied address:";
@@ -41,8 +36,8 @@ class Install1 {
 			<tr><th>Type</th><th>Host</th><th>User</th><th>Port</th><th>Name</th></tr>
 			<tr><td><?php echo $_POST['db_type']; ?></td><td><?php echo $_POST['db_host']; ?></td><td><?php echo $_POST['db_user']; ?></td><td><?php echo $_POST['db_port']; ?></td><td><?php echo $_POST['db_name'] ?></td></tr>
 			</table>
-			<a onclick="location.reload()">retry</a>
-			<?php
+			<?php global $target_phase, $current_phase;
+			  $target_phase = $current_phase;
 		}
 	}
 	
@@ -67,13 +62,13 @@ class Install1 {
 		?>
 		<table>
 			<tr><td>Type</td><td><select name='db_type'><option value='mysql'>mysql</option><option value='postgre'>postgre(sql)</option><option value='mssql'>MSSQL</option></select></td></tr>
-			<tr><td>Host</td><td><input name='db_host' type='text' value='' /></td></tr>
-			<tr><td>User</td><td><input name='db_user' type='text' value='' /></td></tr>
+			<tr><td>Host</td><td><input name='db_host' type='text' value='localhost' /></td></tr>
+			<tr><td>User</td><td><input name='db_user' type='text' value='root' /></td></tr>
 			<tr><td>Password</td><td><input name='db_pwd' type='password' value='' /></td></tr>
 			<tr><td>Port</td><td><input name='db_port' type='text' value='' /></td></tr>
-			<tr><td>Database name</td><td><input name='db_name' type='text' value='' /></td></tr>
+			<tr><td>Database name</td><td><input name='db_name' type='text' value='forum' /></td></tr>
 			<tr><td>Table prefix</td><td><input name='db_tprefix' type='text' value='' /></td></tr>
-			<tr><td>Create database</td><td><input name='db_create' type='checkbox' value=''/></td></tr>
+			<tr><td>Create database</td><td><input name='db_create' type='checkbox' checked='Checked' value='' /></td></tr>
 		</table>
 		<?php global $target_phase, $current_phase;
 			  $target_phase = $current_phase;
