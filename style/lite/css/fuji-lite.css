@@ -31,12 +31,12 @@ h5 {
   font-weight: bold;
   border: 1px solid;
 }
-ul.windowActions {
+.windowActions {
   margin: 0;
   padding: 0;
   border-bottom: 1px solid;
 }
-ul.windowActions li {
+.windowActions li {
   display: inline;
   padding: 0 3px;
 }

@@ -20,7 +20,7 @@
 		<title>Fuji User Registration</title>
 		<?php //echo XHTML::headContent(); ?>
 		<link rel="stylesheet" href="../../style/default/css/default.css"/>
-		<link rel="stylesheet" href="../../style/default/css/install.css"/>
+		<link rel="stylesheet" href="../../style/default/css/wizard.css"/>
 	</head>
 	<body>
 		<div id="mainWindow" class="window">
