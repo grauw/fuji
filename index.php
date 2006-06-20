@@ -163,7 +163,7 @@
 									$s = UserManager::getUser()->style;
 								foreach($styles as $style)
 								{ 
-									echo '<option value="' . $style['id'] . '"' . ($style['id'] == $s ? ' selected="Selected"' : '') .  '>' . $style['id'] . '</option>';
+									echo '<option value="' . $style['id'] . '"' . ($style['id'] == $s ? ' selected="Selected"' : '') .  '>' . $style['name'] . '</option>';
 								}
 						?>
 					</select>
