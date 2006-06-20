@@ -7,6 +7,7 @@ require_once "processor.php";
 class BBCode extends Processor {
 
     public $ats= Array();
+    public $tagsStack = Array();
     public function parse() {
 
         $input = func_get_arg(0);
@@ -29,24 +30,83 @@ class BBCode extends Processor {
         $tags     = $matches[2];
         $tagextra = $matches[3];
         $trailer  = $matches[4];
-		$rest	  = $matches[5]; 	
+        $rest	  = $matches[5];
 
         $result = "";
         $length = count($texts);
 
-
+        $lock = false;
         for($i=0;$i<$length;$i++) {
 
             // check ook meteen de goede volgorde
+            if (!$lock)
+            {
+              if($tags[$i] == "*")
+              {
+                 $pop = array_pop($this->tagsStack);
+                 if ($pop != "*")
+                    {
+                      array_push($this->tagsStack, $pop);
+                      $result.= "<li>";
+                    }
+                 else
+                 {
+                     $result.="$texts[$i]</li><li>";
+                 }
+                 array_push($this->tagsStack, $tags[$i]);
 
-			if ($tags[$i-1] != "img")
-                $result .= $texts[$i] . $this->convertTag($tags[$i], $tagextra[$i], $texts[$i+1]) . $trailer[$i];
+              }
+              else if (substr($tags[$i],0,1) != "/")
+              {
+                 if ($tags[$i] == 'img')
+                    $lock = true;
+                 array_push($this->tagsStack, $tags[$i]);
+                 print_r($this->tagsStack);
+                 $result .= $texts[$i].$this->convertTag($tags[$i], $tagextra[$i], $texts[$i+1]) . $trailer[$i];
+              }
+              else
+              {
+                 $done = false;
+                 if ($tags[$i-1] != "img")
+                        $result .= $texts[$i];
+                 while ($done == false)
+                 {
+                   $pop = array_pop($this->tagsStack);
+                   if ($tags[$i] != "/".$pop)
+                   {
+                      $result .= $this->convertTag("/".$pop, "", "");
+                      //array_push($this->tagsStack, $pop);
+                      $done = false;
+                   }
+                   else
+                   {
+                        $result .= $this->convertTag($tags[$i], $tagextra[$i], $texts[$i+1]) . $trailer[$i];
+                        $done = true;
+                   }
+                   if (count($this->tagsStack)==0)
+                      $done = true;
+                 }
+              }
+            }
+            else if ($tags[$i] == "/img")
+            {
+              array_pop($this->tagsStack);
+              $lock = false;
+            }
+
         }
 
-		//print nl2br("\n\nresult: ".$result.$rest[count($rest)-1]);
-		
-		return $result.$rest[count($rest)-1];
+	//print nl2br("\n\nresult: ".$result.$rest[count($rest)-1]);
 
+	$result .= $rest[count($rest)-1];
+
+                while (count($this->tagsStack) > 0)
+        {
+            $pop = array_pop($this->tagsStack);
+            $result .= $this->convertTag("/".$pop,"","");
+        }
+        
+        return  $result;
     }
 
     function convertTag() {
@@ -64,16 +124,19 @@ class BBCode extends Processor {
             "code" => "<div class=\"code\">",
             "/code" => "</div>",
             "/quote" => "</div>",
-            "/url" => "</a>",
-            "/img" => "</img>",
-            "*" => "</li><li>"
+            "/url" => "</a> ",
+//            "/img" => "</img>",
+            //"*" => "</li><li>"
         );
 
         if(array_key_exists($tag, $tagsArray)) {
             return $tagsArray[$tag];
         }
         else if ($tag == "img") {
-             return "<img src='$text' alt='' border='0'>";
+           if (substr($text,0,11) == "javascript:")
+              return "<img src='' alt='' border='0'/>";
+           else
+             return "<img src='$text' alt='' border='0'/>";
         }
         else if ($tag == "url")
         {
@@ -83,7 +146,11 @@ class BBCode extends Processor {
                return "<a href='$text'>";
            }
            else
-           {    return "<a href='$tagextra'>";
+           {
+           if (substr($tagextra,0,11) == "javascript:")
+              return "<a href=''>";
+           else
+               return "<a href='$tagextra'>";
            }
         }
         else if($tag == "quote")
@@ -116,9 +183,9 @@ class BBCode extends Processor {
 
                if($at == '1' || $at == 'a')
                {
-                 return "</ol>";
+                 return "</li></ol>";
                }
-               else return "</ul>";
+               else return "</li></ul>";
              }
         }
     }
