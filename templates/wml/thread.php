@@ -3,8 +3,8 @@
 <wml>
 	<card>
 		<p><b><?php echo htmlentities($entry->title, ENT_NOQUOTES) ?></b><br />
-		<?php echo $entry->getProcessedContents() ?><br />
-		<?php echo L10n::$posted_by ?> <?php echo htmlentities(User::getUser($entry->userref)->nickname, ENT_NOQUOTES) ?> <?php echo L10n::$at ?> <?php echo $entry->getFormattedDate('modified', L10n::$date_format) ?></p>
+		<?php echo $entry->getProcessedContent() ?><br />
+		<?php echo L10n::$posted_by ?> <?php echo htmlentities(User::getUser($entry->userref)->nickname, ENT_NOQUOTES) ?> <?php echo L10n::$on ?> <?php echo $entry->getFormattedDate('modified', L10n::$date_format) ?></p>
 		<?php $num_of_children = count($entry->getChildren());	
 				if($num_of_children > 0)
 					foreach($entry->getChildren('created', ($page - 1) * 3 . ', 3') as $post) { ?>
