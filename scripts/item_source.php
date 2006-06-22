@@ -33,7 +33,7 @@ class Item_Source {
 <?php 		$entry_data_keys = array_keys($entry->getData());
 			$entry_data_values = array_values($entry->getData());
 			for($n = 0; $n < count($entry_data_keys); $n++) echo "<span id=\"$entry_data_keys[$n]\">$entry_data_values[$n]</span>";
-				echo "<span id=\"content\">" . $entry->getProcessedContent() . "</span>\n"; ?>
+				echo "<span id=\"content\">" . $entry->getContent() . "</span>\n"; ?>
 </body>
 </html>
 		<?php }

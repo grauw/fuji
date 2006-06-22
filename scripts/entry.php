@@ -2,7 +2,7 @@
 require_once 'dataclass.php';
 require_once 'database.php';
 require_once 'usermanager.php';
-// Hardcoded BBCode parser, may need changing.
+// Hardcoded BBCode parser, may need change.
 require_once 'processor/bbcode.php';
 
 class Entry extends Dataclass {
