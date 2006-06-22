@@ -3,11 +3,11 @@
  * HTML structure:
  *
  * <ul class="tree">
- *    <li class="has-ul-child last-child (open|closed)">Item
+ *    <li class="last-child (open|closed)">Item
  *       <ul>
- *          <li>Subitem 1</li>
- *          <li>Subitem 2</li>
- *          <li class="last-child">Subitem 3</li>
+ *          <li><a href="">Subitem 1</a></li>
+ *          <li><a href="">Subitem 2</a></li>
+ *          <li class="last-child"><a href="">Subitem 3</a></li>
  *       <ul>
  *    </li>
  * </ul>
