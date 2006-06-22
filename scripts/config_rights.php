@@ -13,7 +13,6 @@
 		<title>Config rights</title>
 	</head>
 	<body>
-		<?php echo count($groups) ?>
 		<div id="configRightsDialog" style="display: none">
 			<div id="configRightsTitle" class="hd"><?php echo L10n::$config_rights ?></div>
 			<div id="configRightsForm" class="bd">
