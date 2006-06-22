@@ -718,19 +718,31 @@ Fuji.Util = {
 }
 
 Fuji.Tree = {
+	/**
+	 * Finds and initialises all trees in the context
+	 * @param {Object} oContextNode DOM context node to search in (optional, defaults to ‘this’)
+	 */
 	init : function(oContextNode) {
 		if (oContextNode === undefined) oContextNode = this;
-		var oTree = YAHOO.util.Dom.getElementsByClassName('tree', 'ul', oContextNode)[0];
-		Fuji.Tree.initTree(oTree);
+		var oTrees = YAHOO.util.Dom.getElementsByClassName('tree', 'ul', oContextNode);
+		for (var i=0; i<oTrees.length; i++) {
+			Fuji.Tree.initTree(oTrees[i]);
+		}
 	},
 	/**
-	 * Add listeners to a tree list items
+	 * Initialises a tree list
+	 * @param {Object} oTree DOM root node of the tree (<ul class="tree">)
 	 */
 	initTree : function(oTree) {
 		var oTreeLIs = oTree.getElementsByTagName('li');
 		for (var i=0; i<oTreeLIs.length; i++) Fuji.Tree.initTreeLI(oTreeLIs.item(i));
 	},
-	initTreeLI : function(oNode, sClass) {
+	/**
+	 * Add listeners to tree list items
+	 * @param {Object} oNode Node in the tree
+	 * @private
+	 */
+	initTreeLI : function(oNode) {
 		YAHOO.util.Dom.removeClass(oNode, 'first-child');
 		YAHOO.util.Dom.removeClass(oNode, 'last-child');
 		YAHOO.util.Dom.removeClass(oNode, 'leaf');
@@ -740,7 +752,9 @@ Fuji.Tree = {
 		YAHOO.util.Event.addListener(oNode, 'click', Fuji.Tree.toggleOpenClose);
 	},
 	/**
-	 * Handler to toggle the open/close class (when appliccable)
+	 * Handler to toggle the open/close class (when applicable)
+	 * @param {Object} e Event object
+	 * @private
 	 */
 	toggleOpenClose : function(e) {
 		if (YAHOO.util.Event.getTarget(e) == this && this.getElementsByTagName('ul').length) {
