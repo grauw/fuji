@@ -27,6 +27,7 @@
 	<script type="text/javascript">	Fuji.settings = {	visual_effects					: <?php echo UserManager::getUser()->visual_effects == '1' ? 'true' : 'false' ?> }
 									Fuji.messages = { 	warning							: "<?php echo L10n::$warning ?>",
 														error							: "<?php echo L10n::$error ?>",
+														sure_delete_group				: "<?php echo L10n::$sure_delete_group ?>",
 														sure_delete_item				: "<?php echo L10n::$sure_delete_item ?>",
 														passwords_do_not_match			: "<?php echo L10n::$passwords_do_not_match ?>",
 														email_empty						: "<?php echo L10n::$email_empty ?>",

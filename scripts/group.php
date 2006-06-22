@@ -136,5 +136,15 @@ class Group extends Dataclass {
 		foreach($data as $row) array_push($return, new Group($row));
 		return $return;			
 	}
+	
+	/**
+	 * Delete the group
+	 */
+	function delete()
+	{
+		Database::execute("DELETE FROM " . Database::$db_tprefix . "groups WHERE id = $this->id");
+		Database::execute("DELETE FROM " . Database::$db_tprefix . "grouprights WHERE groupid = $this->id");
+		Database::execute("DELETE FROM " . Database::$db_tprefix . "groupmembers WHERE groupid = $this->id");
+	}
 }
 ?>

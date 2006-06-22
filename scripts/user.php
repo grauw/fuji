@@ -129,7 +129,6 @@ class User extends Dataclass {
 	 */
 	function isAdmin()
 	{
-		/*print_r($this);*/
 		$root = Entry::getRoot();
 		$rights = $this->getRights($root);
 		if($rights->may_read == 1 && $rights->may_post == 1 && $rights->may_edit == 1 && $rights->may_delete == 1)

@@ -13,6 +13,7 @@ class L10n {
 	static $default_language = 'Standaardtaal';
 	static $default_style = 'Standaardstijl';		
 	static $delete = 'Verwijderen';
+	static $delete_group = 'Verwijder groep';
 	static $edit = 'Bewerken';
 	static $edit_group = 'Bewerk groep';
 	static $email = 'E-mail';
@@ -89,7 +90,8 @@ class L10n {
 	static $statistics = 'Statistieken';
 	static $style = 'Stijl';
 	static $subscribe_to_atom = 'Abonneer op Atom feed';
-	static $subscribe_to_rss = 'Abonneer op RSS feed';	
+	static $subscribe_to_rss = 'Abonneer op RSS feed';
+	static $sure_delete_group = 'Weet u zeker dat u deze groep wilt verwijderen?';
 	static $sure_delete_item = 'Weet u zeker dat u dit bericht wilt verwijderen?';	
 	static $threads = 'Onderwerpen';
 	static $title = 'Titel';

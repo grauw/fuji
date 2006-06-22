@@ -13,6 +13,7 @@ class L10n {
 	static $default_language = 'Default language';
 	static $default_style = 'Default style';
 	static $delete = 'Delete';
+	static $delete_group = 'Delete group';
 	static $edit = 'Edit';
 	static $edit_group = 'Edit group';
 	static $email = 'E-Mail';
@@ -90,7 +91,8 @@ class L10n {
 	static $style = 'Style';
 	static $subscribe_to_atom = 'Subscribe to Atom feed';
 	static $subscribe_to_rss = 'Subscribe to RSS feed';
-	static $sure_delete_item = 'Are you sure you want to delete this item';
+	static $sure_delete_group = 'Are you sure you want to delete this group?';
+	static $sure_delete_item = 'Are you sure you want to delete this item?';
 	static $threads = 'Threads';
 	static $title = 'Title';
 	static $topic = 'Topic';

@@ -57,6 +57,9 @@ RewriteRule ^profile/(\d+)/updated$ scripts/profile.php?updated=true [L,QSA]
 # POST /groups/
 RewriteRule ^groups/$ scripts/groups.php [L,QSA]
 
+# DELETE /groups/<groupid>
+RewriteRule ^groups/(\d+)$ scripts/groups.php?id=$1 [L,QSA]
+
 # GET /users/<groupid>
 RewriteRule ^users/(\d+)$  scripts/userlist.php?groupid=$1 [L,QSA]
 

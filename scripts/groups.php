@@ -1,7 +1,8 @@
 <?php
 require_once 'usermanager.php';
 require_once 'template.php';
-require_once "utils/functions.php";
+require_once 'group.php';
+require_once 'utils/functions.php';
 
 new Groups();
 	
@@ -9,11 +10,17 @@ class Groups {
 	
 	function __construct()
 	{
+		/*if ($_GET['delete']){
+			$this->httpDelete();
+		}*/
+		
 		$method = $_SERVER['REQUEST_METHOD'];
 		if ($method == 'GET') {
 			$this->httpGet();
 		} elseif ($method == 'POST') {
 			$this->httpPost();
+		} elseif ($method == 'DELETE') {
+			$this->httpDelete();
 		} else {
 			$this->httpMethodNotAllowed();
 		}
@@ -57,10 +64,18 @@ class Groups {
 		
 	}
 	
+	function httpDelete()
+	{
+		UserManager::authenticate();
+		if($_GET['id']){
+			Group::getGroup($_GET['id'])->delete();
+		}
+	}
+	
 	function httpMethodNotAllowed()
 	{
 		// 405 Method Not Allowed
-		header('Allow: GET, POST', true, '405');
+		header('Allow: GET, POST, DELETE', true, '405');
 	}
 	
 }	

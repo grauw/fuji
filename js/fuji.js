@@ -5,8 +5,9 @@ Fuji = {
 	editDialog : null,			//pointer to the edit dialog
 	preferencesDialog : null,	//pointer to the preferences dialog
 	newGroupDialog : null,		//pointer to the new group dialog
+	editGroupDialog : null,		//pointer to the edit group dialog
+	deleteGroupDialog : null,	//pointer to the delete group dialog
 	errorDialog : null,			//pointer to the error dialog	
-	editGroupDialog : null,		//pointer to the new group dialog
 	configRightsDialog : null,	//pointer to the config rights dialog
 	loadingDialog : null,		//pointer to the loading dialog	
 	
@@ -444,7 +445,10 @@ Fuji = {
 			Fuji.loadingDialog.render(document.body);
 		}
 		Fuji.loadingDialog.show();
-	},		
+	},
+	/**
+	 * Creates a configure rights dialog
+	 */	
 	newConfigRightsDialog : function() {
 		if(!Fuji.configRightsDialog)
 		{
@@ -549,6 +553,51 @@ Fuji = {
 		document.getElementById('editGroupDialog').style.display = 'block';
 		Fuji.editGroupDialog.show();
 	},
+	/**
+	 * Creates a new delete group dialog (if it doesn't exist), and shows the dialog
+	 * @param {Int} iId The id of the group to be deleted
+	 */	
+	newDeleteGroupDialog : function(iId) {
+		var effect;
+		if(Fuji.settings.visual_effects) effect = {effect:YAHOO.widget.ContainerEffect.FADE, duration:0.25};
+		else effect = null;
+		Fuji.deleteGroupDialog = new YAHOO.widget.SimpleDialog("dlg", { 
+			width: "20em", 
+			effect:effect, 
+			fixedcenter:true,
+			modal:true,
+			draggable:false });
+
+		Fuji.deleteGroupDialog.setHeader(Fuji.messages.warning);
+		Fuji.deleteGroupDialog.setBody(Fuji.messages.sure_delete_group);
+		Fuji.deleteGroupDialog.cfg.setProperty("icon", YAHOO.widget.SimpleDialog.ICON_WARN);
+		var handleOK = function() {
+			Fuji.deleteGroup(iId);
+			Fuji.reloadItem("groups/");
+			this.hide();
+		}
+			var handleCancel = function() {
+			this.hide();
+		}
+		Fuji.deleteGroupDialog.cfg.queueProperty("buttons", [ { text:Fuji.messages.ok, handler:handleOK }, { text:Fuji.messages.cancel, handler:handleCancel } ]);
+		Fuji.deleteGroupDialog.render(document.body);
+	},
+	
+	/**
+	 * Handles the DELETE request to delete the group
+	 * @param {Int} iId The id of the group to be deleted
+	 *TODO param toId: move user in this group to toId
+	 */			
+	deleteGroup : function(iId) {
+		var callback =
+		{
+			success: function(o) { Fuji.reloadItem('groups/' + iId ); location.hash='#groups/' + iId;},
+			failure: Fuji.loadFailure,
+			argument: { uri: 'groups/' + iId }
+		}
+		YAHOO.util.Connect.asyncRequest('DELETE', 'groups/' + iId, callback, null);
+	},
+	
 	addTags : function(oElm, sTags) {
 		oElm.value += sTags;
 		oElm.focus();
