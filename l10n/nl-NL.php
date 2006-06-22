@@ -4,7 +4,6 @@ class L10n {
 	static $actions	= 'Acties';
 	static $admin = 'Beheerder';
 	static $anonymous_user = 'Anonieme gebruiker';
-	static $at = 'op';
 	static $back = 'Terug';
 	static $cancel = 'Annuleren';
 	static $config_rights = 'Configureer rechten';
@@ -81,7 +80,6 @@ class L10n {
 	static $profile_photo = 'Profielfoto';
 	static $read = 'Lezen';
 	static $reenter_your_new_password = 'Voer uw nieuwe wachtwoord nogmaals in';	
-	static $refresh = 'Vernieuwen';
 	static $register = 'Registreer';
 	static $replies = 'Reacties';
 	static $reply = 'Reageren';

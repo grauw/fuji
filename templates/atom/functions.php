@@ -20,11 +20,6 @@ class Atom_Template extends Template {
 		header('HTTP/1.0 401 Unauthorized');		
 	}
 	
-	public function getBaseURL()
-	{
-		return preg_replace('/atom\/\d?/','',($_SERVER['HTTPS'] ? 'https://' : 'http://') . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI']);		
-	}
-	
 	public function getPrefix()
 	{
 		if ($this->acceptsAtom()) {

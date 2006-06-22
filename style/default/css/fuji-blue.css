@@ -5,6 +5,12 @@
   color: white;
   border-color: #3377cc;
 }
+.logo a:link {
+  color: white;
+}
+.logo a:visited {
+  color: white;
+}
 .window {
   border-color: #3377cc;	
 }

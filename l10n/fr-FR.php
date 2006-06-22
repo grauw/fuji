@@ -4,12 +4,11 @@ class L10n {
 	static $actions	= 'Actions';
 	static $admin = 'Administrateur';
 	static $anonymous_user = 'Utilisateur anonyme';	
-	static $at = 'à';
 	static $back = 'Retour';
 	static $cancel = 'Annuler';
 	static $config_rights = 'Configurer les droits';
 	static $contact_administrator = 'Contacter le administrateur du serveur pour plus d\'information.';
-	static $created = 'Crée';
+	static $created = 'Créé';
 	static $date_format = '%d/%m/%Y&#160;%H:%i';
 	static $default_language = 'Langue par défaut';
 	static $default_style = 'Thème par défaut';	
@@ -27,10 +26,10 @@ class L10n {
 	static $error_insufficient_rights = 'Vous n\'êtes pas autorisé d\'accesser cette ressource.';
 	static $error_invalid_url = 'Vous avez entré ou cliqué sur un URL invalide.';
 	static $error_loading_resource = 'Erreur charger la ressource';
-	static $error_no_groups = 'Cet forum n\'avez pas des groupes';
-	static $error_no_posts = 'Cet sujet n\'avez pas des messages';
-	static $error_no_threads = 'Cet forum n\'avez pas des sujets';
-	static $error_no_users = 'Cet forum n\'avez pas des utilisateurs';
+	static $error_no_groups = 'Ce forum n\'avez pas des groupes';
+	static $error_no_posts = 'Ce sujet n\'avez pas des messages';
+	static $error_no_threads = 'Ce forum n\'avez pas des sujets';
+	static $error_no_users = 'Ce forum n\'avez pas des utilisateurs';
 	static $error_resource_cannot_be_found = 'La ressource ne pouvait pas être trouvé.';
 	static $error_restricted_forum = 'Vous n\'êtes pas autorisé d\'accesser le forum ou le sujet.';
 	static $error_rights_revoked = 'Vos droits sont révoqué (banni).';
@@ -81,7 +80,6 @@ class L10n {
 	static $profile_photo = 'Photo de profil';
 	static $read = 'Lire';
 	static $reenter_your_new_password = 'Confirmez votre nouveau mot de passe';
-	static $refresh = 'Rafraîchir';
 	static $register = 'Inscripter';
 	static $replies = 'Résponses';
 	static $reply = 'Répondre';
@@ -92,7 +90,7 @@ class L10n {
 	static $style = 'Thème';
 	static $subscribe_to_atom = 'S\'inscrire sur flux Atom';
 	static $subscribe_to_rss = 'S\'inscrire sur flux RSS';
-	static $sure_delete_item = 'Êtes-vous sur vous voulez supprimer cet article?';
+	static $sure_delete_item = 'Êtes-vous sûr vous voulez supprimer cet article?';
 	static $threads = 'Sujets';
 	static $title = 'Titre';
 	static $topic = 'Sujet';

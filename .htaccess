@@ -32,6 +32,9 @@ RewriteRule ^profile/$ scripts/profile.php [L,QSA]
 # GET /install
 RewriteRule ^install$ scripts/install/index.php [L,QSA]
 
+# GET /register
+RewriteRule ^register$ scripts/register/index.php [L,QSA]
+
 # GET /preferences
 RewriteRule ^preferences$ scripts/preferences.php [L,QSA]
 

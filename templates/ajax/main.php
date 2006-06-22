@@ -16,7 +16,7 @@
 						{
 							if($fora[$n]->type < 4)
 							{
-								$title = $fora[$n]->title;
+								$title = htmlentities($fora[$n]->title, ENT_NOQUOTES);
 								$id = $fora[$n]->id;
 								echo "var child$id = new YAHOO.widget.TextNode({label:\"$title\", href:\"#item/$id/\"}, $parent, false);\n";
 								addChildren($fora[$n], "child$id");

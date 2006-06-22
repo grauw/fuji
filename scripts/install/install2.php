@@ -7,9 +7,9 @@ class Install2 {
 		require_once('../security.php');
 		require_once('../database.php');
 		require_once('database.php');
-		if(isset($_POST['admin']))
+		if(isset($_POST['admin']) && strlen($_POST['e-mail']) > 0)
 		{
-			if($_POST['e-mail'] != '')
+			if(strlen($_POST['e-mail']) > 1 && preg_match('/^[^@]+@([^@.]+\.)+[a-zA-Z]{2,}$/', $_POST['e-mail']))
 			{
 				if($_POST['pw'] === $_POST['pw2'])
 				{

@@ -27,7 +27,7 @@
 						if(count($groups)>0){
 						foreach($groups as $group) { $grouprights = $group->getRights(Entry::getRoot());?>
 					<tr id="<?php echo $group->id ?>" name="<?php echo $group->id ?>">
-						<td><a href="../#users/<?php echo $group->id ?>"><?php echo $group->name ?></a></td>
+						<td><a href="../#users/<?php echo $group->id ?>"><?php echo htmlentities($group->name, ENT_NOQUOTES) ?></a></td>
 						<td name="rights"><?php echo $grouprights->toString() ?></td>
 						<td><?php echo $group->getNumMembers() ?></td>
 						<td><a href="javascript:Fuji.editGroup('<?php echo $group->id ?>',<?php echo $grouprights->may_read ?>,<?php echo $grouprights->may_post ?>,<?php echo $grouprights->may_edit ?>,<?php echo $grouprights->may_delete ?>)"><?php echo L10n::$edit ?></a></td>

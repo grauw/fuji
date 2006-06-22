@@ -12,7 +12,7 @@ $contextId = $parentEntry->id;
 	parent="item/<?php echo $entry->getParent()->id ?>/">
 	<fuji:content>
 		<div class="threadContainer box">
-		<h2 class="windowTitle"><?php echo L10n::$posts ?> – <?php echo $entry->title ?></h2>
+		<h2 class="windowTitle"><?php echo L10n::$posts ?> – <?php echo htmlentities($entry->title, ENT_NOQUOTES) ?></h2>
 		<ul id="postsActions" class="windowActions menu">
 			<?php
 				if (UserManager::getUser()->getRights($entry)->may_post) {
@@ -31,7 +31,7 @@ $contextId = $parentEntry->id;
 			<div class="postDiv post odd">
 				<h3 class="postTitle">
 					<span><?php echo $entry->title ?></span>
-					<span>(<?php echo L10n::$posted_by ?> <a href="profile/<?php echo User::getUser($entry->userref)->id ?>" target="_blank"><?php echo User::getUser($entry->userref)->nickname ?></a>
+					<span>(<?php echo L10n::$posted_by ?> <a href="profile/<?php echo User::getUser($entry->userref)->id ?>" target="_blank"><?php echo htmlentities(User::getUser($entry->userref)->nickname, ENT_NOQUOTES) ?></a>
 						<?php echo L10n::$on ?> <?php echo $entry->getFormattedDate('modified', L10n::$date_format) ?>)</span>
 				</h3>
 				<?php if (UserManager::getUser()->getRights($entry)->may_edit) { ?>
@@ -52,9 +52,9 @@ $contextId = $parentEntry->id;
 			<div class="postDiv post <?php echo $i++ % 2 ? 'even' : 'odd' ?>">
 				<?php if ($post->type == Entry::$TYPE_POST) { ?>
 					<h3 class="postTitle">
-						<span><?php echo $post->title ?></span>
-						<span>(<?php echo L10n::$posted_by ?> <a href="profile/<?php echo User::getUser($entry->userref)->id ?>" target="_blank"><?php echo User::getUser($entry->userref)->nickname ?></a>
-							<?php echo L10n::$on ?> <?php echo $entry->getFormattedDate('modified', L10n::$date_format) ?>)</span>
+						<span><?php echo htmlentities($post->title, ENT_NOQUOTES) ?></span>
+						<span>(<?php echo L10n::$posted_by ?> <a href="profile/<?php echo User::getUser($post->userref)->id ?>" target="_blank"><?php echo htmlentities(User::getUser($post->userref)->nickname, ENT_NOQUOTES) ?></a>
+							<?php echo L10n::$on ?> <?php echo $post->getFormattedDate('modified', L10n::$date_format) ?>)</span>
 					</h3>
 					<?php if (UserManager::getUser()->getRights($post)->may_edit || UserManager::getUser()->getRights($post)->may_delete) { ?>
 					<ul class="windowActions menu">

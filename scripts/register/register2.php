@@ -1,6 +1,4 @@
 <?php
-/*include_once '../adodb_lite/adodb.inc.php';
-include_once '../adodb_lite/adodb-exceptions.inc.php'; */
 include_once '../user.php';
 
 class Register2 {   
@@ -12,10 +10,21 @@ class Register2 {
 
    function tryRegister() {		
 		if(User::isUser($_POST['nickname'])) echo 'Nickname already in use';
-		else {
-			if(User::addUser(array('nickname' => $_POST['nickname'], 'email' => $_POST['email'], 'password' => $_POST['password'])))
-				echo 'Registration succesfull';
-			else echo 'Registration failed';
-		}
+		else
+			if(strlen($_POST['nickname']) > 1 && preg_match('/[a-zA-Z0-9_-]$/', $_POST['nickname']))
+				if(strlen($_POST['email']) > 1 && preg_match('/^[^@]+@([^@.]+\.)+[a-zA-Z]{2,}$/', $_POST['email']))
+				{
+					$userdata = array('nickname' => $_POST['nickname'], 'email' => $_POST['email'], 'password' => $_POST['password']);
+					if($_POST['language'] != 'Server default')	$userdata += array('language' => $_POST['language']);
+					if($_POST['style'] != 'Server default')	$userdata += array('style' => $_POST['style']);
+					if(User::addUser($userdata))
+						echo 'Registration successful';
+					else
+						echo 'Registration failed';
+				}
+				else
+					echo 'Invalid e-mail address';
+			else
+				echo 'Invalid nickname';
 	}
 }
