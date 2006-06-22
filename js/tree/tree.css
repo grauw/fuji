@@ -34,9 +34,17 @@ ul.tree li {
 	list-style-type: none;
 	padding-left: 16px;
 }
-* html ul.tree, * html ul.tree li {
+ul.tree li ul {
+	margin-left: -16px;
+	padding-left: 16px;
+}
+* html ul.tree, * html ul.tree li, * html ul.tree li ul {
 	/* register clicks on li padding in IE */
 	position: relative;
+}
+* html ul.tree li {
+	/* collapse trees properly in IE */
+	zoom: 1.0;
 }
 ul.tree li.leaf {
 	background: url('tn.gif') 0 0 no-repeat;
@@ -47,17 +55,17 @@ ul.tree li.closed {
 ul.tree li.open {
 	background: url('tm.gif') 0 0 no-repeat;
 }
-ul.tree li:last-child, ul.tree li.last-child {
+ul.tree li:last-child {
+	background-position: 0 -800px;
+}
+ul.tree li.last-child {
 	background-position: 0 -800px;
 }
 ul.tree li a {
 	display: block;
 }
-ul.tree ul {
+ul.tree li.closed ul {
 	display: none;
-}
-ul.tree li.open ul {
-	display: block;
 }
 
 
