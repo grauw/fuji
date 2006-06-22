@@ -4,6 +4,7 @@
 	require_once("scripts/xhtml.php");
 	UserManager::authenticate();
 	L10nManager::loadL10n();
+	header('Content-Language: '.L10n::$language);
 	echo XHTML::pageHeaders();
 ?>
 <!DOCTYPE html 
