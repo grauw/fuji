@@ -86,7 +86,7 @@
 		<div id="editTitle" class="hd"><?php echo L10n::$edit ?></div>
 		<div id="editForm" class="bd">
 			<form id="editF" name="editF" class="createEditF" method="POST" enctype="text/plain">
-				<input id='editEntryid' name='entryid' type='hidden' value='' />
+				<input width="300" id='editEntryid' name='entryid' type='hidden' value='' />
 				<div><span><?php echo L10n::$title ?></span><input id='editT' class="createEditT" name='title' type='text' value='' /></div>
 				<div>	<img alt="Bold" src="style/default/graphics/button-bold.png" onclick="Fuji.addTags(document.getElementById('editContent'), '[b][/b]')" />
 						<img alt="Italic" src="style/default/graphics/button-italic.png" onclick="Fuji.addTags(document.getElementById('editContent'), '[i][/i]')" />

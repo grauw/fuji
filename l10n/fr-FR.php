@@ -82,7 +82,7 @@ class L10n {
 	static $read = 'Lire';
 	static $reenter_your_new_password = 'Confirmez votre nouveau mot de passe';
 	static $register = 'Inscripter';
-	static $replies = 'Résponses';
+	static $replies = 'Réponses';
 	static $reply = 'Répondre';
 	static $rights = 'Droits';
 	static $search = 'Rechercher';
