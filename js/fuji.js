@@ -115,7 +115,14 @@ Fuji = {
 		Fuji.selectDeckItem(oTargetDiv);
 		var oLoadHandler = Fuji.Util.getElementsByTagNameNS(oDocument, Fuji.NS,'loadhandler');
 		if (oLoadHandler.length) {
-			eval(oLoadHandler[0].firstChild.nodeValue)
+			oLoadHandler = oLoadHandler[0];
+			if (oLoadHandler.hasChildNodes()) {
+				eval(oLoadHandler.firstChild.nodeValue);
+			}
+			if (Fuji.Util.hasAttribute(oLoadHandler, 'function')) {
+				var onload = oLoadHandler.getAttribute('function');
+				eval(onload).apply(oTargetDiv, []);
+			}
 		}
 	},
 	
@@ -709,3 +716,47 @@ Fuji.Util = {
 		}
 	}	
 }
+
+Fuji.Tree = {
+	init : function(oContextNode) {
+		if (oContextNode === undefined) oContextNode = this;
+		var oTree = YAHOO.util.Dom.getElementsByClassName('tree', 'ul', oContextNode)[0];
+		Fuji.Tree.initTree(oTree);
+	},
+	/**
+	 * Add listeners to a tree list items
+	 */
+	initTree : function(oTree) {
+		var oTreeLIs = oTree.getElementsByTagName('li');
+		for (var i=0; i<oTreeLIs.length; i++) Fuji.Tree.initTreeLI(oTreeLIs.item(i));
+	},
+	initTreeLI : function(oNode, sClass) {
+		YAHOO.util.Dom.removeClass(oNode, 'first-child');
+		YAHOO.util.Dom.removeClass(oNode, 'last-child');
+//		YAHOO.util.Dom.removeClass(oNode, 'has-ul-child');
+		if (oNode.parentNode.firstChild == oNode) YAHOO.util.Dom.addClass(oNode, 'first-child');
+		if (oNode.parentNode.lastChild == oNode) YAHOO.util.Dom.addClass(oNode, 'last-child');
+//		if (oNode.getElementsByTagName('ul').length) YAHOO.util.Dom.addClass(oNode, 'has-ul-child');
+		YAHOO.util.Event.addListener(oNode, 'click', Fuji.Tree.toggleOpenClose);
+	},
+	/**
+	 * Handler to toggle the open/close class (when appliccable)
+	 */
+	toggleOpenClose : function(e) {
+		if (YAHOO.util.Event.getTarget(e) == this && this.getElementsByTagName('ul').length) {
+			Fuji.Tree.toggleClasses(this,'open','closed');
+		}
+		e.stopPropagation();
+	},
+	/**
+	 * Toggle between two CSS classes
+	 */
+	toggleClasses : function(oNode, sClass1, sClass2) {
+		if (YAHOO.util.Dom.hasClass(oNode, sClass1)) {
+			YAHOO.util.Dom.replaceClass(oNode, sClass1, sClass2);
+		} else {
+			YAHOO.util.Dom.replaceClass(oNode, sClass2, sClass1);
+		}
+	}
+}
+

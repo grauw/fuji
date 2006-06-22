@@ -53,6 +53,9 @@ h1 {
 #foraDiv h2 {
 	margin-top: 0;
 }
+#foraDiv ul.tree a {
+	padding-left: 2px;
+}
 
 
 /* Threads list */

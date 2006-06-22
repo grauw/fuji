@@ -34,6 +34,13 @@ h1 {
 }
 
 
+/* Forum list colours */
+
+ul.tree a:hover {
+	background-color: #8e0;
+}
+
+
 /* Box colours */
 
 .box {

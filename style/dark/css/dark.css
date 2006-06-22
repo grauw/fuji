@@ -1,5 +1,5 @@
 @import "dark-container.css";
-@import "../../default/css/treeview.css";
+@import "../../../js/tree/tree.css";
 @import "../../default/css/fuji.css";
 
 .logo {

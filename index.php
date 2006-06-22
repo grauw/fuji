@@ -59,7 +59,6 @@
 		<div id="menuListDiv"></div>
 	</div>
 	<div id="foraDiv" class="box">
-		<div id="foraTreeDiv" class="content"></div>
 	</div>
 	<div id="threadsDiv">
 	</div>

@@ -3,39 +3,38 @@
 	xmlns:fuji="http://fuji.sourceforge.net/ns"
 	xml:lang="<?php echo L10n::$language ?>"
 	loadcontext="foraDiv">
-	<fuji:loadhandler>
-		Fuji.ForumTree = {
-			treeLoad : function() {
-				var tree = new YAHOO.widget.TreeView("forumTree");
-				var root = tree.getRoot();
-				<?php
-					function addChildren($entry, $parent = 'root')
-					{
-						$fora = $entry->getChildren();
-						for($n = 0; $n < count($fora); $n++)
-						{
-							if($fora[$n]->type < 4)
-							{
-								$title = htmlentities($fora[$n]->title, ENT_NOQUOTES);
-								$id = $fora[$n]->id;
-								echo "var child$id = new YAHOO.widget.TextNode({label:\"$title\", href:\"#item/$id/\"}, $parent, false);\n";
-								addChildren($fora[$n], "child$id");
-							}
-						}
-					}
-					addChildren($entry);
-				?>
-				tree.draw();
-				tree.expandAll();
-			}
-		}
-		
-		Fuji.ForumTree.treeLoad();
-	</fuji:loadhandler>
+	<fuji:loadhandler function="Fuji.Tree.init"/>
 	<fuji:content>
 		<h2 id="foraTitle" class="windowTitle"><?php echo L10n::$fora ?></h2>
-		<div id="forumTreeDiv">
-			<div id="forumTree"></div>
+		<div class="content">
+			<?php
+				function addChildren($entry, $root=true)
+				{
+					$forumchildren = $entry->getChildren();
+					$forums = array();
+					foreach ($forumchildren as $forum) {
+						if($forum->type < 4) array_push($forums, $forum);
+					}
+					$rv = '';
+					if (count($forums) > 0) {
+						$rv .= '<ul'.($root ? ' class="tree"' : '').">\n";
+						foreach ($forums as $forum) {
+							$children .= addChildren($forum, false);
+							if ($children == '') {
+								$rv .= '<li>';
+							} else {
+								$rv .= '<li class="open">';
+							}
+							$rv .= '<a href="#item/'.$forum->id.'/">'.htmlentities($forum->title, ENT_NOQUOTES).'</a>';
+							$rv .= $children;
+							$rv .= "</li>\n";
+						}
+						$rv .= "</ul>\n";
+					}
+					return $rv;
+				}
+				echo addChildren($entry);
+			?>
 		</div>
 	</fuji:content>
 </fuji:item>

@@ -2,6 +2,6 @@
 @import "post.css";
 @import "layout.css";
 @import "style.css";
-@import "../../default/css/treeview.css";
+@import "../../../js/tree/tree.css";
 @import "../../lite/css/container.css";
 @import "colours.css";
