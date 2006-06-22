@@ -28,6 +28,7 @@ Before you install the Fuji Forum, the following needs to be installed first:
 == Features ==
 
 * AJAX user interface
+* Seamless history and bookmarking functionality
 * RSS and Atom feeds
 * WML and XHTML access for mobile devices
 * Multi-language (translations: en-GB, nl-NL, fr-FR)
