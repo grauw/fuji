@@ -1,0 +1,10 @@
+FUJI FORUM QUICK INSTALLATION GUIDE
+   
+To install the forum, you need to put all files in any folder your webserver
+can read. After this, open your web browser and go to the installation script.
+For example, if you have installed the forum in the root of your webserver,
+the script is to be found at:
+
+  www.example.com/install
+
+Then follow the steps provided by the script.
