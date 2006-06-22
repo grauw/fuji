@@ -9,6 +9,20 @@ html {
 a {
 	color: #f60;
 }
+table th {
+	border-color: #af4 #6c0 #6c0 #af4;
+	background-color: #8e0;
+}
+table td {
+	border-color: #6c0;
+	background-color: #9f0;
+}
+tr.even td {
+	background-color: #94f800;
+}
+tr:hover td {
+	background-color: #90f500;
+}
 
 
 /* Logo colours */
@@ -18,25 +32,6 @@ h1 {
 	border-top-color: #8d0;
 	border-bottom-color: #bf9;
 }
-
-
-/* Threads list colours */
-
-#threadsDiv table th {
-	border-color: #af4 #6c0 #6c0 #af4;
-	background-color: #8e0;
-}
-#threadsDiv table td {
-	border-color: #6c0;
-	background-color: #9f0;
-}
-#threadsDiv table tr.even td {
-	background-color: #94f800;
-}
-#threadsDiv table tr:hover td {
-	background-color: #90f500;
-}
-
 
 
 /* Box colours */

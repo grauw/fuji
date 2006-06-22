@@ -9,6 +9,17 @@ a.feed {
 	padding-left: 15px;
 	background: url('graphics/feed-icon.png') 0 3px no-repeat;
 }
+table {
+	border-spacing: 0;
+	width: 100%;
+}
+table th {
+	border: 1px solid;
+}
+table td {
+	border: none;
+	padding: .1em .3em;
+}
 
 
 /* Logo */
@@ -46,20 +57,11 @@ h1 {
 
 /* Threads list */
 
-.forumContainer table {
-	border-spacing: 0;
-	width: 100%;
-}
-.forumContainer table th {
-	border: 1px solid;
-}
 .forumContainer table th:first-child {
 	width: 50%;
 }
 .forumContainer table td {
-	border: none;
 	text-align: center;
-	padding: .1em .3em;
 }
 .forumContainer table td:first-child {
 	text-align: left;
