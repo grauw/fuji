@@ -748,12 +748,19 @@ Fuji.Tree = {
 	 * @private
 	 */
 	initTreeLI : function(oNode) {
-		YAHOO.util.Dom.removeClass(oNode, 'first-child');
-		YAHOO.util.Dom.removeClass(oNode, 'last-child');
-		YAHOO.util.Dom.removeClass(oNode, 'leaf');
-		if (oNode.parentNode.firstChild == oNode) YAHOO.util.Dom.addClass(oNode, 'first-child');
-		if (oNode.parentNode.lastChild == oNode) YAHOO.util.Dom.addClass(oNode, 'last-child');
+		// check whether first child (previous siblings of type element node)
+		var oNodeCheck = oNode;
+		while ((oNodeCheck = oNodeCheck.previousSibling) != null && oNodeCheck.nodeType != Fuji.Util.ELEMENT_NODE);
+		if (oNodeCheck == null) YAHOO.util.Dom.addClass(oNode, 'first-child');
+		else YAHOO.util.Dom.removeClass(oNode, 'first-child');
+		// check whether last child (following siblings of type element node)
+		var oNodeCheck = oNode;
+		while ((oNodeCheck = oNodeCheck.nextSibling) != null && oNodeCheck.nodeType != Fuji.Util.ELEMENT_NODE);
+		if (oNodeCheck == null) YAHOO.util.Dom.addClass(oNode, 'last-child');
+		else YAHOO.util.Dom.removeClass(oNode, 'last-child');
+		// check whether a leaf node
 		if (!oNode.getElementsByTagName('ul').length) YAHOO.util.Dom.addClass(oNode, 'leaf');
+		else YAHOO.util.Dom.removeClass(oNode, 'leaf');
 		YAHOO.util.Event.addListener(oNode, 'click', Fuji.Tree.toggleOpenClose);
 	},
 	/**
