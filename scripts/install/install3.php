@@ -40,7 +40,7 @@ class Install3 {
 						<?php	$styles = Stylesheet::getStylesheets(false);
 								foreach($styles as $style)
 								{
-									echo '<option value="' . $style->name . '"' . ($style->name == 'Default Fuji' ? 'selected="Selected"' : '') . '>' . $style->name . '</option>';
+									echo '<option value="' . $style->name . '"' . ($style->name == 'Default Fuji' ? ' selected="selected"' : '') . '>' . $style->name . '</option>';
 								}
 						?>
 					</select>		
@@ -56,7 +56,7 @@ class Install3 {
 						<option value="3">3</option>
 						<option value="4">4</option>
 						<option value="5">5</option>
-						<option value="6" selected="Selected">6</option>
+						<option value="6" selected="selected">6</option>
 						<option value="7">7</option>
 						<option value="8">8</option>
 						<option value="9">9 (least network-traffic)</option>

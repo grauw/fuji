@@ -12,6 +12,8 @@
 						array("Server Configuration", new Install3()),
 						array("Finish", "<p>You have successfully completed the installer, and your Fuji Forum is ready to use!</p>")
 					);
+
+	header('Content-Type: application/xhtml+xml; charset=utf-8');
 ?>
 <!DOCTYPE html
 	PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0//EN"
