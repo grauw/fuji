@@ -2,10 +2,8 @@
 
 html {
 	font-family: Verdana, Helvetica, sans-serif;
-	color: #339;
 }
 a {
-	color: #f60;
 }
 a.feed {
 	padding-left: 15px;
@@ -16,10 +14,9 @@ a.feed {
 /* Logo */
 
 h1 {
-	background: #9f0;
 	-moz-border-radius: 10px;
-	border-top: 2px solid #8d0;
-	border-bottom: 2px solid #bf9;
+	border-top: 2px solid;
+	border-bottom: 2px solid;
 }
 
 
@@ -49,44 +46,30 @@ h1 {
 
 /* Threads list */
 
-#threadsDiv table {
+.forumContainer table {
 	border-spacing: 0;
 	width: 100%;
 }
-#threadsDiv table th {
-	border: 1px solid #6c0;
-	border-color: #af4 #6c0 #6c0 #af4;
-	background: #8e0;
-	font-weight: normal;
-	padding: .1em .2em;
+.forumContainer table th {
+	border: 1px solid;
 }
-#threadsDiv table th:first-child {
+.forumContainer table th:first-child {
 	width: 50%;
 }
-#threadsDiv table td {
-	border: solid #6c0;
-	border-width: 0;
-	background: #9f0;
+.forumContainer table td {
+	border: none;
 	text-align: center;
 	padding: .1em .3em;
 }
-#threadsDiv table td:first-child {
+.forumContainer table td:first-child {
 	text-align: left;
 	padding: 0;
 }
-#threadsDiv table td:first-child a {
+.forumContainer table td:first-child a {
 	padding: .1em .3em;
 }
-#threadsDiv table td a {
+.forumContainer table td a {
 	display: block;
 }
-#threadsDiv table tr.even td {
-	background: #94f800;
-}
-#threadsDiv table tr:hover td {
-	background: #90f500;
-}
 
-
-/* Thread */
 
