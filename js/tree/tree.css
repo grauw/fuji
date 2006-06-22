@@ -3,6 +3,18 @@
  * HTML structure:
  *
  * <ul class="tree">
+ *    <li>Item
+ *       <ul>
+ *          <li><a href="">Subitem 1</a></li>
+ *          <li><a href="">Subitem 2</a></li>
+ *          <li><a href="">Subitem 3</a></li>
+ *       <ul>
+ *    </li>
+ * </ul>
+ *
+ * After Fuji.Tree.initTree() is applied:
+ *
+ * <ul class="tree">
  *    <li class="last-child (open|closed)">Item
  *       <ul>
  *          <li><a href="">Subitem 1</a></li>
@@ -16,7 +28,6 @@
 ul.tree, ul.tree ul {
 	padding: 0;
 	margin: 0;
-	xborder: 1px dotted green;
 }
 ul.tree li {
 	display: block;
