@@ -447,6 +447,9 @@ Fuji = {
 		Fuji.loadingDialog.show();
 	},	
 	
+	/**
+	 * Activates the ConfigRightsDialog
+	 */
 	setConfigRightsDialog : function() {
 		Fuji.configRightsDialog = null;
 		if(!Fuji.configRightsDialog)
@@ -454,8 +457,14 @@ Fuji = {
 			Fuji.configRightsDialog = new YAHOO.widget.Dialog("configRightsDialog", { visible: false, fixedCenter: true, effect:{effect:YAHOO.widget.ContainerEffect.FADE, duration:0.25},  width: '325px' });
 			var handleCancel = function() {
 				this.cancel();
+				document.getElementById('configRightsF').reset();
+				this.hide();
 			}
 			var handleSubmit = function() {
+				alert('nu!');
+				this.submit();
+				document.getElementById('configRightsF').reset();
+				this.hide();
 			}
 			Fuji.configRightsDialog.cfg.queueProperty("buttons", [ { text:Fuji.messages.ok, handler:handleSubmit, isDefault:true },
 												   { text:Fuji.messages.cancel, handler:handleCancel} ]);

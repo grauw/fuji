@@ -28,7 +28,6 @@ class Groups {
 	
 	function httpGet()
 	{
-		UserManager::authenticate();
 		if (UserManager::isAdmin()) {
 			$template = Template::getTemplate('AJAX');
 			$template->applyGroups($template);
@@ -52,7 +51,7 @@ class Groups {
 			if($_POST['newGroupDelete']) $array['may_delete'] = 1; else $array['may_delete'] = 0;
 			$group->updateRights($array);
 		}
-		if($_POST['editGroupId']){
+		elseif($_POST['editGroupId']){
 			$array = array();
 			$group = Group::getGroup($_POST['editGroupId']);
 			if($_POST['editGroupRead']) $array['may_read'] = 1; else $array['may_read'] = 0;
@@ -61,6 +60,21 @@ class Groups {
 			if($_POST['editGroupDelete']) $array['may_delete'] = 1; else $array['may_delete'] = 0;
 			$group->updateRights($array);
 		}
+		elseif($id = $_POST['configRightsEntryId']){
+			$array = array();
+			$groups = Group::getAllGroups();
+			foreach($groups as $group){
+				$groupid = $group->id;
+				$array = array();
+				if($_POST['configRightsRead' . $groupid]) $array['may_read'] = 1; else $array['may_read'] = 0;
+				if($_POST['configRightsPost' . $groupid]) $array['may_post'] = 1; else $array['may_post'] = 0;
+				if($_POST['configRightsEdit' . $groupid]) $array['may_edit'] = 1; else $array['may_edit'] = 0;
+				if($_POST['configRightsDelete' . $groupid]) $array['may_delete'] = 1; else $array['may_delete'] = 0;
+				$array['entryid'] = $id;
+				$group->updateRights($array);
+			}
+		}
+
 		
 	}
 	

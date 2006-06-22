@@ -21,7 +21,7 @@
 	<fuji:content>
 		<div id="configRightsTitle" class="hd"><?php echo L10n::$config_rights ?></div>
 		<div id="configRightsForm" class="bd">
-			<form id="configRightsF" name="configRightsF" class="createEditF" method="POST" action="config_rights/">
+			<form id="configRightsF" name="configRightsF" class="createEditF" method="POST" action="groups/">
 			<?php foreach($groups as $group) { ?>	
 				<?php echo $group->name ?>
 				<label><input type="checkbox" 
