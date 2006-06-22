@@ -26,10 +26,10 @@ class L10n {
 	static $error_insufficient_rights = 'Vous n\'êtes pas autorisé d\'accesser cette ressource.';
 	static $error_invalid_url = 'Vous avez entré ou cliqué sur un URL invalide.';
 	static $error_loading_resource = 'Erreur charger la ressource';
-	static $error_no_groups = 'Ce forum n\'avez pas des groupes';
-	static $error_no_posts = 'Ce sujet n\'avez pas des messages';
-	static $error_no_threads = 'Ce forum n\'avez pas des sujets';
-	static $error_no_users = 'Ce forum n\'avez pas des utilisateurs';
+	static $error_no_groups = 'Ce forum n\'a pas des groupes';
+	static $error_no_posts = 'Ce sujet n\'a pas des messages';
+	static $error_no_threads = 'Ce forum n\'a pas des sujets';
+	static $error_no_users = 'Ce forum n\'a pas des utilisateurs';
 	static $error_resource_cannot_be_found = 'La ressource ne pouvait pas être trouvé.';
 	static $error_restricted_forum = 'Vous n\'êtes pas autorisé d\'accesser le forum ou le sujet.';
 	static $error_rights_revoked = 'Vos droits sont révoqué (banni).';

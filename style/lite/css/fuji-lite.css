@@ -66,12 +66,18 @@ h5 {
   width: 710px;
   text-align: right;  
 }
+* html #menuDiv {
+  padding-top: 10px;
+  height: 70px;
+}
 #menuDiv h2 {
   border: none;
   display: none;
 }
 #menuDiv ul li {
   display: inline;
+  margin-left: 3px;
+  margin-right: 3px;
 }
 #threadsDiv {
   margin: 10px;
