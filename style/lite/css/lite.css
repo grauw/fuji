@@ -1,4 +1,3 @@
 @import "fuji-lite.css";
 @import "fuji-white.css";
-@import "treeview.css";
-@import "container.css";
+@import "../../default/css/treeview.css";

@@ -23,17 +23,17 @@
 								$most_active_user_count = $most_active_user[0][1];
 								$most_active_user_name = Database::getArray("SELECT nickname FROM " . Database::$db_tprefix . "users WHERE id = '$most_active_user_id'");
 								$most_active_user_name = $most_active_user_name[0][0]; 
-								echo "<a href=\"profile/$most_active_user_id\" target=\"_blank\">" . htmlentities($most_active_user_name, ENT_NOQUOTES) . "</a> ($most_active_user_count)"?>
+								if($most_active_user) echo "<a href=\"profile/$most_active_user_id\" target=\"_blank\">" . htmlentities($most_active_user_name, ENT_NOQUOTES) . "</a> ($most_active_user_count)"?>
 					</td>
 				</tr>
 				<tr>
 					<td><?php echo L10n::$most_active_thread ?></td>
-					<td><?php	$most_active_thread = Database::getArray("SELECT ref,count(*) FROM " . Database::$db_tprefix . "entries GROUP BY ref HAVING count(*) >= ALL(SELECT count(*) FROM entries WHERE type = '4' GROUP BY ref)");
+					<td><?php	$most_active_thread = Database::getArray("SELECT ref,count(*) FROM " . Database::$db_tprefix . "entries WHERE type = '4' GROUP BY ref HAVING count(*) >= ALL(SELECT count(*) FROM entries WHERE type = '4' GROUP BY ref)");
 								$most_active_thread_id = $most_active_thread[0][0];
 								$most_active_thread_count = $most_active_thread[0][1];
-								$most_active_thread_title = Database::getArray("SELECT title FROM " . Database::$db_tprefix . "entries WHERE id = '$most_active_thread_id'");
+								$most_active_thread_title = Database::getArray("SELECT title FROM " . Database::$db_tprefix . "entries WHERE type = '4' AND id = '$most_active_thread_id'");
 								$most_active_thread_title = $most_active_thread_title[0][0];					
-								echo "<a href=\"#item/$most_active_thread_id/\">" . htmlentities($most_active_thread_title, ENT_NOQUOTES) . "</a> ($most_active_thread_count)" ?>
+								if($most_active_thread_title) echo "<a href=\"#item/$most_active_thread_id/\">" . htmlentities($most_active_thread_title, ENT_NOQUOTES) . "</a> ($most_active_thread_count)" ?>
 					</td>
 				</tr>																	
 				<tr>

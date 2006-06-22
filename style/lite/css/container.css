@@ -38,9 +38,9 @@
     top:0;
     left:0;
     background-color:#CCC;
-    -moz-opacity: 0.5;
-    opacity:.50;
-    filter: alpha(opacity=50);
+    -moz-opacity: 0.0;
+    opacity:0.0;
+    filter: alpha(opacity=0);
     }
 .mask[id]{ /* IE6 and below Can't See This */
     position:fixed;
