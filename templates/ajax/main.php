@@ -21,7 +21,7 @@
 						foreach ($forums as $forum) {
 							$children .= addChildren($forum, false);
 							if ($children == '') {
-								$rv .= '<li>';
+								$rv .= '<li class="leaf">';
 							} else {
 								$rv .= '<li class="open">';
 							}

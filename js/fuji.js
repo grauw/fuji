@@ -733,10 +733,10 @@ Fuji.Tree = {
 	initTreeLI : function(oNode, sClass) {
 		YAHOO.util.Dom.removeClass(oNode, 'first-child');
 		YAHOO.util.Dom.removeClass(oNode, 'last-child');
-//		YAHOO.util.Dom.removeClass(oNode, 'has-ul-child');
+		YAHOO.util.Dom.removeClass(oNode, 'leaf');
 		if (oNode.parentNode.firstChild == oNode) YAHOO.util.Dom.addClass(oNode, 'first-child');
 		if (oNode.parentNode.lastChild == oNode) YAHOO.util.Dom.addClass(oNode, 'last-child');
-//		if (oNode.getElementsByTagName('ul').length) YAHOO.util.Dom.addClass(oNode, 'has-ul-child');
+		if (!oNode.getElementsByTagName('ul').length) YAHOO.util.Dom.addClass(oNode, 'leaf');
 		YAHOO.util.Event.addListener(oNode, 'click', Fuji.Tree.toggleOpenClose);
 	},
 	/**
@@ -744,19 +744,13 @@ Fuji.Tree = {
 	 */
 	toggleOpenClose : function(e) {
 		if (YAHOO.util.Event.getTarget(e) == this && this.getElementsByTagName('ul').length) {
-			Fuji.Tree.toggleClasses(this,'open','closed');
+			if (YAHOO.util.Dom.hasClass(this, 'open')) {
+				YAHOO.util.Dom.replaceClass(this, 'open','closed');
+			} else {
+				YAHOO.util.Dom.replaceClass(this, 'closed', 'open');
+			}
 		}
-		e.stopPropagation();
-	},
-	/**
-	 * Toggle between two CSS classes
-	 */
-	toggleClasses : function(oNode, sClass1, sClass2) {
-		if (YAHOO.util.Dom.hasClass(oNode, sClass1)) {
-			YAHOO.util.Dom.replaceClass(oNode, sClass1, sClass2);
-		} else {
-			YAHOO.util.Dom.replaceClass(oNode, sClass2, sClass1);
-		}
+		YAHOO.util.Event.stopPropagation(e);
 	}
 }
 

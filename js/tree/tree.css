@@ -20,25 +20,24 @@ ul.tree, ul.tree ul {
 }
 ul.tree li {
 	display: block;
+	list-style-type: none;
 	padding-left: 16px;
 }
-ul.tree li {
-	background: url('tn.gif') 0 0 no-repeat;
+* html ul.tree, * html ul.tree li {
+	/* register clicks on li padding in IE */
+	position: relative;
 }
-ul.tree li:last-child {
-	background: url('ln.gif') 0 0 no-repeat;
+ul.tree li.leaf {
+	background: url('tn.gif') 0 0 no-repeat;
 }
 ul.tree li.closed {
 	background: url('tp.gif') 0 0 no-repeat;
 }
-ul.tree li.closed:last-child {
-	background: url('lp.gif') 0 0 no-repeat;
-}
 ul.tree li.open {
 	background: url('tm.gif') 0 0 no-repeat;
 }
-ul.tree li.open:last-child {
-	background: url('lm.gif') 0 0 no-repeat;
+ul.tree li:last-child, ul.tree li.last-child {
+	background-position: 0 -800px;
 }
 ul.tree li a {
 	display: block;
