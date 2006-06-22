@@ -26,6 +26,7 @@
 					addChildren($entry);
 				?>
 				tree.draw();
+				tree.expandAll();
 			}
 		}
 		
