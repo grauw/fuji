@@ -19,7 +19,7 @@
 					if (count($forums) > 0) {
 						$rv .= '<ul'.($root ? ' class="tree"' : '').">\n";
 						foreach ($forums as $forum) {
-							$children .= addChildren($forum, false);
+							$children = addChildren($forum, false);
 							if ($children == '') {
 								$rv .= '<li class="leaf">';
 							} else {
