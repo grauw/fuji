@@ -1,74 +1,35 @@
 <?php
-	require_once "stylesheet.php";
-	require_once "usermanager.php";
-	require_once "l10nmanager.php";
-	require_once "group.php";
-	require_once "xhtml.php";	
 
-	UserManager::authenticate();	
-	$user;
-	
-	if(isset($_GET['id']))
+require_once 'entry.php';
+require_once 'usermanager.php';
+require_once 'template.php';
+
+new Profile();
+
+class Profile {
+
+	function __construct()
 	{
-		$user = User::getUser($_GET['id']);
-	}
-	else
-	{
-		$user = UserManager::getUser();
-	}
-	
-	L10nManager::loadL10n();
-	
-	echo XHTML::pageHeaders();
-	
-	if($_POST['updated']){
-		$groups = Database::getArray("SELECT name FROM " . DbVar::$db_tprefix . "groups");
-		foreach($groups as $group){
-			$name = $group['name'];
-			if($_POST[$name]) Group::getGroupByName($name)->addUser($user);
-			else Group::getGroupByName($name)->removeUser($user);
+		$method = $_SERVER['REQUEST_METHOD'];
+		if ($method == 'GET') {
+			$this->httpGet();
+		} else {
+			$this->httpMethodNotAllowed();
 		}
 	}
+	
+	function httpGet()
+	{
+		$template = Template::getTemplate('AJAX');
+		$template->applyProfile($template);
+	}
+	
+	function httpMethodNotAllowed()
+	{
+		// 405 Method Not Allowed
+		header('Allow: GET, POST, DELETE, PUT', true, '405');
+	}
+}
+	
 ?>
-<!DOCTYPE html 
-     PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" lang="<?php echo L10n::$language ?>" xml:lang="<?php echo L10n::$language ?>">
-<head>
-	<link rel="stylesheet" href="../style/default/css/default.css" type="text/css" />
-	<title><?php echo L10n::$profile ?></title>
-</head>
-<body>
-</body>
-	<div id="profileDiv" class="window">
-		<h2 class="windowTitle"><?php echo L10n::$profile ?></h2>
-		<div id="profileInfoDiv">
-			<table>
-				<tr><td rowspan="4"><?php if(isset($user->picture)) { ?><img width="60" src="<?php echo $user->picture ?>" alt="picture"></img><?php } ?></td><td><?php echo L10n::$name ?>:</td><td><?php echo $user->nickname ?></td></tr>
-				<?php if(isset($user->email) && $user->email_visible) { ?><tr><td><?php echo L10n::$email ?>:</td><td><?php echo $user->email; ?></td></tr><?php } ?>
-				<tr><td><?php echo L10n::$posts ?>:</td><td><?php echo $user->getPosts() ?></td></tr>
-				<tr><td><?php echo L10n::$member_of ?>:</td>
-				<?php if(!$_GET['edit']){ /*not editting*/?>
-				<td><?php $groups = $user->getGroups(); foreach($groups as $group) echo $group->name . "<br />" ?></td></tr>
-				<?php }else{ /*editting*/?>
-				<td><form name="updateGroup" action="../profile/<?php echo $user->id; ?>" method="post">
-				<?php	$groups = Database::getArray("SELECT name FROM " . DbVar::$db_tprefix . "groups");
-						foreach($groups as $group){?>
-							<label><input type="checkbox" <?php echo 'name="'.$group['name'].'"'; if($user->IsInGroup($group['name'])) echo ' checked="checked"';  ?> />
-							<?php echo $group['name']?></label><br />
-						<?php } ?>
-				<input type="hidden" name="updated" value="true" />
-				</form></td></tr>
-				<?php } ?>
-			</table>
-		</div>
-		<?php if(UserManager::isAdmin() && !$_GET['edit']){?>
-		<form action="../editprofile/<?php echo $user->id; ?>" method="post">
-		<input type="submit" value="<?php echo L10n::$edit ?>" />
-		</form>
-		<?php }else if(UserManager::isAdmin()){ ?>
-		<input type="submit" value="<?php echo L10n::$edit ?>" onClick="document.updateGroup.submit()" />
-		<?php } ?>
-	</div>
-</html>
 

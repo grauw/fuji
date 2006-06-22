@@ -36,8 +36,18 @@ class AJAX_Template extends Template {
 		include_once '../templates/ajax/statistics.php';
 		if($this->acceptsGZIP())
 			$this->outputGZIP();			
-	}	
+	}
 	
+	function applyProfile(Template $template) {
+		if(isset($groupid)) $this->groupid = $groupid;
+		L10nManager::loadL10n();
+		$template = $this;
+		ob_start();		
+		include_once '../templates/ajax/profile.php';
+		if($this->acceptsGZIP())
+			$this->outputGZIP();			
+	}
+
 	function applyMenu(Template $template) {
 		L10nManager::loadL10n();
 		$template = $this;
