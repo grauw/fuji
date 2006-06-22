@@ -14,15 +14,13 @@ $contextId = $parentEntry->id;
 		<div class="threadContainer box">
 		<h2 class="windowTitle"><?php echo L10n::$posts ?> – <?php echo htmlentities($entry->title, ENT_NOQUOTES) ?></h2>
 		<ul id="postsActions" class="windowActions menu">
-			<?php
-				if (UserManager::getUser()->getRights($entry)->may_post) {
-					?><li id="actionReplyPost"><a href="javascript:Fuji.newCreateDialog('<?php echo $entry->id ?>', '4')"><?php echo L10n::$reply ?></a></li><?php
-				}
-				if (UserManager::getUser()->getRights($entry)->may_delete) {
-					?><li id="actionDeletePost"><a href="javascript:Fuji.newDeleteDialog('<?php echo $entry->id ?>', '<?php echo $entry->ref ?>')"><?php echo L10n::$delete ?></a></li><?php
-				}
-			?><li><a href="rss/<?php echo $entry->id ?>" rel="alternate" type="application/rss+xml" class="feed">RSS</a></li><?php
-			?><li><a href="atom/<?php echo $entry->id ?>" rel="alternate" type="application/atom+xml" class="feed">Atom</a></li>
+			<?php if (UserManager::getUser()->getRights($entry)->may_post) { ?>
+				<li id="actionReplyPost"><a href="javascript:Fuji.newCreateDialog('<?php echo $entry->id ?>', '4')"><?php echo L10n::$reply ?></a></li>
+			<?php } if (UserManager::getUser()->getRights($entry)->may_delete) { ?>
+				<li id="actionDeletePost"><a href="javascript:Fuji.newDeleteDialog('<?php echo $entry->id ?>', '<?php echo $entry->ref ?>')"><?php echo L10n::$delete ?></a></li>
+			<?php } ?>
+			<li><a href="rss/<?php echo $entry->id ?>" rel="alternate" type="application/rss+xml" class="feed">RSS</a></li>
+			<li><a href="atom/<?php echo $entry->id ?>" rel="alternate" type="application/atom+xml" class="feed">Atom</a></li>
 		</ul>
 		<div class="postsListDiv content">
 			<div class="postDiv post odd">
@@ -33,11 +31,9 @@ $contextId = $parentEntry->id;
 				</h3>
 				<?php if (UserManager::getUser()->getRights($entry)->may_edit) { ?>
 				<ul class="windowActions menu">
-					<?php
-						if (UserManager::getUser()->getRights($entry)->may_edit) {
-							?><li id="actionEditPost"><a href="javascript:Fuji.newEditDialog('<?php echo $entry->id ?>')"><?php echo L10n::$edit ?></a></li><?php
-						}
-					?>
+					<?php if (UserManager::getUser()->getRights($entry)->may_edit) { ?>
+						<li id="actionEditPost"><a href="javascript:Fuji.newEditDialog('<?php echo $entry->id ?>')"><?php echo L10n::$edit ?></a></li>
+					<?php } ?>
 				</ul>
 				<?php } ?>
 				<div class="postContent content"><?php echo $entry->getProcessedContent() ?></div>
@@ -55,14 +51,11 @@ $contextId = $parentEntry->id;
 					</h3>
 					<?php if (UserManager::getUser()->getRights($post)->may_edit || UserManager::getUser()->getRights($post)->may_delete) { ?>
 					<ul class="windowActions menu">
-						<?php
-							if (UserManager::getUser()->getRights($post)->may_edit) {
-								?><li><a href="javascript:Fuji.newEditDialog('<?php echo $post->id ?>')"><?php echo L10n::$edit ?></a></li><?php
-							}
-							if (UserManager::getUser()->getRights($post)->may_delete) {
-								?><li><a href="javascript:Fuji.newDeleteDialog('<?php echo $post->id ?>', '<?php echo $post->ref ?>')"><?php echo L10n::$delete ?></a></li><?php
-							}
-						?>
+						<?php if (UserManager::getUser()->getRights($post)->may_edit) { ?>
+							<li><a href="javascript:Fuji.newEditDialog('<?php echo $post->id ?>')"><?php echo L10n::$edit ?></a></li>
+						<?php } if (UserManager::getUser()->getRights($post)->may_delete) { ?>
+							<li><a href="javascript:Fuji.newDeleteDialog('<?php echo $post->id ?>', '<?php echo $post->ref ?>')"><?php echo L10n::$delete ?></a></li>
+						<?php } ?>
 					</ul>
 					<?php } ?>
 					<div class="postContent content"><?php echo $post->getProcessedContent() ?></div>

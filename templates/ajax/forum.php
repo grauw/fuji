@@ -9,21 +9,17 @@
 		<div class="forumContainer box">
 		<h2 class="windowTitle"><?php echo L10n::$threads ?> – <?php echo htmlentities($entry->title, ENT_NOQUOTES) ?></h2>
 		<ul id="threadsActions" class="windowActions menu">
-			<?php
-				if (UserManager::getUser()->getRights($entry)->may_post) {
-					?><li id="actionNewThread"><a href="javascript:Fuji.newCreateDialog('<?php echo $entry->id ?>', '<?php echo $entry->type + 1 ?>')"><?php echo L10n::$new ?></a></li><?php
-				}
-				if (UserManager::getUser()->getRights($entry)->may_edit) {
-					?><li id="actionEditThread"><a href="javascript:Fuji.newEditDialog('<?php echo $entry->id ?>')"><?php echo L10n::$edit ?></a></li><?php
-				}
-				if (UserManager::getUser()->getRights($entry)->may_delete) {
-					?><li id="actionDeleteThread"><a href="javascript:Fuji.newDeleteDialog('<?php echo $entry->id ?>', '<?php echo $entry->ref ?>')"><?php echo L10n::$delete ?></a></li><?php
-				}
-				if (UserManager::isAdmin()) { 
-					?><li id="actionConfigRights"><a href="javascript:Fuji.newConfigRightsDialog('<?php echo $entry->id ?>')"><?php echo L10n::$config_rights ?></a></li><?php
-				}
-			?><li><a href="rss/<?php echo $entry->id ?>" rel="alternate" type="application/rss+xml" class="feed">RSS</a></li><?php
-			?><li><a href="atom/<?php echo $entry->id ?>" rel="alternate" type="application/atom+xml" class="feed">Atom</a></li>			
+			<?php if (UserManager::getUser()->getRights($entry)->may_post) { ?>
+				<li id="actionNewThread"><a href="javascript:Fuji.newCreateDialog('<?php echo $entry->id ?>', '<?php echo $entry->type + 1 ?>')"><?php echo L10n::$new ?></a></li>
+			<?php } if (UserManager::getUser()->getRights($entry)->may_edit) { ?>
+				<li id="actionEditThread"><a href="javascript:Fuji.newEditDialog('<?php echo $entry->id ?>')"><?php echo L10n::$edit ?></a></li>
+			<?php } if (UserManager::getUser()->getRights($entry)->may_delete) { ?>
+				<li id="actionDeleteThread"><a href="javascript:Fuji.newDeleteDialog('<?php echo $entry->id ?>', '<?php echo $entry->ref ?>')"><?php echo L10n::$delete ?></a></li>
+			<?php } if (UserManager::isAdmin()) { ?>
+				<li id="actionConfigRights"><a href="javascript:Fuji.newConfigRightsDialog('<?php echo $entry->id ?>')"><?php echo L10n::$config_rights ?></a></li>
+			<?php } ?>
+			<li><a href="rss/<?php echo $entry->id ?>" rel="alternate" type="application/rss+xml" class="feed">RSS</a></li>
+			<li><a href="atom/<?php echo $entry->id ?>" rel="alternate" type="application/atom+xml" class="feed">Atom</a></li>
 		</ul>
 		<div class="threadsTableDiv content">
 			<div may_post="<?php echo UserManager::getUser()->getRights($entry)->may_post ?>" may_edit="<?php echo UserManager::getUser()->getRights($entry)->may_edit ?>" may_delete="<?php echo UserManager::getUser()->getRights($entry)->may_delete ?>">

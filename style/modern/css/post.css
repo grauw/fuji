@@ -40,14 +40,13 @@
 }
 .post ul.menu {
 	margin: 0;
-	padding: 5px 0;
+	padding: 5px .3em;
 	background: #0090f5;
 }
 .post ul.menu li {
 	display: inline;
 }
 .post ul.menu a {
-	margin: 0 .3em;
 	padding: 0 5px;
 	-moz-border-radius: 4px;
 	background-color: #08d;
