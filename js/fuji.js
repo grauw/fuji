@@ -311,8 +311,10 @@ Fuji = {
 	 * Listens for changes to the URL
 	 */
 	urlChangeListener : function() {
-		if (location.hash != Fuji.currentURLHash) Fuji.urlChangeCallback(location.hash);
-		Fuji.currentURLHash = location.hash;
+		if (location.hash != Fuji.currentURLHash) {
+			Fuji.urlChangeCallback(location.hash);
+			Fuji.currentURLHash = location.hash;
+		}
 		Fuji.startUrlChangeListener();
 	},
 	
