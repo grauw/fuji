@@ -2,9 +2,9 @@
 require_once 'usermanager.php';
 require_once 'database.php';
 
-new Preferences();
+new ServerSettings();
 	
-class Preferences {
+class ServerSettings {
 	
 	function __construct()
 	{

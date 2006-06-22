@@ -107,7 +107,7 @@
 	<div id="serverSettingsDialog" style="display: none">
 		<div class="hd"><?php echo L10n::$preferences ?></div>
 		<div class="bd">
-			<form name="prefF" method="POST" action="serversettings">
+			<form name="serverSettingsF" method="POST" action="serversettings">
 				<p><?php echo L10n::$default_language ?><br />
 				<select name='default_language'>
 					<?php
