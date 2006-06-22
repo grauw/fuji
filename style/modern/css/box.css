@@ -53,8 +53,16 @@
 .box .content {
 	padding: 0.5em;
 }
+.box {
+	margin-bottom: 2em;
+}
 .box .pager {
 	text-align: right;
+	float: right;
+	background: #9f0;
+	-moz-border-radius: 5px;
+	padding: 8px 0.5em 0.2em 0.5em;
+	margin-top: -8px;
 }
 
 
