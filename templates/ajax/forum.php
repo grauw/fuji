@@ -74,7 +74,7 @@
 		<div class="threadPageSelector pager">
 			<?php echo L10n::$page?>
 			<?php if($page > 1) { ?><a href="#item/<?php echo $entry->id ?>/<?php echo $page - 1 ?>">&lt;</a><?php } ?>
-			<?php for($n = 1; $n <= max(0, $num_of_children - 1) / $page_size + 1; $n++) { ?><a href="#<?php echo 'item/'.$entry->id.($n>1?'/'.$n:'') ?>"><?php echo $n ?></a><?php } ?>
+			<?php for($n = 1; $n <= max(0, $num_of_children - 1) / $page_size + 1; $n++) { ?><a href="#<?php echo 'item/'.$entry->id.'/'.($n>1?$n:'') ?>"><?php echo $n ?></a><?php } ?>
 			<?php if(max(0, $num_of_children - 1) / $page_size > $page) { ?><a href="#item/<?php echo $entry->id ?>/<?php echo $page + 1 ?>">&gt;</a><?php } ?>
 		</div>
 		</div>
