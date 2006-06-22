@@ -458,10 +458,13 @@ Fuji = {
 	 * Activates the ConfigRightsDialog
 	 */
 	setConfigRightsDialog : function() {
+		var effect;
+		if(Fuji.settings.visual_effects) effect = {effect:YAHOO.widget.ContainerEffect.FADE, duration:0.25};
+		else effect = null;		
 		Fuji.configRightsDialog = null;
 		if(!Fuji.configRightsDialog)
 		{
-			Fuji.configRightsDialog = new YAHOO.widget.Dialog("configRightsDialog", { visible: false, fixedCenter: true, effect:{effect:YAHOO.widget.ContainerEffect.FADE, duration:0.25},  width: '325px' });
+			Fuji.configRightsDialog = new YAHOO.widget.Dialog("configRightsDialog", { visible: false, fixedCenter: true, effect:effect,  width: '325px' });
 			var handleCancel = function() {
 				this.cancel();
 				document.getElementById('configRightsF').reset();
@@ -720,7 +723,7 @@ Fuji.Util = {
 Fuji.Tree = {
 	/**
 	 * Finds and initialises all trees in the context
-	 * @param {Object} oContextNode DOM context node to search in (optional, defaults to ‘this’)
+	 * @param {Object} oContextNode DOM context node to search in (optional, defaults to ???this???)
 	 */
 	init : function(oContextNode) {
 		if (oContextNode === undefined) oContextNode = this;
