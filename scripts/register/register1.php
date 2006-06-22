@@ -7,7 +7,8 @@ require_once '../stylesheet.php';
 			<table>
 				<tr><td>Nickname</td><td><input name='nickname' type='text' /></td></tr>
 				<tr><td>E-mail</td><td><input name='email' type='text' /></td></tr>
-				<tr><td>Password</td><td><input name='password' type='password' /></td></tr>
+				<tr><td>Password</td><td><input name='password1' type='password' /></td></tr>
+				<tr><td>Reenter password</td><td><input name='password2' type='password' /></td></tr>
 				<tr>
 					<td>Language</td>
 					<td><select name='language'>

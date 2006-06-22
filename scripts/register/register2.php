@@ -13,15 +13,18 @@ class Register2 {
 		else
 			if(strlen($_POST['nickname']) > 1 && preg_match('/[a-zA-Z0-9_-]$/', $_POST['nickname']))
 				if(strlen($_POST['email']) > 1 && preg_match('/^[^@]+@([^@.]+\.)+[a-zA-Z]{2,}$/', $_POST['email']))
-				{
-					$userdata = array('nickname' => $_POST['nickname'], 'email' => $_POST['email'], 'password' => $_POST['password']);
-					if($_POST['language'] != 'Server default')	$userdata += array('language' => $_POST['language']);
-					if($_POST['style'] != 'Server default')	$userdata += array('style' => $_POST['style']);
-					if(User::addUser($userdata))
-						echo 'Registration successful';
+					if($_POST['password1'] == $_POST['password2'])
+					{
+						$userdata = array('nickname' => $_POST['nickname'], 'email' => $_POST['email'], 'password' => $_POST['password1']);
+						if($_POST['language'] != 'Server default')	$userdata += array('language' => $_POST['language']);
+						if($_POST['style'] != 'Server default')	$userdata += array('style' => $_POST['style']);
+						if(User::addUser($userdata))
+							echo 'Registration successful';
+						else
+							echo 'Registration failed';
+					}
 					else
-						echo 'Registration failed';
-				}
+						echo 'Passwords do not match';
 				else
 					echo 'Invalid e-mail address';
 			else
