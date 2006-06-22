@@ -29,6 +29,7 @@
 }
 .box ul.menu li {
 	display: inline;
+	list-style-type: none;
 }
 .box ul.menu a {
 	padding: 0 5px;

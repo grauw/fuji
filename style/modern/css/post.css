@@ -41,6 +41,7 @@
 }
 .post ul.menu li {
 	display: inline;
+	list-style-type: none;
 }
 .post ul.menu a {
 	padding: 0 5px;
