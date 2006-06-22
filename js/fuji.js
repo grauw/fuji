@@ -445,17 +445,13 @@ Fuji = {
 			Fuji.loadingDialog.render(document.body);
 		}
 		Fuji.loadingDialog.show();
-	},
-	/**
-	 * Creates a configure rights dialog
-	 */	
-	newConfigRightsDialog : function() {
+	},	
+	
+	setConfigRightsDialog : function() {
+		Fuji.configRightsDialog = null;
 		if(!Fuji.configRightsDialog)
 		{
-			var effect;
-			if(Fuji.settings.visual_effects) effect = {effect:YAHOO.widget.ContainerEffect.FADE, duration:0.25};
-			else effect = null;
-			Fuji.configRightsDialog = new YAHOO.widget.Dialog("configRightsDialog", { visible: false, fixedCenter: true, effect:effect,  width: '325px' });
+			Fuji.configRightsDialog = new YAHOO.widget.Dialog("configRightsDialog", { visible: false, fixedCenter: true, effect:{effect:YAHOO.widget.ContainerEffect.FADE, duration:0.25},  width: '325px' });
 			var handleCancel = function() {
 				this.cancel();
 			}
@@ -468,8 +464,8 @@ Fuji = {
 		}
 		document.getElementById('configRightsDialog').style.display = 'block';
 		Fuji.configRightsDialog.show();
+
 	},
-	
 	/**
 	 * Initialises items when the page is loaded
 	 */
