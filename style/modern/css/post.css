@@ -1,0 +1,58 @@
+/**** Post layout ****
+ *
+ * HTML structure:
+ *
+ * <div class="post (odd|even)">
+ *    <h3>Title</h3>
+ *    <ul class="menu"/>
+ *    <div class="content"/>
+ * </div>
+ *
+ */
+.post {
+	background: #09f;
+	-moz-border-radius: 10px;
+	border-top: 2px solid #08d;
+	border-bottom: 2px solid #9bf;
+	margin-top: 1em;
+}
+.post.even {
+	background-color: #0090f5;
+}
+.post h3 {
+	margin: 0;
+	-moz-border-radius: 6px;
+	background-color: #08d;
+	font-size: large;
+	padding: 0 .32em;
+}
+.post ul.menu {
+	margin: 0;
+	padding: 5px 0;
+	background: #0090f5;
+}
+.post ul.menu li {
+	display: inline;
+}
+.post ul.menu a {
+	margin: 0 .3em;
+	padding: 0 5px;
+	-moz-border-radius: 4px;
+	background-color: #08d;
+	color: white;
+	text-decoration: none;
+	border: 1px solid #07c;
+}
+.post ul.menu a:hover {
+	background-color: #06b;
+	color: white;
+}
+.post ul.menu a.feed {
+	padding: 0 5px 0 20px;
+	background-position: 5px 3px;
+}
+.post .content {
+	padding: 0.5em;
+}
+
+

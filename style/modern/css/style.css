@@ -90,15 +90,3 @@ h1 {
 
 /* Thread */
 
-.postsContainer .postDiv.even {
-	background: #90f500;
-}
-
-.postsContainer .postDiv {
-	border-top: 2px solid #8e0;
-	padding-bottom: 1em;
-}
-.postsContainer .postDiv:first-child {
-	border-top: none;
-}
-
