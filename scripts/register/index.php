@@ -18,8 +18,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<?php echo $xhtml_template->language ?>">
 	<head>
 		<title>Fuji User Registration</title>
-		<link rel="stylesheet" href="../style/default/css/default.css"/>
-		<link rel="stylesheet" href="../style/default/css/wizard.css"/>
+		<link rel="stylesheet" href="style/default/css/default.css"/>
+		<link rel="stylesheet" href="style/default/css/wizard.css"/>
 	</head>
 	<body>
 		<div id="mainWindow" class="window">
