@@ -96,7 +96,8 @@ class L10n {
 	static $topic = 'Sujet';
 	static $type_unsupported = 'Genre de message n\'est pas supporté ici';
 	static $users = 'Utilisateurs';
-	static $visible_in_profile = 'Visible en profil';	
+	static $visible_in_profile = 'Visible en profil';
+	static $visual_effects = 'Effets visuels';	
 	static $warning = 'Attention';
 	static $welcome = 'Bienvenue';
 	static $welcome_message = 'Bienvenue au votre Forum Fuji!';

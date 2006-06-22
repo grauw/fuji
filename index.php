@@ -24,7 +24,8 @@
 	<script type="text/javascript" src="js/yui/animation/animation.js"></script>
 	<script type="text/javascript" src="js/yui/dragdrop/dragdrop.js"></script>
 	<script type="text/javascript" src="js/fuji.js"></script>
-	<script type="text/javascript">Fuji.messages = 	{ 	warning							: "<?php echo L10n::$warning ?>",
+	<script type="text/javascript">	Fuji.settings = {	visual_effects					: <?php echo UserManager::getUser()->visual_effects == '1' ? 'true' : 'false' ?> }
+									Fuji.messages = { 	warning							: "<?php echo L10n::$warning ?>",
 														error							: "<?php echo L10n::$error ?>",
 														sure_delete_item				: "<?php echo L10n::$sure_delete_item ?>",
 														passwords_do_not_match			: "<?php echo L10n::$passwords_do_not_match ?>",
@@ -210,12 +211,13 @@
 								}
 						?>
 					</select>
+					<input name='visualEffects' type='checkbox' <?php if(UserManager::getUser()->visual_effects) echo 'checked="Checked"' ?> /><?php echo L10n::$visual_effects ?>
 				</fieldset>				
 				<fieldset>
 					<legend><?php echo L10n::$profile ?></legend>
 					<p><?php echo L10n::$email_address ?><br />
 					<input id='prefEmail' name='email' type='text' value='<?php echo UserManager::getUser()->email ?>' />
-					<input id='prefShowEmail' name='showEmail' type='checkbox' <?php if(UserManager::getUser()->email_visible) echo 'checked="Checked"' ?>><?php echo L10n::$visible_in_profile ?></input>
+					<input id='prefShowEmail' name='showEmail' type='checkbox' <?php if(UserManager::getUser()->email_visible) echo 'checked="Checked"' ?> /><?php echo L10n::$visible_in_profile ?>
 					</p>
 					<p><?php echo L10n::$profile_photo ?><br />
 					<input id='prefPhoto' name='photo' type='text' value='<?php if(isset(UserManager::getUser()->photo)) echo UserManager::getUser()->photo ?>' />

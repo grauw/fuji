@@ -158,7 +158,10 @@ Fuji = {
 		document.getElementById('createRef').value = iId;
 		if(!Fuji.createDialog)
 		{
-			Fuji.createDialog = new YAHOO.widget.Dialog("createDialog", { visible: false, fixedCenter: true, effect:{effect:YAHOO.widget.ContainerEffect.FADE, duration:0.25}, width: '300px' });
+			var effect;
+			if(Fuji.settings.visual_effects) effect = {effect:YAHOO.widget.ContainerEffect.FADE, duration:0.25};
+			else effect = null;			
+			Fuji.createDialog = new YAHOO.widget.Dialog("createDialog", { visible: false, fixedCenter: true, effect:effect, width: '300px' });
 			var handleCancel = function() {
 				this.cancel();
 				document.getElementById('createF').reset();			
@@ -185,10 +188,12 @@ Fuji = {
 	 * @param {Int} iPId The id of the item's parent
 	 */	
 	newDeleteDialog : function(iId, iPId) {
+		var effect;
+		if(Fuji.settings.visual_effects) effect = {effect:YAHOO.widget.ContainerEffect.FADE, duration:0.25};
+		else effect = null;
 		Fuji.deleteDialog = new YAHOO.widget.SimpleDialog("dlg", { 
 			width: "20em", 
-			effect:{effect:YAHOO.widget.ContainerEffect.FADE,
-		        duration:0.25}, 
+			effect:effect, 
 			fixedcenter:true,
 			modal:true,
 			draggable:false });
@@ -231,7 +236,10 @@ Fuji = {
 	newEditDialog : function(iId) {
 		if(!Fuji.editDialog)		
 		{
-			Fuji.editDialog = new YAHOO.widget.Dialog("editDialog", { visible: false, fixedCenter: true, effect:{effect:YAHOO.widget.ContainerEffect.FADE, duration:0.25}, width: '300px' });
+			var effect;
+			if(Fuji.settings.visual_effects) effect = {effect:YAHOO.widget.ContainerEffect.FADE, duration:0.25};
+			else effect = null;
+			Fuji.editDialog = new YAHOO.widget.Dialog("editDialog", { visible: false, fixedCenter: true, effect:effect, width: '300px' });
 			var handleCancel = function() {
 				document.getElementById('editF').reset();
 				this.cancel();
@@ -315,7 +323,10 @@ Fuji = {
 	newPreferencesDialog : function() {
 		if(!Fuji.preferencesDialog)
 		{
-			Fuji.preferencesDialog = new YAHOO.widget.Dialog("prefDialog", { visible: false, fixedCenter: true, effect:{effect:YAHOO.widget.ContainerEffect.FADE, duration:0.25},  width: '325px' });
+			var effect;
+			if(Fuji.settings.visual_effects) effect = {effect:YAHOO.widget.ContainerEffect.FADE, duration:0.25};
+			else effect = null;
+			Fuji.preferencesDialog = new YAHOO.widget.Dialog("prefDialog", { visible: false, fixedCenter: true, effect: effect,  width: '325px' });
 			var handleCancel = function() {
 				this.cancel();
 			}
@@ -358,9 +369,12 @@ Fuji = {
 	newErrorDialog : function(oResponse) {
 		if(!Fuji.errorDialog)
 		{
+			var effect;
+			if(Fuji.settings.visual_effects) effect = {effect:YAHOO.widget.ContainerEffect.FADE, duration:0.25};
+			else effect = null;			
 			Fuji.errorDialog = new YAHOO.widget.SimpleDialog("dlg", { 
 				width: "400px", 
-				effect:{effect:YAHOO.widget.ContainerEffect.FADE, duration:0.25}, 
+				effect:effect, 
 				fixedcenter:true,
 				modal:true,
 				draggable:false });
@@ -409,11 +423,15 @@ Fuji = {
 	 * Creates a new loading dialog (if it doesn't exist), and shows the dialog
 	 */	
 	newLoadingDialog : function() {
+		var effect;
+		if(Fuji.settings.visual_effects) effect = {effect:YAHOO.widget.ContainerEffect.FADE, duration:0.25};
+		else effect = null;		
 		if(!Fuji.loadingDialog)
 		{
 			Fuji.loadingDialog = new YAHOO.widget.SimpleDialog("dlg", { 
 				visible:false,
-				width:"20em", 
+				width:"20em",
+				effect:effect,
 				fixedcenter:true,
 				modal:true,
 				close:false,
@@ -430,7 +448,10 @@ Fuji = {
 	newConfigRightsDialog : function() {
 		if(!Fuji.configRightsDialog)
 		{
-			Fuji.configRightsDialog = new YAHOO.widget.Dialog("configRightsDialog", { visible: false, fixedCenter: true, effect:{effect:YAHOO.widget.ContainerEffect.FADE, duration:0.25},  width: '325px' });
+			var effect;
+			if(Fuji.settings.visual_effects) effect = {effect:YAHOO.widget.ContainerEffect.FADE, duration:0.25};
+			else effect = null;
+			Fuji.configRightsDialog = new YAHOO.widget.Dialog("configRightsDialog", { visible: false, fixedCenter: true, effect:effect,  width: '325px' });
 			var handleCancel = function() {
 				this.cancel();
 			}
@@ -475,7 +496,10 @@ Fuji = {
 	newGroup : function() {
 		if(!Fuji.newGroupDialog)
 		{
-			Fuji.newGroupDialog = new YAHOO.widget.Dialog("newGroupDialog", { visible: false, fixedCenter: true, width: '500px' });
+			var effect;
+			if(Fuji.settings.visual_effects) effect = {effect:YAHOO.widget.ContainerEffect.FADE, duration:0.25};
+			else effect = null;
+			Fuji.newGroupDialog = new YAHOO.widget.Dialog("newGroupDialog", { visible: false, fixedCenter: true, effect:effect, width: '500px' });
 			var handleCancel = function() {
 				this.cancel();
 				alert('error');
@@ -503,7 +527,10 @@ Fuji = {
 		document.getElementById('editGroupDelete').checked = rDelete;
 		if(!Fuji.editGroupDialog)
 		{
-			Fuji.editGroupDialog = new YAHOO.widget.Dialog("editGroupDialog", { visible: false, fixedCenter: true, width: '500px' });
+			var effect;
+			if(Fuji.settings.visual_effects) effect = {effect:YAHOO.widget.ContainerEffect.FADE, duration:0.25};
+			else effect = null;
+			Fuji.editGroupDialog = new YAHOO.widget.Dialog("editGroupDialog", { visible: false, fixedCenter: true, effect:effect, width: '500px' });
 			var handleCancel = function() {
 				this.cancel();
 				document.getElementById('editGroupF').reset();
