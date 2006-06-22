@@ -18,13 +18,10 @@ class BBCode extends Processor {
         $regexp = '/([^[]*?)(?:\[([\/?A-Za-z]+|\*)(?:=([^]?]+)|(\*)?)?\])|([^[]+)/';
 
         if($input) {
-                   $output = preg_match_all($regexp, $input, $matches);//, PREG_PATTERN_ORDER);// + PREG_OFFSET_CAPTURE);
+                   $output = preg_match_all($regexp, $input, $matches);
 
                    $match=true;
         }
-
-
-        //print_r($matches);
 
         $texts    = $matches[1];
         $tags     = $matches[2];
@@ -74,7 +71,6 @@ class BBCode extends Processor {
                    if ($tags[$i] != "/".$pop)
                    {
                       $result .= $this->convertTag("/".$pop, "", "");
-                      //array_push($this->tagsStack, $pop);
                       $done = false;
                    }
                    else
@@ -94,8 +90,6 @@ class BBCode extends Processor {
             }
 
         }
-
-	//print nl2br("\n\nresult: ".$result.$rest[count($rest)-1]);
 
 	$result .= $rest[count($rest)-1];
 
@@ -124,8 +118,6 @@ class BBCode extends Processor {
             "/code" => "</div>",
             "/quote" => "</div>",
             "/url" => "</a> ",
-//            "/img" => "</img>",
-            //"*" => "</li><li>"
         );
 
         if(array_key_exists($tag, $tagsArray)) {
