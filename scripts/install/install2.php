@@ -13,20 +13,9 @@ class Install2 {
 			{
 				if($_POST['pw'] === $_POST['pw2'])
 				{
-					if(Security::isSafe($_POST['pw']) && ($_POST['pw'] != $_POST['admin'])) //safety check.
-					{
-						$idb = new InstallDb();
-						$idb->addRootUser($_POST['admin'], $_POST['pw'], $_POST['e-mail']);
-						$this->showSuccess();
-					}
-					else
-					{
-						?>
-							Password is unsafe (<a href="passwordpolicy.html" target="_blank">?</a>), please choose another password
-						<?php
-						global $target_phase, $current_phase;
-				  		$target_phase = $current_phase;						
-					}
+					$idb = new InstallDb();
+					$idb->addRootUser($_POST['admin'], $_POST['pw'], $_POST['e-mail']);
+					$this->showSuccess();
 				}
 				else
 				{
