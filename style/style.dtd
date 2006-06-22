@@ -1,5 +1,0 @@
-<!ELEMENT style (name, requires*, description, css+) >
-<!ELEMENT requires (#PCDATA) >
-<!ELEMENT name (#PCDATA) >
-<!ELEMENT description (#PCDATA) >
-<!ELEMENT css (#PCDATA) >

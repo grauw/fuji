@@ -1,15 +1,16 @@
 Fuji = {
 	NS : 'http://fuji.sourceforge.net/ns',
-	createDialog : null,		//pointer to the create dialog
-	deleteDialog : null,		//pointer to the delete dialog
-	editDialog : null,			//pointer to the edit dialog
-	preferencesDialog : null,	//pointer to the preferences dialog
-	newGroupDialog : null,		//pointer to the new group dialog
-	editGroupDialog : null,		//pointer to the edit group dialog
-	deleteGroupDialog : null,	//pointer to the delete group dialog
-	errorDialog : null,			//pointer to the error dialog	
-	configRightsDialog : null,	//pointer to the config rights dialog
-	loadingDialog : null,		//pointer to the loading dialog	
+	createDialog : null,			//pointer to the create dialog
+	deleteDialog : null,			//pointer to the delete dialog
+	editDialog : null,				//pointer to the edit dialog
+	preferencesDialog : null,		//pointer to the preferences dialog
+	serverSettingsDialog : null,	//pointer to the server settings dialog
+	newGroupDialog : null,			//pointer to the new group dialog
+	editGroupDialog : null,			//pointer to the edit group dialog
+	deleteGroupDialog : null,		//pointer to the delete group dialog
+	errorDialog : null,				//pointer to the error dialog	
+	configRightsDialog : null,		//pointer to the config rights dialog
+	loadingDialog : null,			//pointer to the loading dialog	
 	
 	/**
 	 * Loads the item with the specified URI using XMLHttpRequest
@@ -327,6 +328,32 @@ Fuji = {
 		Fuji.loadItem(uri);
 	},
 	
+	/**
+	 * Creates a new server preferences dialog (if it doesn't exist), and shows the dialog
+	 */
+	newServerSettingsDialog : function() {
+		if(!Fuji.serverSettingsDialog)
+		{
+			var effect;
+			if(Fuji.settings.visual_effects) effect = {effect:YAHOO.widget.ContainerEffect.FADE, duration:0.25};
+			else effect = null;
+			Fuji.serverSettingsDialog = new YAHOO.widget.Dialog("serverSettingsDialog", { visible: false, fixedCenter: true, effect: effect,  width: '325px' });
+			var handleCancel = function() {
+				this.cancel();
+			}
+			var handleSubmit = function() {
+				this.submit();
+				this.hide();
+			}
+			Fuji.serverSettingsDialog.cfg.queueProperty("buttons", [ { text:Fuji.messages.ok, handler:handleSubmit, isDefault:true },
+												   { text:Fuji.messages.cancel, handler:handleCancel} ]);
+			Fuji.serverSettingsDialog.cfg.queueProperty("onsuccess", function() {location.reload();});
+			Fuji.serverSettingsDialog.render();
+		}
+		document.getElementById('serverSettingsDialog').style.display = 'block';
+		Fuji.serverSettingsDialog.show();
+	},
+
 	/**
 	 * Creates a new user preferences dialog (if it doesn't exist), and shows the dialog
 	 */

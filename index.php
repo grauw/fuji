@@ -16,14 +16,14 @@
 	<?php echo XHTML::headContent(); ?>
 	<link id="rsslink" rel="alternate" type="application/rss+xml" href="rss/" />
 	<link id="atomlink" rel="alternate" type="application/atom+xml" href="atom/" />
-	<script type="text/javascript" src="js/yui/yahoo/yahoo.js"></script>
-	<script type="text/javascript" src="js/yui/dom/dom.js"></script>
-	<script type="text/javascript" src="js/yui/event/event.js"></script>
-	<script type="text/javascript" src="js/yui/treeview/treeview.js"></script>
-	<script type="text/javascript" src="js/yui/connection/connection.js"></script>
-	<script type="text/javascript" src="js/yui/container/container.js"></script>
-	<script type="text/javascript" src="js/yui/animation/animation.js"></script>
-	<script type="text/javascript" src="js/yui/dragdrop/dragdrop.js"></script>
+	<script type="text/javascript" src="js/yui/yahoo/yahoo-min.js"></script>
+	<script type="text/javascript" src="js/yui/dom/dom-min.js"></script>
+	<script type="text/javascript" src="js/yui/event/event-min.js"></script>
+	<script type="text/javascript" src="js/yui/treeview/treeview-min.js"></script>
+	<script type="text/javascript" src="js/yui/connection/connection-min.js"></script>
+	<script type="text/javascript" src="js/yui/container/container-min.js"></script>
+	<script type="text/javascript" src="js/yui/animation/animation-min.js"></script>
+	<script type="text/javascript" src="js/yui/dragdrop/dragdrop-min.js"></script>
 	<script type="text/javascript" src="js/fuji.js"></script>
 	<script type="text/javascript" src="js/l10n.js.php"></script>
 	<script type="text/javascript">
@@ -103,52 +103,56 @@
 	</div>
 	<div id="configRightsDialog" style="display: none">
 	</div>
+	<?php if(UserManager::getUser()->isAdmin()) { ?>
+	<div id="serverSettingsDialog" style="display: none">
+		<div class="hd"><?php echo L10n::$preferences ?></div>
+		<div class="bd">
+			<form name="prefF" method="POST" action="serversettings">
+				<p><?php echo L10n::$default_language ?><br />
+				<select name='default_language'>
+					<?php
+							$l10ns = L10nManager::getL10ns();
+							$lang = L10nManager::getDefaultL10n();
+							foreach($l10ns as $l10n)
+							{ 
+								echo '<option value="' . $l10n['id'] . '"' . ($l10n['id'] == $lang ? ' selected="Selected"' : '') .  '>' . $l10n['name'] . '</option>';
+							}
+					?>
+				</select>
+				</p>
+				<p><?php echo L10n::$default_style ?><br />
+				<select name='default_style'>
+					<?php
+							$styles = Stylesheet::getStylesheets();
+							foreach($styles as $style)
+							{
+								echo '<option value="' . $style->name . '"' . ($style->default ? ' selected="Selected"' : '') .  '>' . $style->name . '</option>';
+							}
+					?>
+				</select>
+				</p>
+				<p><?php echo L10n::$gzip_compression ?><br />
+				<select name='gzip'>
+					<option value="0">0 (<?php echo L10n::$least_cpu_load ?>)</option>
+					<option value="1">1</option>
+					<option value="2">2</option>
+					<option value="3">3</option>
+					<option value="4">4</option>
+					<option value="5">5</option>
+					<option value="6" selected="Selected">6</option>
+					<option value="7">7</option>
+					<option value="8">8</option>
+					<option value="9">9 (<?php echo L10n::$least_network_traffic ?>)</option>
+				</select>
+				</p>				
+			</form>
+		</div>
+	</div>
+	<?php } ?>			
 	<div id="prefDialog" style="display: none">
-		<div id="prefTitle" class="hd"><?php echo L10n::$preferences ?></div>
-		<div id="prefForm" class="bd">
-			<form id="prefF" name="prefF" method="POST" action="preferences">
-				<?php if(UserManager::getUser()->isAdmin()) { ?>
-				<fieldset>
-					<legend><?php echo L10n::$server_settings ?></legend>
-					<p><?php echo L10n::$default_language ?><br />
-					<select name='default_language'>
-						<?php
-								$l10ns = L10nManager::getL10ns();
-								$lang = L10nManager::getDefaultL10n();
-								foreach($l10ns as $l10n)
-								{ 
-									echo '<option value="' . $l10n['id'] . '"' . ($l10n['id'] == $lang ? ' selected="Selected"' : '') .  '>' . $l10n['name'] . '</option>';
-								}
-						?>
-					</select>
-					</p>
-					<p><?php echo L10n::$default_style ?><br />
-					<select name='default_style'>
-						<?php
-								$styles = Stylesheet::getStylesheets();
-								foreach($styles as $style)
-								{
-									echo '<option value="' . $style->name . '"' . ($style->default ? ' selected="Selected"' : '') .  '>' . $style->name . '</option>';
-								}
-						?>
-					</select>
-					</p>
-					<p><?php echo L10n::$gzip_compression ?><br />
-					<select name='gzip'>
-						<option value="0">0 (<?php echo L10n::$least_cpu_load ?>)</option>
-						<option value="1">1</option>
-						<option value="2">2</option>
-						<option value="3">3</option>
-						<option value="4">4</option>
-						<option value="5">5</option>
-						<option value="6" selected="Selected">6</option>
-						<option value="7">7</option>
-						<option value="8">8</option>
-						<option value="9">9 (<?php echo L10n::$least_network_traffic ?>)</option>
-					</select>
-					</p>				
-				</fieldset>
-				<?php } ?>
+		<div class="hd"><?php echo L10n::$preferences ?></div>
+		<div class="bd">
+			<form name="prefF" method="POST" action="preferences">
 				<fieldset>
 					<legend><?php echo L10n::$password ?></legend>
 					<p><?php echo L10n::$enter_your_new_password ?><br />
@@ -160,7 +164,7 @@
 				</fieldset>
 				<fieldset>
 					<legend><?php echo L10n::$lang ?></legend>
-					<select id='prefLang' name='language'>
+					<select name='language'>
 						<?php
 								$l10ns = L10nManager::getL10ns();
 								$lang;
@@ -175,7 +179,7 @@
 				</fieldset>
 				<fieldset>
 					<legend><?php echo L10n::$style ?></legend>
-					<select id='prefStyle' name='style'>
+					<select name='style'>
 						<?php
 								$styles = Stylesheet::getStylesheets();
 								$s;

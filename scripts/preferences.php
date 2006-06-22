@@ -18,13 +18,10 @@ class Preferences {
 	
 	function httpPost()
 	{
-		$f = fopen('test', 'wb');
-		fwrite($f, print_r($_POST, true));
-		fclose($f);
 		UserManager::authenticate();
 		$user = UserManager::getUser();
 		if(isset($_POST['pass1']) && $_POST['pass1'] != '' && $_POST['pass1'] == $_POST['pass2'] && sha1($_POST['pass1']) != $user->password)
-			$user->password = sha1($_POST['pass1']);
+			$user->setPassword($_POST['pass1']);
 		if((!isset($user->language) && $_POST['language']) || ($_POST['language'] != $user->language))
 			$user->language = $_POST['language'];
 		if((!isset($user->style) && $_POST['style']) || ($_POST['style'] != $user->style))
@@ -41,24 +38,6 @@ class Preferences {
 			$user->visual_effects = '0';							
 		if(isset($_POST['photo']) && $_POST['photo'] != '' && $_POST['photo'] != $user->picture)
 			$user->picture = $_POST['photo'];
-		if($user->isAdmin())
-		{
-			$default_lang = Database::getArray("SELECT value FROM defaults WHERE name = 'language'");
-			$default_lang = $default_lang[0][0];
-			$default_style = Database::getArray("SELECT value FROM defaults WHERE name = 'style'");
-			$default_style = $default_style[0][0];
-			$gzip = Database::getArray("SELECT value FROM defaults WHERE name = 'gzip'");
-			$gzip = $gzip[0][0];
-			$new_default_lang = $_POST['default_language'];
-			$new_default_style = $_POST['default_style'];
-			$new_gzip = $_POST['gzip'];
-			if($new_default_lang != $default_lang)
-				Database::execute("UPDATE " . Database::$db_tprefix . "defaults SET value='$new_default_lang' WHERE name='language'");
-			if($new_default_style != $default_style)
-				Database::execute("UPDATE " . Database::$db_tprefix . "defaults SET value='$new_default_style' WHERE name='style'");
-			if($new_gzip != $gzip)
-				Database::execute("UPDATE " . Database::$db_tprefix . "defaults SET value='$new_gzip' WHERE name='gzip'");					
-		}
 	}
 	
 	function httpMethodNotAllowed()

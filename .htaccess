@@ -35,8 +35,11 @@ RewriteRule ^install$ scripts/install/index.php [L,QSA]
 # GET /register
 RewriteRule ^register$ scripts/register/index.php [L,QSA]
 
-# GET /preferences
+# POST /preferences
 RewriteRule ^preferences$ scripts/preferences.php [L,QSA]
+
+# POST /serversettings
+RewriteRule ^serversettings$ scripts/serversettings [L,QSA]
 
 # POST /login
 RewriteRule ^login$ scripts/loginout.php?action=login [L,QSA]

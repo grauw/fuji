@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE style SYSTEM "style.dtd">
-<style>
-	<name>Dark Fuji</name>
-	<requires>Default Fuji</requires>
-	<description>Default Fuji supplied style (dark version)</description>
-	<css>dark/css/dark.css</css>
-</style>

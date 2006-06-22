@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE style SYSTEM "style.dtd">
-<style>
-	<name>Fuji Lite</name>
-	<description>Default Fuji supplied style (Lite)</description>
-	<css>lite/css/fuji-white.css</css>
-</style>
