@@ -8,7 +8,7 @@
 		 */
 		static function loadL10n()
 		{
-			$languageInfo = L10nManager::findL10nPath();
+			$languageInfo = self::findL10nPath();
 			require_once $languageInfo['path'];
 		}
 		
@@ -16,7 +16,7 @@
 		 * Gets an ETag for this user's language file
 		 */
 		static function getL10nCache() {
-			$languageInfo = L10nManager::findL10nPath();
+			$languageInfo = self::findL10nPath();
 			return new Cache(filemtime($languageInfo['path']), $languageInfo['lang'], FALSE);
 		}
 		
@@ -31,16 +31,16 @@
 			if(isset(UserManager::getUser()->language))
 			{
 				$lang = UserManager::getUser()->language;
-				$languagePath = L10nManager::checkL10nPaths($lang);
+				$languagePath = self::checkL10nPaths($lang);
 				if ($languagePath === FALSE) {
-					$lang = L10nManager::getDefaultL10n();
-					$languagePath = L10nManager::checkL10nPaths($lang);
+					$lang = self::getDefaultL10n();
+					$languagePath = self::checkL10nPaths($lang);
 				}
 			}
 			else
 			{
-				$lang = L10nManager::getDefaultL10n();
-				$languagePath = L10nManager::checkL10nPaths($lang);
+				$lang = self::getDefaultL10n();
+				$languagePath = self::checkL10nPaths($lang);
 			}
 			return array('path' => $languagePath, 'lang' => $lang);
 		}
@@ -51,7 +51,7 @@
 		 */
 		static function manualLoadL10n($lang)
 		{
-			require_once L10nManager::checkL10nPaths();
+			require_once self::checkL10nPaths($lang);
 		}
 		
 		/**
