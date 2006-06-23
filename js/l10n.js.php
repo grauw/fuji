@@ -1,8 +1,6 @@
 <?php
 	require_once("../scripts/l10nmanager.php");
-	require_once("../scripts/usermanager.php");
 	require_once("../scripts/caching.php");
-	UserManager::authenticate();
 	L10nManager::getL10nCache()->send();
 	L10nManager::loadL10n();
 	header('Content-Type: application/javascript; charset=utf-8');
