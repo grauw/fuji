@@ -1,6 +1,4 @@
 <?php
-	// TODO: Make cachable based on language + modification date
-	
 	require_once("../scripts/l10nmanager.php");
 	require_once("../scripts/usermanager.php");
 	require_once("../scripts/caching.php");
