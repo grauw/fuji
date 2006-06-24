@@ -30,7 +30,7 @@ class L10n {
 	static $error_no_groups = 'This forum has no groups';
 	static $error_no_posts = 'This thread has no posts';
 	static $error_no_threads = 'This forum has no threads';
-	static $error_no_users = 'This forum has no users';
+	static $error_no_users = 'This group has no users';
 	static $error_resource_cannot_be_found = 'The resource cannot be found.';
 	static $error_restricted_forum = 'You are trying to access a restricted forum or thread.';
 	static $error_rights_revoked = 'Your rights have been revoked (banned).';
