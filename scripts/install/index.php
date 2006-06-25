@@ -18,7 +18,7 @@
 <!DOCTYPE html
 	PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0//EN"
 	"http://www.w3.org/Math/DTD/mathml2/xhtml-math11-f.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<?php echo $xhtml_template->language ?>">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-GB">
 	<head>
 		<title>Fuji Installer</title>
 		<link rel="stylesheet" href="style/default/css/default.css" type="text/css" />
