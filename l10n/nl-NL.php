@@ -28,7 +28,6 @@ class L10n {
 	static $error_invalid_url = 'U heeft een verkeerde URL ingevoerd of aangeklikt.';	
 	static $error_loading_resource = 'Fout bij het laden van de pagina';	
 	static $error_no_groups = 'Dit forum heeft geen groepen';
-	static $error_no_posts = 'Dit onderwerp heeft geen berichten';
 	static $error_no_threads = 'Dit forum heeft geen threads';
 	static $error_no_users = 'Deze groep heeft geen gebruikers';
 	static $error_resource_cannot_be_found = 'De pagina kon niet gevonden worden.';

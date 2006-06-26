@@ -28,7 +28,6 @@ class L10n {
 	static $error_invalid_url = 'You have entered or clicked on an invalid URL.';
 	static $error_loading_resource = 'Error loading resource';
 	static $error_no_groups = 'This forum has no groups';
-	static $error_no_posts = 'This thread has no posts';
 	static $error_no_threads = 'This forum has no threads';
 	static $error_no_users = 'This group has no users';
 	static $error_resource_cannot_be_found = 'The resource cannot be found.';
