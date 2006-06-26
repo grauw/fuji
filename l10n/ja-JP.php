@@ -94,7 +94,7 @@ class L10n {
 	static $sure_delete_group = 'Are you sure you want to delete this group?';
 	static $sure_delete_item = 'Are you sure you want to delete this item?';
 	static $threads = 'Threads';
-	static $title = 'タイトル';
+	static $title = '題名';
 	static $topic = '話題';
 	static $type_unsupported = 'Post type not supported here';
 	static $users = 'Users';
