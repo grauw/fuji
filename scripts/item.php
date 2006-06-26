@@ -28,15 +28,16 @@ class Item {
 		UserManager::authenticate();
 		$id = isset($_GET['id']) ? intval($_GET['id']) : 1;
 		$page = isset($_GET['page']) ? intval($_GET['page']) : 1;
+		$template = isset($_GET['template']) ? addslashes($_GET['template']) : 'AJAX';
 		$entry = Entry::getEntry($id);
 		if($entry)
 		{
 			if (UserManager::getUser()->getRights($entry)->may_read) {
-				$template = Template::getTemplate('AJAX');
+				$template = Template::getTemplate($template);
 				$template->apply($entry, $page, $template);
 			}
 			else {			
-				$template = Template::getTemplate('AJAX');
+				$template = Template::getTemplate($template);
 				$template->failInsufficientRights($template);
 			}
 		}

@@ -1,21 +1,43 @@
 RewriteEngine On
 
-# DELETE /item/<id>/
-# GET /item/<id>/
-# PUT /item/<id>/
-RewriteRule ^item/(\d+)/$ scripts/item.php?id=$1 [L,QSA]
+##
+## Different templates
+## (not Last -> chain to item/*)
+##
 
-# GET /item/<id>/source
-RewriteRule ^item/(\d+)/source$ scripts/item_source.php?id=$1 [L,QSA]
+# GET /rss/*
+RewriteRule ^rss/(.*)$ $1?template=RSS [QSA]
 
-# GET /item/<id>/<page>
-RewriteRule ^item/(\d+)/(\d+)$ scripts/item.php?id=$1&page=$2 [L,QSA]
+# GET /atom/*
+RewriteRule ^atom/(.*)$ $1?template=Atom [QSA]
+
+# GET /wml/*
+RewriteRule ^wml/(.*)$ $1?template=WML [QSA]
+
+# GET /xhtml/*
+RewriteRule ^xhtml/(.*)$ $1?template=XHTML [QSA]
+
+
+##
+## Pretty URLs rewriting
+##
 
 # GET /
 RewriteRule ^$ index.php [L,QSA]
 
 # POST /item/
 RewriteRule ^item/$ scripts/item.php [L,QSA]
+
+# DELETE /item/<id>/
+# GET /item/<id>/
+# PUT /item/<id>/
+RewriteRule ^item/(\d+)/?$ scripts/item.php?id=$1 [L,QSA]
+
+# GET /item/<id>/source
+RewriteRule ^item/(\d+)/source$ scripts/item_source.php?id=$1 [L,QSA]
+
+# GET /item/<id>/<page>
+RewriteRule ^item/(\d+)/(\d+)$ scripts/item.php?id=$1&page=$2 [L,QSA]
 
 # GET /menu/
 RewriteRule ^menu/$ scripts/menu.php [L,QSA]
@@ -50,6 +72,9 @@ RewriteRule ^logout$ scripts/loginout.php?action=logout [L,QSA]
 # GET /users/
 RewriteRule ^users/$ scripts/userlist.php [L,QSA]
 
+# GET /users/<groupid>
+RewriteRule ^users/(\d+)$  scripts/userlist.php?groupid=$1 [L,QSA]
+
 # POST /editprofile/<id>
 RewriteRule ^editprofile/(\d+)$ scripts/profile.php?id=$1&edit=true [L,QSA]
 
@@ -63,32 +88,9 @@ RewriteRule ^groups/$ scripts/groups.php [L,QSA]
 # DELETE /groups/<groupid>
 RewriteRule ^groups/(\d+)$ scripts/groups.php?id=$1 [L,QSA]
 
-# GET /users/<groupid>
-RewriteRule ^users/(\d+)$  scripts/userlist.php?groupid=$1 [L,QSA]
-
 # GET /config_rights/<id>
 RewriteRule ^config_rights/(\d+)$ scripts/config_rights.php?id=$1 [L,QSA]
 
-# GET /rss/<id>
-RewriteRule ^rss/(\d+)$ scripts/rss.php?id=$1 [L,QSA]
-
-# GET /rss/
-RewriteRule ^rss/$ scripts/rss.php [L,QSA]
-
-# GET /atom/<id>
-RewriteRule ^atom/(\d+)$ scripts/atom.php?id=$1 [L,QSA]
-
-# GET /atom/
-RewriteRule ^atom/$ scripts/atom.php [L,QSA]
-
-# GET /wml/<id>/
-RewriteRule ^wml/(\d+)/$ scripts/wml.php?id=$1 [L,QSA]
-
-# GET /wml/<id>/<page>
-RewriteRule ^wml/(\d+)/(\d+)$ scripts/wml.php?id=$1&page=$2 [L,QSA]
-
-# GET /wml/
-RewriteRule ^wml/$ scripts/wml.php [L,QSA]
-
 # GET /statistics/
 RewriteRule ^statistics/$ scripts/statistics.php [L,QSA]
+

@@ -22,8 +22,8 @@ Fuji = {
 		} else {
 			Fuji.reloadItem(uri);
 		}
-		document.getElementById('rsslink').href = 'rss/' + uri.substring(0, uri.length-1).replace('item/','');
-		document.getElementById('atomlink').href = 'atom/' + uri.substring(0, uri.length-1).replace('item/','');		
+		document.getElementById('rsslink').href = 'rss/' + uri;
+		document.getElementById('atomlink').href = 'atom/' + uri;
 	},
 	
 	/**

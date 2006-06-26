@@ -14,8 +14,8 @@
 <head>
 	<title>Fuji</title>
 	<?php echo XHTML::headContent(); ?>
-	<link id="rsslink" rel="alternate" type="application/rss+xml" href="rss/" />
-	<link id="atomlink" rel="alternate" type="application/atom+xml" href="atom/" />
+	<link id="rsslink" rel="alternate" type="application/rss+xml" href="rss/item/" />
+	<link id="atomlink" rel="alternate" type="application/atom+xml" href="atom/item/" />
 	<script type="text/javascript" src="js/yui/yahoo/yahoo-min.js"></script>
 	<script type="text/javascript" src="js/yui/dom/dom-min.js"></script>
 	<script type="text/javascript" src="js/yui/event/event-min.js"></script>
