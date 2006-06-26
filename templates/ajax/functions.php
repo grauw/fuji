@@ -8,7 +8,7 @@ class AJAX_Template extends Template {
 	
 	public $groupid = null;
 	
-	function apply($entry, $page, Template $template) {
+	function apply($entry, $page) {
 		L10nManager::loadL10n();
 		$template = $this;
 		$templateview = $this->getTemplateView($entry->type);

@@ -5,7 +5,7 @@ require_once 'template.php';
 
 class XHTML_Template extends Template {
 	
-	function apply($entry, $lang, Template $template) {
+	function apply($entry, $lang) {
 		if (!file_exists(realpath(dirname(__FILE__).'../'.'l10n/'.$lang.'.php'))) {
 			$lang = 'default';
 		}

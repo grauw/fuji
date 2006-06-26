@@ -6,7 +6,7 @@ class Atom_Template extends Template {
 	
 	public $groupid = null;
 	
-	function apply($entry, Template $template) {
+	function apply($entry) {
 		L10nManager::loadL10n();
 		$template = $this;
 		$templateview = $this->getTemplateView($entry->type);
