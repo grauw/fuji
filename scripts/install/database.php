@@ -159,6 +159,7 @@ class InstallDb
 		Database::execute("INSERT INTO " . Database::$db_tprefix . "languages (id, name) VALUES ('en-GB', 'English (Great Britain)')");
 		Database::execute("INSERT INTO " . Database::$db_tprefix . "languages (id, name) VALUES ('nl-NL', 'Nederlands (Nederland)')");
 		Database::execute("INSERT INTO " . Database::$db_tprefix . "languages (id, name) VALUES ('fr-FR', 'Français (France)')");
+		Database::execute("INSERT INTO " . Database::$db_tprefix . "languages (id, name) VALUES ('ja-JP', '日本語 (日本)')");
 	}
 	
 	function addDefaultLanguage($lang)
