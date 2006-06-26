@@ -52,7 +52,13 @@ RewriteRule ^menu/(\w+)$ scripts/menu.php?action=$1 [L,QSA]
 RewriteRule ^profile/(\d+)$ scripts/profile.php?id=$1 [L,QSA]
 
 # GET /profile
-RewriteRule ^profile/$ scripts/profile.php [L,QSA]
+RewriteRule ^profile$ scripts/profile.php [L,QSA]
+
+# POST /profile/<id>/updated
+RewriteRule ^profile/(\d+)/updated$ scripts/profile.php?updated=true [L,QSA]
+
+# POST /editprofile/<id>
+RewriteRule ^editprofile/(\d+)$ scripts/profile.php?id=$1&edit=true [L,QSA]
 
 # GET /install
 RewriteRule ^install$ scripts/install/index.php [L,QSA]
@@ -72,24 +78,18 @@ RewriteRule ^login$ scripts/loginout.php?action=login [L,QSA]
 # POST /logout
 RewriteRule ^logout$ scripts/loginout.php?action=logout [L,QSA]
 
-# GET /users/
-RewriteRule ^users/$ scripts/userlist.php [L,QSA]
+# GET /users
+RewriteRule ^users$ scripts/userlist.php [L,QSA]
 
-# GET /users/<groupid>
-RewriteRule ^users/(\d+)$  scripts/userlist.php?groupid=$1 [L,QSA]
-
-# POST /editprofile/<id>
-RewriteRule ^editprofile/(\d+)$ scripts/profile.php?id=$1&edit=true [L,QSA]
-
-# POST /profile/<id>/updated
-RewriteRule ^profile/(\d+)/updated$ scripts/profile.php?updated=true [L,QSA]
-
-# GET /groups/
-# POST /groups/
-RewriteRule ^groups/$ scripts/groups.php [L,QSA]
+# GET /groups
+# POST /groups
+RewriteRule ^groups$ scripts/groups.php [L,QSA]
 
 # DELETE /groups/<groupid>
 RewriteRule ^groups/(\d+)$ scripts/groups.php?id=$1 [L,QSA]
+
+# GET /groups/<groupid>/users
+RewriteRule ^groups/(\d+)/users$  scripts/userlist.php?groupid=$1 [L,QSA]
 
 # GET /config_rights/<id>
 RewriteRule ^config_rights/(\d+)$ scripts/config_rights.php?id=$1 [L,QSA]

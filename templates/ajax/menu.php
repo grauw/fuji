@@ -15,12 +15,12 @@
 				echo '<li><a href="javascript:Fuji.login()">'.L10n::$login.'</a></li>'."\n";
 				echo '<li><a href="register">'.L10n::$register.'</a></li>'."\n";
 			}else{
-				echo '<li><a href="#profile/">'.L10n::$profile.'</a></li>'."\n";
+				echo '<li><a href="#profile">'.L10n::$profile.'</a></li>'."\n";
 				if(UserManager::isAdmin())
 					echo '<li><a href="javascript:Fuji.newServerSettingsDialog()">'.L10n::$server_settings.'</a></li>'."\n";
 				echo '<li><a href="javascript:Fuji.newPreferencesDialog()">'.L10n::$preferences.'</a></li>'."\n";
-				echo '<li><a href="#users/">'.L10n::$users.'</a></li>'."\n";
-				if(UserManager::isAdmin()) echo '<li><a href="#groups/">'.L10n::$groups.'</a></li>'."\n";
+				echo '<li><a href="#users">'.L10n::$users.'</a></li>'."\n";
+				if(UserManager::isAdmin()) echo '<li><a href="#groups">'.L10n::$groups.'</a></li>'."\n";
 				echo '<li><a href="javascript:Fuji.logout()">'.L10n::$logout.'</a></li>'."\n";
 			}
 			echo '</ul>'."\n";
