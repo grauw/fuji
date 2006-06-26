@@ -16,6 +16,10 @@ class Entry extends Dataclass {
 		return 'entries';
 	}
 	
+	// URI format (hardcoded for now)
+	private $item_uri_format = "item/%s";
+	private $item_page_uri_format = "item/%s/%s";
+	
 	/**
 	 * returns an Entry-object given its id
 	 * @param {Int} $id Entry to be returned
@@ -199,6 +203,15 @@ class Entry extends Dataclass {
 	{
 		$date = Database::getArray("SELECT DATE_FORMAT($field, '$format') FROM " . DbVar::$db_tprefix . "entries WHERE id = '$this->id'");
 		return $date[0][0];
+	}
+	
+	function getURI() {
+		return sprintf($this->item_uri_format, $this->id);
+	}
+	
+	function getURIWithPage() {
+		// TODO: implement
+		return sprintf($this->item_page_uri_format, $this->id, '');
 	}
 	
 	function __set($name, $value) {

@@ -12,9 +12,9 @@
 						<?php echo $post->getProcessedContent() ?><br />
 						<?php echo L10n::$posted_by ?> <?php echo htmlentities(User::getUser($post->userref)->nickname, ENT_NOQUOTES) ?> <?php echo L10n::$on ?> <?php echo $post->getFormattedDate('modified', L10n::$date_format) ?></p>
 		<?php } ?>
-		<p><?php if($page > 1) { ?><a href="../<?php echo $entry->id ?>/<?php echo $page - 1 ?>">&lt; <?php echo L10n::$previous ?></a>&nbsp;<?php } ?>
-		<?php if($num_of_children > $page * 3) { ?><a href="../<?php echo $entry->id ?>/<?php echo $page + 1 ?>"><?php echo L10n::$next ?> &gt;</a><?php } ?></p>
-		<p><a href="<?php echo $entry->getParent()->id == 1 ? '..' : '../' . $entry->getParent()->id ?>/"><?php echo L10n::$back ?></a></p>
+		<p><?php if($page > 1) { ?><a href="../../<?php echo $entry->getURI() ?>/<?php echo $page - 1 ?>">&lt; <?php echo L10n::$previous ?></a>&nbsp;<?php } ?>
+		<?php if($num_of_children > $page * 3) { ?><a href="../../<?php echo $entry->getURI() ?>/<?php echo $page + 1 ?>"><?php echo L10n::$next ?> &gt;</a><?php } ?></p>
+		<p><a href="<?php echo $entry->getParent()->id == 1 ? '../..' : '../../' . $entry->getParent()->getURI() ?>/"><?php echo L10n::$back ?></a></p>
 		<small>Powered by Fuji</small>
 	</card>
 </wml>

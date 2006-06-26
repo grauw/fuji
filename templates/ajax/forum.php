@@ -4,7 +4,7 @@
 	xmlns:fuji="http://fuji.sourceforge.net/ns"
 	xml:lang="<?php echo L10n::$language ?>"
 	loadcontext="threadsDiv"
-	parent="item/1/">
+	parent="item/1">
 	<fuji:content>
 		<div class="forumContainer box">
 		<h2 class="windowTitle"><?php echo L10n::$threads ?> – <?php echo htmlentities($entry->title, ENT_NOQUOTES) ?></h2>
@@ -18,8 +18,8 @@
 			<?php } if (UserManager::isAdmin()) { ?>
 				<li id="actionConfigRights"><a href="#config_rights/<?php echo $entry->id ?>"><?php echo L10n::$config_rights ?></a></li>
 			<?php } ?>
-			<li><a href="rss/item/<?php echo $entry->id ?>" rel="alternate" type="application/rss+xml" class="feed">RSS</a></li>
-			<li><a href="atom/item/<?php echo $entry->id ?>" rel="alternate" type="application/atom+xml" class="feed">Atom</a></li>
+			<li><a href="rss/<?php echo $entry->getURI() ?>" rel="alternate" type="application/rss+xml" class="feed">RSS</a></li>
+			<li><a href="atom/<?php echo $entry->getURI() ?>" rel="alternate" type="application/atom+xml" class="feed">Atom</a></li>
 		</ul>
 		<div class="threadsTableDiv content">
 			<div may_post="<?php echo UserManager::getUser()->getRights($entry)->may_post ?>" may_edit="<?php echo UserManager::getUser()->getRights($entry)->may_edit ?>" may_delete="<?php echo UserManager::getUser()->getRights($entry)->may_delete ?>">
@@ -43,7 +43,7 @@
 						foreach($entry->getChildren('type, created DESC', ($page - 1) * $page_size . ', ' . $page_size) as $post) { ?>
 						<?php if ($post->type == Entry::$TYPE_FORUM) { ?>
 						<tr class="tableForumEntry <?php echo $i++ % 2 ? 'even' : 'odd' ?>">
-							<td><a href="#item/<?php echo $post->id ?>/"><?php echo htmlentities($post->title, ENT_NOQUOTES) ?></a></td>
+							<td><a href="#<?php echo $post->getURI() ?>"><?php echo htmlentities($post->title, ENT_NOQUOTES) ?></a></td>
 							<td><a href="#profile/<?php echo User::getUser($post->userref)->id ?>"><?php echo htmlentities(User::getUser($post->userref)->nickname, ENT_NOQUOTES) ?></a></td>
 							<td><?php echo count($post->getChildren()) ?></td>
 							<td><?php echo $post->getFormattedDate('created', L10n::$date_format) ?></td>
@@ -51,7 +51,7 @@
 						
 						<?php } else if ($post->type == Entry::$TYPE_POST) { ?>
 						<tr class="tableThreadEntry <?php echo $i++ % 2 ? 'even' : 'odd' ?>">				
-							<td><a href="#item/<?php echo $post->id ?>/"><?php echo htmlentities($post->title, ENT_NOQUOTES) ?></a></td>
+							<td><a href="#<?php echo $post->getURI() ?>"><?php echo htmlentities($post->title, ENT_NOQUOTES) ?></a></td>
 							<td><a href="#profile/<?php echo User::getUser($post->userref)->id ?>"><?php echo htmlentities(User::getUser($post->userref)->nickname, ENT_NOQUOTES) ?></a></td>
 							<td><?php echo count($post->getChildren()) ?></td>
 							<td><?php echo $post->getFormattedDate('created', L10n::$date_format) ?></td>
@@ -62,18 +62,20 @@
 						
 						<?php } ?>
 					</tr>
-				<?php } else echo L10n::$error_no_threads ?>
+				<?php } else echo L10n::$error_no_threads
+					// TODO: Invalid XHTML here!
+					?>
 				</tbody>
 			</table>
 			</div>
 		</div>
 		<div class="threadPageSelector pager">
 			<?php echo L10n::$page?>
-			<?php if($page > 1) { ?><a href="#item/<?php echo $entry->id ?>/<?php echo $page - 1 ?>">&lt;</a> <?php } ?>
-			<?php for($n = 1; $n <= max(0, $num_of_children - 1) / $page_size + 1; $n++) { ?><a href="#<?php echo 'item/'.$entry->id.'/'.($n>1?$n:'') ?>"><?php echo $n ?></a> <?php } ?>
-			<?php if(max(0, $num_of_children - 1) / $page_size > $page) { ?><a href="#item/<?php echo $entry->id ?>/<?php echo $page + 1 ?>">&gt;</a> <?php } ?>
+			<?php if($page > 1) { ?><a href="#<?php echo $entry->getURI().'/'.($page-1) ?>">&lt;</a> <?php } ?>
+			<?php for($n = 1; $n <= max(0, $num_of_children - 1) / $page_size + 1; $n++) { ?><a href="#<?php echo $entry->getURI().($n>1?'/'.$n:'') ?>"><?php echo $n ?></a> <?php } ?>
+			<?php if(max(0, $num_of_children - 1) / $page_size > $page) { ?><a href="#<?php echo $entry->getURI().'/'.($page+1) ?>">&gt;</a> <?php } ?>
 		</div>
 		</div>
-		<div id="item/<?php echo $entry->id ?>_postsDiv" class="postsContainer"></div>
+		<div id="<?php echo $entry->getURI() ?>_postsDiv" class="postsContainer"></div>
 	</fuji:content>
 </fuji:item>

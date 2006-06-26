@@ -23,7 +23,7 @@
 		<li>
 			<?php if ($post->type == Entry::$TYPE_POST) { ?>
 			
-				<h2><a href="/item/<?php echo $post->id ?>"><?php echo $post->title ?></a></h2>
+				<h2><a href="/<?php echo $post->getURI() ?>"><?php echo $post->title ?></a></h2>
 				
 				<?php echo $post->getProcessedContent() ?>
 			

@@ -25,7 +25,7 @@
 							} else {
 								$rv .= '<li class="open">';
 							}
-							$rv .= '<a href="#item/'.$forum->id.'/">'.htmlentities($forum->title, ENT_NOQUOTES).'</a>';
+							$rv .= '<a href="#'.$forum->getURI().'">'.htmlentities($forum->title, ENT_NOQUOTES).'</a>';
 							$rv .= $children;
 							$rv .= "</li>\n";
 						}

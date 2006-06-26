@@ -1,15 +1,14 @@
 <?php $page_size = 20; ?>
 <?php echo $template->getPrefix(); ?>
 <?php
-$parentEntry = $entry;
-while($parentEntry->type == 4) $parentEntry = $parentEntry->getParent();
-$contextId = $parentEntry->id;
+$contextEntry = $entry;
+while($contextEntry->type == 4) $contextEntry = $contextEntry->getParent();
 ?>
 <fuji:item xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:fuji="http://fuji.sourceforge.net/ns"
 	xml:lang="<?php echo L10n::$language ?>"
-	loadcontext="item/<?php echo $contextId?>_postsDiv"
-	parent="item/<?php echo $entry->getParent()->id ?>/">
+	loadcontext="<?php echo $contextEntry->getURI() ?>_postsDiv"
+	parent="<?php echo $entry->getParent()->getURI() ?>">
 	<fuji:content>
 		<div class="threadContainer box">
 		<h2 class="windowTitle"><?php echo L10n::$posts ?> – <?php echo htmlentities($entry->title, ENT_NOQUOTES) ?></h2>
@@ -19,8 +18,8 @@ $contextId = $parentEntry->id;
 			<?php } if (UserManager::getUser()->getRights($entry)->may_delete) { ?>
 				<li id="actionDeletePost"><a href="javascript:Fuji.newDeleteDialog('<?php echo $entry->id ?>', '<?php echo $entry->ref ?>')"><?php echo L10n::$delete ?></a></li>
 			<?php } ?>
-			<li><a href="rss/item/<?php echo $entry->id ?>" rel="alternate" type="application/rss+xml" class="feed">RSS</a></li>
-			<li><a href="atom/item/<?php echo $entry->id ?>" rel="alternate" type="application/atom+xml" class="feed">Atom</a></li>
+			<li><a href="rss/<?php echo $entry->getURI() ?>" rel="alternate" type="application/rss+xml" class="feed">RSS</a></li>
+			<li><a href="atom/<?php echo $entry->getURI() ?>" rel="alternate" type="application/atom+xml" class="feed">Atom</a></li>
 		</ul>
 		<div class="postsListDiv content">
 			<div class="postDiv post odd">
@@ -70,9 +69,9 @@ $contextId = $parentEntry->id;
 		</div>
 		<div class="threadPageSelector pager">
 			<?php echo L10n::$page?>
-			<?php if($page > 1) { ?><a href="#<?php echo 'item/'.$entry->id.'/'.($page-1) ?>">&lt;</a> <?php } ?>
-			<?php for($n = 1; $n <= max(0, $num_of_children - 1) / $page_size + 1; $n++) { ?><a href="#<?php echo 'item/'.$entry->id.'/'.($n>1?$n:'') ?>"><?php echo $n ?></a> <?php } ?>
-			<?php if(max(0, $num_of_children - 1) / $page_size > $page) { ?><a href="#<?php echo 'item/'.$entry->id.'/'.($page+1) ?>">&gt;</a> <?php } ?>
+			<?php if($page > 1) { ?><a href="#<?php echo $entry->getURI().'/'.($page-1) ?>">&lt;</a> <?php } ?>
+			<?php for($n = 1; $n <= max(0, $num_of_children - 1) / $page_size + 1; $n++) { ?><a href="#<?php echo $entry->getURI().($n>1?'/'.$n:'') ?>"><?php echo $n ?></a> <?php } ?>
+			<?php if(max(0, $num_of_children - 1) / $page_size > $page) { ?><a href="#<?php echo $entry->getURI().'/'.($page+1) ?>">&gt;</a> <?php } ?>
 		</div>
 		</div>
 	</fuji:content>

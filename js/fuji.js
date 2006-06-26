@@ -519,8 +519,8 @@ Fuji = {
 	 */
 	init : function() {
 		Fuji.loadMenu();
-		Fuji.loadItem('item/1/');
-		if (location.hash == '') location.hash='#item/2/';
+		Fuji.loadItem('item/1');
+		if (location.hash == '') location.hash='#item/2';
 		Fuji.startUrlChangeListener();
 	},
 	

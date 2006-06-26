@@ -13,7 +13,7 @@
 				foreach(Entry::getEntriesByType(4, 'created DESC', 10) as $post) { ?>
 		<item>
 			<title><?php echo htmlentities($post->title, ENT_NOQUOTES) ?></title>
-			<link><?php echo '../#item/' . $post->id ?>/</link>
+			<link><?php echo '../#' . $post->getURI() ?>/</link>
 			<description><?php echo $post->getProcessedContent() ?></description>
 			<pubDate><?php echo $post->getFormattedDate('created', '%a, %d %b %Y %H:%i:%s GMT') ?></pubDate>
 			<lastBuildDate><?php echo $post->getFormattedDate('modified', '%a, %d %b %Y %H:%i:%s GMT') ?></lastBuildDate>			

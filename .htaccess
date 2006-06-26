@@ -11,6 +11,9 @@ RewriteRule ^rss/(.*)$ $1?template=RSS [QSA]
 # GET /atom/*
 RewriteRule ^atom/(.*)$ $1?template=Atom [QSA]
 
+# Redirect /wml/item/<id> -> /wml/item/<id>/
+RewriteRule ^wml/item/(\d*)$ $0/ [L,R]
+
 # GET /wml/*
 RewriteRule ^wml/(.*)$ $1?template=WML [QSA]
 
