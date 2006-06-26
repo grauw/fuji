@@ -42,7 +42,7 @@
 						if($num_of_children > 0)
 						foreach($entry->getChildren('type, created DESC', ($page - 1) * $page_size . ', ' . $page_size) as $post) { ?>
 						<?php if ($post->type == Entry::$TYPE_FORUM) { ?>
-						<tr entryid="<?php echo $post->id ?>" entrytitle="<?php echo htmlentities($post->title, ENT_NOQUOTES) ?>" class="tableForumEntry <?php echo $i++ % 2 ? 'even' : 'odd' ?>">
+						<tr fuji:entryid="<?php echo $post->id ?>" fuji:entrytitle="<?php echo htmlentities($post->title) ?>" class="tableForumEntry <?php echo $i++ % 2 ? 'even' : 'odd' ?>">
 							<td><a href="#item/<?php echo $post->id ?>/"><?php echo htmlentities($post->title, ENT_NOQUOTES) ?></a></td>
 							<td><a href="#profile/<?php echo User::getUser($post->userref)->id ?>"><?php echo htmlentities(User::getUser($post->userref)->nickname, ENT_NOQUOTES) ?></a></td>
 							<td><?php echo count($post->getChildren()) ?></td>
@@ -50,14 +50,14 @@
 							<td><?php echo $post->getFormattedDate('modified', L10n::$date_format) ?></td>
 						
 						<?php } else if ($post->type == Entry::$TYPE_POST) { ?>
-						<tr entryid="<?php echo $post->id ?>" entrytitle="<?php echo htmlentities($post->title, ENT_NOQUOTES) ?>" class="tableThreadEntry <?php echo $i++ % 2 ? 'even' : 'odd' ?>">				
+						<tr fuji:entryid="<?php echo $post->id ?>" fuji:entrytitle="<?php echo htmlentities($post->title) ?>" class="tableThreadEntry <?php echo $i++ % 2 ? 'even' : 'odd' ?>">				
 							<td><a href="#item/<?php echo $post->id ?>/"><?php echo htmlentities($post->title, ENT_NOQUOTES) ?></a></td>
 							<td><a href="#profile/<?php echo User::getUser($post->userref)->id ?>"><?php echo htmlentities(User::getUser($post->userref)->nickname, ENT_NOQUOTES) ?></a></td>
 							<td><?php echo count($post->getChildren()) ?></td>
 							<td><?php echo $post->getFormattedDate('created', L10n::$date_format) ?></td>
 							<td><?php echo $post->getFormattedDate('modified', L10n::$date_format) ?></td>
 						<?php } else { ?>
-						<tr entryid="<?php echo $post->id ?>" entrytitle="<?php echo htmlentities($post->title, ENT_NOQUOTES) ?>" class="tableUnsupportedEntry">				
+						<tr fuji:entryid="<?php echo $post->id ?>" fuji:entrytitle="<?php echo htmlentities($post->title) ?>" class="tableUnsupportedEntry">				
 							(<?php echo L10n::$type_unsupported ?>)
 						
 						<?php } ?>
