@@ -44,7 +44,7 @@
 					<?php if(isset($user->email) && $user->email_visible) { ?><tr><td><?php echo L10n::$email ?>:</td><td><?php echo htmlentities($user->email, ENT_NOQUOTES); ?></td></tr><?php } ?>
 					<tr><td><?php echo L10n::$posts ?>:</td><td><?php echo $user->getPosts() ?></td></tr>
 					<tr><td><?php echo L10n::$member_of ?>:</td>
-					<?php if(!$_GET['edit']){ /*not editting*/?>
+					<?php if(!$_GET['edit']){ /*not editing*/?>
 					<td><?php $groups = $user->getGroups(); foreach($groups as $group) echo htmlentities($group->name, ENT_NOQUOTES) . "<br />" ?></td></tr>
 					<?php }else{ /*editting*/?>
 					<td><form name="updateGroup" action="../profile/<?php echo $user->id; ?>" method="post">
