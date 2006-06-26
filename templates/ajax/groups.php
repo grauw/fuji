@@ -9,7 +9,7 @@
 			<ul id="groupActions" class="windowActions menu">
 				<li><a href="javascript:Fuji.newGroup()"><?php echo L10n::$new_group ?></a></li>
 			</ul>
-			<div id="threadsTableDiv content">
+			<div id="threadsTableDiv" class="content">
 				<table id="threadsTable">
 					<thead>
 						<tr>
