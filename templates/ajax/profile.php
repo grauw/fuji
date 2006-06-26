@@ -36,33 +36,35 @@
 	xml:lang="<?php echo L10n::$language ?>"
 	loadcontext="threadsDiv">
 	<fuji:content>	
-		<h2 class="windowTitle"><?php echo L10n::$profile ?></h2>
-		<div id="threadsTableDiv">
-			<table id="threadsTable">
-				<tr><td rowspan="4"><?php if(isset($user->picture)) { ?><img width="60" src="<?php echo htmlentities($user->picture) ?>" alt="picture"></img><?php } ?></td><td><?php echo L10n::$name ?>:</td><td><?php echo htmlentities($user->nickname, ENT_NOQUOTES) ?></td></tr>
-				<?php if(isset($user->email) && $user->email_visible) { ?><tr><td><?php echo L10n::$email ?>:</td><td><?php echo htmlentities($user->email, ENT_NOQUOTES); ?></td></tr><?php } ?>
-				<tr><td><?php echo L10n::$posts ?>:</td><td><?php echo $user->getPosts() ?></td></tr>
-				<tr><td><?php echo L10n::$member_of ?>:</td>
-				<?php if(!$_GET['edit']){ /*not editting*/?>
-				<td><?php $groups = $user->getGroups(); foreach($groups as $group) echo htmlentities($group->name, ENT_NOQUOTES) . "<br />" ?></td></tr>
-				<?php }else{ /*editting*/?>
-				<td><form name="updateGroup" action="../profile/<?php echo $user->id; ?>" method="post">
-				<?php	$groups = Database::getArray("SELECT name FROM " . DbVar::$db_tprefix . "groups");
-						foreach($groups as $group){?>
-							<label><input type="checkbox" <?php echo 'name="'.$group['name'].'"'; if($user->IsInGroup($group['name'])) echo ' checked="checked"';  ?> />
-							<?php echo $group['name']?></label><br />
-						<?php } ?>
-				<input type="hidden" name="updated" value="true" />
-				</form></td></tr>
+		<div class="box">
+			<h2 class="windowTitle"><?php echo L10n::$profile ?></h2>
+			<div id="threadsTableDiv" class="content">
+				<table id="threadsTable">
+					<tr><td rowspan="4"><?php if(isset($user->picture)) { ?><img width="60" src="<?php echo htmlentities($user->picture) ?>" alt="picture"></img><?php } ?></td><td><?php echo L10n::$name ?>:</td><td><?php echo htmlentities($user->nickname, ENT_NOQUOTES) ?></td></tr>
+					<?php if(isset($user->email) && $user->email_visible) { ?><tr><td><?php echo L10n::$email ?>:</td><td><?php echo htmlentities($user->email, ENT_NOQUOTES); ?></td></tr><?php } ?>
+					<tr><td><?php echo L10n::$posts ?>:</td><td><?php echo $user->getPosts() ?></td></tr>
+					<tr><td><?php echo L10n::$member_of ?>:</td>
+					<?php if(!$_GET['edit']){ /*not editting*/?>
+					<td><?php $groups = $user->getGroups(); foreach($groups as $group) echo htmlentities($group->name, ENT_NOQUOTES) . "<br />" ?></td></tr>
+					<?php }else{ /*editting*/?>
+					<td><form name="updateGroup" action="../profile/<?php echo $user->id; ?>" method="post">
+					<?php	$groups = Database::getArray("SELECT name FROM " . DbVar::$db_tprefix . "groups");
+							foreach($groups as $group){?>
+								<label><input type="checkbox" <?php echo 'name="'.$group['name'].'"'; if($user->IsInGroup($group['name'])) echo ' checked="checked"';  ?> />
+								<?php echo $group['name']?></label><br />
+							<?php } ?>
+					<input type="hidden" name="updated" value="true" />
+					</form></td></tr>
+					<?php } ?>
+				</table>
+				<?php if(UserManager::isAdmin() && !$_GET['edit']){?>
+				<form action="../editprofile/<?php echo $user->id; ?>" method="post">
+				<input type="submit" value="<?php echo L10n::$edit ?>" />
+				</form>
+				<?php }else if(UserManager::isAdmin()){ ?>
+				<input type="submit" value="<?php echo L10n::$edit ?>" onClick="document.updateGroup.submit()" />
 				<?php } ?>
-			</table>
+			</div>
 		</div>
-		<?php if(UserManager::isAdmin() && !$_GET['edit']){?>
-		<form action="../editprofile/<?php echo $user->id; ?>" method="post">
-		<input type="submit" value="<?php echo L10n::$edit ?>" />
-		</form>
-		<?php }else if(UserManager::isAdmin()){ ?>
-		<input type="submit" value="<?php echo L10n::$edit ?>" onClick="document.updateGroup.submit()" />
-		<?php } ?>
 	</fuji:content>
 </fuji:item>
