@@ -22,15 +22,15 @@ class Install1 {
 		try{
 			$db = ADONewConnection($_POST['db_type']);
 			$db->Connect($_POST['db_host'], $_POST['db_user'], $_POST['db_pwd'], $_POST['db_name']);
-			echo "A functioning database has been found and configured at the supplied address.";
 			$this->configDatabase();
 			$idb = new InstallDb();
 			$idb->createTables();
 			$idb->addDefaultRows();
-		}			
+			echo "<p>A functioning database has been found and configured at the supplied address.</p>";
+		}
 		catch(exception $e) {
-			if($db->createDatabase = true) echo "A database could not be created at the supplied address:";
-			else echo "A database could not be located at the supplied address:";
+			if($db->createDatabase = true) echo "<p>A database could not be created at the supplied address:</p>";
+			else echo "<p>A database could not be located at the supplied address:</p>";
 			?>
 			<table>
 			<tr><th>Type</th><th>Host</th><th>User</th><th>Port</th><th>Name</th></tr>
