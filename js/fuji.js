@@ -58,6 +58,7 @@ Fuji = {
 			failure: Fuji.loadFailure,
 			argument: { uri: uri, oDocument: oDocument, sURI: sURI }
 		}
+		YAHOO.util.Connect.initHeader('Accept', 'application/xhtml+xml');
 		YAHOO.util.Connect.asyncRequest('GET', uri, callback, null);
 	},
 	
