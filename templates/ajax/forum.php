@@ -16,7 +16,7 @@
 			<?php } if (UserManager::getUser()->getRights($entry)->may_delete) { ?>
 				<li id="actionDeleteThread"><a href="javascript:Fuji.newDeleteDialog('<?php echo $entry->getURI() ?>', '<?php echo $entry->getParentURI() ?>')"><?php echo L10n::$delete ?></a></li>
 			<?php } if (UserManager::isAdmin()) { ?>
-				<li id="actionConfigRights"><a href="#<?php echo $entry->getURI() ?>/rights"><?php echo L10n::$config_rights ?></a></li>
+				<li id="actionConfigRights"><a href="javascript:Fuji.loadItem('<?php echo $entry->getURI() ?>/rights')"><?php echo L10n::$config_rights ?></a></li>
 			<?php } ?>
 			<li><a href="rss/<?php echo $entry->getURI() ?>" rel="alternate" type="application/rss+xml" class="feed">RSS</a></li>
 			<li><a href="atom/<?php echo $entry->getURI() ?>" rel="alternate" type="application/atom+xml" class="feed">Atom</a></li>
