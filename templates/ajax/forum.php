@@ -27,6 +27,13 @@
 						<div class="postContent"><?php echo $entry->getProcessedContent() ?></div>
 				</div>	
 			<table class="threadsTable">
+				<colgroup>
+					<col width="40%" />
+					<col />
+					<col />
+					<col />
+					<col />
+				</colgroup>
 				<thead>
 					<tr>
 						<th><?php echo L10n::$topic ?></th>
