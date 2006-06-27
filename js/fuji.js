@@ -146,19 +146,6 @@ Fuji = {
 	},
 	
 	/**
-	 * Loads the menu
-	 */
-	loadMenu : function() {
-		var callback =
-		{
-			success: Fuji.loadSuccess,
-			failure: Fuji.newErrorDialog,
-			argument: []
-		}
-		YAHOO.util.Connect.asyncRequest('GET', 'menu', callback, null); 
-	},
-	
-	/**
 	 * Creates a new create item dialog (if it doesn't exist), and shows the dialog
 	 * @param {String} sURI The uri of the item to add a new item to
 	 * @param {Int} iType The type of the new item
@@ -519,9 +506,9 @@ Fuji = {
 	 * Initialises items when the page is loaded
 	 */
 	init : function() {
-		Fuji.loadMenu();
+		Fuji.reloadItem('menu', 0);
 		Fuji.loadItem('item/1');
-		if (location.hash == '') location.hash='#item/2';
+		if (location.hash == '') location.hash='item/2';
 		Fuji.startUrlChangeListener();
 	},
 	
@@ -533,14 +520,14 @@ Fuji = {
 			success: function(o) {window.location.reload()},
 			failure: Fuji.newErrorDialog
 		}
-		YAHOO.util.Connect.asyncRequest('POST', 'login', callback);
+		YAHOO.util.Connect.asyncRequest('POST', 'login', callback, null);
 	},
 	logout : function() {
 		var callback = {
 			success: function(o) {window.location.reload()},
 			failure: Fuji.newErrorDialog
 		}
-		YAHOO.util.Connect.asyncRequest('POST', 'logout', callback);
+		YAHOO.util.Connect.asyncRequest('POST', 'logout', callback, null);
  	},
 	newGroup : function() {
 		if(!Fuji.newGroupDialog)
