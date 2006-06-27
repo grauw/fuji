@@ -104,7 +104,7 @@ class AJAX_Template extends Template {
 	
 	public function acceptsXHTML()
 	{
-		return strpos($_SERVER['HTTP_ACCEPT'],'application/xhtml+xml') ? true : false;
+		return strpos($_SERVER['HTTP_ACCEPT'],'application/xhtml+xml') !== FALSE ? true : false;
 	}
 	
 	public function startGZIP() {
