@@ -39,22 +39,6 @@ class ItemRights extends HttpRequest {
 		}
 	}
 	
-	function httpDelete()
-	{
-		$this->httpMethodNotAllowed();
-	}
-	
-	function httpPut()
-	{
-		$this->httpMethodNotAllowed();
-	}
-	
-	function httpMethodNotAllowed()
-	{
-		// 405 Method Not Allowed
-		header('Allow: GET, POST', true, '405');
-	}
-	
 }
 
 new ItemRights();

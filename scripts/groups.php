@@ -51,16 +51,6 @@ class Groups extends HttpRequest {
 		}
 	}
 	
-	function httpPut() {
-		$this->httpMethodNotAllowed();
-	}
-	
-	function httpMethodNotAllowed()
-	{
-		// 405 Method Not Allowed
-		header('Allow: GET, POST, DELETE', true, '405');
-	}
-	
 }	
 	
 new Groups();

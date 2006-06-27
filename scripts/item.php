@@ -77,12 +77,6 @@ class Item extends HttpRequest {
 		}
 	}
 	
-	function httpMethodNotAllowed()
-	{
-		// 405 Method Not Allowed
-		header('Allow: GET, POST, DELETE, PUT', true, '405');
-	}
-	
 }
 
 new Item();

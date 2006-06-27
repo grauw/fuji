@@ -13,23 +13,6 @@ class Profile extends HttpRequest {
 		$template->applyProfile($template);
 	}
 	
-	function httpPost() {
-		$this->httpMethodNotAllowed();
-	}
-	
-	function httpDelete() {
-		$this->httpMethodNotAllowed();
-	}
-	
-	function httpPut() {
-		$this->httpMethodNotAllowed();
-	}
-	
-	function httpMethodNotAllowed()
-	{
-		// 405 Method Not Allowed
-		header('Allow: GET', true, '405');
-	}
 }
 	
 new Profile();
