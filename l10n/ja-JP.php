@@ -9,7 +9,7 @@ class L10n {
 	static $config_rights = 'Configure rights';
 	static $contact_administrator = 'Contact the server administrator for more information.';
 	static $created = 'Created';
-	static $date_format = '%Y-%m-%d&#160;%H:%i';
+	static $date_format = '%Y年%m月%d日&#160;%H:%i';
 	static $default_language = 'Default language';
 	static $default_style = 'Default style';
 	static $delete = '削除';
