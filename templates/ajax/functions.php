@@ -12,67 +12,53 @@ class AJAX_Template extends Template {
 		L10nManager::loadL10n();
 		$template = $this;
 		$templateview = $this->getTemplateView($entry->type);
-		ob_start();
+		ob_start("ob_gzhandler");
 		include_once $templateview->location;
-		if($this->acceptsGZIP())
-			$this->outputGZIP();		
 	}
 	
 	function applyUserlist(Template $template, $groupid=null) {
 		if(isset($groupid)) $this->groupid = $groupid;
 		L10nManager::loadL10n();
 		$template = $this;
-		ob_start();		
+		ob_start("ob_gzhandler");
 		include_once '../templates/ajax/userlist.php';
-		if($this->acceptsGZIP())
-			$this->outputGZIP();			
 	}
 	
 	function applyStatistics(Template $template) {
 		if(isset($groupid)) $this->groupid = $groupid;
 		L10nManager::loadL10n();
 		$template = $this;
-		ob_start();		
+		ob_start("ob_gzhandler");
 		include_once '../templates/ajax/statistics.php';
-		if($this->acceptsGZIP())
-			$this->outputGZIP();			
 	}
 	
 	function applyProfile(Template $template) {
 		if(isset($groupid)) $this->groupid = $groupid;
 		L10nManager::loadL10n();
 		$template = $this;
-		ob_start();		
+		ob_start("ob_gzhandler");
 		include_once '../templates/ajax/profile.php';
-		if($this->acceptsGZIP())
-			$this->outputGZIP();			
 	}
 
 	function applyMenu(Template $template) {
 		L10nManager::loadL10n();
 		$template = $this;
-		ob_start();
+		ob_start("ob_gzhandler");
 		include_once '../templates/ajax/menu.php';
-		if($this->acceptsGZIP())
-			$this->outputGZIP();			
 	}
 	
 	function applyGroups(Template $template) {
 		L10nManager::loadL10n();
 		$template = $this;
-		ob_start();		
+		ob_start("ob_gzhandler");
 		include_once '../templates/ajax/groups.php';
-		if($this->acceptsGZIP())
-			$this->outputGZIP();		
 	}
 	
 	function applyRights($entry, $groups) {
 		L10nManager::loadL10n();
 		$template = $this;
-		ob_start();
+		ob_start("ob_gzhandler");
 		include_once '../templates/ajax/rights.php';
-		if($this->acceptsGZIP())
-			$this->outputGZIP();
 	}
 	
 	function failInsufficientRights(Template $template) {
@@ -121,23 +107,6 @@ class AJAX_Template extends Template {
 		return strpos($_SERVER['HTTP_ACCEPT'],'application/xhtml+xml') ? true : false;
 	}
 	
-	public function acceptsGZIP()
-	{
-		return strstr($_SERVER['HTTP_ACCEPT_ENCODING'], 'gzip') ? true : false;
-	}
-	
-	public function outputGZIP()
-	{
-		$gzip_level = Database::getArray("SELECT value FROM " . Database::$db_tprefix . "defaults WHERE name = 'gzip'");
-		$gzip_level = $gzip_level[0][0];
-		$contents = ob_get_contents();
-		ob_end_clean();
-		header("Content-Encoding: gzip");
-		$output = "\x1f\x8b\x08\x00\x00\x00\x00\x00";
-		$output .= substr(gzcompress($contents, $gzip_level), 0, -4);
-		echo $output; 
-		exit();	
-	}
 }
 	
 return 'AJAX_Template';
