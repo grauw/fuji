@@ -154,17 +154,17 @@ Fuji = {
 			failure: Fuji.newErrorDialog,
 			argument: []
 		}
-		YAHOO.util.Connect.asyncRequest('GET', 'menu/', callback, null); 
+		YAHOO.util.Connect.asyncRequest('GET', 'menu', callback, null); 
 	},
 	
 	/**
 	 * Creates a new create item dialog (if it doesn't exist), and shows the dialog
-	 * @param {Int} iId The id of the item to add a new item to
+	 * @param {String} sURI The uri of the item to add a new item to
 	 * @param {Int} iType The type of the new item
 	 */
-	newCreateDialog : function(iId, iType) {
+	newCreateDialog : function(sURI, iType) {
 		document.getElementById('createType').value = iType; 
-		document.getElementById('createRef').value = iId;
+		document.getElementById('createRef').value = sURI;
 		if(!Fuji.createDialog)
 		{
 			var effect;
@@ -180,7 +180,7 @@ Fuji = {
 				this.submit();
 				document.getElementById('createF').reset();			
 				this.hide();
-				Fuji.reloadItem("item/" + document.getElementById('createRef').value + '/');
+				Fuji.reloadItem(document.getElementById('createRef').value);
 				}
 			Fuji.createDialog.cfg.queueProperty("buttons", [ { text:Fuji.messages.ok, handler:handleSubmit, isDefault:true },
 												   { text:Fuji.messages.cancel, handler:handleCancel } ]);
@@ -193,10 +193,10 @@ Fuji = {
 	
 	/**
 	 * Creates a new delete item dialog (if it doesn't exist), and shows the dialog
-	 * @param {Int} iId The id of the item to be deleted
-	 * @param {Int} iPId The id of the item's parent
-	 */	
-	newDeleteDialog : function(iId, iPId) {
+	 * @param {String} sURI The uri of the item to be deleted
+	 * @param {String} sParentURI The uri of the item's parent
+	 */
+	newDeleteDialog : function(sURI, sParentURI) {
 		var effect;
 		if(Fuji.settings.visual_effects) effect = {effect:YAHOO.widget.ContainerEffect.FADE, duration:0.25};
 		else effect = null;
@@ -212,7 +212,7 @@ Fuji = {
 		Fuji.deleteDialog.cfg.setProperty("icon", YAHOO.widget.SimpleDialog.ICON_WARN);		
 		
 		var handleOK = function() {
-			Fuji.deleteItem(iId, iPId);
+			Fuji.httpDeleteAndReload(sURI, sParentURI);
 			this.hide();
 		}
 		var handleCancel = function() {
@@ -225,24 +225,24 @@ Fuji = {
 	
 	/**
 	 * Handles the DELETE request to delete the item (due to problems with YUI)
-	 * @param {Int} iId The id of the item to be deleted
-	 * @param {Int} iPId The id of the item's parent
-	 */			
-	deleteItem : function(iId, iPId) {
+	 * @param {String} sURI The uri of the item to be deleted
+	 * @param {String} sParentURI The uri of the item's parent
+	 */
+	httpDeleteAndReload : function(sURI, sParentURI) {
 		var callback =
 		{
-			success: function(o) {Fuji.reloadItem('item/' + iPId + '/'); location.hash='#item/' + iPId + '/'},
+			success: function(o) {Fuji.reloadItem(sParentURI); location.hash='#'+sParentURI},
 			failure: Fuji.newErrorDialog,
 			argument: []
 		}
-		YAHOO.util.Connect.asyncRequest('DELETE', 'item/' + iId + '/', callback, null); 
+		YAHOO.util.Connect.asyncRequest('DELETE', sURI, callback, null); 
 	},
 	
 	/**
 	 * Creates a new edit item dialog (if it doesn't exist), and shows the dialog
-	 * @param {Int} iId The id of the item to be edit
+	 * @param {String} sURI The uri of the item to be edit
 	 */		
-	newEditDialog : function(iId) {
+	newEditDialog : function(sURI) {
 		if(!Fuji.editDialog)		
 		{
 			var effect;
@@ -267,8 +267,8 @@ Fuji = {
 			failure: Fuji.newErrorDialog,
 			argument: []
 		}
-		document.getElementById('editEntryid').value = iId;
-		YAHOO.util.Connect.asyncRequest('GET', 'item/' + iId + '/source', callback, null); 		
+		document.getElementById('editEntryid').value = sURI;
+		YAHOO.util.Connect.asyncRequest('GET', sURI + '/source', callback, null); 		
 		document.getElementById('editDialog').style.display = 'block';		
 		Fuji.editDialog.show();
 	},
@@ -287,18 +287,18 @@ Fuji = {
 	},
 	
 	/**
-	 * Handles the EDIT request to delete the item (due to problems with YUI)
-	 */		
+	 * Handles the EDIT request to put the item (due to problems with YUI)
+	 */
 	editThread : function() {
-		var iId = document.getElementById('editEntryid').value;
+		var sURI = document.getElementById('editEntryid').value;
 		var callback =
 		{
-			success: function(o) {Fuji.reloadItem('item/' + iId + '/', 999)},
+			success: function(o) {Fuji.reloadItem(sURI, 999)},
 			failure: Fuji.newErrorDialog,
 			argument: []
 		}
 		YAHOO.util.Connect.setForm('editF');
-		YAHOO.util.Connect.asyncRequest('POST', 'item/' + iId + '/', callback, null); 
+		YAHOO.util.Connect.asyncRequest('POST', sURI, callback, null); 
 	},
 	
 	/**
@@ -567,8 +567,8 @@ Fuji = {
 		document.getElementById('newGroupDialog').style.display = 'block';
 		Fuji.newGroupDialog.show();
 	},
-	editGroup : function(groupId, rRead, rPost, rEdit, rDelete) {
-		document.getElementById('editGroupId').value = groupId;
+	editGroup : function(sURI, rRead, rPost, rEdit, rDelete) {
+		document.getElementById('editGroupF').setAttribute('action', sURI);
 		document.getElementById('editGroupRead').checked = rRead;
 		document.getElementById('editGroupPost').checked = rPost;
 		document.getElementById('editGroupEdit').checked = rEdit;
@@ -599,9 +599,9 @@ Fuji = {
 	},
 	/**
 	 * Creates a new delete group dialog (if it doesn't exist), and shows the dialog
-	 * @param {Int} iId The id of the group to be deleted
+	 * @param {String} sURI The uri of the group to be deleted
 	 */	
-	newDeleteGroupDialog : function(iId) {
+	newDeleteGroupDialog : function(sURI) {
 		var effect;
 		if(Fuji.settings.visual_effects) effect = {effect:YAHOO.widget.ContainerEffect.FADE, duration:0.25};
 		else effect = null;
@@ -616,8 +616,7 @@ Fuji = {
 		Fuji.deleteGroupDialog.setBody(Fuji.messages.sure_delete_group);
 		Fuji.deleteGroupDialog.cfg.setProperty("icon", YAHOO.widget.SimpleDialog.ICON_WARN);
 		var handleOK = function() {
-			Fuji.deleteGroup(iId);
-			Fuji.reloadItem("groups/");
+			Fuji.httpDeleteAndReload(sURI, 'groups');
 			this.hide();
 		}
 			var handleCancel = function() {
@@ -625,21 +624,6 @@ Fuji = {
 		}
 		Fuji.deleteGroupDialog.cfg.queueProperty("buttons", [ { text:Fuji.messages.ok, handler:handleOK }, { text:Fuji.messages.cancel, handler:handleCancel } ]);
 		Fuji.deleteGroupDialog.render(document.body);
-	},
-	
-	/**
-	 * Handles the DELETE request to delete the group
-	 * @param {Int} iId The id of the group to be deleted
-	 *TODO param toId: move user in this group to toId
-	 */			
-	deleteGroup : function(iId) {
-		var callback =
-		{
-			success: function(o) { Fuji.reloadItem('groups/' + iId ); location.hash='#groups/' + iId;},
-			failure: Fuji.loadFailure,
-			argument: { uri: 'groups/' + iId }
-		}
-		YAHOO.util.Connect.asyncRequest('DELETE', 'groups/' + iId, callback, null);
 	},
 	
 	addTags : function(oElm, sTags) {

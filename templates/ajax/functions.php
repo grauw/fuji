@@ -66,6 +66,15 @@ class AJAX_Template extends Template {
 			$this->outputGZIP();		
 	}
 	
+	function applyRights($entry, $groups) {
+		L10nManager::loadL10n();
+		$template = $this;
+		ob_start();
+		include_once '../templates/ajax/rights.php';
+		if($this->acceptsGZIP())
+			$this->outputGZIP();
+	}
+	
 	function failInsufficientRights(Template $template) {
 		header('HTTP/1.0 401 Unauthorized');		
 	}

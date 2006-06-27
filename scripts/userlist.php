@@ -2,20 +2,9 @@
 require_once 'entry.php';
 require_once 'usermanager.php';
 require_once 'template.php';
+require_once 'httprequest.php';
 
-new Userlist();
-	
-class Userlist {
-	
-	function __construct()
-	{
-		$method = $_SERVER['REQUEST_METHOD'];
-		if ($method == 'GET') {
-			$this->httpGet();
-		} else {
-			$this->httpMethodNotAllowed();
-		}
-	}
+class Userlist extends HttpRequest {
 	
 	function httpGet()
 	{
@@ -32,12 +21,26 @@ class Userlist {
 		}
 	}
 	
+	function httpPost() {
+		$this->httpMethodNotAllowed();
+	}
+	
+	function httpDelete() {
+		$this->httpMethodNotAllowed();
+	}
+	
+	function httpPut() {
+		$this->httpMethodNotAllowed();
+	}
+	
 	function httpMethodNotAllowed()
 	{
 		// 405 Method Not Allowed
-		header('Allow: GET, POST, DELETE, PUT', true, '405');
+		header('Allow: GET', true, '405');
 	}
 	
 }
+	
+new Userlist();
 	
 ?>

@@ -17,8 +17,7 @@ class Entry extends Dataclass {
 	}
 	
 	// URI format (hardcoded for now)
-	private $item_uri_format = "item/%s";
-	private $item_page_uri_format = "item/%s/%s";
+	private $uri_format = "item/%s";
 	
 	/**
 	 * returns an Entry-object given its id
@@ -205,13 +204,18 @@ class Entry extends Dataclass {
 		return $date[0][0];
 	}
 	
+	/**
+	 * Gets the URI of this entry
+	 */
 	function getURI() {
-		return sprintf($this->item_uri_format, $this->id);
+		return sprintf($this->uri_format, $this->id);
 	}
 	
-	function getURIWithPage() {
-		// TODO: implement
-		return sprintf($this->item_page_uri_format, $this->id, '');
+	/**
+	 * Gets the URI of this entry's parent
+	 */
+	function getParentURI() {
+		return sprintf($this->uri_format, $this->ref);
 	}
 	
 	function __set($name, $value) {

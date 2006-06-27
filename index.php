@@ -92,12 +92,11 @@
 	<div id="editGroupDialog" style="display: none">
 		<div id="editGroupTitle" class="hd"><?php echo L10n::$edit_group ?></div>
 		<div id="editGroupForm" class="bd">
-			<form id="editGroupF" name="editGroupF" class="createEditF" method="POST" action="groups/">
+			<form id="editGroupF" name="editGroupF" class="createEditF" method="POST" action="groups/*">
 				<label><input type="checkbox" name="editGroupRead" id="editGroupRead" /><?php echo L10n::$read ?></label><br />
 				<label><input type="checkbox" name="editGroupPost" id="editGroupPost" /><?php echo L10n::$post ?></label><br />
 				<label><input type="checkbox" name="editGroupEdit" id="editGroupEdit" /><?php echo L10n::$edit ?></label><br />
 				<label><input type="checkbox" name="editGroupDelete" id="editGroupDelete" /><?php echo L10n::$delete ?></label><br />
-				<input type="hidden" name="editGroupId" id="editGroupId" />
 			</form>
 		</div>
 	</div>

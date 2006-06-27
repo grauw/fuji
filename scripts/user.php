@@ -11,6 +11,9 @@ class User extends Dataclass {
 		return 'users';
 	}
 	
+	// URI format (hardcoded for now)
+	private $uri_format = "profile/%s";
+	
 	/**
 	 * Get user by id
 	 * @param {Int} $id the user to be returned
@@ -163,6 +166,7 @@ class User extends Dataclass {
 		else
 			return new Rights(array('entryid' => $entry->id, 'userid' => $this->id, 'may_read' => '0', 'may_post' => '0', 'may_edit' => '0', 'may_delete' => '0'));
 	}
+	
 	/**
 	 * Returns the number of posts by this user
 	 * @returns int the number of posts
@@ -172,6 +176,15 @@ class User extends Dataclass {
 		$data = Database::getArray("SELECT COUNT(*) FROM " . Database::$db_tprefix . "entries WHERE userref = '$this->id'");
 		return $data[0][0];
 	}
+	
+	/**
+	 * Gets the URI of this entry
+	 */
+	function getURI() {
+		return sprintf($this->uri_format, $this->id);
+	}
+	
+	
 	/**
 	 * Removes a user from the users and groupmembers databases
 	 */

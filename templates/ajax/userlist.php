@@ -23,7 +23,7 @@
 							if(count($userids) > 0){
 							foreach($userids as $userid) { $user = User::getUser($userid['id']);?>
 						<tr class="tableUser">
-							<td><a href="#profile/<?php echo $user->id ?>"><?php echo htmlentities($user->nickname, ENT_NOQUOTES) ?></a></td>
+							<td><a href="#/<?php echo $user->getURI() ?>"><?php echo htmlentities($user->nickname, ENT_NOQUOTES) ?></a></td>
 							<td><?php if($user->email_visible) echo htmlentities($user->email, ENT_NOQUOTES) ?></td>
 							<td><?php $groups = $user->getGroups(); foreach($groups as $group) $groupstring .= htmlentities($group->name, ENT_NOQUOTES) . ','; echo rtrim($groupstring, ','); unset($groupstring);?></td>
 							<td><?php echo $user->getPosts() ?></td>

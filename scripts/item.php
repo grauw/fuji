@@ -2,26 +2,9 @@
 require_once 'entry.php';
 require_once 'usermanager.php';
 require_once 'template.php';
+require_once 'httprequest.php';
 
-new Item();
-	
-class Item {
-	
-	function __construct()
-	{
-		$method = $_SERVER['REQUEST_METHOD'];
-		if ($method == 'GET') {
-			$this->httpGet();
-		} elseif ($method == 'POST') {
-			$this->httpPost();
-		} elseif ($method == 'DELETE') {
-			$this->httpDelete();
-		} elseif ($method == 'PUT') {
-			$this->httpPut();
-		} else {
-			$this->httpMethodNotAllowed();
-		}
-	}
+class Item extends HttpRequest {
 	
 	function httpGet()
 	{
@@ -33,12 +16,12 @@ class Item {
 		if($entry)
 		{
 			if (UserManager::getUser()->getRights($entry)->may_read) {
-				$template = Template::getTemplate($template);
-				$template->apply($entry, $page, $template);
+				$templateobj = Template::getTemplate($template);
+				$templateobj->apply($entry, $page);
 			}
 			else {			
-				$template = Template::getTemplate($template);
-				$template->failInsufficientRights($template);
+				$templateobj = Template::getTemplate($template);
+				$templateobj->failInsufficientRights($templateobj);
 			}
 		}
 		else
@@ -100,6 +83,8 @@ class Item {
 		header('Allow: GET, POST, DELETE, PUT', true, '405');
 	}
 	
-}	
+}
+
+new Item();
 	
 ?>

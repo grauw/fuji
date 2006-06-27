@@ -31,19 +31,22 @@ RewriteRule ^$ index.php [L,QSA]
 # POST /item/
 RewriteRule ^item/$ scripts/item.php [L,QSA]
 
-# DELETE /item/<id>/
-# GET /item/<id>/
-# PUT /item/<id>/
+# DELETE /item/<id>
+# GET /item/<id>
+# PUT /item/<id>
 RewriteRule ^item/(\d+)/?$ scripts/item.php?id=$1 [L,QSA]
 
 # GET /item/<id>/source
 RewriteRule ^item/(\d+)/source$ scripts/item_source.php?id=$1 [L,QSA]
 
+# POST /item/<id>/rights
+RewriteRule ^item/(\d+)/rights$ scripts/config_rights.php?id=$1 [L,QSA]
+
 # GET /item/<id>/<page>
 RewriteRule ^item/(\d+)/(\d+)$ scripts/item.php?id=$1&page=$2 [L,QSA]
 
-# GET /menu/
-RewriteRule ^menu/$ scripts/menu.php [L,QSA]
+# GET /menu
+RewriteRule ^menu$ scripts/menu.php [L,QSA]
 
 # GET /menu/<action>
 RewriteRule ^menu/(\w+)$ scripts/menu.php?action=$1 [L,QSA]
@@ -57,8 +60,8 @@ RewriteRule ^profile$ scripts/profile.php [L,QSA]
 # POST /profile/<id>/updated
 RewriteRule ^profile/(\d+)/updated$ scripts/profile.php?updated=true [L,QSA]
 
-# POST /editprofile/<id>
-RewriteRule ^editprofile/(\d+)$ scripts/profile.php?id=$1&edit=true [L,QSA]
+# POST /profile/<id>/edit
+RewriteRule ^profile/(\d+)/edit$ scripts/profile.php?id=$1&edit=true [L,QSA]
 
 # GET /install
 RewriteRule ^install$ scripts/install/index.php [L,QSA]
@@ -85,15 +88,13 @@ RewriteRule ^users$ scripts/userlist.php [L,QSA]
 # POST /groups
 RewriteRule ^groups$ scripts/groups.php [L,QSA]
 
+# POST /groups/<groupid>
 # DELETE /groups/<groupid>
 RewriteRule ^groups/(\d+)$ scripts/groups.php?id=$1 [L,QSA]
 
 # GET /groups/<groupid>/users
 RewriteRule ^groups/(\d+)/users$  scripts/userlist.php?groupid=$1 [L,QSA]
 
-# GET /config_rights/<id>
-RewriteRule ^config_rights/(\d+)$ scripts/config_rights.php?id=$1 [L,QSA]
-
-# GET /statistics/
-RewriteRule ^statistics/$ scripts/statistics.php [L,QSA]
+# GET /statistics
+RewriteRule ^statistics$ scripts/statistics.php [L,QSA]
 

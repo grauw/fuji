@@ -11,6 +11,9 @@ class Group extends Dataclass {
 		return 'groups';
 	}
 	
+	// URI format (hardcoded for now)
+	private $uri_format = "groups/%s";
+	
 	/**
 	 * Get group by id
 	 * @param {Int} $id the group to be returned
@@ -135,6 +138,13 @@ class Group extends Dataclass {
 		$return = Array();
 		foreach($data as $row) array_push($return, new Group($row));
 		return $return;			
+	}
+	
+	/**
+	 * Gets the URI of this group
+	 */
+	function getURI() {
+		return sprintf($this->uri_format, $this->id);
 	}
 	
 	/**

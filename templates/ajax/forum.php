@@ -10,13 +10,13 @@
 		<h2 class="windowTitle"><?php echo L10n::$threads ?> – <?php echo htmlentities($entry->title, ENT_NOQUOTES) ?></h2>
 		<ul id="threadsActions" class="windowActions menu">
 			<?php if (UserManager::getUser()->getRights($entry)->may_post) { ?>
-				<li id="actionNewThread"><a href="javascript:Fuji.newCreateDialog('<?php echo $entry->id ?>', '<?php echo $entry->type + 1 ?>')"><?php echo L10n::$new ?></a></li>
+				<li id="actionNewThread"><a href="javascript:Fuji.newCreateDialog('<?php echo $entry->getURI() ?>', <?php echo $entry->type + 1 ?>)"><?php echo L10n::$new ?></a></li>
 			<?php } if (UserManager::getUser()->getRights($entry)->may_edit) { ?>
-				<li id="actionEditThread"><a href="javascript:Fuji.newEditDialog('<?php echo $entry->id ?>')"><?php echo L10n::$edit ?></a></li>
+				<li id="actionEditThread"><a href="javascript:Fuji.newEditDialog('<?php echo $entry->getURI() ?>')"><?php echo L10n::$edit ?></a></li>
 			<?php } if (UserManager::getUser()->getRights($entry)->may_delete) { ?>
-				<li id="actionDeleteThread"><a href="javascript:Fuji.newDeleteDialog('<?php echo $entry->id ?>', '<?php echo $entry->ref ?>')"><?php echo L10n::$delete ?></a></li>
+				<li id="actionDeleteThread"><a href="javascript:Fuji.newDeleteDialog('<?php echo $entry->getURI() ?>', '<?php echo $entry->getParentURI() ?>')"><?php echo L10n::$delete ?></a></li>
 			<?php } if (UserManager::isAdmin()) { ?>
-				<li id="actionConfigRights"><a href="#config_rights/<?php echo $entry->id ?>"><?php echo L10n::$config_rights ?></a></li>
+				<li id="actionConfigRights"><a href="#<?php echo $entry->getURI() ?>/rights"><?php echo L10n::$config_rights ?></a></li>
 			<?php } ?>
 			<li><a href="rss/<?php echo $entry->getURI() ?>" rel="alternate" type="application/rss+xml" class="feed">RSS</a></li>
 			<li><a href="atom/<?php echo $entry->getURI() ?>" rel="alternate" type="application/atom+xml" class="feed">Atom</a></li>
@@ -44,7 +44,7 @@
 						<?php if ($post->type == Entry::$TYPE_FORUM) { ?>
 						<tr class="tableForumEntry <?php echo $i++ % 2 ? 'even' : 'odd' ?>">
 							<td><a href="#<?php echo $post->getURI() ?>"><?php echo htmlentities($post->title, ENT_NOQUOTES) ?></a></td>
-							<td><a href="#profile/<?php echo User::getUser($post->userref)->id ?>"><?php echo htmlentities(User::getUser($post->userref)->nickname, ENT_NOQUOTES) ?></a></td>
+							<td><a href="#<?php echo User::getUser($post->userref)->getURI() ?>"><?php echo htmlentities(User::getUser($post->userref)->nickname, ENT_NOQUOTES) ?></a></td>
 							<td><?php echo count($post->getChildren()) ?></td>
 							<td><?php echo $post->getFormattedDate('created', L10n::$date_format) ?></td>
 							<td><?php echo $post->getFormattedDate('modified', L10n::$date_format) ?></td>
@@ -52,7 +52,7 @@
 						<?php } else if ($post->type == Entry::$TYPE_POST) { ?>
 						<tr class="tableThreadEntry <?php echo $i++ % 2 ? 'even' : 'odd' ?>">				
 							<td><a href="#<?php echo $post->getURI() ?>"><?php echo htmlentities($post->title, ENT_NOQUOTES) ?></a></td>
-							<td><a href="#profile/<?php echo User::getUser($post->userref)->id ?>"><?php echo htmlentities(User::getUser($post->userref)->nickname, ENT_NOQUOTES) ?></a></td>
+							<td><a href="#<?php echo User::getUser($post->userref)->getURI() ?>"><?php echo htmlentities(User::getUser($post->userref)->nickname, ENT_NOQUOTES) ?></a></td>
 							<td><?php echo count($post->getChildren()) ?></td>
 							<td><?php echo $post->getFormattedDate('created', L10n::$date_format) ?></td>
 							<td><?php echo $post->getFormattedDate('modified', L10n::$date_format) ?></td>

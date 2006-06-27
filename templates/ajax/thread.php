@@ -14,9 +14,9 @@ while($contextEntry->type == 4) $contextEntry = $contextEntry->getParent();
 		<h2 class="windowTitle"><?php echo L10n::$posts ?> – <?php echo htmlentities($entry->title, ENT_NOQUOTES) ?></h2>
 		<ul id="postsActions" class="windowActions menu">
 			<?php if (UserManager::getUser()->getRights($entry)->may_post) { ?>
-				<li id="actionReplyPost"><a href="javascript:Fuji.newCreateDialog('<?php echo $entry->id ?>', '4')"><?php echo L10n::$reply ?></a></li>
+				<li id="actionReplyPost"><a href="javascript:Fuji.newCreateDialog('<?php echo $entry->getURI() ?>', '4')"><?php echo L10n::$reply ?></a></li>
 			<?php } if (UserManager::getUser()->getRights($entry)->may_delete) { ?>
-				<li id="actionDeletePost"><a href="javascript:Fuji.newDeleteDialog('<?php echo $entry->id ?>', '<?php echo $entry->ref ?>')"><?php echo L10n::$delete ?></a></li>
+				<li id="actionDeletePost"><a href="javascript:Fuji.newDeleteDialog('<?php echo $entry->getURI() ?>', '<?php echo $entry->getParentURI() ?>')"><?php echo L10n::$delete ?></a></li>
 			<?php } ?>
 			<li><a href="rss/<?php echo $entry->getURI() ?>" rel="alternate" type="application/rss+xml" class="feed">RSS</a></li>
 			<li><a href="atom/<?php echo $entry->getURI() ?>" rel="alternate" type="application/atom+xml" class="feed">Atom</a></li>
@@ -25,13 +25,13 @@ while($contextEntry->type == 4) $contextEntry = $contextEntry->getParent();
 			<div class="postDiv post odd">
 				<h3 class="postTitle">
 					<span><?php echo $entry->title ?></span>
-					<span>(<?php echo L10n::$posted_by ?> <a href="#profile/<?php echo User::getUser($entry->userref)->id ?>"><?php echo htmlentities(User::getUser($entry->userref)->nickname, ENT_NOQUOTES) ?></a>
+					<span>(<?php echo L10n::$posted_by ?> <a href="#<?php echo User::getUser($entry->userref)->getURI() ?>"><?php echo htmlentities(User::getUser($entry->userref)->nickname, ENT_NOQUOTES) ?></a>
 						<?php echo L10n::$on ?> <?php echo $entry->getFormattedDate('modified', L10n::$date_format) ?>)</span>
 				</h3>
 				<?php if (UserManager::getUser()->getRights($entry)->may_edit) { ?>
 				<ul class="windowActions menu">
 					<?php if (UserManager::getUser()->getRights($entry)->may_edit) { ?>
-						<li id="actionEditPost"><a href="javascript:Fuji.newEditDialog('<?php echo $entry->id ?>')"><?php echo L10n::$edit ?></a></li>
+						<li id="actionEditPost"><a href="javascript:Fuji.newEditDialog('<?php echo $entry->getURI() ?>')"><?php echo L10n::$edit ?></a></li>
 					<?php } ?>
 				</ul>
 				<?php } ?>
@@ -45,15 +45,15 @@ while($contextEntry->type == 4) $contextEntry = $contextEntry->getParent();
 				<?php if ($post->type == Entry::$TYPE_POST) { ?>
 					<h3 class="postTitle">
 						<span><?php echo htmlentities($post->title, ENT_NOQUOTES) ?></span>
-						<span>(<?php echo L10n::$posted_by ?> <a href="#profile/<?php echo User::getUser($post->userref)->id ?>"><?php echo htmlentities(User::getUser($post->userref)->nickname, ENT_NOQUOTES) ?></a>
+						<span>(<?php echo L10n::$posted_by ?> <a href="#<?php echo User::getUser($post->userref)->getURI() ?>"><?php echo htmlentities(User::getUser($post->userref)->nickname, ENT_NOQUOTES) ?></a>
 							<?php echo L10n::$on ?> <?php echo $post->getFormattedDate('modified', L10n::$date_format) ?>)</span>
 					</h3>
 					<?php if (UserManager::getUser()->getRights($post)->may_edit || UserManager::getUser()->getRights($post)->may_delete) { ?>
 					<ul class="windowActions menu">
 						<?php if (UserManager::getUser()->getRights($post)->may_edit) { ?>
-							<li><a href="javascript:Fuji.newEditDialog('<?php echo $post->id ?>')"><?php echo L10n::$edit ?></a></li>
+							<li><a href="javascript:Fuji.newEditDialog('<?php echo $post->getURI() ?>')"><?php echo L10n::$edit ?></a></li>
 						<?php } if (UserManager::getUser()->getRights($post)->may_delete) { ?>
-							<li><a href="javascript:Fuji.newDeleteDialog('<?php echo $post->id ?>', '<?php echo $post->ref ?>')"><?php echo L10n::$delete ?></a></li>
+							<li><a href="javascript:Fuji.newDeleteDialog('<?php echo $post->getURI() ?>', '<?php echo $post->getParentURI() ?>')"><?php echo L10n::$delete ?></a></li>
 						<?php } ?>
 					</ul>
 					<?php } ?>

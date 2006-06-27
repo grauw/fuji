@@ -2,20 +2,9 @@
 /*require_once 'entry.php';*/
 require_once 'usermanager.php';
 require_once 'template.php';
+require_once 'httprequest.php';
 
-new Menu();
-	
-class Menu {
-	
-	function __construct()
-	{
-		$method = $_SERVER['REQUEST_METHOD'];
-		if ($method == 'GET') {
-			$this->httpGet();
-		} else {
-			$this->httpMethodNotAllowed();
-		}
-	}
+class Menu extends HttpRequest {
 	
 	function httpGet()
 	{
@@ -25,6 +14,18 @@ class Menu {
 		$template->applyMenu($template);
 	}
 	
+	function httpPost() {
+		$this->httpMethodNotAllowed();
+	}
+	
+	function httpDelete() {
+		$this->httpMethodNotAllowed();
+	}
+	
+	function httpPut() {
+		$this->httpMethodNotAllowed();
+	}
+	
 	function httpMethodNotAllowed()
 	{
 		// 405 Method Not Allowed
@@ -32,5 +33,7 @@ class Menu {
 	}
 	
 }	
+	
+new Menu();
 	
 ?>
