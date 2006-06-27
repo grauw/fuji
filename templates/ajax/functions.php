@@ -12,7 +12,7 @@ class AJAX_Template extends Template {
 		L10nManager::loadL10n();
 		$template = $this;
 		$templateview = $this->getTemplateView($entry->type);
-		ob_start("ob_gzhandler");
+		$this->startGZIP();
 		include_once $templateview->location;
 	}
 	
@@ -20,7 +20,7 @@ class AJAX_Template extends Template {
 		if(isset($groupid)) $this->groupid = $groupid;
 		L10nManager::loadL10n();
 		$template = $this;
-		ob_start("ob_gzhandler");
+		$this->startGZIP();
 		include_once '../templates/ajax/userlist.php';
 	}
 	
@@ -28,7 +28,7 @@ class AJAX_Template extends Template {
 		if(isset($groupid)) $this->groupid = $groupid;
 		L10nManager::loadL10n();
 		$template = $this;
-		ob_start("ob_gzhandler");
+		$this->startGZIP();
 		include_once '../templates/ajax/statistics.php';
 	}
 	
@@ -36,28 +36,28 @@ class AJAX_Template extends Template {
 		if(isset($groupid)) $this->groupid = $groupid;
 		L10nManager::loadL10n();
 		$template = $this;
-		ob_start("ob_gzhandler");
+		$this->startGZIP();
 		include_once '../templates/ajax/profile.php';
 	}
 
 	function applyMenu(Template $template) {
 		L10nManager::loadL10n();
 		$template = $this;
-		ob_start("ob_gzhandler");
+		$this->startGZIP();
 		include_once '../templates/ajax/menu.php';
 	}
 	
 	function applyGroups(Template $template) {
 		L10nManager::loadL10n();
 		$template = $this;
-		ob_start("ob_gzhandler");
+		$this->startGZIP();
 		include_once '../templates/ajax/groups.php';
 	}
 	
 	function applyRights($entry, $groups) {
 		L10nManager::loadL10n();
 		$template = $this;
-		ob_start("ob_gzhandler");
+		$this->startGZIP();
 		include_once '../templates/ajax/rights.php';
 	}
 	
@@ -105,6 +105,13 @@ class AJAX_Template extends Template {
 	public function acceptsXHTML()
 	{
 		return strpos($_SERVER['HTTP_ACCEPT'],'application/xhtml+xml') ? true : false;
+	}
+	
+	public function startGZIP() {
+		$gzip_level = Database::getArray("SELECT value FROM " . Database::$db_tprefix . "defaults WHERE name = 'gzip'");
+		$gzip_level = $gzip_level[0][0];
+		ini_set('zlib.output_compression_level', $gzip_level);
+		ob_start('ob_gzhandler');
 	}
 	
 }
