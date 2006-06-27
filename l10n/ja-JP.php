@@ -27,9 +27,9 @@ class L10n {
 	static $error_insufficient_rights = 'You have insufficient rights to access this resource.';
 	static $error_invalid_url = 'You have entered or clicked on an invalid URL.';
 	static $error_loading_resource = 'Error loading resource';
-	static $error_no_groups = 'This forum has no groups';
+	static $error_no_groups = 'これのフォーラムはグループをいません';
 	static $error_no_threads = 'This forum has no threads';
-	static $error_no_users = 'This forum has no users';
+	static $error_no_users = 'これのフォーラムはユーザーをいません';
 	static $error_resource_cannot_be_found = 'The resource cannot be found.';
 	static $error_restricted_forum = 'You are trying to access a restricted forum or thread.';
 	static $error_rights_revoked = 'Your rights have been revoked (banned).';
