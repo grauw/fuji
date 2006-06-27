@@ -4,26 +4,28 @@
 	xml:lang="<?php echo L10n::$language ?>"
 	loadcontext="menuListDiv">
 	<fuji:content>
-		<?php
-			if(UserManager::getUser()->nickname == 'anonymous')
-				echo '<p>' . L10n::$anonymous_user . '</p>';
-			else
-				echo '<p>' . L10n::$logged_in_as . ' ' . UserManager::getUser()->nickname . '</p>';
-			echo '<ul>'."\n";
-			echo '<li><a href="#statistics/">'.L10n::$statistics.'</a></li>'."\n";
-			if(UserManager::getUser()->nickname == 'anonymous'){
-				echo '<li><a href="javascript:Fuji.login()">'.L10n::$login.'</a></li>'."\n";
-				echo '<li><a href="register">'.L10n::$register.'</a></li>'."\n";
-			}else{
-				echo '<li><a href="#profile">'.L10n::$profile.'</a></li>'."\n";
-				if(UserManager::isAdmin())
-					echo '<li><a href="javascript:Fuji.newServerSettingsDialog()">'.L10n::$server_settings.'</a></li>'."\n";
-				echo '<li><a href="javascript:Fuji.newPreferencesDialog()">'.L10n::$preferences.'</a></li>'."\n";
-				echo '<li><a href="#users">'.L10n::$users.'</a></li>'."\n";
-				if(UserManager::isAdmin()) echo '<li><a href="#groups">'.L10n::$groups.'</a></li>'."\n";
-				echo '<li><a href="javascript:Fuji.logout()">'.L10n::$logout.'</a></li>'."\n";
-			}
-			echo '</ul>'."\n";
-		?>
+		<?php if(UserManager::getUser()->nickname == 'anonymous') { ?>
+			<p><?php echo L10n::$anonymous_user ?></p>
+		<?php } else { ?>
+			<p><?php echo L10n::$logged_in_as . ' ' . UserManager::getUser()->nickname ?></p>
+		<?php } ?>
+		<ul>
+			<li><a href="#statistics"><?php echo L10n::$statistics ?></a></li>
+			<?php if (UserManager::getUser()->nickname == 'anonymous') { ?>
+				<li><a href="javascript:Fuji.login()"><?php echo L10n::$login ?></a></li>
+				<li><a href="register"><?php echo L10n::$register ?></a></li>
+			<?php } else { ?>
+				<li><a href="#profile"><?php echo L10n::$profile ?></a></li>
+				<?php if (UserManager::isAdmin()) { ?>
+					<li><a href="javascript:Fuji.newServerSettingsDialog()"><?php echo L10n::$server_settings ?></a></li>
+				<?php } ?>
+				<li><a href="javascript:Fuji.newPreferencesDialog()"><?php echo L10n::$preferences ?></a></li>
+				<li><a href="#users"><?php echo L10n::$users ?></a></li>
+				<?php if (UserManager::isAdmin()) { ?>
+					<li><a href="#groups"><?php echo L10n::$groups ?></a></li>
+				<?php } ?>
+				<li><a href="javascript:Fuji.logout()"><?php echo L10n::$logout ?></a></li>
+			<?php } ?>
+		</ul>
 	</fuji:content>
 </fuji:menu>
