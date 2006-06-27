@@ -10,7 +10,7 @@ class Template extends Dataclass {
 	}
 	
 	static function getTemplate($name) {
-		$data = Database::getArray("SELECT * FROM " . DbVar::$db_tprefix . "templates WHERE name = '$name'");
+		$data = Database::getArray("SELECT * FROM " . DbVar::$db_tprefix . "templates WHERE name = '".addslashes($name)."'");
 		$templatedata = $data[0];
 		if(!$templatedata) trigger_error('template not found');
 		$templateclass = require_once(realpath(dirname(__FILE__).'/../'.$templatedata['basedir']));

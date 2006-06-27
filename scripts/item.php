@@ -11,7 +11,7 @@ class Item extends HttpRequest {
 		UserManager::authenticate();
 		$id = isset($_GET['id']) ? intval($_GET['id']) : 1;
 		$page = isset($_GET['page']) ? intval($_GET['page']) : 1;
-		$template = isset($_GET['template']) ? addslashes($_GET['template']) : 'AJAX';
+		$template = isset($_GET['template']) ? $_GET['template'] : 'AJAX';
 		$entry = Entry::getEntry($id);
 		if($entry)
 		{
