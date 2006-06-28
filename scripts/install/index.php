@@ -6,11 +6,11 @@
 		$current_phase = $_POST['phase'];
 	else
 		$current_phase = 0;
-	$phases = array(	array("Welcome", "<p>Welcome to the Fuji Installer!</p><p>This Installer will guide you through the steps required to setup your Fuji Forum.</p>"),
+	$phases = array(	array("Welcome", "<p>Welcome to the Fuji Installer!</p><p>This Installer will guide you through the steps required to set up Fuji.</p>"),
 					 	array("Database setup", new Install1()), 
 						array("Administrative account", new Install2()),
 						array("Server Configuration", new Install3()),
-						array("Finish", "<p>You have successfully completed the installer, and your Fuji Forum is ready to use!</p>")
+						array("Finish", "<p>You have successfully completed the installer, and Fuji is ready to use!</p>")
 					);
 
 	header('Content-Type: application/xhtml+xml; charset=utf-8');
