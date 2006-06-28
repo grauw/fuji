@@ -1,0 +1,194 @@
+<?xml version="1.0"?>
+<!DOCTYPE schema SYSTEM "../adodb_lite/xmlschema.dtd">
+<schema version="0.2">
+	
+	<table name="entries">
+		<descr>Entry in the forum</descr>
+		<field name="id" type="I"><UNSIGNED/><KEY/><AUTOINCREMENT/></field>
+		<field name="ref" type="I"><UNSIGNED/></field>
+		<field name="userref" type="I"><UNSIGNED/><NOTNULL/></field>
+		<field name="title" type="C" size="255"><NOTNULL/></field>
+		<field name="processor" type="I1"><UNSIGNED/><NOTNULL/></field>
+		<field name="contentref" type="I"><UNSIGNED/></field>
+		<field name="created" type="datetime"></field>
+		<field name="modified" type="datetime"></field>
+		<field name="type" type="I1"><NOTNULL/></field>
+		
+		<data>
+			<row><f name="id">1</f><f name="contentref">1</f><f name="userref">2</f><f name="title">root</f><f name="created" value="NOW()"/><f name="modified" value="NOW()"/><f name="type">1</f></row>
+			<row><f name="id">2</f><f name="ref">1</f><f name="contentref">2</f><f name="userref">2</f><f name="title">Fora</f><f name="created" value="NOW()"/><f name="modified" value="NOW()"/><f name="type">2</f></row>
+			<row><f name="id">3</f><f name="ref">2</f><f name="contentref">3</f><f name="userref">2</f><f name="title">Forum 1</f><f name="created" value="NOW()"/><f name="modified" value="NOW()"/><f name="type">3</f></row>
+		</data>
+	</table>
+	
+	<table name="content">
+		<descr>Content for an entry</descr>
+		<field name="id" type="I"><UNSIGNED/><KEY/><AUTOINCREMENT/></field>
+		<field name="content" type="XL"><NOTNULL/></field>
+		<field name="processor" type="I1"><UNSIGNED/><NOTNULL/></field>
+		
+		<data>
+			<row><f>1</f><f></f><f>0</f></row>
+			<row><f>2</f><f></f><f>0</f></row>
+			<row><f>3</f><f></f><f>0</f></row>
+		</data>
+	</table>
+	
+	<table name="views">
+		<descr>### Forum view (typeref in viewtemplates)</descr>
+		<field name="id" type="I1"><UNSIGNED/><KEY/><AUTOINCREMENT/></field>
+		<field name="description" type="C" size="255"><NOTNULL/></field>
+		<field name="publicuri" type="C" size="255"><NOTNULL/></field>
+	</table>
+	
+	<table name="templates">
+		<descr>Output templates</descr>
+		<field name="id" type="I1"><UNSIGNED/><KEY/><AUTOINCREMENT/></field>
+		<field name="name" type="C" size="255"><NOTNULL/></field>
+		<field name="public" type="L"><NOTNULL/></field>
+		<field name="basedir" type="C" size="255"><NOTNULL/></field>
+		
+		<data>
+			<row><f name="name">XHTML</f><f name="public">1</f><f name="basedir">templates/xhtml/functions.php</f></row>
+			<row><f name="name">AJAX</f><f name="public">1</f><f name="basedir">templates/ajax/functions.php</f></row>
+			<row><f name="name">RSS</f><f name="public">1</f><f name="basedir">templates/rss/functions.php</f></row>
+			<row><f name="name">Atom</f><f name="public">1</f><f name="basedir">templates/atom/functions.php</f></row>
+			<row><f name="name">WML</f><f name="public">1</f><f name="basedir">templates/wml/functions.php</f></row>
+		</data>
+	</table>
+	
+	<table name="viewtemplates">
+		<descr>Templates to use for each view/template combination</descr>
+		<field name="id" type="I2"><UNSIGNED/><KEY/><AUTOINCREMENT/></field>
+		<field name="templateref" type="I1"><UNSIGNED/><NOTNULL/></field>
+		<field name="typeref" type="I1"><UNSIGNED/><NOTNULL/></field>
+		<field name="location" type="C" size="255"><NOTNULL/></field>
+		
+		<data>
+			<row><f name="templateref">1</f><f name="typeref">1</f><f name="location">main.php</f></row>
+			<row><f name="templateref">1</f><f name="typeref">2</f><f name="location">forum.php</f></row>
+			<row><f name="templateref">1</f><f name="typeref">3</f><f name="location">forum.php</f></row>
+			<row><f name="templateref">1</f><f name="typeref">4</f><f name="location">thread.php</f></row>
+			<row><f name="templateref">2</f><f name="typeref">1</f><f name="location">main.php</f></row>
+			<row><f name="templateref">2</f><f name="typeref">2</f><f name="location">forum.php</f></row>
+			<row><f name="templateref">2</f><f name="typeref">3</f><f name="location">forum.php</f></row>
+			<row><f name="templateref">2</f><f name="typeref">4</f><f name="location">thread.php</f></row>
+			<row><f name="templateref">3</f><f name="typeref">1</f><f name="location">main.php</f></row>
+			<row><f name="templateref">3</f><f name="typeref">2</f><f name="location">forum.php</f></row>
+			<row><f name="templateref">3</f><f name="typeref">3</f><f name="location">forum.php</f></row>
+			<row><f name="templateref">3</f><f name="typeref">4</f><f name="location">thread.php</f></row>
+			<row><f name="templateref">4</f><f name="typeref">1</f><f name="location">main.php</f></row>
+			<row><f name="templateref">4</f><f name="typeref">2</f><f name="location">forum.php</f></row>
+			<row><f name="templateref">4</f><f name="typeref">3</f><f name="location">forum.php</f></row>
+			<row><f name="templateref">4</f><f name="typeref">4</f><f name="location">thread.php</f></row>
+			<row><f name="templateref">5</f><f name="typeref">1</f><f name="location">main.php</f></row>
+			<row><f name="templateref">5</f><f name="typeref">2</f><f name="location">forum.php</f></row>
+			<row><f name="templateref">5</f><f name="typeref">3</f><f name="location">forum.php</f></row>
+			<row><f name="templateref">5</f><f name="typeref">4</f><f name="location">thread.php</f></row>
+		</data>
+	</table>
+	
+	<table name="users">
+		<descr>User information</descr>
+		<field name="id" type="I"><UNSIGNED/><KEY/><AUTOINCREMENT/></field>
+		<field name="nickname" type="C" size="255"><NOTNULL/></field>
+		<field name="email" type="C" size="255"><NOTNULL/></field>
+		<field name="email_visible" type="L"><NOTNULL/><DEFAULT value="0"/></field>
+		<field name="password" type="C" size="40"><NOTNULL/></field>
+		<field name="language" type="C" size="12"></field>
+		<field name="style" type="C" size="255"></field>
+		<field name="picture" type="C" size="255"></field>
+		<field name="visual_effects" type="L"><NOTNULL/><DEFAULT value="1"/></field>
+		<field name="templateref" type="I1"><UNSIGNED/><NOTNULL/><DEFAULT value="2"/></field>
+		<field name="inputmethod" type="I"><UNSIGNED/><NOTNULL/><DEFAULT value="2"/></field>
+		
+		<data>
+			<row>
+				<f name="nickname">anonymous</f>
+				<f name="email">anonymous@localhost</f>
+				<f name="password">da39a3ee5e6b4b0d3255bfef95601890afd80709</f>
+				<f name="templateref">1</f>
+				<f name="inputmethod">1</f>
+			</row>
+		</data>
+	</table>
+	
+	<table name="groups">
+		<descr>Groups</descr>
+		<field name="id" type="I"><UNSIGNED/><KEY/><AUTOINCREMENT/></field>
+		<field name="name" type="C" size="255"><NOTNULL/></field>
+		
+		<data>
+			<row><f name="name">Operators</f></row>
+			<row><f name="name">Users</f></row>
+			<row><f name="name">Guests</f></row>
+		</data>
+	</table>
+	
+	<table name="groupmembers">
+		<descr>Group members link</descr>
+		<field name="groupid" type="I"><UNSIGNED/><KEY/></field>
+		<field name="userid" type="I"><UNSIGNED/><KEY/></field>
+		
+		<data>
+			<row><f>1</f><f>2</f></row>
+			<row><f>3</f><f>1</f></row>
+		</data>
+	</table>
+	
+	<table name="grouprights">
+		<descr>Group rights for an entry</descr>
+		<field name="entryid" type="I"><UNSIGNED/><KEY/></field>
+		<field name="groupid" type="I"><UNSIGNED/><KEY/></field>
+		<field name="may_read" type="L"><NOTNULL/><DEFAULT value="0"/></field>
+		<field name="may_post" type="L"><NOTNULL/><DEFAULT value="0"/></field>
+		<field name="may_edit" type="L"><NOTNULL/><DEFAULT value="0"/></field>
+		<field name="may_delete" type="L"><NOTNULL/><DEFAULT value="0"/></field>
+		
+		<data>
+			<row><f>1</f><f>1</f><f>1</f><f>1</f><f>1</f><f>1</f></row>
+			<row><f>1</f><f>2</f><f>1</f><f>1</f><f>0</f><f>0</f></row>
+			<row><f>1</f><f>3</f><f>1</f><f>0</f><f>0</f><f>0</f></row>
+		</data>
+	</table>
+	
+	<table name="processors">
+		<descr>### list of content processors</descr>
+		<field name="id" type="I"><UNSIGNED/><KEY/><AUTOINCREMENT/></field>
+		<field name="name" type="C" size="255"><NOTNULL/></field>
+	</table>
+	
+	<table name="styles">
+		<descr>Installed styles</descr>
+		<field name="name" type="C" size="255"><KEY/></field>
+		<field name="file" type="C" size="255"><NOTNULL/></field>
+		
+		<data>
+			<row><f>Default Fuji</f><f>style/default/css/default.css</f></row>
+			<row><f>Dark Fuji</f><f>style/dark/css/dark.css</f></row>
+			<row><f>Fuji Lite</f><f>style/lite/css/lite.css</f></row>
+			<row><f>Modern</f><f>style/modern/css/modern.css</f></row>
+			<row><f>Basic</f><f>style/basic/css/basic.css</f></row>
+		</data>
+	</table>
+	
+	<table name="languages">
+		<descr>Installed languages</descr>
+		<field name="id" type="C" size="12"><KEY/></field>
+		<field name="name" type="C" size="255"><NOTNULL/></field>
+		
+		<data>
+			<row><f>en-GB</f><f>English (Great Britain)</f></row>
+			<row><f>nl-NL</f><f>Nederlands (Nederland)</f></row>
+			<row><f>fr-FR</f><f>Français (France)</f></row>
+			<row><f>ja-JP</f><f>日本語 (日本)</f></row>
+		</data>
+	</table>
+	
+	<table name="defaults">
+		<descr>Default settings</descr>
+		<field name="name" type="C" size="255"><KEY/></field>
+		<field name="value" type="C" size="255"><NOTNULL/></field>
+	</table>
+	
+</schema>

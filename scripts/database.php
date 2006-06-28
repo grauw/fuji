@@ -1,6 +1,7 @@
 <?php
 	require_once 'adodb_lite/adodb.inc.php';
 	require_once 'configuration/database.php';
+	require_once 'database_axmls.php';
 
 	class Database extends DbVar{
 		
@@ -19,21 +20,33 @@
 
 		static function getArray($query)
 		{
-			if(!self::$db || !self::$db->IsConnected()) self::connect();
-				return self::$db->GetArray($query);
+			self::connect();
+			return self::$db->GetArray($query);
 		}
 		
 		static function execute($query)
 		{
-			/*echo $query;*/
-			if(!self::$db || !self::$db->IsConnected()) self::connect();
-				return self::$db->Execute($query);
+			self::connect();
+			return self::$db->Execute($query);
 		}
 		
 		static function insert_id()
 		{
-			if(!self::$db || !self::$db->IsConnected()) self::connect();
-				return self::$db->Insert_ID();
+			self::connect();
+			return self::$db->Insert_ID();
 		}
+		
+		/**
+		 * Create tables using ADODB Schema (axmls)
+		 * Do it manually, because axmls is way buggy :(
+		 *
+		 * @param {String} $filename the file to parse
+		 */
+		static function LoadAndExecuteSchema($filename) {
+			self::connect();
+			$axmls = new DatabaseAXMLS(Database::$db, $filename);
+			$axmls->ExecuteSchema();
+		}
+		
 	}
 ?>
