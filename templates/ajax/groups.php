@@ -7,7 +7,7 @@
 		<div class="box">
 			<h2 class="windowTitle"><?php echo L10n::$groups; ?></h2>
 			<ul id="groupActions" class="windowActions menu">
-				<li><a href="javascript:Fuji.newGroup()"><?php echo L10n::$new_group ?></a></li>
+				<li><a href="javascript:Fuji.Dialogs.newDialog('newGroupDialog')"><?php echo L10n::$new_group ?></a></li>
 			</ul>
 			<div id="threadsTableDiv" class="content">
 				<table id="threadsTable">

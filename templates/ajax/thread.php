@@ -14,9 +14,9 @@ while($contextEntry->type == 4) $contextEntry = $contextEntry->getParent();
 		<h2 class="windowTitle"><?php echo L10n::$posts ?> – <?php echo htmlentities($entry->title, ENT_NOQUOTES) ?></h2>
 		<ul id="postsActions" class="windowActions menu">
 			<?php if (UserManager::getUser()->getRights($entry)->may_post) { ?>
-				<li id="actionReplyPost"><a href="javascript:Fuji.newCreateDialog('<?php echo $entry->getURI() ?>', '4')"><?php echo L10n::$reply ?></a></li>
+				<li id="actionReplyPost"><a href="javascript:Fuji.Dialogs.newCreateDialog('<?php echo $entry->getURI() ?>', '4')"><?php echo L10n::$reply ?></a></li>
 			<?php } if (UserManager::getUser()->getRights($entry)->may_delete) { ?>
-				<li id="actionDeletePost"><a href="javascript:Fuji.newDeleteDialog('<?php echo $entry->getURI() ?>', '<?php echo $entry->getParentURI() ?>')"><?php echo L10n::$delete ?></a></li>
+				<li id="actionDeletePost"><a href="javascript:Fuji.Dialogs.newDeleteDialog('<?php echo $entry->getURI() ?>', '<?php echo $entry->getParentURI() ?>')"><?php echo L10n::$delete ?></a></li>
 			<?php } ?>
 			<li><a href="rss/<?php echo $entry->getURI() ?>" rel="alternate" type="application/rss+xml" class="feed">RSS</a></li>
 			<li><a href="atom/<?php echo $entry->getURI() ?>" rel="alternate" type="application/atom+xml" class="feed">Atom</a></li>
@@ -31,7 +31,7 @@ while($contextEntry->type == 4) $contextEntry = $contextEntry->getParent();
 				<?php if (UserManager::getUser()->getRights($entry)->may_edit) { ?>
 				<ul class="windowActions menu">
 					<?php if (UserManager::getUser()->getRights($entry)->may_edit) { ?>
-						<li id="actionEditPost"><a href="javascript:Fuji.newEditDialog('<?php echo $entry->getURI() ?>')"><?php echo L10n::$edit ?></a></li>
+						<li id="actionEditPost"><a href="javascript:Fuji.Dialogs.newEditDialog('<?php echo $entry->getURI() ?>')"><?php echo L10n::$edit ?></a></li>
 					<?php } ?>
 				</ul>
 				<?php } ?>
@@ -51,9 +51,9 @@ while($contextEntry->type == 4) $contextEntry = $contextEntry->getParent();
 					<?php if (UserManager::getUser()->getRights($post)->may_edit || UserManager::getUser()->getRights($post)->may_delete) { ?>
 					<ul class="windowActions menu">
 						<?php if (UserManager::getUser()->getRights($post)->may_edit) { ?>
-							<li><a href="javascript:Fuji.newEditDialog('<?php echo $post->getURI() ?>')"><?php echo L10n::$edit ?></a></li>
+							<li><a href="javascript:Fuji.Dialogs.newEditDialog('<?php echo $post->getURI() ?>')"><?php echo L10n::$edit ?></a></li>
 						<?php } if (UserManager::getUser()->getRights($post)->may_delete) { ?>
-							<li><a href="javascript:Fuji.newDeleteDialog('<?php echo $post->getURI() ?>', '<?php echo $post->getParentURI() ?>')"><?php echo L10n::$delete ?></a></li>
+							<li><a href="javascript:Fuji.Dialogs.newDeleteDialog('<?php echo $post->getURI() ?>', '<?php echo $post->getParentURI() ?>')"><?php echo L10n::$delete ?></a></li>
 						<?php } ?>
 					</ul>
 					<?php } ?>

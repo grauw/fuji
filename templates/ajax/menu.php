@@ -17,9 +17,9 @@
 			<?php } else { ?>
 				<li><a href="#profile"><?php echo L10n::$profile ?></a></li>
 				<?php if (UserManager::isAdmin()) { ?>
-					<li><a href="javascript:Fuji.newServerSettingsDialog()"><?php echo L10n::$server_settings ?></a></li>
+					<li><a href="javascript:Fuji.Dialogs.newDialog('serverSettingsDialog')"><?php echo L10n::$server_settings ?></a></li>
 				<?php } ?>
-				<li><a href="javascript:Fuji.newPreferencesDialog()"><?php echo L10n::$preferences ?></a></li>
+				<li><a href="javascript:Fuji.Dialogs.newDialog('prefDialog')"><?php echo L10n::$preferences ?></a></li>
 				<li><a href="#users"><?php echo L10n::$users ?></a></li>
 				<?php if (UserManager::isAdmin()) { ?>
 					<li><a href="#groups"><?php echo L10n::$groups ?></a></li>

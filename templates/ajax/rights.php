@@ -4,7 +4,7 @@
 	xml:lang="<?php echo L10n::$language ?>"
 	loadcontext="configRightsDialog">
 	<fuji:loadhandler>
-		Fuji.setConfigRightsDialog();
+		Fuji.Dialogs.newDialog('configRightsDialog');
 	</fuji:loadhandler>
 	<fuji:content>
 		<div id="configRightsTitle" class="hd"><?php echo L10n::$config_rights ?></div>

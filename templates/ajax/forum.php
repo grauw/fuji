@@ -10,11 +10,11 @@
 		<h2 class="windowTitle"><?php echo L10n::$threads ?> – <?php echo htmlentities($entry->title, ENT_NOQUOTES) ?></h2>
 		<ul id="threadsActions" class="windowActions menu">
 			<?php if (UserManager::getUser()->getRights($entry)->may_post) { ?>
-				<li id="actionNewThread"><a href="javascript:Fuji.newCreateDialog('<?php echo $entry->getURI() ?>', <?php echo $entry->type + 1 ?>)"><?php echo L10n::$new ?></a></li>
+				<li id="actionNewThread"><a href="javascript:Fuji.Dialogs.newCreateDialog('<?php echo $entry->getURI() ?>', <?php echo $entry->type + 1 ?>)"><?php echo L10n::$new ?></a></li>
 			<?php } if (UserManager::getUser()->getRights($entry)->may_edit) { ?>
-				<li id="actionEditThread"><a href="javascript:Fuji.newEditDialog('<?php echo $entry->getURI() ?>')"><?php echo L10n::$edit ?></a></li>
+				<li id="actionEditThread"><a href="javascript:Fuji.Dialogs.newEditDialog('<?php echo $entry->getURI() ?>')"><?php echo L10n::$edit ?></a></li>
 			<?php } if (UserManager::getUser()->getRights($entry)->may_delete) { ?>
-				<li id="actionDeleteThread"><a href="javascript:Fuji.newDeleteDialog('<?php echo $entry->getURI() ?>', '<?php echo $entry->getParentURI() ?>')"><?php echo L10n::$delete ?></a></li>
+				<li id="actionDeleteThread"><a href="javascript:Fuji.Dialogs.newDeleteDialog('<?php echo $entry->getURI() ?>', '<?php echo $entry->getParentURI() ?>')"><?php echo L10n::$delete ?></a></li>
 			<?php } if (UserManager::isAdmin()) { ?>
 				<li id="actionConfigRights"><a href="javascript:Fuji.loadItem('<?php echo $entry->getURI() ?>/rights')"><?php echo L10n::$config_rights ?></a></li>
 			<?php } ?>
