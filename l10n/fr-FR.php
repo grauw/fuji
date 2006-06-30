@@ -69,7 +69,7 @@ class L10n {
 	static $password = 'Mot de passe';
 	static $passwords_do_not_match = 'Le mots de passe ne corresponds pas';
 	static $possible_reasons = 'Raisons possibles:';
-	static $please_wait = 'Attendez un moment, s’il-vous plaît...';
+	static $please_wait = 'Attendez un moment, s’il-vous plaît…';
 	static $post = 'Poster';
 	static $posted_by = 'Posté par';
 	static $poster = 'Posters';

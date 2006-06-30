@@ -68,7 +68,7 @@ class L10n {
 	static $page = 'Pagina';
 	static $password = 'Wachtwoord';
 	static $passwords_do_not_match = 'Wachtwoorden komen niet overeen';
-	static $please_wait = 'Een ogenblik geduld alstublieft...';
+	static $please_wait = 'Een ogenblik geduld alstublieft…';
 	static $possible_reasons = 'Mogelijke oorzaken:';
 	static $post = 'Schrijven';
 	static $posted_by = 'Geschreven door';	

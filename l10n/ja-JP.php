@@ -69,7 +69,7 @@ class L10n {
 	static $password = 'パスワード';
 	static $passwords_do_not_match = '入力したパスワードは一致しませんでした';
 	static $possible_reasons = 'Possible reasons:';
-	static $please_wait = 'Please wait a moment...';
+	static $please_wait = 'Please wait a moment…';
 	static $post = 'Post';
 	static $posted_by = 'Posted by';
 	static $poster = '投稿者';
