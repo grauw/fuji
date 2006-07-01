@@ -49,7 +49,7 @@ Fuji.Dialogs = {
 	 * @param {String} sURI The uri of the group to be deleted
 	 */	
 	newDeleteGroupDialog : function(sURI) {
-		Fuji.Dialogs.Settings.deleteDialog.sURI = sURI;
+		Fuji.Dialogs.Settings.deleteDialog.uri = sURI;
 		Fuji.Dialogs.newSimpleDialog('deleteGroupDialog');
 	},
 	
@@ -91,7 +91,8 @@ Fuji.Dialogs = {
 			failure: Fuji.newErrorDialog,
 			argument: []
 		}
-		document.getElementById('editEntryid').value = sURI;
+		document.getElementById('editF').action = sURI;
+		Fuji.Dialogs.Settings.editDialog.uri = sURI;
 		YAHOO.util.Connect.asyncRequest('GET', sURI + '/source', callback, null); 		
 		document.getElementById('editDialog').style.display = 'block';		
 		Fuji.Dialogs.newDialog('editDialog');
@@ -104,7 +105,8 @@ Fuji.Dialogs = {
 	 */
 	newCreateDialog : function(sURI, iType) {
 		document.getElementById('createType').value = iType; 
-		document.getElementById('createRef').value = sURI;
+		document.getElementById('createF').action = sURI;
+		Fuji.Dialogs.Settings.createDialog.uri = sURI;
 		Fuji.Dialogs.newDialog('createDialog');
 	},
 	
@@ -114,8 +116,8 @@ Fuji.Dialogs = {
 	 * @param {String} sParentURI The uri of the item's parent
 	 */
 	newDeleteDialog : function(sURI, sParentURI) {
-		Fuji.Dialogs.Settings.deleteDialog.sURI = sURI;
-		Fuji.Dialogs.Settings.deleteDialog.sParentURI = sParentURI;
+		Fuji.Dialogs.Settings.deleteDialog.uri = sURI;
+		Fuji.Dialogs.Settings.deleteDialog.parentURI = sParentURI;
 		Fuji.Dialogs.newSimpleDialog('deleteDialog');
 	}
 }
@@ -169,31 +171,33 @@ Fuji.Dialogs.Settings.configRightsDialog = {
 	handleCancel : function() { this.cancel(); document.getElementById('configRightsF').reset(); this.hide(); },
 }
 Fuji.Dialogs.Settings.createDialog = {
-	onSuccess : function() { /* reload the thread or forum */ },
+	uri : null,	
+	onSuccess : function() { Fuji.reloadItem(Fuji.Dialogs.Settings.createDialog.uri, 999) },
 	handleSubmit : function() { this.submit(); document.getElementById('createF').reset(); this.hide(); },
-	handleCancel : function() { this.cancel(); document.getElementById('createF').reset(); this.hide(); },
+	handleCancel : function() { this.cancel(); document.getElementById('createF').reset(); this.hide(); }
 }
 Fuji.Dialogs.Settings.editDialog = {
-	onSuccess : function() { /* reload the thread or forum */ },
+	uri : null,
+	onSuccess : function() { Fuji.reloadItem(Fuji.Dialogs.Settings.editDialog.uri, 999) },
 	handleSubmit : function() { this.submit(); document.getElementById('editF').reset(); this.hide(); },
 	handleCancel : function() { this.cancel(); document.getElementById('editF').reset(); this.hide(); },
 }
 Fuji.Dialogs.Settings.deleteDialog = {
-	handleSubmit : function() { Fuji.httpDeleteAndReload(Fuji.Dialogs.Settings.deleteDialog.sURI, Fuji.Dialogs.Settings.deleteDialog.sParentURI); this.hide(); },
+	uri : null,
+	parentURI : null,	
+	handleSubmit : function() { Fuji.httpDeleteAndReload(Fuji.Dialogs.Settings.deleteDialog.uri, Fuji.Dialogs.Settings.deleteDialog.parentURI); this.hide(); },
 	handleCancel : function() { this.hide(); },
 	header : Fuji.Messages.warning,
 	body : Fuji.Messages.sure_delete_item,
-	icon : YAHOO.widget.SimpleDialog.ICON_WARN,
-	sURI : null,
-	sParentURI : null
+	icon : YAHOO.widget.SimpleDialog.ICON_WARN
 }
 Fuji.Dialogs.Settings.deleteGroupDialog = {
-	handleSubmit : function() { Fuji.httpDeleteAndReload(Fuji.Dialogs.Settings.deleteDialog.sURI, Fuji.Dialogs.Settings.deleteDialog.sParentURI); this.hide(); },
+	uri : null,
+	handleSubmit : function() { Fuji.httpDeleteAndReload(Fuji.Dialogs.Settings.deleteDialog.uri, Fuji.Dialogs.Settings.deleteDialog.parentURI); this.hide(); },
 	handleCancel : function() { this.hide(); },
 	header : Fuji.Messages.warning,
 	body : Fuji.Messages.sure_delete_group,
-	icon : YAHOO.widget.SimpleDialog.ICON_WARN,
-	sURI : null,
+	icon : YAHOO.widget.SimpleDialog.ICON_WARN
 }
 Fuji.Dialogs.Settings.errorDialog401 = {
 	handleSubmit : function() { this.hide(); },

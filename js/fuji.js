@@ -142,7 +142,7 @@ Fuji = {
 	httpDeleteAndReload : function(sURI, sParentURI) {
 		var callback =
 		{
-			success: function(o) {Fuji.reloadItem(sParentURI); location.hash='#'+sParentURI},
+			success: function(o) {Fuji.reloadItem(sParentURI, 999); location.hash='#'+sParentURI},
 			failure: Fuji.newErrorDialog,
 			argument: []
 		}
