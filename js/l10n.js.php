@@ -5,7 +5,7 @@
 	L10nManager::loadL10n();
 	header('Content-Type: application/javascript; charset=utf-8');
 ?>
-Fuji.messages = { 	warning							: "<?php echo L10n::$warning ?>",
+Fuji.Messages = { 	warning							: "<?php echo L10n::$warning ?>",
 					error							: "<?php echo L10n::$error ?>",
 					sure_delete_group				: "<?php echo L10n::$sure_delete_group ?>",
 					sure_delete_item				: "<?php echo L10n::$sure_delete_item ?>",

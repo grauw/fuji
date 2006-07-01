@@ -26,6 +26,7 @@
 	<script type="text/javascript" src="js/yui/dragdrop/dragdrop-min.js"></script>
 	<script type="text/javascript" src="js/fuji.js"></script>
 	<script type="text/javascript" src="js/l10n.js.php"></script>
+	<script type="text/javascript" src="js/dialogs.js"></script>
 	<script type="text/javascript">
 		Fuji.settings = { visual_effects : <?php echo UserManager::getUser()->visual_effects == '1' ? 'true' : 'false' ?> }
 	</script>

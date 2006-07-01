@@ -31,8 +31,8 @@
 							<td><a href="#<?php echo $group->getURI() ?>/users"><?php echo htmlentities($group->name, ENT_NOQUOTES) ?></a></td>
 							<td><?php echo $grouprights->toString() ?></td>
 							<td><?php echo $group->getNumMembers() ?></td>
-							<td><a href="javascript:Fuji.editGroup('<?php echo $group->getURI() ?>',<?php echo $grouprights->may_read ?>,<?php echo $grouprights->may_post ?>,<?php echo $grouprights->may_edit ?>,<?php echo $grouprights->may_delete ?>)"><?php echo L10n::$edit ?></a>,
-								<a href="javascript:Fuji.newDeleteGroupDialog('<?php echo $group->getURI() ?>')"><?php echo L10n::$delete ?></a></td>
+							<td><a href="javascript:Fuji.Dialogs.editGroup('<?php echo $group->getURI() ?>',<?php echo $grouprights->may_read ?>,<?php echo $grouprights->may_post ?>,<?php echo $grouprights->may_edit ?>,<?php echo $grouprights->may_delete ?>)"><?php echo L10n::$edit ?></a>,
+								<a href="javascript:Fuji.Dialogs.newDeleteGroupDialog('<?php echo $group->getURI() ?>')"><?php echo L10n::$delete ?></a></td>
 						</tr>
 						<?php } ?>
 					<?php } else echo L10n::$error_no_groups ?>

@@ -1,10 +1,5 @@
 Fuji = {
 	NS : 'http://fuji.sourceforge.net/ns',
-	//TODO: these (simple)dialogs still need to be their creating function to be merged, somewhere under Fuji.Dialogs
-	deleteDialog : null,			//pointer to the delete dialog
-	deleteGroupDialog : null,		//pointer to the delete group dialog
-	errorDialog : null,				//pointer to the error dialog	
-	loadingDialog : null,			//pointer to the loading dialog	
 	
 	/**
 	 * Loads the item with the specified URI using XMLHttpRequest
@@ -26,7 +21,7 @@ Fuji = {
 	 * @param {Int} depth Number of parents to reload recursively (optional, default: 0 = none)
 	 */	
 	reloadItem : function(uri, depth) {
-		Fuji.Dialogs.newLoadingDialog();
+		Fuji.Dialogs.newSimpleDialog('loadingDialog');
 		if (depth == undefined) depth = 0;
 		for (var i=0; i<=depth; i++) {
 			Fuji.reloadItemWithChild(uri);
@@ -45,7 +40,7 @@ Fuji = {
 	 * @param {XMLDocument} sURI the URI of the document to process additionally (optional)
 	 */		
 	reloadItemWithChild : function(uri, oDocument, sURI) {
-		Fuji.Dialogs.newLoadingDialog();
+		Fuji.Dialogs.newSimpleDialog('loadingDialog');
 		var callback =
 		{
 			success: Fuji.loadSuccess,
@@ -57,7 +52,7 @@ Fuji = {
 	},
 	
 	loadFailure : function(oXMLHttpObject) {
-		Fuji.loadingDialog.hide();
+		Fuji.Dialogs.Instances.loadingDialog.hide();
 		Fuji.Dialogs.newErrorDialog(oXMLHttpObject);
 	},
 	
@@ -77,7 +72,7 @@ Fuji = {
 		if (oXMLHttpObject.argument.oDocument) {
 			Fuji.loadDocument(oXMLHttpObject.argument.oDocument, oXMLHttpObject.argument.sURI);
 		}
-		Fuji.loadingDialog.hide();
+		Fuji.Dialogs.Instances.loadingDialog.hide();
 	},
 	
 	/**
@@ -408,254 +403,4 @@ Fuji.Tree = {
 		}
 		YAHOO.util.Event.stopPropagation(e);
 	}
-}
-Fuji.Dialogs = {
-	newDialog : function(sName) {
-		if(!Fuji.Dialogs.Instances[sName])
-		{
-			var effect;
-			if(Fuji.settings.visual_effects) effect = {effect:YAHOO.widget.ContainerEffect.FADE, duration:0.25};
-			else effect = null;
-			Fuji.Dialogs.Instances[sName] = new YAHOO.widget.Dialog(sName, { visible: false, fixedCenter: true, effect: effect,  width: '325px' });
-			Fuji.Dialogs.Instances[sName].cfg.queueProperty("buttons", [ { text:Fuji.messages.ok, handler:Fuji.Dialogs.Settings[sName].handleSubmit, isDefault:true },
-												   { text:Fuji.messages.cancel, handler:Fuji.Dialogs.Settings[sName].handleCancel} ]);
-			Fuji.Dialogs.Instances[sName].cfg.queueProperty("onsuccess", Fuji.Dialogs.Settings[sName].onSuccess);
-			Fuji.Dialogs.Instances[sName].render();
-		}
-		document.getElementById(sName).style.display = 'block';
-		Fuji.Dialogs.Instances[sName].show();		
-	},
-	
-	/**
-	 * Creates a new delete group dialog (if it doesn't exist), and shows the dialog
-	 * @param {String} sURI The uri of the group to be deleted
-	 */	
-	newDeleteGroupDialog : function(sURI) {
-		var effect;
-		if(Fuji.settings.visual_effects) effect = {effect:YAHOO.widget.ContainerEffect.FADE, duration:0.25};
-		else effect = null;
-		Fuji.deleteGroupDialog = new YAHOO.widget.SimpleDialog("dlg", { 
-			width: "20em", 
-			effect:effect, 
-			fixedcenter:true,
-			modal:true,
-			draggable:false });
-
-		Fuji.deleteGroupDialog.setHeader(Fuji.messages.warning);
-		Fuji.deleteGroupDialog.setBody(Fuji.messages.sure_delete_group);
-		Fuji.deleteGroupDialog.cfg.setProperty("icon", YAHOO.widget.SimpleDialog.ICON_WARN);
-		var handleOK = function() {
-			Fuji.httpDeleteAndReload(sURI, 'groups');
-			this.hide();
-		}
-			var handleCancel = function() {
-			this.hide();
-		}
-		Fuji.deleteGroupDialog.cfg.queueProperty("buttons", [ { text:Fuji.messages.ok, handler:handleOK }, { text:Fuji.messages.cancel, handler:handleCancel } ]);
-		Fuji.deleteGroupDialog.render(document.body);
-	},
-	
-	/**
-	 * Creates an error message dialog
-	 * @param oResponse The XMLHTTPRequest response-object
-	 */
-	newErrorDialog : function(oResponse) {
-		if(!Fuji.errorDialog)
-		{
-			var effect;
-			if(Fuji.settings.visual_effects) effect = {effect:YAHOO.widget.ContainerEffect.FADE, duration:0.25};
-			else effect = null;			
-			Fuji.errorDialog = new YAHOO.widget.SimpleDialog("dlg", { 
-				width: "400px", 
-				effect:effect, 
-				fixedcenter:true,
-				modal:true,
-				draggable:false });
-	
-			Fuji.errorDialog.setHeader(Fuji.messages.error);
-			
-			var sErrorMessage = '<p>' + Fuji.messages.error_loading_resource + ' ' + oResponse.argument.uri + '.</p>';
-			if(oResponse.status == '401')
-			{
-				sErrorMessage += '<p>' + Fuji.messages.error_insufficient_rights + '</p>';
-				sErrorMessage += '<p>' + Fuji.messages.possible_reasons;
-				sErrorMessage += '<ul><li>' + Fuji.messages.error_restricted_forum + '</li>';
-				sErrorMessage += '<li>' + Fuji.messages.error_rights_revoked + '</li>';
-				sErrorMessage += '<li>' + Fuji.messages.error_anonymous + '</li>';
-				sErrorMessage += '<li>' + Fuji.messages.error_server_misconfiguration + '</li></ul></p>';
-			}
-			else if(oResponse.status == '404')
-			{
-				sErrorMessage += '<p>' + Fuji.messages.error_resource_cannot_be_found + '</p>';
-				sErrorMessage += '<p>' + Fuji.messages.possible_reasons;
-				sErrorMessage += '<ul><li>' + Fuji.messages.error_deleted_resource + '</li>';
-				sErrorMessage += '<li>' + Fuji.messages.error_invalid_url + '</li>';
-				sErrorMessage += '<li>' + Fuji.messages.error_server_misconfiguration + '</li></ul></p>';
-			}
-			else
-			{
-				sErrorMessage += '<p>' + Fuji.messages.error_unknown + ' ' + oResponse.status + ' ' + oResponse.statusText + '.</p>';
-				sErrorMessage += '<p>' + Fuji.messages.possible_reasons;
-				sErrorMessage += '<ul><li>' + Fuji.messages.error_server_misconfiguration + '</li>';
-				sErrorMessage += '<li>' + Fuji.messages.error_bug + '</li></ul></p>';
-				sErrorMessage += '<p>' + Fuji.messages.contact_administrator + '</p>'
-			}
-			Fuji.errorDialog.setBody(sErrorMessage);
-			Fuji.errorDialog.cfg.setProperty("icon", YAHOO.widget.SimpleDialog.ICON_BLOCK);		
-			
-			var handleOK = function() {
-				this.hide();
-				Fuji.errorDialog = null;
-			}
-			
-			Fuji.errorDialog.cfg.queueProperty("buttons", [ { text:Fuji.messages.ok, handler:handleOK } ]);
-			Fuji.errorDialog.render(document.body);
-		}
-	},
-		
-	/**
-	 * Creates a new loading dialog (if it doesn't exist), and shows the dialog
-	 */	
-	newLoadingDialog : function() {
-		var effect;
-		if(Fuji.settings.visual_effects) effect = {effect:YAHOO.widget.ContainerEffect.FADE, duration:0.25};
-		else effect = null;		
-		if(!Fuji.loadingDialog)
-		{
-			Fuji.loadingDialog = new YAHOO.widget.SimpleDialog("dlg", { 
-				visible:false,
-				width:"20em",
-				effect:effect,
-				fixedcenter:true,
-				modal:true,
-				close:false,
-				draggable:false });
-	
-			Fuji.loadingDialog.setHeader(Fuji.messages.loading);
-			Fuji.loadingDialog.setBody(Fuji.messages.please_wait);
-			Fuji.loadingDialog.cfg.setProperty("icon", YAHOO.widget.SimpleDialog.ICON_INFO);		
-			
-			Fuji.loadingDialog.render(document.body);
-		}
-		Fuji.loadingDialog.show();
-	},
-	
-	/**
-	 * Creates a new edit item dialog (if it doesn't exist), and shows the dialog
-	 * @param {String} sURI The uri of the item to be edit
-	 */		
-	newEditDialog : function(sURI) {
-		var callback =
-		{
-			success: Fuji.updateEditDialog,
-			failure: Fuji.newErrorDialog,
-			argument: []
-		}
-		document.getElementById('editF').action = sURI;
-		YAHOO.util.Connect.asyncRequest('GET', sURI + '/source', callback, null); 		
-		document.getElementById('editDialog').style.display = 'block';		
-		Fuji.Dialogs.newDialog('editDialog');
-	},
-	
-	/**
-	 * Creates a new create item dialog (if it doesn't exist), and shows the dialog
-	 * @param {String} sURI The uri of the item to add a new item to
-	 * @param {Int} iType The type of the new item
-	 */
-	newCreateDialog : function(sURI, iType) {
-		document.getElementById('createType').value = iType; 
-		document.getElementById('createF').action = sURI;
-		Fuji.Dialogs.newDialog('createDialog');
-	},
-	
-	/**
-	 * Creates a new delete item dialog (if it doesn't exist), and shows the dialog
-	 * @param {String} sURI The uri of the item to be deleted
-	 * @param {String} sParentURI The uri of the item's parent
-	 */
-	newDeleteDialog : function(sURI, sParentURI) {
-		var effect;
-		if(Fuji.settings.visual_effects) effect = {effect:YAHOO.widget.ContainerEffect.FADE, duration:0.25};
-		else effect = null;
-		Fuji.deleteDialog = new YAHOO.widget.SimpleDialog("dlg", { 
-			width: "20em", 
-			effect:effect, 
-			fixedcenter:true,
-			modal:true,
-			draggable:false });
-
-		Fuji.deleteDialog.setHeader(Fuji.messages.warning);
-		Fuji.deleteDialog.setBody(Fuji.messages.sure_delete_item);
-		Fuji.deleteDialog.cfg.setProperty("icon", YAHOO.widget.SimpleDialog.ICON_WARN);		
-		
-		var handleOK = function() {
-			Fuji.httpDeleteAndReload(sURI, sParentURI);
-			this.hide();
-		}
-		var handleCancel = function() {
-			this.hide();
-		}
-		
-		Fuji.deleteDialog.cfg.queueProperty("buttons", [ { text:Fuji.messages.ok, handler:handleOK }, { text:Fuji.messages.cancel, handler:handleCancel } ]);
-		Fuji.deleteDialog.render(document.body);
-	}
-}
-Fuji.Dialogs.Instances = { /* All dialog instance objects created using newDialog are stored in here */ }
-Fuji.Dialogs.Settings = { }
-Fuji.Dialogs.Settings.serverSettingsDialog = {
-	onSuccess : function() { location.reload(); },
-	handleSubmit : function() { this.submit(); this.hide(); },
-	handleCancel : function() { this.cancel(); this.hide(); }
-}
-Fuji.Dialogs.Settings.prefDialog = {
-	onSuccess : function() { location.reload(); },
-	handleSubmit : function() {
-		var oPrefPass1 = document.getElementById('prefPass1');
-		var oPrefPass2 = document.getElementById('prefPass2');
-		var oPrefEmail = document.getElementById('prefEmail');
-		var oPrefPhoto = document.getElementById('prefPhoto');			
-		if(oPrefPass1.value != oPrefPass2.value)
-			alert(Fuji.messages.passwords_do_not_match);
-		else
-		{
-			if(oPrefEmail.value == '')
-				alert(Fuji.messages.email_empty);
-			else
-			{
-				if(oPrefPhoto.value && oPrefPhoto.value.indexOf('http://') != 0)
-					alert(Fuji.messages.invalid_url);
-				else
-				{
-					this.submit();
-					this.hide();
-				}
-			}
-		}
-	},
-	handleCancel : function() { this.cancel(); this.hide(); }
-}
-Fuji.Dialogs.Settings.newGroupDialog = {
-	onSuccess : function() { Fuji.reloadItem("groups/"); },
-	handleSubmit : function() { this.submit(); this.reset(); this.hide(); },
-	handleCancel : function() { this.cancel(); this.reset(); this.hide(); },
-}
-Fuji.Dialogs.Settings.editGroupDialog = {
-	onSuccess : function() { Fuji.reloadItem("groups/"); },
-	handleSubmit : function() { this.submit(); this.reset(); this.hide(); },
-	handleCancel : function() { this.cancel(); this.reset(); this.hide(); },
-}
-Fuji.Dialogs.Settings.configRightsDialog = {
-	onSuccess : function() { },
-	handleSubmit : function() { this.submit(); this.reset(); this.hide(); },
-	handleCancel : function() { this.cancel(); this.reset(); this.hide(); },
-}
-Fuji.Dialogs.Settings.createDialog = {
-	onSuccess : function() { /* reload the thread or forum */ },
-	handleSubmit : function() { this.submit(); this.reset(); this.hide(); },
-	handleCancel : function() { this.cancel(); this.reset(); this.hide(); },
-}
-Fuji.Dialogs.Settings.editDialog = {
-	onSuccess : function() { /* reload the thread or forum */ },
-	handleSubmit : function() { this.submit(); this.reset(); this.hide(); },
-	handleCancel : function() { this.cancel(); this.reset(); this.hide(); },
 }
