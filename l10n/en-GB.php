@@ -33,6 +33,7 @@ class L10n {
 	static $error_resource_cannot_be_found = 'The resource cannot be found.';
 	static $error_restricted_forum = 'You are trying to access a restricted forum or thread.';
 	static $error_rights_revoked = 'Your rights have been revoked (banned).';
+	static $error_search_no_results = 'Your search did not return any results.';
 	static $error_server_misconfiguration = 'A server misconfiguration.';
 	static $error_unknown = 'Unknown error.';
 	static $fora = 'Fora';
@@ -84,6 +85,7 @@ class L10n {
 	static $replies = 'Replies';
 	static $reply = 'Reply';
 	static $rights = 'Rights';
+	static $score = 'Score';
 	static $search = 'Search';
 	static $server_settings = 'Server settings';	
 	static $statistics = 'Statistics';

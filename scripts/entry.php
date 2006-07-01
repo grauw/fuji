@@ -31,6 +31,16 @@ class Entry extends Dataclass {
 			return new Entry($entrydata);
 	}
 	
+	static function search($query, $field, $orderby = null, $limit = null) {
+		$entries = array();
+		$entriesdata = Database::getArray("SELECT *, MATCH($field) AGAINST ('$query' IN BOOLEAN MODE) AS score FROM " . DbVar::$db_tprefix . "entries WHERE MATCH($field) AGAINST ('$query' IN BOOLEAN MODE) AND type > '3'" . (isset($orderby) ? " ORDER BY $orderby" : "") . (isset($limit) ? " LIMIT $limit" : ""));		
+		foreach($entriesdata as $entrydata)
+		{
+			array_push($entries, new Entry($entrydata));
+		}
+		return $entries;		
+	}
+	
 	/**
 	 * Get entries by type
 	 * @param String orderby The column to order the entries by

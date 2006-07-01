@@ -61,6 +61,13 @@ class AJAX_Template extends Template {
 		include_once '../templates/ajax/rights.php';
 	}
 	
+	function applySearch($entries, $page) {
+		L10nManager::loadL10n();
+		$template = $this;
+		$this->startGZIP();
+		include_once '../templates/ajax/search.php';
+	}
+	
 	public function getPrefix()
 	{
 		if ($this->acceptsFujiXHTML()) {
