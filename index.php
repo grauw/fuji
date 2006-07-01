@@ -1,7 +1,9 @@
 <?php
+require_once("scripts/xhtml.php");
+if(file_exists("scripts/configuration/installer_disabled"))
+{	
 	require_once("scripts/l10nmanager.php");
-	require_once("scripts/usermanager.php");
-	require_once("scripts/xhtml.php");
+	require_once("scripts/usermanager.php");	
 	UserManager::authenticate();
 	L10nManager::loadL10n();
 	header('Content-Language: '.L10n::$language);
@@ -209,3 +211,15 @@
 	</div>	
 </body>
 </html>
+<?php } else { ?>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en:GB" xml:lang="en:GB">
+<head>
+	<title>Fuji</title>
+	<?php echo XHTML::headContent(); ?>
+</head>
+<body>
+	<p>Your Fuji Forum has to be configured before you can start using it.</p>
+	<p>Please run the <a href="install">installer</a> first.</p>
+</body>
+</html>
+<?php } ?>

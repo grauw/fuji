@@ -2,6 +2,7 @@
 	require_once "install1.php";
 	require_once "install2.php";
 	require_once "install3.php";
+	require_once "finish.php";
 	if(isset($_POST['phase']))
 		$current_phase = $_POST['phase'];
 	else
@@ -10,7 +11,7 @@
 					 	array("Database setup", new Install1()), 
 						array("Administrative account", new Install2()),
 						array("Server Configuration", new Install3()),
-						array("Finish", "<p>You have successfully completed the installer, and Fuji is ready to use!</p>")
+						array("Finish", new Finish())
 					);
 
 	header('Content-Type: application/xhtml+xml; charset=utf-8');
@@ -25,7 +26,7 @@
 		<link rel="stylesheet" href="style/default/css/wizard.css" type="text/css" />
 	</head>
 	<body>
-<?php if($_SERVER['REMOTE_ADDR'] == '127.0.0.1') { ?>	
+<?php if(!file_exists("../configuration/installer_disabled")) { ?>	
 		<div id="mainWindow" class="window">
 		<form action="install" method="post">
 		  <div class="windowTitle">Fuji Installer</div>
@@ -56,6 +57,9 @@
 		  </div>
 		  </form>
 		</div>
-<?php } else echo 'The Fuji Installer must be run from localhost.'?>		
+<?php } else { ?>
+		<p>The Fuji Installer has been disabled, probably because your forum has been configured already.</p>		
+		<p>If you want to configure your forum again, please delete the file scripts/configuration/installer_disabled in your Fuji Forum directory.</p>
+<?php } ?>
 	</body>
 </html>
