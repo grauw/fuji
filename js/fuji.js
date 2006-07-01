@@ -52,7 +52,7 @@ Fuji = {
 			failure: Fuji.loadFailure,
 			argument: { uri: uri, oDocument: oDocument, sURI: sURI }
 		}
-		YAHOO.util.Connect.initHeader('Accept', 'application/xhtml+xml');
+		YAHOO.util.Connect.initHeader('Accept', 'application/x-fuji+xhtml+xml');
 		YAHOO.util.Connect.asyncRequest('GET', uri, callback, null);
 	},
 	
@@ -551,7 +551,7 @@ Fuji.Dialogs = {
 			failure: Fuji.newErrorDialog,
 			argument: []
 		}
-		document.getElementById('editEntryid').value = sURI;
+		document.getElementById('editF').action = sURI;
 		YAHOO.util.Connect.asyncRequest('GET', sURI + '/source', callback, null); 		
 		document.getElementById('editDialog').style.display = 'block';		
 		Fuji.Dialogs.newDialog('editDialog');
@@ -564,7 +564,7 @@ Fuji.Dialogs = {
 	 */
 	newCreateDialog : function(sURI, iType) {
 		document.getElementById('createType').value = iType; 
-		document.getElementById('createRef').value = sURI;
+		document.getElementById('createF').action = sURI;
 		Fuji.Dialogs.newDialog('createDialog');
 	},
 	

@@ -212,6 +212,22 @@ class Entry extends Dataclass {
 	}
 	
 	/**
+	 * Gets the absolute URI of this entry
+	 */
+	function getAbsoluteURI() {
+		return 'http://'.$_SERVER['HTTP_HOST'].$this->getForumRoot().$this->getURI();
+	}
+	
+	/**
+	 * Gets the root path of the forum
+	 * TODO: bit flaky, must be in scripts/ path and must have not parent dir named similarly.
+	 * Better way to determine?
+	 */
+	function getForumRoot() {
+		return substr($_SERVER['PHP_SELF'], 0, strpos($_SERVER['PHP_SELF'], '/scripts/') + 1);
+	}
+	
+	/**
 	 * Gets the URI of this entry's parent
 	 */
 	function getParentURI() {

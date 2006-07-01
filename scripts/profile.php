@@ -3,14 +3,14 @@
 require_once 'entry.php';
 require_once 'usermanager.php';
 require_once 'template.php';
-require_once 'httprequest.php';
+require_once 'resource.php';
 
-class Profile extends HttpRequest {
+class Profile extends Resource {
 
 	function httpGet()
 	{
-		$template = Template::getTemplate('AJAX');
-		$template->applyProfile($template);
+		$template = Template::getTemplate();
+		$template->applyProfile();
 	}
 	
 }

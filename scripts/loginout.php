@@ -17,12 +17,12 @@ if ($_COOKIE['action'] == 'authenticate') {
 else if($_GET['action'] == 'logout') {
 	setcookie('action', 'authenticate');
 	header('WWW-Authenticate: Basic realm="Forum"');
-	header('HTTP/1.0 401 Unauthorized');
+	header('HTTP/1.1 401 Unauthorized');
 }
 else if($_GET['action'] == 'login') {
 	setcookie('action', 'authenticate');
 	header('WWW-Authenticate: Basic realm="Forum"');
-	header('HTTP/1.0 401 Unauthorized');
+	header('HTTP/1.1 401 Unauthorized');
 }
 
 ?>

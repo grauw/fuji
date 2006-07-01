@@ -16,7 +16,8 @@
 		/**
 		 * Gets an ETag for this user's language file
 		 */
-		static function getL10nCache() {
+		static function getL10nCache()
+		{
 			$languageInfo = self::findL10nPath();
 			return new Cache(filemtime($languageInfo['path']), $languageInfo['lang'], FALSE);
 		}

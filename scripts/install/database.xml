@@ -44,16 +44,17 @@
 	<table name="templates">
 		<descr>Output templates</descr>
 		<field name="id" type="I1"><UNSIGNED/><KEY/><AUTOINCREMENT/></field>
-		<field name="name" type="C" size="255"><NOTNULL/></field>
+		<field name="mimetype" type="C" size="255"><NOTNULL/></field>
+		<field name="quality" type="C" size="5"><NOTNULL/><DEFAULT value="0.5"/></field>
 		<field name="public" type="L"><NOTNULL/></field>
 		<field name="basedir" type="C" size="255"><NOTNULL/></field>
 		
 		<data>
-			<row><f name="name">XHTML</f><f name="public">1</f><f name="basedir">templates/xhtml/functions.php</f></row>
-			<row><f name="name">AJAX</f><f name="public">1</f><f name="basedir">templates/ajax/functions.php</f></row>
-			<row><f name="name">RSS</f><f name="public">1</f><f name="basedir">templates/rss/functions.php</f></row>
-			<row><f name="name">Atom</f><f name="public">1</f><f name="basedir">templates/atom/functions.php</f></row>
-			<row><f name="name">WML</f><f name="public">1</f><f name="basedir">templates/wml/functions.php</f></row>
+			<row><f name="mimetype">application/xhtml+xml</f><f name="public">1</f><f name="basedir">templates/xhtml/functions.php</f></row>
+			<row><f name="mimetype">application/x-fuji+xhtml+xml</f><f name="public">1</f><f name="basedir">templates/ajax/functions.php</f></row>
+			<row><f name="mimetype">application/rss+xml</f><f name="public">1</f><f name="basedir">templates/rss/functions.php</f></row>
+			<row><f name="mimetype">application/atom+xml</f><f name="public">1</f><f name="basedir">templates/atom/functions.php</f></row>
+			<row><f name="mimetype">application/wml+xml</f><f name="public">1</f><f name="basedir">templates/wml/functions.php</f></row>
 		</data>
 	</table>
 	

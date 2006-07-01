@@ -21,7 +21,7 @@
 	
 	if($_POST['updated']){
 		$groups = Database::getArray("SELECT name FROM " . DbVar::$db_tprefix . "groups");
-		foreach($groups as $group){
+		foreach($groups as $group) {
 			$name = $group['name'];
 			if($_POST[$name]) Group::getGroupByName($name)->addUser($user);
 			else Group::getGroupByName($name)->removeUser($user);
@@ -68,7 +68,7 @@
 									$groups = Database::getArray("SELECT name FROM " . DbVar::$db_tprefix . "groups");
 									foreach ($groups as $group) {
 								?>
-									<label><input type="checkbox" <?php echo 'name="'.$group['name'].'"'; if($user->IsInGroup($group['name'])) echo ' checked="checked"';  ?> />
+									<label><input type="checkbox" name="<?php echo $group['name'] ?>"<?php if($user->IsInGroup($group['name'])) { ?> checked="checked"<?php } ?> />
 											<?php echo $group['name']?></label><br />
 								<?php } ?>
 								<input type="hidden" name="updated" value="true" />

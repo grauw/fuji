@@ -14,8 +14,8 @@
 <head>
 	<title>Fuji</title>
 	<?php echo XHTML::headContent(); ?>
-	<link id="rsslink" rel="alternate" type="application/rss+xml" href="rss/item/" />
-	<link id="atomlink" rel="alternate" type="application/atom+xml" href="atom/item/" />
+	<link id="rsslink" rel="alternate" type="application/rss+xml" href="item.rss" />
+	<link id="atomlink" rel="alternate" type="application/atom+xml" href="item.atom" />
 	<script type="text/javascript" src="js/yui/yahoo/yahoo-min.js"></script>
 	<script type="text/javascript" src="js/yui/dom/dom-min.js"></script>
 	<script type="text/javascript" src="js/yui/event/event-min.js"></script>
@@ -43,8 +43,7 @@
 	<div id="createDialog" style="display: none">
 		<div id="createTitle" class="hd"><?php echo L10n::$new ?></div>
 		<div id="createForm" class="bd">
-			<form id="createF" name="createF" class="createEditF" method="POST" action="item/">
-				<input id='createRef' name='ref' type='hidden' value='' />
+			<form id="createF" name="createF" class="createEditF" method="POST" action="item">
 				<input id='createType' name='type' type='hidden' value='' />
 				<div><span><?php echo L10n::$title ?></span><input id='createT' class="createEditT" name='title' type='text' value='' /></div>
 				<div>	<img alt="Bold" src="style/default/graphics/button-bold.png" onclick="Fuji.addTags(document.getElementById('createCtent'), '[b][/b]')" />
@@ -63,7 +62,7 @@
 		<div id="editTitle" class="hd"><?php echo L10n::$edit ?></div>
 		<div id="editForm" class="bd">
 			<form id="editF" name="editF" class="createEditF" method="POST" enctype="text/plain">
-				<input width="300" id='editEntryid' name='entryid' type='hidden' value='' />
+				<input name='PUT' type='hidden' value='' />
 				<div><span><?php echo L10n::$title ?></span><input id='editT' class="createEditT" name='title' type='text' value='' /></div>
 				<div>	<img alt="Bold" src="style/default/graphics/button-bold.png" onclick="Fuji.addTags(document.getElementById('editContent'), '[b][/b]')" />
 						<img alt="Italic" src="style/default/graphics/button-italic.png" onclick="Fuji.addTags(document.getElementById('editContent'), '[i][/i]')" />

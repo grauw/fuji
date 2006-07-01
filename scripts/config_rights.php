@@ -4,9 +4,9 @@ require_once 'entry.php';
 require_once 'group.php';
 require_once 'usermanager.php';
 require_once 'template.php';
-require_once 'httprequest.php';
+require_once 'resource.php';
 
-class ItemRights extends HttpRequest {
+class ItemRights extends Resource {
 	
 	function httpGet()
 	{
@@ -16,11 +16,11 @@ class ItemRights extends HttpRequest {
 		$entry = Entry::getEntry($id);
 		if ($entry)
 		{
-			$template = Template::getTemplate('AJAX');
+			$template = Template::getTemplate();
 			$template->applyRights($entry, $groups);
 		}
 		else
-		header('HTTP/1.0 404 Not Found');			
+		header('HTTP/1.1 404 Not Found');			
 	}
 	
 	function httpPost()

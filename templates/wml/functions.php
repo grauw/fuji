@@ -16,10 +16,6 @@ class WML_Template extends Template {
 			$this->outputGZIP();		
 	}
 	
-	function failInsufficientRights(Template $template) {
-		header('HTTP/1.0 401 Unauthorized');		
-	}
-	
 	public function getPrefix()
 	{
 		header('Content-Type: text/vnd.wap.wml');

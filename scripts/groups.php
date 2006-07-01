@@ -3,21 +3,17 @@ require_once 'usermanager.php';
 require_once 'template.php';
 require_once 'group.php';
 require_once 'utils/functions.php';
-require_once 'httprequest.php';
+require_once 'resource.php';
 
-class Groups extends HttpRequest {
+class Groups extends Resource {
 	
 	function httpGet()
 	{
 		if (UserManager::isAdmin()) {
-			$template = Template::getTemplate('AJAX');
-			$template->applyGroups($template);
+			$template = Template::getTemplate();
+			$template->applyGroups();
 		}
-		else {			
-			$lang = UserManager::getUser()->language;
-			$template = Template::getTemplate('AJAX');
-			$template->failInsufficientRights($template);
-		}
+		else header('HTTP/1.1 401 Unauthorized');
 	}
 	
 	function httpPost()

@@ -5,20 +5,24 @@ RewriteEngine On
 ## (not Last -> chain to item/*)
 ##
 
-# GET /rss/*
-RewriteRule ^rss/(.*)$ $1?template=RSS [QSA]
+# GET *.rss
+RewriteRule ^(.*)\.rss$ $1?mime=application/rss+xml [QSA]
 
-# GET /atom/*
-RewriteRule ^atom/(.*)$ $1?template=Atom [QSA]
+# GET *.atom
+RewriteRule ^(.*)\.atom$ $1?mime=application/atom+xml [QSA]
 
-# Redirect /wml/item/<id> -> /wml/item/<id>/
-RewriteRule ^wml/item/(\d*)$ $0/ [L,R]
+# GET *.wml
+RewriteRule ^(.*)\.wml$ $1?mime=text/vnd.wap.wml [QSA]
 
-# GET /wml/*
-RewriteRule ^wml/(.*)$ $1?template=WML [QSA]
+# GET *.xhtml
+RewriteRule ^(.*)\.xhtml$ $1?mime=application/xhtml+xml [QSA]
 
-# GET /xhtml/*
-RewriteRule ^xhtml/(.*)$ $1?template=XHTML [QSA]
+# GET *.rdf
+RewriteRule ^(.*)\.rdf$ $1?mime=application/rdf+xml [QSA]
+
+# GET *.fuji
+RewriteRule ^(.*)\.fuji$ $1?mime=application/x-fuji+xhtml+xml [QSA]
+
 
 
 ##
@@ -28,12 +32,12 @@ RewriteRule ^xhtml/(.*)$ $1?template=XHTML [QSA]
 # GET /
 RewriteRule ^$ index.php [L,QSA]
 
-# POST /item/
-RewriteRule ^item/$ scripts/item.php [L,QSA]
+# POST /item
+RewriteRule ^item$ scripts/item.php [L,QSA]
 
-# DELETE /item/<id>
 # GET /item/<id>
-# PUT /item/<id>
+# DELETE /item/<id>
+# PUT /item/<id> (currently uses POST)
 RewriteRule ^item/(\d+)/?$ scripts/item.php?id=$1 [L,QSA]
 
 # GET /item/<id>/source
@@ -57,10 +61,10 @@ RewriteRule ^profile/(\d+)$ scripts/profile.php?id=$1 [L,QSA]
 # GET /profile
 RewriteRule ^profile$ scripts/profile.php [L,QSA]
 
-# POST /profile/<id>/updated
+# POST /profile/<id>/updated (TODO: this should be PUT /profile/<id>/groups)
 RewriteRule ^profile/(\d+)/updated$ scripts/profile.php?updated=true [L,QSA]
 
-# POST /profile/<id>/edit
+# GET /profile/<id>/edit
 RewriteRule ^profile/(\d+)/edit$ scripts/profile.php?id=$1&edit=true [L,QSA]
 
 # GET /install

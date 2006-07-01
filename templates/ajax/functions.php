@@ -16,7 +16,7 @@ class AJAX_Template extends Template {
 		include_once $templateview->location;
 	}
 	
-	function applyUserlist(Template $template, $groupid=null) {
+	function applyUserlist($groupid=null) {
 		if(isset($groupid)) $this->groupid = $groupid;
 		L10nManager::loadL10n();
 		$template = $this;
@@ -24,7 +24,7 @@ class AJAX_Template extends Template {
 		include_once '../templates/ajax/userlist.php';
 	}
 	
-	function applyStatistics(Template $template) {
+	function applyStatistics() {
 		if(isset($groupid)) $this->groupid = $groupid;
 		L10nManager::loadL10n();
 		$template = $this;
@@ -32,7 +32,7 @@ class AJAX_Template extends Template {
 		include_once '../templates/ajax/statistics.php';
 	}
 	
-	function applyProfile(Template $template) {
+	function applyProfile() {
 		if(isset($groupid)) $this->groupid = $groupid;
 		L10nManager::loadL10n();
 		$template = $this;
@@ -40,14 +40,14 @@ class AJAX_Template extends Template {
 		include_once '../templates/ajax/profile.php';
 	}
 
-	function applyMenu(Template $template) {
+	function applyMenu() {
 		L10nManager::loadL10n();
 		$template = $this;
 		$this->startGZIP();
 		include_once '../templates/ajax/menu.php';
 	}
 	
-	function applyGroups(Template $template) {
+	function applyGroups() {
 		L10nManager::loadL10n();
 		$template = $this;
 		$this->startGZIP();
@@ -61,13 +61,12 @@ class AJAX_Template extends Template {
 		include_once '../templates/ajax/rights.php';
 	}
 	
-	function failInsufficientRights(Template $template) {
-		header('HTTP/1.0 401 Unauthorized');		
-	}
-	
 	public function getPrefix()
 	{
-		if ($this->acceptsXHTML()) {
+		if ($this->acceptsFujiXHTML()) {
+			header('Content-Type: application/x-fuji+xhtml+xml');
+			return '<?xml version="1.0" encoding="UTF-8"?'.">\n";
+		} else if ($this->acceptsXHTML()) {
 			header('Content-Type: application/xhtml+xml');
 			$stylerv = '';
 			foreach (AJAX_Stylesheets::$stylesheets as $stylesheet) {
@@ -105,6 +104,11 @@ class AJAX_Template extends Template {
 	public function acceptsXHTML()
 	{
 		return strpos($_SERVER['HTTP_ACCEPT'],'application/xhtml+xml') !== FALSE ? true : false;
+	}
+	
+	public function acceptsFujiXHTML()
+	{
+		return strpos($_SERVER['HTTP_ACCEPT'],'application/x-fuji+xhtml+xml') !== FALSE ? true : false;
 	}
 	
 	public function startGZIP() {
