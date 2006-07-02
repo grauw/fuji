@@ -1,76 +1,46 @@
-<?php $page_size = 8; ?>
 <?php echo $template->getPrefix() ?>
 <fuji:item xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:fuji="http://fuji.sourceforge.net/ns"
 	xml:lang="<?php echo L10n::$language ?>"
-	loadcontext="threadsDiv"
-	parent="item/1">
+	loadcontext="threadsDiv">
 	<fuji:content>
-		<div class="forumContainer box">
-		<h2 class="windowTitle"><?php echo L10n::$threads ?> – <?php echo htmlentities($entry->title, ENT_NOQUOTES) ?></h2>
-		<div class="threadsTableDiv content">
-			<table class="threadsTable">
-				<colgroup>
-					<col width="40%" />
-					<col />
-					<col />
-					<col />
-					<col />
-				</colgroup>
-				<thead>
-					<tr>
-						<th><?php echo L10n::$topic ?></th>
-						<th><?php echo L10n::$poster ?></th>
-						<th><?php echo L10n::$replies ?></th>
-						<th><?php echo L10n::$created ?></th>
-						<th><?php echo L10n::$modified ?></th>
-						<th><?php echo L10n::$score ?></th>
-					</tr>
-				</thead>
-				<tbody>
-				<?php 	$num_of_entries = count($entries);
-					$i = 0;
-					if($num_of_entries > 0)
-					{
-						for($n = ($page - 1) * $page_size; $n < min($num_of_entries, $page * $page_size); $n++) 
-						{ 
-							$entry = $entries[$n];
-						?>
-						<?php if ($entry->type == Entry::$TYPE_FORUM) { ?>
-						<tr class="tableForumEntry <?php echo $i++ % 2 ? 'even' : 'odd' ?>">
-							<td><a href="#<?php echo $entry->getURI() ?>"><?php echo htmlentities($entry->title, ENT_NOQUOTES) ?></a></td>
-							<td><a href="#<?php echo User::getUser($entry->userref)->getURI() ?>"><?php echo htmlentities(User::getUser($entry->userref)->nickname, ENT_NOQUOTES) ?></a></td>
-							<td><?php echo count($entry->getChildren()) ?></td>
-							<td><?php echo $entry->getFormattedDate('created', L10n::$date_format) ?></td>
-							<td><?php echo $entry->getFormattedDate('modified', L10n::$date_format) ?></td>
-							<td><?php echo ($entry->score * 100) . '%' ?></td>
-						<?php } else if ($entry->type == Entry::$TYPE_POST) { ?>
-						<tr class="tableThreadEntry <?php echo $i++ % 2 ? 'even' : 'odd' ?>">				
-							<td><a href="#<?php echo $entry->getURI() ?>"><?php echo htmlentities($entry->title, ENT_NOQUOTES) ?></a></td>
-							<td><a href="#<?php echo User::getUser($entry->userref)->getURI() ?>"><?php echo htmlentities(User::getUser($entry->userref)->nickname, ENT_NOQUOTES) ?></a></td>
-							<td><?php echo count($entry->getChildren()) ?></td>
-							<td><?php echo $entry->getFormattedDate('created', L10n::$date_format) ?></td>
-							<td><?php echo $entry->getFormattedDate('modified', L10n::$date_format) ?></td>
-							<td><?php echo ($entry->score * 100) . '%' ?></td>
-						<?php } else { ?>
-						<tr class="tableUnsupportedEntry">				
-							(<?php echo L10n::$type_unsupported ?>)
-						<?php } ?>
+		<div class="box">
+			<h2 class="windowTitle"><?php echo L10n::$search ?></h2>
+			<div id="threadsTableDiv" class="content">
+				<form name="searchF">
+					<table>
+						<tr><td>Query:</td><td><input id="searchQuery" type="text" name="query" /></td></tr>
+						<tr>
+							<td>Field:</td>
+							<td>
+								<select id="searchField" name="field">
+									<option value="title" selected="Selected">Title</option>
+									<option value="content">Content</option>
+									<option value="userref">Poster</option>
+								</select>
+							</td>
 						</tr>
-						<?php } ?>
-					<?php } else echo L10n::$error_search_no_results
-					// TODO: Invalid XHTML here!
-					?>
-				</tbody>
-			</table>
+						<tr>
+							<td>Order:</td>
+							<td>
+								<select id="searchOrder" name="order">
+									<option value="score" selected="Selected">Score</option>
+									<option value="title">Title</option>
+									<option value="created">Created</option>
+									<option value="modified">Last modification</option>
+									<option value="userref">Poster</option>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="2">&#160;</td>
+						</tr>
+						<tr>
+							<td colspan="2"><input type="button" value="Search" onclick="Fuji.searchAction()" /></td>
+						</tr>
+					</table>
+				</form>
 			</div>
 		</div>
-		<div class="threadPageSelector pager">
-			<?php echo L10n::$page?>
-			<?php if($page > 1) { ?><a href="#<?php /*echo $entry->getURI().'/'.($page-1)*/ ?>">&lt;</a> <?php } ?>
-			<?php for($n = 1; $n <= max(0, $num_of_entries - 1) / $page_size + 1; $n++) { ?><a href="#<?php /*echo $entry->getURI().($n>1?'/'.$n:'')*/ ?>"><?php echo $n ?></a> <?php } ?>
-			<?php if(max(0, $num_of_entries - 1) / $page_size > $page) { ?><a href="#<?php echo $entry->getURI().'/'.($page+1) ?>">&gt;</a> <?php } ?>
-		</div>
-		<div id="<?php /*echo $entry->getURI()*/ ?>_postsDiv" class="postsContainer"></div>
 	</fuji:content>
 </fuji:item>

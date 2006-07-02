@@ -10,6 +10,7 @@
 			<p><?php echo L10n::$logged_in_as . ' ' . UserManager::getUser()->nickname ?></p>
 		<?php } ?>
 		<ul>
+			<li><a href="#search"><?php echo L10n::$search ?></a></li>
 			<li><a href="#statistics"><?php echo L10n::$statistics ?></a></li>
 			<?php if (UserManager::getUser()->nickname == 'anonymous') { ?>
 				<li><a href="javascript:Fuji.login()"><?php echo L10n::$login ?></a></li>

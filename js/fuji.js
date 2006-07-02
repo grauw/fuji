@@ -243,6 +243,13 @@ Fuji = {
 	addTags : function(oElm, sTags) {
 		oElm.value += sTags;
 		oElm.focus();
+	},
+	
+	searchAction : function() {
+		var query = document.getElementById('searchQuery').value;
+		var field = document.getElementById('searchField').value;
+		var order = document.getElementById('searchOrder').value;
+		Fuji.loadItem('search/' + field + '/' + query + '/' + order + '/');
 	}
 }
 Fuji.Util = {

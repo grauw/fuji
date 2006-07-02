@@ -102,3 +102,11 @@ RewriteRule ^groups/(\d+)/users$  scripts/userlist.php?groupid=$1 [L,QSA]
 # GET /statistics
 RewriteRule ^statistics$ scripts/statistics.php [L,QSA]
 
+# GET /search
+RewriteRule ^search$ scripts/search.php [L,QSA]
+
+# GET /search/<field>/<query>/<order>/
+RewriteRule ^search/(\w+)/(\w+)/(\w+)/$ scripts/search.php?field=$1&query=$2&order=$3 [L,QSA]
+
+# GET /search/<field>/<query>/<order>/<page>
+RewriteRule ^search/(\w+)/(\w+)/(\w+)/(\d+)$ scripts/search.php?field=$1&query=$2&order=$3&page=$4 [L,QSA]
