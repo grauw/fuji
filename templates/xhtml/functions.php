@@ -1,46 +1,40 @@
 <?php
-
-require_once 'css/stylesheets.php';
 require_once 'template.php';
+require_once '../scripts/stylesheet.php';
+require_once '../scripts/l10nmanager.php';
+require_once '../scripts/database.php';
 
 class XHTML_Template extends Template {
 	
 	function apply($entry, $lang) {
-		if (!file_exists(realpath(dirname(__FILE__).'../'.'l10n/'.$lang.'.php'))) {
-			$lang = 'default';
-		}
-		include_once '../l10n/'.$lang.'.php';
+		L10nManager::loadL10n();
 		$template = $this;
 		$templateview = $this->getTemplateView($entry->type);
 		include_once $templateview->location;
 	}
 	
+	function applyIndex() {
+		L10nManager::loadL10n();
+		$template = $this;
+//		$this->startGZIP();
+		include_once '../templates/xhtml/index.php';
+	}
+	
 	public function getPrefix()
 	{
 		if ($this->acceptsXHTML()) {
-			header('Content-Type: application/xhtml+xml');
-			$stylerv = '';
-			foreach (XHTML_Stylesheets::$stylesheets as $stylesheet) {
-				$stylerv .= '<?xml-stylesheet href="/templates/xhtml/css/'. $stylesheet['href'] .'" ';
-				if (isset($stylesheet['alternate'])) $stylerv .= 'alternate="yes" ';
-				if (isset($stylesheet['title'])) $stylerv .= 'title="'. $stylesheet['title'] .'" ';
-				$stylerv .= 'type="text/css"?'.">\n";
-			}
-			return '<?xml version="1.0" encoding="UTF-8"?'.">\n".$stylerv;
+			header('Content-Type: application/xhtml+xml; charset=utf-8');
+			$xmlstylesheet = Stylesheet::getStyleSheetsXML();
+			return '<?xml version="1.0" encoding="UTF-8"?'.">\n" . $xmlstylesheet;
 		} else {
-			header('Content-Type: text/html');
+			header('Content-Type: text/html; charset=utf-8');
 		}
 	}
 	
 	public function getHead()
 	{
-		$stylerv = '';
-		foreach (XHTML_Stylesheets::$stylesheets as $stylesheet) {
-			$stylerv .= '<link rel="'. (isset($stylesheet['alternate']) ? 'alternate ' : '') .'stylesheet" ';
-			$stylerv .= 'href="/templates/xhtml/css/'. $stylesheet['href'] .'" ';
-			if (isset($stylesheet['title'])) $stylerv .= 'title="'. $stylesheet['title'] .'" ';
-			if (isset($stylesheet['media'])) $stylerv .= 'media="'. $stylesheet['media'] .'" ';
-			$stylerv .= 'type="text/css" />'."\n";
+		if ($this->acceptsXHTML()) {
+			return Stylesheet::getStyleSheetsHTML();
 		}
 	}
 	

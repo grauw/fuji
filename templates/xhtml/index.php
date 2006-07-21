@@ -1,13 +1,9 @@
 <?php
-require_once("scripts/xhtml.php");
-if(file_exists("scripts/configuration/installer_disabled"))
-{	
-	require_once("scripts/l10nmanager.php");
-	require_once("scripts/usermanager.php");	
+if(file_exists("../scripts/configuration/installer_disabled"))
+{
+	require_once("../scripts/usermanager.php");	
 	UserManager::authenticate();
-	L10nManager::loadL10n();
-	header('Content-Language: '.L10n::$language);
-	echo XHTML::pageHeaders();
+	echo $template->getPrefix();
 ?>
 <!DOCTYPE html 
      PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
@@ -15,7 +11,7 @@ if(file_exists("scripts/configuration/installer_disabled"))
 <html xmlns="http://www.w3.org/1999/xhtml" lang="<?php echo L10n::$language ?>" xml:lang="<?php echo L10n::$language ?>">
 <head>
 	<title>Fuji</title>
-	<?php echo XHTML::headContent(); ?>
+	<?php echo $template->getHead() ?>
 	<link id="rsslink" rel="alternate" type="application/rss+xml" href="item.rss" />
 	<link id="atomlink" rel="alternate" type="application/atom+xml" href="item.atom" />
 	<script type="text/javascript" src="js/yui/yahoo/yahoo-min.js"></script>
@@ -215,7 +211,7 @@ if(file_exists("scripts/configuration/installer_disabled"))
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en:GB" xml:lang="en:GB">
 <head>
 	<title>Fuji</title>
-	<?php echo XHTML::headContent(); ?>
+	<?php echo $template->getHead() ?>
 </head>
 <body>
 	<p>Your Fuji Forum has to be configured before you can start using it.</p>

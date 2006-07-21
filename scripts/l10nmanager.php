@@ -11,6 +11,7 @@
 		{
 			$languageInfo = self::findL10nPath();
 			require_once $languageInfo['path'];
+			header('Content-Language: '.L10n::$language);
 		}
 		
 		/**

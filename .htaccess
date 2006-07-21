@@ -30,7 +30,7 @@ RewriteRule ^(.*)\.fuji$ $1?mime=application/x-fuji+xhtml+xml [QSA]
 ##
 
 # GET /
-RewriteRule ^$ index.php [L,QSA]
+RewriteRule ^$ scripts/index.php [L,QSA]
 
 # POST /item
 RewriteRule ^item$ scripts/item.php [L,QSA]
