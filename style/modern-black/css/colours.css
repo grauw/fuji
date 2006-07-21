@@ -112,7 +112,7 @@ h1.logoDiv,
 
 /* Post colours */
 
-.postsListDiv {
+.postsListDiv .box {
 	border-top-color: transparent;
 	border-bottom-color: transparent;
 }
