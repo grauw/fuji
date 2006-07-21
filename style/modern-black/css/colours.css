@@ -1,0 +1,150 @@
+/* Style colours */
+
+/* Global colours */
+
+html {
+	background-color: black;
+	color: white;
+}
+a {
+	color: #f60;
+}
+table thead th {
+	border-color: #666 #999 #999 #666;
+	background-color: #888;
+}
+table tbody td {
+	border-color: #555;
+	background-color: #333;
+}
+table tbody tr.even td {
+	background-color: #444;
+}
+table tbody tr:hover td {
+	background-color: #555;
+}
+
+
+/* Forum list colours */
+
+ul.tree a:hover {
+	background-color: #555;
+}
+
+
+/* Box colours */
+
+.box {
+	background-color: #333;
+	border-top-color: #111;
+	border-bottom-color: #444;
+}
+.box h2 {
+	background-color: #555;
+}
+.box ul.menu {
+	background-color: #444;
+}
+.box ul.menu a {
+	background-color: #444;
+	border-color: #888;
+	color: white;
+}
+.box ul.menu a:hover {
+	background-color: #666;
+}
+.box .pager {
+	background-color: #333;
+}
+
+
+/* Post colours */
+
+.post {
+	xbackground-color: #ff0;
+	border-top-color: transparent;
+	border-bottom-color: transparent;
+}
+.post.even {
+	xbackground-color: #f5f500;
+}
+.post h3 {
+	xbackground-color: #dd0;
+}
+.post ul.menu {
+	xbackground-color: #f5f500;
+}
+.post ul.menu a {
+	xbackground-color: #dd0;
+	xborder-color: #cc0;
+	xcolor: inherit;
+}
+.post ul.menu a:hover {
+	xbackground-color: #bb0;
+}
+
+
+/* Per-box themed colours */
+
+/* Head colours */
+
+h1.logoDiv,
+.logoDiv a,
+.menudiv a {
+	color: #f60;
+}
+
+
+/* Forum list colours */
+
+.forumListContainer h2,
+.forumListContainer a {
+	color: #0cf;
+}
+
+
+/* Thread list colours */
+
+.forumContainer h2,
+.forumContainer a {
+	color: #3d0;
+}
+.forumContainer ul.menu a {
+	border-color: #7c0;
+}
+.forumContainer ul.menu a:hover {
+	background-color: #6b0;
+}
+.forumContainer table thead th {
+	border-color: #060 #090 #090 #060;
+	background-color: #080;
+	color: #efe;
+}
+
+
+/* Thread colours */
+
+.threadContainer h2,
+.threadContainer a {
+	color: #f0f;
+}
+.threadContainer ul.menu a {
+	border-color: #d0d;
+}
+.threadContainer ul.menu a:hover {
+	background-color: #b0b;
+}
+
+
+/* Post colours */
+
+.post h3,
+.post a {
+	color: #ff0;
+}
+.post ul.menu a {
+	border-color: #dd0;
+}
+.post ul.menu a:hover {
+	background-color: #bb0;
+}

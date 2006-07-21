@@ -169,6 +169,7 @@
 			<row><f>Dark Fuji</f><f>style/dark/css/dark.css</f></row>
 			<row><f>Fuji Lite</f><f>style/lite/css/lite.css</f></row>
 			<row><f>Modern</f><f>style/modern/css/modern.css</f></row>
+			<row><f>Modern Black</f><f>style/modern-black/css/modern-black.css</f></row>
 			<row><f>Basic</f><f>style/basic/css/basic.css</f></row>
 		</data>
 	</table>
