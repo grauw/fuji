@@ -1,4 +1,4 @@
-<?php echo $template->getPrefix() ?>
+<?php echo $this->getPrefix() ?>
 <rss version="2.0">
 	<channel>
 		<title><?php echo htmlentities($entry->title, ENT_NOQUOTES) ?></title>

@@ -8,10 +8,9 @@ class WML_Template extends Template {
 	
 	function apply($entry, $page) {
 		L10nManager::loadL10n();
-		$template = $this;
-		$templateview = $this->getTemplateView($entry->type);
+		$thisview = $this->getTemplateView($entry->type);
 		ob_start();
-		include_once $templateview->location;
+		include_once $thisview->location;
 		if($this->acceptsGZIP())
 			$this->outputGZIP();		
 	}

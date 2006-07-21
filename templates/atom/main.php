@@ -1,4 +1,4 @@
-<?php echo $template->getPrefix() ?>
+<?php echo $this->getPrefix() ?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 	<title><?php echo $entry->title ?></title>
 	<link href="../" />

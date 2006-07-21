@@ -1,4 +1,4 @@
-<?php echo $template->getPrefix() ?>
+<?php echo $this->getPrefix() ?>
 <fuji:item xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:fuji="http://fuji.sourceforge.net/ns"
 	xml:lang="<?php echo L10n::$language ?>"
@@ -18,7 +18,7 @@
 					</thead>
 					<tbody>
 					<?php 	require_once 'user.php';
-							if(isset($template->groupid)) $userids = Database::getArray("SELECT userid AS id FROM " . Database::$db_tprefix . "groupmembers WHERE groupid=".$template->groupid);
+							if(isset($this->groupid)) $userids = Database::getArray("SELECT userid AS id FROM " . Database::$db_tprefix . "groupmembers WHERE groupid=".$this->groupid);
 							else $userids = Database::getArray("SELECT id FROM " . Database::$db_tprefix . "users");
 							if(count($userids) > 0){
 							foreach($userids as $userid) { $user = User::getUser($userid['id']);?>

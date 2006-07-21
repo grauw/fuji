@@ -1,5 +1,5 @@
 <?php $page_size = 20; ?>
-<?php echo $template->getPrefix(); ?>
+<?php echo $this->getPrefix(); ?>
 <?php
 $contextEntry = $entry;
 while($contextEntry->type == 4) $contextEntry = $contextEntry->getParent();

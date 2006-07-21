@@ -1,4 +1,4 @@
-<?php echo $template->getPrefix() ?>
+<?php echo $this->getPrefix() ?>
 <!DOCTYPE html
 	PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0//EN"
 	"http://www.w3.org/Math/DTD/mathml2/xhtml-math11-f.dtd">
@@ -9,10 +9,10 @@
 	<link rel="alternate" type="application/rss+xml" title="RSS" href="/blog/rss.php" />
 	<link rel="meta" type="application/rdf+xml" title="FOAF" href="foaf.rdf" />
 	<link rel="icon" type="image/png" href="/images/siteicon.png" />
-	<?php echo $template->getHead() ?>
+	<?php echo $this->getHead() ?>
 </head>
 <body>
-	<?php echo $template->getHeader() ?>
+	<?php echo $this->getHeader() ?>
 	
 	<h1><?php echo $entry->title; echo 'eej' ?></h1>
 	
@@ -46,6 +46,6 @@
 	</ul>
 	<?php } ?>
 	
-	<?php echo $template->getFooter() ?>
+	<?php echo $this->getFooter() ?>
 </body>
 </html>

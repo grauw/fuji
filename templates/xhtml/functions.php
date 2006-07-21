@@ -8,14 +8,12 @@ class XHTML_Template extends Template {
 	
 	function apply($entry, $lang) {
 		L10nManager::loadL10n();
-		$template = $this;
-		$templateview = $this->getTemplateView($entry->type);
-		include_once $templateview->location;
+		$thisview = $this->getTemplateView($entry->type);
+		include_once $thisview->location;
 	}
 	
 	function applyIndex() {
 		L10nManager::loadL10n();
-		$template = $this;
 //		$this->startGZIP();
 		include_once '../templates/xhtml/index.php';
 	}

@@ -10,16 +10,14 @@ class AJAX_Template extends Template {
 	
 	function apply($entry, $page) {
 		L10nManager::loadL10n();
-		$template = $this;
-		$templateview = $this->getTemplateView($entry->type);
+		$thisview = $this->getTemplateView($entry->type);
 		$this->startGZIP();
-		include_once $templateview->location;
+		include_once $thisview->location;
 	}
 	
 	function applyUserlist($groupid=null) {
 		if(isset($groupid)) $this->groupid = $groupid;
 		L10nManager::loadL10n();
-		$template = $this;
 		$this->startGZIP();
 		include_once '../templates/ajax/userlist.php';
 	}
@@ -27,7 +25,6 @@ class AJAX_Template extends Template {
 	function applyStatistics() {
 		if(isset($groupid)) $this->groupid = $groupid;
 		L10nManager::loadL10n();
-		$template = $this;
 		$this->startGZIP();
 		include_once '../templates/ajax/statistics.php';
 	}
@@ -35,42 +32,36 @@ class AJAX_Template extends Template {
 	function applyProfile() {
 		if(isset($groupid)) $this->groupid = $groupid;
 		L10nManager::loadL10n();
-		$template = $this;
 		$this->startGZIP();
 		include_once '../templates/ajax/profile.php';
 	}
 
 	function applyMenu() {
 		L10nManager::loadL10n();
-		$template = $this;
 		$this->startGZIP();
 		include_once '../templates/ajax/menu.php';
 	}
 	
 	function applyGroups() {
 		L10nManager::loadL10n();
-		$template = $this;
 		$this->startGZIP();
 		include_once '../templates/ajax/groups.php';
 	}
 	
 	function applyRights($entry, $groups) {
 		L10nManager::loadL10n();
-		$template = $this;
 		$this->startGZIP();
 		include_once '../templates/ajax/rights.php';
 	}
 	
 	function applySearch() {
 		L10nManager::loadL10n();
-		$template = $this;
 		$this->startGZIP();
 		include_once '../templates/ajax/search.php';
 	}
 	
 	function applySearchResults($entries, $page) {
 		L10nManager::loadL10n();
-		$template = $this;
 		$this->startGZIP();
 		include_once '../templates/ajax/searchresults.php';
 	}
