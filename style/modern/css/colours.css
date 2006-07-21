@@ -62,7 +62,7 @@ ul.tree a:hover {
 
 /* Post colours */
 
-.postsListDiv {
+.postsListDiv .box {
 	background-color: #ff0;
 	border-top-color: #dd0;
 	border-bottom-color: #ff8;
