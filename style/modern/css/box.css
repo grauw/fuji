@@ -46,10 +46,10 @@
 .box .content {
 	padding: 0.5em;
 }
-.box {
+.box.withpager {
 	margin-bottom: 2em;
 }
-.box .pager {
+.box.withpager .pager {
 	text-align: right;
 	float: right;
 	-moz-border-radius: 5px;

@@ -10,7 +10,7 @@ while($contextEntry->type == 4) $contextEntry = $contextEntry->getParent();
 	loadcontext="<?php echo $contextEntry->getURI() ?>_postsDiv"
 	parent="<?php echo $entry->getParent()->getURI() ?>">
 	<fuji:content>
-		<div class="threadContainer box">
+		<div class="threadContainer box withpager">
 		<h2 class="windowTitle"><?php echo L10n::$posts ?> – <?php echo htmlentities($entry->title, ENT_NOQUOTES) ?></h2>
 		<ul id="postsActions" class="windowActions menu">
 			<?php if (UserManager::getUser()->getRights($entry)->may_post) { ?>
@@ -21,7 +21,7 @@ while($contextEntry->type == 4) $contextEntry = $contextEntry->getParent();
 			<li><a href="rss/<?php echo $entry->getURI() ?>" rel="alternate" type="application/rss+xml" class="feed">RSS</a></li>
 			<li><a href="atom/<?php echo $entry->getURI() ?>" rel="alternate" type="application/atom+xml" class="feed">Atom</a></li>
 		</ul>
-		<div class="postsListDiv content">
+		<div class="postsContainer content">
 			<div class="postDiv box odd">
 				<h3 class="postTitle">
 					<span><?php echo $entry->title ?></span>

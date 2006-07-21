@@ -22,15 +22,6 @@ table td {
 }
 
 
-/* Logo */
-
-h1 {
-	-moz-border-radius: 10px;
-	border-top: 2px solid;
-	border-bottom: 2px solid;
-}
-
-
 /* Menu */
 
 #menuDiv h2 {
@@ -76,6 +67,30 @@ h1 {
 }
 .forumContainer table td a {
 	display: block;
+}
+
+
+/* Posts list */
+
+.postsContainer .box:first-child {
+	margin-top: 0;
+}
+.postsContainer .box.even {
+}
+.postsContainer .box h3 {
+	margin: 0;
+	-moz-border-radius: 6px;
+	font-size: inherit;
+	padding: 0 .32em;
+}
+.postsContainer .box h3 span:first-child {
+	float: left;
+}
+.postsContainer .box h3 {
+	text-align: right;
+}
+.postsContainer .box h3 span:not(:first-child) {
+	font-size: 70%;
 }
 
 

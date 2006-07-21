@@ -62,26 +62,26 @@ ul.tree a:hover {
 
 /* Post colours */
 
-.postsListDiv .box {
+.postsContainer .box {
 	background-color: #ff0;
 	border-top-color: #dd0;
 	border-bottom-color: #ff8;
 }
-.postsListDiv .even {
+.postsContainer .box .even {
 	background-color: #f5f500;
 }
-.postsListDiv h3 {
+.postsContainer .box h3 {
 	background-color: #dd0;
 }
-.postsListDiv ul.menu {
+.postsContainer .box ul.menu {
 	background-color: #f5f500;
 }
-.postsListDiv ul.menu a {
+.postsContainer .box ul.menu a {
 	background-color: #dd0;
 	border-color: #cc0;
 	color: inherit;
 }
-.postsListDiv ul.menu a:hover {
+.postsContainer .box ul.menu a:hover {
 	background-color: #bb0;
 }
 

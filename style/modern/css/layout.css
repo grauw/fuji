@@ -4,14 +4,16 @@ body {
 }
 
 .logoDiv {
-	padding: 20px;
+	position: absolute;
+	top: .7em;
+	left: .7em;
 	margin: 0;
 }
 
 #menuDiv {
-	position: absolute;
-	top: 13px;
-	right: 20px;
+	padding: 1em;
+	padding-left: 18em;
+	margin: 0;
 }
 
 #foraDiv {

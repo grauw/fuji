@@ -6,7 +6,7 @@
 	loadcontext="threadsDiv"
 	parent="item/1">
 	<fuji:content>
-		<div class="forumContainer box">
+		<div class="forumContainer box withpager">
 		<h2 class="windowTitle"><?php echo L10n::$search ?></h2>
 		<div class="threadsTableDiv content">
 			<table class="threadsTable">
@@ -71,6 +71,6 @@
 			<?php for($n = 1; $n <= max(0, $num_of_entries - 1) / $page_size + 1; $n++) { ?><a href="#<?php /*echo $entry->getURI().($n>1?'/'.$n:'')*/ ?>"><?php echo $n ?></a> <?php } ?>
 			<?php if(max(0, $num_of_entries - 1) / $page_size > $page) { ?><a href="#<?php echo $entry->getURI().'/'.($page+1) ?>">&gt;</a> <?php } ?>
 		</div>
-		<div id="<?php /*echo $entry->getURI()*/ ?>_postsDiv" class="postsContainer"></div>
+		<div id="<?php /*echo $entry->getURI()*/ ?>_postsDiv" class="postsDiv"></div>
 	</fuji:content>
 </fuji:item>

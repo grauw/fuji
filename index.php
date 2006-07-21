@@ -34,8 +34,8 @@ if(file_exists("scripts/configuration/installer_disabled"))
 	</script>
 </head>
 <body onload="Fuji.init()">
-	<h1 class="logoDiv logo window box"><a href="http://fuji.sourceforge.net">Fuji</a></h1>
-	<div id="menuDiv">
+	<h1 class="logoDiv logo window"><a href="http://fuji.sourceforge.net">Fuji</a></h1>
+	<div id="menuDiv" class="menuContainer box">
 		<h2 class="windowTitle"><?php echo L10n::$menu ?></h2>
 		<div id="menuListDiv"></div>
 	</div>
