@@ -72,22 +72,22 @@ h1.logoDiv a,
 
 /* Forum list colours */
 
-.forumListContainer .box h2,
-.forumListContainer .box a {
+.forumListContainer.box h2,
+.forumListContainer.box a {
 	color: #0cf;
 }
 
 
 /* Thread list colours */
 
-.forumContainer .box h2,
-.forumContainer .box a {
+.forumContainer.box h2,
+.forumContainer.box a {
 	color: #3d0;
 }
-.forumContainer .box ul.menu a {
+.forumContainer.box ul.menu a {
 	border-color: #5a0;
 }
-.forumContainer .box ul.menu a:hover {
+.forumContainer.box ul.menu a:hover {
 	background-color: #6b0;
 }
 .forumContainer table thead th {
@@ -99,14 +99,14 @@ h1.logoDiv a,
 
 /* Thread colours */
 
-.threadContainer .box h2,
-.threadContainer .box a {
+.threadContainer.box h2,
+.threadContainer.box a {
 	color: #f0f;
 }
-.threadContainer .box ul.menu a {
+.threadContainer.box ul.menu a {
 	border-color: #a0a;
 }
-.threadContainer .box ul.menu a:hover {
+.threadContainer.box ul.menu a:hover {
 	background-color: #b0b;
 }
 
