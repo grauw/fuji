@@ -1,5 +1,5 @@
 <?php $page_size = 8; ?>
-<?php echo $this->getPrefix() ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <fuji:item xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:fuji="http://fuji.sourceforge.net/ns"
 	xml:lang="<?php echo L10n::$language ?>"
@@ -28,13 +28,13 @@
 					</tr>
 				</thead>
 				<tbody>
-				<?php 	$num_of_entries = count($entries);
+				<?php 	$num_of_entries = count($this->entries);
 					$i = 0;
 					if($num_of_entries > 0)
 					{
-						for($n = ($page - 1) * $page_size; $n < min($num_of_entries, $page * $page_size); $n++) 
+						for($n = ($this->page - 1) * $page_size; $n < min($num_of_entries, $this->page * $page_size); $n++) 
 						{ 
-							$entry = $entries[$n];
+							$entry = $this->entries[$n];
 						?>
 						<?php if ($entry->type == Entry::$TYPE_FORUM) { ?>
 						<tr class="tableForumEntry <?php echo $i++ % 2 ? 'even' : 'odd' ?>">
@@ -67,9 +67,9 @@
 		</div>
 		<div class="threadPageSelector pager">
 			<?php echo L10n::$page?>
-			<?php if($page > 1) { ?><a href="#<?php /*echo $entry->getURI().'/'.($page-1)*/ ?>">&lt;</a> <?php } ?>
+			<?php if($this->page > 1) { ?><a href="#<?php /*echo $entry->getURI().'/'.($this->page-1)*/ ?>">&lt;</a> <?php } ?>
 			<?php for($n = 1; $n <= max(0, $num_of_entries - 1) / $page_size + 1; $n++) { ?><a href="#<?php /*echo $entry->getURI().($n>1?'/'.$n:'')*/ ?>"><?php echo $n ?></a> <?php } ?>
-			<?php if(max(0, $num_of_entries - 1) / $page_size > $page) { ?><a href="#<?php echo $entry->getURI().'/'.($page+1) ?>">&gt;</a> <?php } ?>
+			<?php if(max(0, $num_of_entries - 1) / $page_size > $this->page) { ?><a href="#<?php echo $entry->getURI().'/'.($this->page+1) ?>">&gt;</a> <?php } ?>
 		</div>
 		<div id="<?php /*echo $entry->getURI()*/ ?>_postsDiv" class="postsDiv"></div>
 	</fuji:content>

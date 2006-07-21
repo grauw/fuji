@@ -12,8 +12,8 @@ class Userlist extends Resource {
 		$entry = Entry::getRoot();
 		if (UserManager::getUser()->getRights($entry)->may_read) {
 			$template = Template::getTemplate();
-			if(isset($_GET['groupid'])) $template->applyUserlist($_GET['groupid']);
-			else $template->applyUserlist();
+			if(isset($_GET['groupid'])) $template->groupid = $_GET['groupid'];
+			$template->applyView('userlist');
 		}
 		else header('HTTP/1.1 401 Unauthorized');
 	}

@@ -11,7 +11,7 @@ class Groups extends Resource {
 	{
 		if (UserManager::isAdmin()) {
 			$template = Template::getTemplate();
-			$template->applyGroups();
+			$template->applyView('groups');
 		}
 		else header('HTTP/1.1 401 Unauthorized');
 	}

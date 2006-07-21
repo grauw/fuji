@@ -15,14 +15,16 @@ class Search extends Resource {
 			$entries = Entry::search($_GET['query'], $_GET['field'], $order);
 			if (UserManager::getUser()->getRights(Entry::getRoot())->may_read) {
 				$templateobj = Template::getTemplate();
-				$templateobj->applySearchResults($entries, $page);
+				$templateobj->entries = $entries;
+				$templateobj->page = $page;
+				$templateobj->applyView('searchresults');
 			} else header('HTTP/1.1 401 Unauthorized');
 		}
 		else
 		{
 			if (UserManager::getUser()->getRights(Entry::getRoot())->may_read) {
 				$templateobj = Template::getTemplate();
-				$templateobj->applySearch();
+				$templateobj->applyView('search');
 			} else header('HTTP/1.1 401 Unauthorized');			
 		}
 		// TODO: Quote: The response MUST include a WWW-Authenticate header field (rfc2616 10.4.2)

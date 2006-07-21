@@ -6,6 +6,12 @@ require_once 'l10nmanager.php';
 
 class Template extends Dataclass {
 	
+	public $groupid;
+	public $groups;
+	public $entry;
+	public $entries;
+	public $page;
+	
 	static function getTable() {
 		return 'templates';
 	}
@@ -29,6 +35,7 @@ class Template extends Dataclass {
 	
 	function applyView($view) {
 		L10nManager::loadL10n();
+		$this->startGZIP();
 		require_once($this->getTemplateView($view));
 	}
 	
@@ -60,6 +67,13 @@ class Template extends Dataclass {
 	public function acceptsFujiXHTML()
 	{
 		return strpos($_SERVER['HTTP_ACCEPT'],'application/x-fuji+xhtml+xml') !== FALSE ? true : false;
+	}
+	
+	public function startGZIP() {
+		$gzip_level = Database::getArray("SELECT value FROM " . Database::$db_tprefix . "defaults WHERE name = 'gzip'");
+		$gzip_level = $gzip_level[0][0];
+		ini_set('zlib.output_compression_level', $gzip_level);
+		ob_start('ob_gzhandler');
 	}
 	
 }

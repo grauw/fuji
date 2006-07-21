@@ -1,4 +1,4 @@
-<?php echo $this->getPrefix() ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <fuji:item xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:fuji="http://fuji.sourceforge.net/ns"
 	xml:lang="<?php echo L10n::$language ?>"

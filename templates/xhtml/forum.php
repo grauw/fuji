@@ -4,7 +4,7 @@
 	"http://www.w3.org/Math/DTD/mathml2/xhtml-math11-f.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<?php echo L10n::$language ?>">
 <head>
-	<title><?php echo $entry->title ?></title>
+	<title><?php echo $this->entry->title ?></title>
 	<link rel="alternate" type="application/atom+xml" title="Atom" href="/blog/atom.php" />
 	<link rel="alternate" type="application/rss+xml" title="RSS" href="/blog/rss.php" />
 	<link rel="meta" type="application/rdf+xml" title="FOAF" href="foaf.rdf" />
@@ -14,12 +14,12 @@
 <body>
 	<?php echo $this->getHeader() ?>
 	
-	<h1><?php echo $entry->title ?></h1>
+	<h1><?php echo $this->entry->title ?></h1>
 	
-	<?php echo $entry->getProcessedContent() ?>
+	<?php echo $this->entry->getProcessedContent() ?>
 	
 	<ul>
-		<?php foreach($entry->getChildren() as $post) { ?>
+		<?php foreach($this->entry->getChildren() as $post) { ?>
 		<li>
 			<?php if ($post->type == Entry::$TYPE_FORUM) { ?>
 			

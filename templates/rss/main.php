@@ -1,15 +1,16 @@
-<?php echo $this->getPrefix() ?>
+<?php $this->getPrefix() ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0">
 	<channel>
-		<title><?php echo htmlentities($entry->title, ENT_NOQUOTES) ?></title>
+		<title><?php echo htmlentities($this->entry->title, ENT_NOQUOTES) ?></title>
 		<link>..</link>
-		<description><?php echo $entry->getProcessedContent() ?></description>
+		<description><?php echo $this->entry->getProcessedContent() ?></description>
 		<generator>Fuji 0.1</generator>
 		<docs>http://blogs.law.harvard.edu/tech/rss</docs>
-		<pubDate><?php echo $entry->getFormattedDate('created', '%a, %d %b %Y %H:%i:%s GMT') ?></pubDate>
-		<lastBuildDate><?php echo $entry->getFormattedDate('modified', '%a, %d %b %Y %H:%i:%s GMT') ?></lastBuildDate>
+		<pubDate><?php echo $this->entry->getFormattedDate('created', '%a, %d %b %Y %H:%i:%s GMT') ?></pubDate>
+		<lastBuildDate><?php echo $this->entry->getFormattedDate('modified', '%a, %d %b %Y %H:%i:%s GMT') ?></lastBuildDate>
 		<language><?php echo L10n::$language ?></language>
-		<?php 	if(count($entry) > 0)
+		<?php 	if(count($this->entry) > 0)
 				foreach(Entry::getEntriesByType(4, 'created DESC', 10) as $post) { ?>
 		<item>
 			<title><?php echo htmlentities($post->title, ENT_NOQUOTES) ?></title>

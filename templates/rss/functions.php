@@ -1,28 +1,13 @@
 <?php
 require_once 'template.php';
-require_once '../scripts/l10nmanager.php';
 
 class RSS_Template extends Template {
 	
-	public $groupid = null;
-	
-	function apply($entry) {
-		L10nManager::loadL10n();
-		$thisview = $this->getTemplateView($entry->type);
-		ob_start();
-		include_once $thisview->location;
-		if($this->acceptsGZIP())
-			$this->outputGZIP();		
-	}
-	
 	public function getPrefix()
 	{
-		if ($this->acceptsRSS()) {
-			header('Content-Type: application/rss+xml');
-		} else {
+		if (!$this->acceptsRSS()) {
 			header('Content-Type: text/xml');
 		}
-		return '<?xml version="1.0" encoding="UTF-8"?'.">\n";
 	}
 	
 	public function getHead()
@@ -42,21 +27,6 @@ class RSS_Template extends Template {
 		return strpos($_SERVER['HTTP_ACCEPT'],'application/rss+xml') ? true : false;
 	}
 	
-	public function acceptsGZIP()
-	{
-		return strstr($_SERVER['HTTP_ACCEPT_ENCODING'], 'gzip') ? true : false;
-	}
-	
-	public function outputGZIP()
-	{
-		$contents = ob_get_contents();
-		ob_end_clean();
-		header("Content-Encoding: gzip");
-		$output = "\x1f\x8b\x08\x00\x00\x00\x00\x00";
-		$output .= substr(gzcompress($contents), 0, -4);
-		echo $output; 
-		exit();	
-	}
 }
 	
 return 'RSS_Template';

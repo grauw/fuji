@@ -1,12 +1,12 @@
-<?php echo $this->getPrefix() ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE wml PUBLIC "-//WAPFORUM//DTD WML 1.1//EN" "http://www.wapforum.org/DTD/wml_1.1.xml">
 <wml>
 	<card>
-		<p><b><?php echo htmlentities($entry->title, ENT_NOQUOTES) ?></b><br />
-		<?php echo $entry->getProcessedContent() ?></p>
+		<p><b><?php echo htmlentities($this->entry->title, ENT_NOQUOTES) ?></b><br />
+		<?php echo $this->entry->getProcessedContent() ?></p>
 		<p>
-		<?php 	if(count($entry) > 0)
-					foreach($entry->getChildren() as $post) { ?>
+		<?php 	if(count($this->entry) > 0)
+					foreach($this->entry->getChildren() as $post) { ?>
 						<a href="<?php echo $post->getURI() ?>"><?php echo htmlentities($post->title, ENT_NOQUOTES) ?></a><br />
 		<?php } ?>
 		</p>

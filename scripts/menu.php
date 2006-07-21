@@ -11,7 +11,7 @@ class Menu extends Resource {
 		UserManager::authenticate();
 		$action = isset($_GET['action']) ? $_GET['action'] : 0;
 		$template = Template::getTemplate();
-		$template->applyMenu();
+		$template->applyView('menu');
 	}
 	
 }	

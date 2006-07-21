@@ -14,13 +14,12 @@ class ItemRights extends Resource {
 		$id = isset($_GET['id']) ? intval($_GET['id']) : 1;
 		$groups = Group::getAllGroups();
 		$entry = Entry::getEntry($id);
-		if ($entry)
-		{
+		if ($entry) {
 			$template = Template::getTemplate();
-			$template->applyRights($entry, $groups);
-		}
-		else
-		header('HTTP/1.1 404 Not Found');			
+			$template->entry = $entry;
+			$template->groups = $groups;
+			$template->applyView('rights');
+		} else header('HTTP/1.1 404 Not Found');			
 	}
 	
 	function httpPost()

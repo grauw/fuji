@@ -10,7 +10,7 @@ class Profile extends Resource {
 	function httpGet()
 	{
 		$template = Template::getTemplate();
-		$template->applyProfile();
+		$template->applyView('profile');
 	}
 	
 }
