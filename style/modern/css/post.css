@@ -9,55 +9,25 @@
  * </div>
  *
  */
-.post {
-	-moz-border-radius: 10px;
-	border-top: 2px solid;
-	border-bottom: 2px solid;
-	margin-top: 1em;
-}
-.post:first-child {
+.postsListDiv .box:first-child {
 	margin-top: 0;
 }
-.post.even {
+.postsListDiv .box.even {
 }
-.post h3 {
+.postsListDiv .box h3 {
 	margin: 0;
 	-moz-border-radius: 6px;
 	font-size: inherit;
 	padding: 0 .32em;
 }
-.post h3 span:first-child {
+.postsListDiv .box h3 span:first-child {
 	float: left;
 }
-.post h3 {
+.postsListDiv .box h3 {
 	text-align: right;
 }
-.post h3 span:not(:first-child) {
+.postsListDiv .box h3 span:not(:first-child) {
 	font-size: 70%;
 }
-.post ul.menu {
-	margin: 0;
-	padding: 5px .3em;
-}
-.post ul.menu li {
-	display: inline;
-	list-style-type: none;
-}
-.post ul.menu a {
-	padding: 0 5px;
-	-moz-border-radius: 4px;
-	text-decoration: none;
-	border: 1px solid;
-}
-.post ul.menu a:hover {
-}
-.post ul.menu a.feed {
-	padding: 0 5px 0 20px;
-	background-position: 5px 3px;
-}
-.post .content {
-	padding: 0.5em;
-}
-
 
 

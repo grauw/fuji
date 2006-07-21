@@ -9,28 +9,19 @@ html {
 a {
 	color: #f60;
 }
-table th {
+table thead th {
 	border-color: #af4 #6c0 #6c0 #af4;
 	background-color: #8e0;
 }
-table td {
+table tbody td {
 	border-color: #6c0;
 	background-color: #9f0;
 }
-tr.even td {
+table tbody tr.even td {
 	background-color: #94f800;
 }
-tr:hover td {
+table tbody tr:hover td {
 	background-color: #90f500;
-}
-
-
-/* Logo colours */
-
-h1 {
-	background-color: #9f0;
-	border-top-color: #8d0;
-	border-bottom-color: #bf9;
 }
 
 
@@ -67,28 +58,30 @@ ul.tree a:hover {
 }
 
 
+/* Per-box themed colours */
+
 /* Post colours */
 
-.post {
+.postsListDiv {
 	background-color: #ff0;
 	border-top-color: #dd0;
 	border-bottom-color: #ff8;
 }
-.post.even {
+.postsListDiv .even {
 	background-color: #f5f500;
 }
-.post h3 {
+.postsListDiv h3 {
 	background-color: #dd0;
 }
-.post ul.menu {
+.postsListDiv ul.menu {
 	background-color: #f5f500;
 }
-.post ul.menu a {
+.postsListDiv ul.menu a {
 	background-color: #dd0;
 	border-color: #cc0;
 	color: inherit;
 }
-.post ul.menu a:hover {
+.postsListDiv ul.menu a:hover {
 	background-color: #bb0;
 }
 

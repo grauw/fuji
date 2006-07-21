@@ -58,32 +58,6 @@ ul.tree a:hover {
 }
 
 
-/* Post colours */
-
-.post {
-	xbackground-color: #ff0;
-	border-top-color: transparent;
-	border-bottom-color: transparent;
-}
-.post.even {
-	xbackground-color: #f5f500;
-}
-.post h3 {
-	xbackground-color: #dd0;
-}
-.post ul.menu {
-	xbackground-color: #f5f500;
-}
-.post ul.menu a {
-	xbackground-color: #dd0;
-	xborder-color: #cc0;
-	xcolor: inherit;
-}
-.post ul.menu a:hover {
-	xbackground-color: #bb0;
-}
-
-
 /* Per-box themed colours */
 
 /* Head colours */
@@ -110,14 +84,14 @@ h1.logoDiv,
 	color: #3d0;
 }
 .forumContainer ul.menu a {
-	border-color: #7c0;
+	border-color: #5a0;
 }
 .forumContainer ul.menu a:hover {
 	background-color: #6b0;
 }
 .forumContainer table thead th {
-	border-color: #060 #090 #090 #060;
-	background-color: #080;
+	border-color: #160 #390 #390 #160;
+	background-color: #380;
 	color: #efe;
 }
 
@@ -129,7 +103,7 @@ h1.logoDiv,
 	color: #f0f;
 }
 .threadContainer ul.menu a {
-	border-color: #d0d;
+	border-color: #a0a;
 }
 .threadContainer ul.menu a:hover {
 	background-color: #b0b;
@@ -138,13 +112,17 @@ h1.logoDiv,
 
 /* Post colours */
 
-.post h3,
-.post a {
+.postsListDiv {
+	border-top-color: transparent;
+	border-bottom-color: transparent;
+}
+.postsListDiv h3,
+.postsListDiv a {
 	color: #ff0;
 }
-.post ul.menu a {
-	border-color: #dd0;
+.postsListDiv ul.menu a {
+	border-color: #880;
 }
-.post ul.menu a:hover {
+.postsListDiv ul.menu a:hover {
 	background-color: #bb0;
 }

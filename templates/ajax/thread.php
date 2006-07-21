@@ -22,7 +22,7 @@ while($contextEntry->type == 4) $contextEntry = $contextEntry->getParent();
 			<li><a href="atom/<?php echo $entry->getURI() ?>" rel="alternate" type="application/atom+xml" class="feed">Atom</a></li>
 		</ul>
 		<div class="postsListDiv content">
-			<div class="postDiv post odd">
+			<div class="postDiv box odd">
 				<h3 class="postTitle">
 					<span><?php echo $entry->title ?></span>
 					<span>(<?php echo L10n::$posted_by ?> <a href="#<?php echo User::getUser($entry->userref)->getURI() ?>"><?php echo htmlentities(User::getUser($entry->userref)->nickname, ENT_NOQUOTES) ?></a>
@@ -41,7 +41,7 @@ while($contextEntry->type == 4) $contextEntry = $contextEntry->getParent();
 					$i = 1;
 					if($num_of_children > 0)
 					foreach($entry->getChildren('created', ($page - 1) * $page_size . ', ' . $page_size) as $post) { ?>
-			<div class="postDiv post <?php echo $i++ % 2 ? 'even' : 'odd' ?>">
+			<div class="postDiv box <?php echo $i++ % 2 ? 'even' : 'odd' ?>">
 				<?php if ($post->type == Entry::$TYPE_POST) { ?>
 					<h3 class="postTitle">
 						<span><?php echo htmlentities($post->title, ENT_NOQUOTES) ?></span>
