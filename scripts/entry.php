@@ -244,6 +244,19 @@ class Entry extends Dataclass {
 		return sprintf($this->uri_format, $this->ref);
 	}
 	
+	/**
+	 * Gets the name of the view 
+	 */
+	function getView() {
+		switch ($this->type) {
+			case 1: return 'main';
+			case 2: return 'forum';
+			case 3: return 'forum';
+			case 4: return 'thread';
+		}
+	}
+	
+	
 	function __set($name, $value) {
 		parent::__set($name, $value);
 		$this->updateDate();

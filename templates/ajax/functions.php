@@ -10,9 +10,9 @@ class AJAX_Template extends Template {
 	
 	function apply($entry, $page) {
 		L10nManager::loadL10n();
-		$thisview = $this->getTemplateView($entry->type);
+		$thisview = $this->getTemplateView($entry->getView());
 		$this->startGZIP();
-		include_once $thisview->location;
+		require_once($thisview);
 	}
 	
 	function applyUserlist($groupid=null) {

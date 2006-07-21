@@ -13,8 +13,8 @@ class Item extends Resource {
 		$entry = Entry::getEntry($id);
 		if ($entry) {
 			if (UserManager::getUser()->getRights($entry)->may_read) {
-				$templateobj = Template::getTemplate();
-				$templateobj->apply($entry, $page);
+				$template = Template::getTemplate();
+				$template->apply($entry, $page);
 			} else header('HTTP/1.1 401 Unauthorized');
 			// TODO: Quote: The response MUST include a WWW-Authenticate header field (rfc2616 10.4.2)
 		} else header('HTTP/1.1 404 Not Found');

@@ -51,41 +51,11 @@
 		
 		<data>
 			<row><f name="mimetype">application/xhtml+xml</f><f name="public">1</f><f name="basedir">templates/xhtml/functions.php</f></row>
+			<row><f name="mimetype">text/html</f><f name="public">1</f><f name="basedir">templates/xhtml/functions.php</f></row>
 			<row><f name="mimetype">application/x-fuji+xhtml+xml</f><f name="public">1</f><f name="basedir">templates/ajax/functions.php</f></row>
 			<row><f name="mimetype">application/rss+xml</f><f name="public">1</f><f name="basedir">templates/rss/functions.php</f></row>
 			<row><f name="mimetype">application/atom+xml</f><f name="public">1</f><f name="basedir">templates/atom/functions.php</f></row>
 			<row><f name="mimetype">application/wml+xml</f><f name="public">1</f><f name="basedir">templates/wml/functions.php</f></row>
-		</data>
-	</table>
-	
-	<table name="viewtemplates">
-		<descr>Templates to use for each view/template combination</descr>
-		<field name="id" type="I2"><UNSIGNED/><KEY/><AUTOINCREMENT/></field>
-		<field name="templateref" type="I1"><UNSIGNED/><NOTNULL/></field>
-		<field name="typeref" type="I1"><UNSIGNED/><NOTNULL/></field>
-		<field name="location" type="C" size="255"><NOTNULL/></field>
-		
-		<data>
-			<row><f name="templateref">1</f><f name="typeref">1</f><f name="location">main.php</f></row>
-			<row><f name="templateref">1</f><f name="typeref">2</f><f name="location">forum.php</f></row>
-			<row><f name="templateref">1</f><f name="typeref">3</f><f name="location">forum.php</f></row>
-			<row><f name="templateref">1</f><f name="typeref">4</f><f name="location">thread.php</f></row>
-			<row><f name="templateref">2</f><f name="typeref">1</f><f name="location">main.php</f></row>
-			<row><f name="templateref">2</f><f name="typeref">2</f><f name="location">forum.php</f></row>
-			<row><f name="templateref">2</f><f name="typeref">3</f><f name="location">forum.php</f></row>
-			<row><f name="templateref">2</f><f name="typeref">4</f><f name="location">thread.php</f></row>
-			<row><f name="templateref">3</f><f name="typeref">1</f><f name="location">main.php</f></row>
-			<row><f name="templateref">3</f><f name="typeref">2</f><f name="location">forum.php</f></row>
-			<row><f name="templateref">3</f><f name="typeref">3</f><f name="location">forum.php</f></row>
-			<row><f name="templateref">3</f><f name="typeref">4</f><f name="location">thread.php</f></row>
-			<row><f name="templateref">4</f><f name="typeref">1</f><f name="location">main.php</f></row>
-			<row><f name="templateref">4</f><f name="typeref">2</f><f name="location">forum.php</f></row>
-			<row><f name="templateref">4</f><f name="typeref">3</f><f name="location">forum.php</f></row>
-			<row><f name="templateref">4</f><f name="typeref">4</f><f name="location">thread.php</f></row>
-			<row><f name="templateref">5</f><f name="typeref">1</f><f name="location">main.php</f></row>
-			<row><f name="templateref">5</f><f name="typeref">2</f><f name="location">forum.php</f></row>
-			<row><f name="templateref">5</f><f name="typeref">3</f><f name="location">forum.php</f></row>
-			<row><f name="templateref">5</f><f name="typeref">4</f><f name="location">thread.php</f></row>
 		</data>
 	</table>
 	

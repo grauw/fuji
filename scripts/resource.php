@@ -51,6 +51,14 @@ class Resource {
 		header('Allow: '.implode(', ', $allow), true, '405');
 	}
 	
+	private static $varying = array();
+	
+	public static function addVary($vary) {
+		if (!in_array($vary,self::$varying)) {
+			$varying[] = $vary;
+			header('Vary: '.implode(', ', $varying));
+		}
+	}
 	
 }	
 	
