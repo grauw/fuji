@@ -158,17 +158,17 @@ Fuji.Dialogs.Settings.prefDialog = {
 Fuji.Dialogs.Settings.newGroupDialog = {
 	onSuccess : function() { Fuji.reloadItem("groups/"); },
 	handleSubmit : function() { this.submit(); document.getElementById('newGroupF').reset(); this.hide(); },
-	handleCancel : function() { this.cancel(); document.getElementById('newGroupF').reset(); this.hide(); },
+	handleCancel : function() { this.cancel(); document.getElementById('newGroupF').reset(); this.hide(); }
 }
 Fuji.Dialogs.Settings.editGroupDialog = {
 	onSuccess : function() { Fuji.reloadItem("groups/"); },
 	handleSubmit : function() { this.submit(); document.getElementById('editGroupF').reset(); this.hide(); },
-	handleCancel : function() { this.cancel(); document.getElementById('editGroupF').reset(); this.hide(); },
+	handleCancel : function() { this.cancel(); document.getElementById('editGroupF').reset(); this.hide(); }
 }
 Fuji.Dialogs.Settings.configRightsDialog = {
 	onSuccess : function() { },
 	handleSubmit : function() { this.submit(); document.getElementById('configRightsF').reset(); this.hide(); },
-	handleCancel : function() { this.cancel(); document.getElementById('configRightsF').reset(); this.hide(); },
+	handleCancel : function() { this.cancel(); document.getElementById('configRightsF').reset(); this.hide(); }
 }
 Fuji.Dialogs.Settings.createDialog = {
 	uri : null,	
@@ -180,7 +180,7 @@ Fuji.Dialogs.Settings.editDialog = {
 	uri : null,
 	onSuccess : function() { Fuji.reloadItem(Fuji.Dialogs.Settings.editDialog.uri, 999) },
 	handleSubmit : function() { this.submit(); document.getElementById('editF').reset(); this.hide(); },
-	handleCancel : function() { this.cancel(); document.getElementById('editF').reset(); this.hide(); },
+	handleCancel : function() { this.cancel(); document.getElementById('editF').reset(); this.hide(); }
 }
 Fuji.Dialogs.Settings.deleteDialog = {
 	uri : null,
@@ -210,7 +210,7 @@ Fuji.Dialogs.Settings.errorDialog401 = {
 				'<li>' + Fuji.Messages.error_anonymous + '</li>' +
 				'<li>' + Fuji.Messages.error_server_misconfiguration + '</li></ul></p>' },
 	body : null,
-	icon : YAHOO.widget.SimpleDialog.ICON_BLOCK,
+	icon : YAHOO.widget.SimpleDialog.ICON_BLOCK
 }
 Fuji.Dialogs.Settings.errorDialog404 = {
 	handleSubmit : function() { this.hide(); },
@@ -223,7 +223,7 @@ Fuji.Dialogs.Settings.errorDialog404 = {
 				'<li>' + Fuji.Messages.error_server_misconfiguration + '</li></ul></p>' },
 	body : null,
 	icon : YAHOO.widget.SimpleDialog.ICON_BLOCK,
-	uri : null,
+	uri : null
 }
 Fuji.Dialogs.Settings.errorDialogOther = {
 	handleSubmit : function() { this.hide(); },
@@ -237,7 +237,7 @@ Fuji.Dialogs.Settings.errorDialogOther = {
 	body : null,
 	icon : YAHOO.widget.SimpleDialog.ICON_BLOCK,
 	status : null,
-	statusText : null,
+	statusText : null
 }
 Fuji.Dialogs.Settings.loadingDialog = {
 	header : Fuji.Messages.loading,
