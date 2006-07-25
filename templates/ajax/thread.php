@@ -18,8 +18,8 @@ while($contextEntry->type == 4) $contextEntry = $contextEntry->getParent();
 			<?php } if (UserManager::getUser()->getRights($this->entry)->may_delete) { ?>
 				<li id="actionDeletePost"><a href="javascript:Fuji.Dialogs.newDeleteDialog('<?php echo $this->entry->getURI() ?>', '<?php echo $this->entry->getParentURI() ?>')"><?php echo L10n::$delete ?></a></li>
 			<?php } ?>
-			<li><a href="rss/<?php echo $this->entry->getURI() ?>" rel="alternate" type="application/rss+xml" class="feed">RSS</a></li>
-			<li><a href="atom/<?php echo $this->entry->getURI() ?>" rel="alternate" type="application/atom+xml" class="feed">Atom</a></li>
+			<li><a href="<?php echo $this->entry->getURI() ?>.rss" rel="alternate" type="application/rss+xml" class="feed">RSS</a></li>
+			<li><a href="<?php echo $this->entry->getURI() ?>.atom" rel="alternate" type="application/atom+xml" class="feed">Atom</a></li>
 		</ul>
 		<div class="postsContainer content">
 			<div class="postDiv box odd">

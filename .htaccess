@@ -6,22 +6,22 @@ RewriteEngine On
 ##
 
 # GET *.rss
-RewriteRule ^(.*)\.rss$ $1?mime=application/rss+xml [QSA]
+RewriteRule ^(.*)\.rss$ $1?mime=application/rss\%2Bxml [QSA]
 
 # GET *.atom
-RewriteRule ^(.*)\.atom$ $1?mime=application/atom+xml [QSA]
+RewriteRule ^(.*)\.atom$ $1?mime=application/atom\%2Bxml [QSA]
 
 # GET *.wml
 RewriteRule ^(.*)\.wml$ $1?mime=text/vnd.wap.wml [QSA]
 
 # GET *.xhtml
-RewriteRule ^(.*)\.xhtml$ $1?mime=application/xhtml+xml [QSA]
+RewriteRule ^(.*)\.xhtml$ $1?mime=application/xhtml\%2Bxml [QSA]
 
 # GET *.rdf
-RewriteRule ^(.*)\.rdf$ $1?mime=application/rdf+xml [QSA]
+RewriteRule ^(.*)\.rdf$ $1?mime=application/rdf\%2Bxml [QSA]
 
 # GET *.fuji
-RewriteRule ^(.*)\.fuji$ $1?mime=application/x-fuji+xhtml+xml [QSA]
+RewriteRule ^(.*)\.fuji$ $1?mime=application/x-fuji\%2Bxhtml\%2Bxml [QSA]
 
 
 

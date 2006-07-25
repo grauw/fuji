@@ -18,8 +18,15 @@
 			<?php } if (UserManager::isAdmin()) { ?>
 				<li id="actionConfigRights"><a href="javascript:Fuji.loadItem('<?php echo $this->entry->getURI() ?>/rights')"><?php echo L10n::$config_rights ?></a></li>
 			<?php } ?>
-			<li><a href="rss/<?php echo $this->entry->getURI() ?>" rel="alternate" type="application/rss+xml" class="feed">RSS</a></li>
-			<li><a href="atom/<?php echo $this->entry->getURI() ?>" rel="alternate" type="application/atom+xml" class="feed">Atom</a></li>
+			<li><a href="<?php echo $this->entry->getURI() ?>.rss" rel="alternate" type="application/rss+xml" class="feed">RSS</a></li>
+			<li><a href="<?php echo $this->entry->getURI() ?>.atom" rel="alternate" type="application/atom+xml" class="feed">Atom</a></li>
+			<li><a href="javascript://" class="submenu">Semantics</a>
+				<ul>
+					<li><a href="javascript:alert('not implemented');">Add calendar event</a></li>
+					<li><a href="javascript:alert('not implemented');">Add tag</a></li>
+					<li><a href="javascript:alert('not implemented');">Add tag</a></li>
+				</ul>
+			</li>
 		</ul>
 		<div class="threadsTableDiv content">
 			<div may_post="<?php echo UserManager::getUser()->getRights($this->entry)->may_post ?>" may_edit="<?php echo UserManager::getUser()->getRights($this->entry)->may_edit ?>" may_delete="<?php echo UserManager::getUser()->getRights($this->entry)->may_delete ?>">

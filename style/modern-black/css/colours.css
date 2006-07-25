@@ -54,6 +54,17 @@ ul.tree a:hover {
 .box ul.menu a:hover {
 	background-color: #666;
 }
+.box ul.menu li ul {
+	background: #040;
+	border-color: #484;
+}
+.box ul.menu li ul li a {
+	background: transparent;
+	border-color: transparent !important;
+}
+.box ul.menu a.submenu::after {
+	color: #080;
+}
 .box .pager {
 	background-color: #333;
 }

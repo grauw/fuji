@@ -38,6 +38,34 @@
 }
 .box ul.menu a:hover {
 }
+.box ul.menu li {
+	position: relative;
+}
+.box ul.menu li ul {
+	display: none;
+	position: absolute;
+	left: 0;
+	width: 15em;
+	margin: 0;
+	padding: .5em 0;
+	-moz-border-radius: 6px;
+	border-width: 2px 0;
+	border-style: solid;
+}
+.box ul.menu li:hover ul {
+	display: block;
+}
+.box ul.menu li:hover ul li {
+	display: block;
+}
+.box ul.menu li ul li a {
+	display: block;
+	padding: 0 0.3em;
+	-moz-border-radius: 0;
+}
+.box ul.menu a.submenu::after {
+	content: ' \25bc';
+}
 .box ul.menu a.feed {
 	padding: 0 5px 0 20px;
 	background-position: 5px 3px;
