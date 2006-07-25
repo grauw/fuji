@@ -13,7 +13,8 @@ Before you install the Fuji Forum, the following needs to be installed first:
   function in the Apache config file (see the Apache manual for more
   details).
 
-* PHP 5. Because the Fuji Forum uses advanced PHP features, PHP 5 is required.
+* PHP 5. Because the Fuji Forum uses advanced PHP features, PHP 5 is required. You 
+need to disable the short_open_tag option.
 
 * A database server, one of MySQL, PostgreSQL or Microsoft SQL server. The
   Fuji Forum has been tested on MySQL 5.

@@ -23,13 +23,13 @@
 		<li>
 			<?php if ($post->type == Entry::$TYPE_FORUM) { ?>
 			
-				<h2><a href="/<?php echo $post->getURI() ?>"><?php echo $post->title ?></a></h2>
+				<h2><a href="../<?php echo $post->getURI() ?>"><?php echo $post->title ?></a></h2>
 				
 				<?php echo $post->getProcessedContent() ?>
 			
 			<?php } else if ($post->type == Entry::$TYPE_POST) { ?>
 			
-				<a href="/<?php echo $post->getURI() ?>"><?php echo $post->title ?></a>
+				<a href="../<?php echo $post->getURI() ?>"><?php echo $post->title ?></a>
 			
 			<?php } else { ?>
 			
