@@ -88,3 +88,12 @@ a:visited {
   background-color: #f2f2f1;
   border-color: #ffffff;
 }
+
+/* submenus */
+.box ul.menu li ul {
+  border-color: #111111;
+  background-color: #fafaf9;
+}
+.box ul.menu li:hover ul li:hover {
+  background-color: #eaeae9;
+}

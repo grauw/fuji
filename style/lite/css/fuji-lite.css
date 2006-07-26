@@ -193,3 +193,27 @@ a.feed {
   border-right: 1px solid;
   border-bottom: 1px solid;
 }
+
+/* submenus */
+.box ul.menu li {
+	position: relative;
+}
+.box ul.menu li ul {
+	display: none;
+	position: absolute;
+	left: 0;
+	width: 15em;
+	margin: 0;
+	padding: .5em 0;
+	border: 1px solid;
+}
+.box ul.menu li:hover ul {
+	display: block;
+}
+.box ul.menu li:hover ul li {
+	display: block;
+}
+.box ul.menu li ul li a {
+	display: block;
+	padding: 0 0.3em;
+}

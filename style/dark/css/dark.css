@@ -95,3 +95,11 @@ a.feed {
   background-color: #ddeeff;
   border-color: #3377cc;
 }
+/* submenus */
+.box ul.menu li ul {
+  border-color: #3377cc;
+  background-color: #88ccff;
+}
+.box ul.menu li:hover ul li:hover {
+  background-color: #6688ff;
+}
