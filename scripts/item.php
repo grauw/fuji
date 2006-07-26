@@ -10,13 +10,17 @@ class Item extends Resource {
 		UserManager::authenticate();
 		$id = isset($_GET['id']) ? intval($_GET['id']) : 1;
 		$page = isset($_GET['page']) ? intval($_GET['page']) : 1;
+		$source = isset($_GET['source']) ? true : false;
 		$entry = Entry::getEntry($id);
 		if ($entry) {
 			if (UserManager::getUser()->getRights($entry)->may_read) {
 				$template = Template::getTemplate();
 				$template->entry = $entry;
 				$template->page = $page;
-				$template->applyView($entry->getView());
+				if(!$source)
+					$template->applyView($entry->getView());
+				else
+					$template->applyView('item_source');
 			} else header('HTTP/1.1 401 Unauthorized');
 			// TODO: Quote: The response MUST include a WWW-Authenticate header field (rfc2616 10.4.2)
 		} else header('HTTP/1.1 404 Not Found');
