@@ -73,3 +73,7 @@ a:link {
 a:visited {
   color: black;
 }
+.postDiv .postSidepanel {
+  background-color: #ddeeff;
+  border-color: #3377cc;
+}

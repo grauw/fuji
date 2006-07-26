@@ -49,7 +49,7 @@ ul.windowActions li {
 #foraDiv {
   margin: 10px;
   position: absolute;
-  top: 320px;
+  top: 350px;
   left: 0px;
   height: 300px;
   width: 200px;
@@ -60,7 +60,7 @@ ul.windowActions li {
   position: absolute;
   top: 110px;
   left: 0px;
-  height: 200px;
+  height: 230px;
   width: 200px;
 }
 #threadsDiv {
@@ -167,4 +167,15 @@ a:visited {
 a.feed {
   padding-left: 15px;
   background: url('../graphics/feed-icon.png') 0 3px no-repeat;
+}
+.postDiv .profilePhoto {
+  width: 60px;
+  height: 60px;
+}
+.postDiv .postSidepanel {
+  width: 60px;
+  height: 60px;
+  float: left;
+  border-right: 1px solid;
+  border-bottom: 1px solid;
 }

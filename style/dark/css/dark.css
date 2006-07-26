@@ -91,3 +91,7 @@ a.feed {
   padding-left: 15px;
   background: url('../graphics/feed-icon.png') 0 3px no-repeat;
 } 
+.postDiv .postSidepanel {
+  background-color: #ddeeff;
+  border-color: #3377cc;
+}

@@ -1,4 +1,6 @@
-<?php $this->page_size = 20; ?>
+<?php 	$this->page_size = 20; 
+	$this->photo_placeholder = 'style/default/graphics/no-photo.png';
+?>
 <?xml version="1.0" encoding="UTF-8"?>
 <?php
 $contextEntry = $this->entry;
@@ -23,10 +25,18 @@ while($contextEntry->type == 4) $contextEntry = $contextEntry->getParent();
 		</ul>
 		<div class="postsContainer content">
 			<div class="postDiv box odd">
+				<div class="postSidepanel">
+					<img src="<?php echo User::getUser($this->entry->userref)->picture ? htmlentities(User::getUser($this->entry->userref)->picture) : $this->photo_placeholder ?>" alt="profilephoto" class="profilePhoto" />
+				</div>
 				<h3 class="postTitle">
+					<div>
 					<span><?php echo $this->entry->title ?></span>
-					<span>(<?php echo L10n::$posted_by ?> <a href="#<?php echo User::getUser($this->entry->userref)->getURI() ?>"><?php echo htmlentities(User::getUser($this->entry->userref)->nickname, ENT_NOQUOTES) ?></a>
-						<?php echo L10n::$on ?> <?php echo $this->entry->getFormattedDate('modified', L10n::$date_format) ?>)</span>
+					<span><?php echo $this->entry->getFormattedDate('modified', L10n::$date_format) ?></span>
+					</div>
+					<div>
+					<span><a href="#<?php echo User::getUser($this->entry->userref)->getURI() ?>"><?php echo htmlentities(User::getUser($this->entry->userref)->nickname, ENT_NOQUOTES) ?></a></span>
+					<span>(<?php $output = ""; $groups = User::getUser($this->entry->userref)->getGroups(); foreach($groups as $group) { $output .= ($output ? ', ' : '') . htmlentities($group->name, ENT_NOQUOTES); } echo $output ?>)</span>
+					</div>
 				</h3>
 				<?php if (UserManager::getUser()->getRights($this->entry)->may_edit) { ?>
 				<ul class="windowActions menu">
@@ -43,10 +53,18 @@ while($contextEntry->type == 4) $contextEntry = $contextEntry->getParent();
 					foreach($this->entry->getChildren('created', ($this->page - 1) * $this->page_size . ', ' . $this->page_size) as $post) { ?>
 			<div class="postDiv box <?php echo $i++ % 2 ? 'even' : 'odd' ?>">
 				<?php if ($post->type == Entry::$TYPE_POST) { ?>
+					<div class="postSidepanel">
+						<img src="<?php echo User::getUser($post->userref)->picture ? htmlentities(User::getUser($post->userref)->picture) : $this->photo_placeholder ?>" alt="profilephoto" class="profilePhoto" />
+					</div>
 					<h3 class="postTitle">
-						<span><?php echo htmlentities($post->title, ENT_NOQUOTES) ?></span>
-						<span>(<?php echo L10n::$posted_by ?> <a href="#<?php echo User::getUser($post->userref)->getURI() ?>"><?php echo htmlentities(User::getUser($post->userref)->nickname, ENT_NOQUOTES) ?></a>
-							<?php echo L10n::$on ?> <?php echo $post->getFormattedDate('modified', L10n::$date_format) ?>)</span>
+						<div>
+						<span><?php echo $post->title ?></span>
+						<span><?php echo $post->getFormattedDate('modified', L10n::$date_format) ?></span>
+						</div>
+						<div>
+						<span><a href="#<?php echo User::getUser($post->userref)->getURI() ?>"><?php echo htmlentities(User::getUser($post->userref)->nickname, ENT_NOQUOTES) ?></a></span>
+						<span>(<?php $output = ""; $groups = User::getUser($post->userref)->getGroups(); foreach($groups as $group) { $output .= ($output ? ', ' : '') . htmlentities($group->name, ENT_NOQUOTES); } echo $output ?>)</span>
+						</div>
 					</h3>
 					<?php if (UserManager::getUser()->getRights($post)->may_edit || UserManager::getUser()->getRights($post)->may_delete) { ?>
 					<ul class="windowActions menu">
