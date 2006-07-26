@@ -84,9 +84,34 @@ a:link {
 a:visited {
   color: #111111;
 }
+a:hover {
+  color: #666666;
+}
 .postDiv .postSidepanel {
   background-color: #f2f2f1;
   border-color: #ffffff;
+}
+
+.code {
+  background-color: #fefefd;
+  border-color: #cccccc;
+}
+.quote {
+  background-color: #f2f2f1;
+  border-color: #cccccc;
+}
+.quotecontent {
+  background-color: #fefefd;
+  border-color: #cccccc;
+}
+.postContent a:link {
+  color: #444444;
+}
+.postContent a:visited {
+  color: #555555;
+}
+.postContent a:hover {
+  color: #888888;
 }
 
 /* submenus */

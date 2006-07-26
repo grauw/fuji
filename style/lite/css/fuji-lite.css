@@ -194,6 +194,27 @@ a.feed {
   border-bottom: 1px solid;
 }
 
+.code {
+  margin: 10px;
+  font-family: monospace;
+  border: 1px dotted;
+}
+.quote {
+  margin: 10px;
+  font-weight: bold;  
+  border: 1px solid;
+}
+.quotecontent {
+  font-weight: normal;
+  border-top: 1px solid;
+}
+.postContent a:link {
+  text-decoration: underline;
+}
+.postContent a:visited {
+  text-decoration: underline;
+}
+
 /* submenus */
 .box ul.menu li {
 	position: relative;

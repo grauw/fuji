@@ -116,7 +116,7 @@ class BBCode extends Processor {
             "/u" => "</u>",
             "code" => "<div class=\"code\">",
             "/code" => "</div>",
-            "/quote" => "</div>",
+            "/quote" => "</div></div>",
             "/url" => "</a> ",
         );
 
@@ -147,11 +147,11 @@ class BBCode extends Processor {
         else if($tag == "quote")
         {
            if($tagextra == "")
-              return "<div class='quoter'> Quote:</div><div class='quote'>";
+              return "<div class='quote'> Quote:<div class='quotecontent'>";
            else {
             if(substr($tagextra,0 ,6) == "&quot;" && substr($tagextra, (strlen($tagextra)-6),6) == "&quot;")  $tagextra = substr($tagextra, 6, strlen($tagextra)-12);
 
-            return "<div class='quoter'> $tagextra wrote:</div><div class='quote'>";
+            return "<div class='quote'> $tagextra wrote:<div class='quotecontent'>";
             }
         }
         else
