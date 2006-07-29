@@ -1,0 +1,876 @@
+Index: C:/Development/Projects/Forum/js/yui/dom/dom.js
+===================================================================
+--- C:/Development/Projects/Forum/js/yui/dom/dom.js	(revision 311)
++++ C:/Development/Projects/Forum/js/yui/dom/dom.js	(working copy)
+@@ -225,7 +225,7 @@
+             if (el.parentNode) { parentNode = el.parentNode; }
+             else { parentNode = null; }
+       
+-            while (parentNode && parentNode.tagName.toUpperCase() != 'BODY' && parentNode.tagName.toUpperCase() != 'HTML') 
++            while (parentNode && parentNode.tagName.toLowerCase() != 'body' && parentNode.tagName.toLowerCase() != 'html') 
+             { // account for any scrolled ancestors
+                pos[0] -= parentNode.scrollLeft;
+                pos[1] -= parentNode.scrollTop;
+@@ -506,7 +506,7 @@
+                   if (parent == haystack) {
+                      return true;
+                   }
+-                  else if (parent.tagName.toUpperCase() == 'HTML') {
++                  else if (parent.tagName.toLowerCase() == 'html') {
+                      return false;
+                   }
+                   
+Index: C:/Development/Projects/Forum/js/yui/animation/animation.js
+===================================================================
+--- C:/Development/Projects/Forum/js/yui/animation/animation.js	(revision 311)
++++ C:/Development/Projects/Forum/js/yui/animation/animation.js	(working copy)
+@@ -670,7 +670,7 @@
+             while (parent && val == 'transparent') {
+                parent = parent.parentNode;
+                val = Y.Dom.getStyle(parent, attr);
+-               if (parent.tagName.toUpperCase() == 'HTML') {
++               if (parent.tagName.toLowerCase() == 'html') {
+                   val = 'ffffff';
+                }
+             }
+Index: C:/Development/Projects/Forum/js/yui/container/container_core.js
+===================================================================
+--- C:/Development/Projects/Forum/js/yui/container/container_core.js	(revision 311)
++++ C:/Development/Projects/Forum/js/yui/container/container_core.js	(working copy)
+@@ -758,7 +758,7 @@
+ 
+ 			el = document.getElementById(el);
+ 			if (! el) {
+-				el = document.createElement("DIV");
++				el = document.createElement("div");
+ 				el.id = elId;
+ 			}
+ 		}
+@@ -889,7 +889,7 @@
+ 	*/	
+ 	setHeader : function(headerContent) {
+ 		if (! this.header) {
+-			this.header = document.createElement("DIV");
++			this.header = document.createElement("div");
+ 			this.header.className = YAHOO.widget.Module.CSS_HEADER;
+ 		}
+ 		
+@@ -910,7 +910,7 @@
+ 	*/	
+ 	appendToHeader : function(element) {
+ 		if (! this.header) {
+-			this.header = document.createElement("DIV");
++			this.header = document.createElement("div");
+ 			this.header.className = YAHOO.widget.Module.CSS_HEADER;
+ 		}
+ 		
+@@ -926,7 +926,7 @@
+ 	*/		
+ 	setBody : function(bodyContent) {
+ 		if (! this.body) {
+-			this.body = document.createElement("DIV");
++			this.body = document.createElement("div");
+ 			this.body.className = YAHOO.widget.Module.CSS_BODY;
+ 		}
+ 
+@@ -948,7 +948,7 @@
+ 	*/
+ 	appendToBody : function(element) {
+ 		if (! this.body) {
+-			this.body = document.createElement("DIV");
++			this.body = document.createElement("div");
+ 			this.body.className = YAHOO.widget.Module.CSS_BODY;
+ 		}
+ 
+@@ -964,7 +964,7 @@
+ 	*/	
+ 	setFooter : function(footerContent) {
+ 		if (! this.footer) {
+-			this.footer = document.createElement("DIV");
++			this.footer = document.createElement("div");
+ 			this.footer.className = YAHOO.widget.Module.CSS_FOOTER;
+ 		}
+ 
+@@ -985,7 +985,7 @@
+ 	*/
+ 	appendToFooter : function(element) {
+ 		if (! this.footer) {
+-			this.footer = document.createElement("DIV");
++			this.footer = document.createElement("div");
+ 			this.footer.className = YAHOO.widget.Module.CSS_FOOTER;
+ 		}
+ 
+Index: C:/Development/Projects/Forum/js/yui/container/container.js
+===================================================================
+--- C:/Development/Projects/Forum/js/yui/container/container.js	(revision 311)
++++ C:/Development/Projects/Forum/js/yui/container/container.js	(working copy)
+@@ -758,7 +758,7 @@
+ 
+ 			el = document.getElementById(el);
+ 			if (! el) {
+-				el = document.createElement("DIV");
++				el = document.createElement("div");
+ 				el.id = elId;
+ 			}
+ 		}
+@@ -889,7 +889,7 @@
+ 	*/	
+ 	setHeader : function(headerContent) {
+ 		if (! this.header) {
+-			this.header = document.createElement("DIV");
++			this.header = document.createElement("div");
+ 			this.header.className = YAHOO.widget.Module.CSS_HEADER;
+ 		}
+ 		
+@@ -910,7 +910,7 @@
+ 	*/	
+ 	appendToHeader : function(element) {
+ 		if (! this.header) {
+-			this.header = document.createElement("DIV");
++			this.header = document.createElement("div");
+ 			this.header.className = YAHOO.widget.Module.CSS_HEADER;
+ 		}
+ 		
+@@ -926,7 +926,7 @@
+ 	*/		
+ 	setBody : function(bodyContent) {
+ 		if (! this.body) {
+-			this.body = document.createElement("DIV");
++			this.body = document.createElement("div");
+ 			this.body.className = YAHOO.widget.Module.CSS_BODY;
+ 		}
+ 
+@@ -948,7 +948,7 @@
+ 	*/
+ 	appendToBody : function(element) {
+ 		if (! this.body) {
+-			this.body = document.createElement("DIV");
++			this.body = document.createElement("div");
+ 			this.body.className = YAHOO.widget.Module.CSS_BODY;
+ 		}
+ 
+@@ -964,7 +964,7 @@
+ 	*/	
+ 	setFooter : function(footerContent) {
+ 		if (! this.footer) {
+-			this.footer = document.createElement("DIV");
++			this.footer = document.createElement("div");
+ 			this.footer.className = YAHOO.widget.Module.CSS_FOOTER;
+ 		}
+ 
+@@ -985,7 +985,7 @@
+ 	*/
+ 	appendToFooter : function(element) {
+ 		if (! this.footer) {
+-			this.footer = document.createElement("DIV");
++			this.footer = document.createElement("div");
+ 			this.footer.className = YAHOO.widget.Module.CSS_FOOTER;
+ 		}
+ 
+@@ -2455,7 +2455,7 @@
+ YAHOO.widget.Tooltip.prototype.doShow = function(e, context) {
+ 	
+ 	var yOffset = 25;
+-	if (this.browser == "opera" && context.tagName == "A") {
++	if (this.browser == "opera" && context.tagName.toLowerCase() == "a") {
+ 		yOffset += 12;
+ 	}
+ 
+@@ -2587,7 +2587,7 @@
+ 		var draggable = this.cfg.getProperty("draggable");
+ 		if (draggable) {
+ 			if (! this.header) {
+-				this.setHeader("&nbsp;");
++				this.setHeader("&#160;");
+ 			}
+ 		}
+ 	}, this, true);
+@@ -2639,7 +2639,7 @@
+ 
+ 	if (val) {
+ 		if (! this.close) {
+-			this.close = document.createElement("DIV");
++			this.close = document.createElement("div");
+ 			YAHOO.util.Dom.addClass(this.close, "close");
+ 
+ 			if (this.isSecure) {
+@@ -2648,7 +2648,7 @@
+ 				YAHOO.util.Dom.addClass(this.close, "nonsecure");
+ 			}
+ 
+-			this.close.innerHTML = "&nbsp;";
++			this.close.innerHTML = "&#160;";
+ 			this.innerElement.appendChild(this.close);
+ 			YAHOO.util.Event.addListener(this.close, "click", doHide, this);	
+ 		} else {
+@@ -2693,9 +2693,9 @@
+ 			YAHOO.util.Dom.addClass(this.element, "shadow");
+ 
+ 			if (! this.underlay) { // create if not already in DOM
+-				this.underlay = document.createElement("DIV");
++				this.underlay = document.createElement("div");
+ 				this.underlay.className = "underlay";
+-				this.underlay.innerHTML = "&nbsp;";
++				this.underlay.innerHTML = "&#160;";
+ 				this.element.appendChild(this.underlay);
+ 			} 
+ 
+@@ -2788,7 +2788,7 @@
+ 
+ 	YAHOO.util.Dom.addClass(this.innerElement, YAHOO.widget.Panel.CSS_PANEL);
+ 
+-	var wrapper = document.createElement("DIV");
++	var wrapper = document.createElement("div");
+ 	wrapper.className = YAHOO.widget.Panel.CSS_PANEL_CONTAINER;
+ 	wrapper.id = elementClone.id + "_c";
+ 	
+@@ -2912,9 +2912,9 @@
+ 		}
+ 
+ 		this.dd.setHandleElId(this.header.id);
+-		this.dd.addInvalidHandleType("INPUT");
+-		this.dd.addInvalidHandleType("SELECT");
+-		this.dd.addInvalidHandleType("TEXTAREA");
++		this.dd.addInvalidHandleType("input");
++		this.dd.addInvalidHandleType("select");
++		this.dd.addInvalidHandleType("textarea");
+ 	}
+ }
+ 
+@@ -2923,10 +2923,10 @@
+ */
+ YAHOO.widget.Panel.prototype.buildMask = function() {
+ 	if (! this.mask) {
+-		this.mask = document.createElement("DIV");
++		this.mask = document.createElement("div");
+ 		this.mask.id = this.id + "_mask";
+ 		this.mask.className = "mask";
+-		this.mask.innerHTML = "&nbsp;";
++		this.mask.innerHTML = "&#160;";
+ 
+ 		var maskClick = function(e, obj) {
+ 			YAHOO.util.Event.stopEvent(e);
+@@ -3175,12 +3175,12 @@
+ * Prepares the Dialog's internal FORM object, creating one if one is not currently present.
+ */
+ YAHOO.widget.Dialog.prototype.registerForm = function() {
+-	var form = this.element.getElementsByTagName("FORM")[0];
++	var form = this.element.getElementsByTagName("form")[0];
+ 
+ 	if (! form) {
+ 		var formHTML = "<form name=\"frm_" + this.id + "\" action=\"\"></form>";
+ 		this.body.innerHTML += formHTML;
+-		form = this.element.getElementsByTagName("FORM")[0];
++		form = this.element.getElementsByTagName("form")[0];
+ 	}
+ 
+ 	this.firstFormElement = function() {
+@@ -3240,13 +3240,13 @@
+ 	var buttons = args[0];
+ 	if (buttons != "none") {
+ 		this.buttonSpan = null;
+-		this.buttonSpan = document.createElement("SPAN");
++		this.buttonSpan = document.createElement("span");
+ 		this.buttonSpan.className = "button-group";
+ 
+ 		for (var b=0;b<buttons.length;b++) {
+ 			var button = buttons[b];
+ 
+-			var htmlButton = document.createElement("BUTTON");
++			var htmlButton = document.createElement("button");
+ 
+ 			if (button.isDefault) {
+ 				htmlButton.className = "default";
+@@ -3435,8 +3435,8 @@
+ 			if (formItem) {
+ 				if (formItem.tagName) { // Got a single form item
+ 					switch (formItem.tagName) {
+-						case "INPUT":
+-							switch (formItem.type) {
++						case "input":
++							switch (formItem.type.toLowerCase()) {
+ 								case "checkbox": 
+ 									data[i] = formItem.checked;
+ 									break;
+@@ -3447,10 +3447,10 @@
+ 									break;
+ 							}
+ 							break;
+-						case "TEXTAREA":
++						case "textarea":
+ 							data[i] = formItem.value;
+ 							break;
+-						case "SELECT":
++						case "select":
+ 							var val = new Array();
+ 							for (var x=0;x<formItem.options.length;x++)	{
+ 								var option = formItem.options[x];
+@@ -3466,8 +3466,8 @@
+ 							break;
+ 					}
+ 				} else if (formItem[0] && formItem[0].tagName) { // this is an array of form items
+-					switch (formItem[0].tagName) {
+-						case "INPUT" :
++					switch (formItem[0].tagName.toLowerCase()) {
++						case "input" :
+ 							switch (formItem[0].type) {
+ 								case "radio":
+ 									for (var r=0; r<formItem.length; r++) {
+Index: C:/Development/Projects/Forum/js/yui/treeview/treeview.js
+===================================================================
+--- C:/Development/Projects/Forum/js/yui/treeview/treeview.js	(revision 311)
++++ C:/Development/Projects/Forum/js/yui/treeview/treeview.js	(working copy)
+@@ -531,7 +531,7 @@
+         sb[sb.length] = '<span class="' + prefix + styles[i] + '">&#160;</span>';
+     }
+ 
+-    var f = document.createElement("DIV");
++    var f = document.createElement("div");
+     var s = f.style;
+     s.position = "absolute";
+     s.top = "-1000px";
+Index: C:/Development/Projects/Forum/js/yui/connection/connection.js
+===================================================================
+--- C:/Development/Projects/Forum/js/yui/connection/connection.js	(revision 311)
++++ C:/Development/Projects/Forum/js/yui/connection/connection.js	(working copy)
+@@ -649,7 +649,7 @@
+ 			}
+ 		}
+ 		else{
+-			var io = document.createElement('IFRAME');
++			var io = document.createElement('iframe');
+ 			io.id = 'ioFrame';
+ 			io.name = 'ioFrame';
+ 		}
+Index: C:/Development/Projects/Forum/js/yui/dragdrop/dragdrop.js
+===================================================================
+--- C:/Development/Projects/Forum/js/yui/dragdrop/dragdrop.js	(revision 311)
++++ C:/Development/Projects/Forum/js/yui/dragdrop/dragdrop.js	(working copy)
+@@ -481,7 +481,7 @@
+ 
+         // by default, clicked anchors will not start drag operations. 
+         // @TODO what else should be here?  Probably form fields.
+-        this.invalidHandleTypes = { A: "A" };
++        this.invalidHandleTypes = { A: "a" };
+         this.invalidHandleIds = {};
+         this.invalidHandleClasses = [];
+ 
+@@ -722,7 +722,7 @@
+      * @param {string} tagName the type of element to exclude
+      */
+     addInvalidHandleType: function(tagName) {
+-        var type = tagName.toUpperCase();
++        var type = tagName.toLowerCase();
+         this.invalidHandleTypes[type] = type;
+     },
+ 
+@@ -749,7 +749,7 @@
+      * @param {string} tagName the type of element to unexclude
+      */
+     removeInvalidHandleType: function(tagName) {
+-        var type = tagName.toUpperCase();
++        var type = tagName.toLowerCase();
+         // this.invalidHandleTypes[type] = null;
+         delete this.invalidHandleTypes[type];
+     },
+@@ -786,7 +786,7 @@
+         // var n = (node.nodeName == "#text") ? node.parentNode : node;
+         var nodeName;
+         try {
+-            nodeName = node.nodeName.toUpperCase();
++            nodeName = node.nodeName.toLowerCase();
+         } catch(e) {
+             nodeName = node.nodeName;
+         }
+Index: C:/Development/Projects/Forum/js/yui/menu/menu.js
+===================================================================
+--- C:/Development/Projects/Forum/js/yui/menu/menu.js	(revision 311)
++++ C:/Development/Projects/Forum/js/yui/menu/menu.js	(working copy)
+@@ -55,7 +55,7 @@
+ * @final
+ * @type String
+ */
+-YAHOO.widget.MenuModule.prototype.GROUP_TITLE_TAG_NAME = "H6";
++YAHOO.widget.MenuModule.prototype.GROUP_TITLE_TAG_NAME = "h6";
+ 
+ // Private properties
+ 
+@@ -244,9 +244,9 @@
+ 
+     if(oElement) {
+ 
+-        switch(oElement.tagName) {
++        switch(oElement.tagName.toLowerCase()) {
+     
+-            case "DIV":
++            case "div":
+ 
+                 this.srcElement = oElement;
+ 
+@@ -270,7 +270,7 @@
+ 
+                 do {
+ 
+-                    switch(oNode.tagName) {
++                    switch(oNode.tagName.toLowerCase()) {
+ 
+                         case this.GROUP_TITLE_TAG_NAME:
+                         
+@@ -278,7 +278,7 @@
+ 
+                         break;
+ 
+-                        case "UL":
++                        case "ul":
+ 
+                             this._aListElements[i] = oNode;
+                             this._aItemGroups[i] = [];
+@@ -306,7 +306,7 @@
+     
+             break;
+     
+-            case "SELECT":
++            case "select":
+     
+                 this.srcElement = oElement;
+     
+@@ -426,9 +426,9 @@
+     var oNode;
+ 
+ 
+-    switch(this.srcElement.tagName) {
++    switch(this.srcElement.tagName.toLowerCase()) {
+ 
+-        case "DIV":
++        case "div":
+ 
+             if(this._aListElements.length > 0) {
+ 
+@@ -442,9 +442,9 @@
+ 
+                     do {
+     
+-                        switch(oNode.tagName) {
++                        switch(oNode.tagName.toLowerCase()) {
+         
+-                            case "LI":
++                            case "li":
+ 
+ 
+                                 this.addItem(new this.ITEM_TYPE(oNode), i);
+@@ -463,17 +463,17 @@
+ 
+         break;
+ 
+-        case "SELECT":
++        case "select":
+ 
+ 
+             oNode = this.srcElement.firstChild;
+ 
+             do {
+ 
+-                switch(oNode.tagName) {
++                switch(oNode.tagName.toLowerCase()) {
+ 
+-                    case "OPTGROUP":
+-                    case "OPTION":
++                    case "optgroup":
++                    case "option":
+ 
+ 
+                         this.addItem(new this.ITEM_TYPE(oNode));
+@@ -1066,7 +1066,7 @@
+                 return;
+             
+             }
+-            else if(p_oElement.tagName == "LI") {
++            else if(p_oElement.tagName.toLowerCase() == "li") {
+         
+                 return p_oElement;
+         
+@@ -1369,7 +1369,7 @@
+                 }
+         
+             }
+-            else if(oTarget.tagName != "A" && !bCurrentPageURL) {
++            else if(oTarget.tagName.toLowerCase() != "a" && !bCurrentPageURL) {
+                 
+                 /*
+                     Follow the URL of the item regardless of whether or 
+@@ -1384,9 +1384,9 @@
+         }
+             
+     
+-        switch(oTarget.tagName) {
++        switch(oTarget.tagName.toLowerCase()) {
+         
+-            case "A":
++            case "a":
+             
+                 if(bCurrentPageURL) {
+     
+@@ -1530,7 +1530,7 @@
+ 
+         if(this.cfg.getProperty("position") == "dynamic") {
+     
+-            var sWidth = this.element.parentNode.tagName == "BODY" ? 
++            var sWidth = this.element.parentNode.tagName.toLowerCase() == "body" ? 
+                     this.element.offsetWidth : this._getOffsetWidth();
+         
+             this.cfg.setProperty("width", (sWidth + "px"));
+@@ -2681,9 +2681,9 @@
+         }
+         else if(this._checkDOMNode(p_oObject)) {
+ 
+-            switch(p_oObject.tagName) {
++            switch(p_oObject.tagName.toLowerCase()) {
+ 
+-                case "OPTION":
++                case "option":
+ 
+                     this._createRootNodeStructure();
+ 
+@@ -2693,7 +2693,7 @@
+ 
+                 break;
+ 
+-                case "OPTGROUP":
++                case "optgroup":
+ 
+                     this._createRootNodeStructure();
+ 
+@@ -2705,11 +2705,11 @@
+ 
+                 break;
+ 
+-                case "LI":
++                case "li":
+ 
+                     // Get the anchor node (if it exists)
+ 
+-                    var oAnchor = this._getFirstElement(p_oObject, "A");
++                    var oAnchor = this._getFirstElement(p_oObject, "a");
+                     var sURL = "#";
+                     var sText = null;
+ 
+@@ -2768,15 +2768,15 @@
+ 
+                         this._oText = oEmphasisNode.firstChild;
+ 
+-                        switch(oEmphasisNode.tagName) {
++                        switch(oEmphasisNode.tagName.toLowerCase()) {
+ 
+-                            case "EM":
++                            case "em":
+ 
+                                 bEmphasis = true;
+ 
+                             break;
+ 
+-                            case "STRONG":
++                            case "strong":
+ 
+                                 bStrongEmphasis = true;
+ 
+@@ -2879,7 +2879,7 @@
+ 
+         if(p_sTagName) {
+ 
+-            return (oElement && oElement.tagName == p_sTagName) ? 
++            return (oElement && oElement.tagName.toLowerCase() == p_sTagName) ? 
+                 oElement : false;
+ 
+         }
+@@ -2952,15 +2952,15 @@
+ 
+             do {
+ 
+-                switch(oNode.tagName) {
++                switch(oNode.tagName.toLowerCase()) {
+         
+-                    case "DIV":
++                    case "div":
+         
+                         oConfig.setProperty("submenu", (new Menu(oNode)));
+         
+                     break;
+  
+-                    case "OPTION":
++                    case "option":
+ 
+                         aOptions[aOptions.length] = oNode;
+ 
+@@ -3181,7 +3181,7 @@
+             }
+             else {
+ 
+-                oEM = this._getFirstElement(oAnchor, "EM");
++                oEM = this._getFirstElement(oAnchor, "em");
+ 
+                 oAnchor.removeChild(oEM);
+                 oAnchor.appendChild(oText);
+@@ -3227,7 +3227,7 @@
+             }
+             else {
+ 
+-                oStrong = this._getFirstElement(oAnchor, "STRONG");
++                oStrong = this._getFirstElement(oAnchor, "strong");
+ 
+                 oAnchor.removeChild(oStrong);
+                 oAnchor.appendChild(oText);
+Index: C:/Development/Projects/Forum/js/yui/calendar/calendar.js
+===================================================================
+--- C:/Development/Projects/Forum/js/yui/calendar/calendar.js	(revision 311)
++++ C:/Development/Projects/Forum/js/yui/calendar/calendar.js	(working copy)
+@@ -584,7 +584,7 @@
+ 		
+ 		if (! cal.isDateOOM(date) && ! YAHOO.util.Dom.hasClass(cell, cal.Style.CSS_CELL_RESTRICTED) && ! YAHOO.util.Dom.hasClass(cell, cal.Style.CSS_CELL_OOB)) {
+ 			if (cal.Options.MULTI_SELECT) {
+-				var link = cell.getElementsByTagName("A")[0];
++				var link = cell.getElementsByTagName("a")[0];
+ 				link.blur();
+ 				
+ 				var cellDate = cal.cellDates[index];
+@@ -597,7 +597,7 @@
+ 				}	
+ 				
+ 			} else {
+-				var link = cell.getElementsByTagName("A")[0];
++				var link = cell.getElementsByTagName("a")[0];
+ 				link.blur()
+ 				cal.selectCell(index);
+ 			}
+@@ -859,7 +859,7 @@
+ */
+ YAHOO.widget.Calendar_Core.prototype.buildShell = function() {
+ 	
+-	this.table = document.createElement("TABLE");
++	this.table = document.createElement("table");
+ 	this.table.cellSpacing = 0;	
+ 	YAHOO.widget.Calendar_Core.setCssClasses(this.table, [this.Style.CSS_CALENDAR]);
+ 
+@@ -876,10 +876,10 @@
+ * Builds the calendar shell header by inserting a THEAD into the local calendar table.
+ */
+ YAHOO.widget.Calendar_Core.prototype.buildShellHeader = function() {
+-	var head = document.createElement("THEAD");
+-	var headRow = document.createElement("TR");
++	var head = document.createElement("thead");
++	var headRow = document.createElement("tr");
+ 
+-	var headerCell = document.createElement("TH");
++	var headerCell = document.createElement("th");
+ 	
+ 	var colSpan = 7;
+ 	if (this.Config.Options.SHOW_WEEK_HEADER) {
+@@ -902,26 +902,26 @@
+ 
+ 	// Append day labels, if needed
+ 	if (this.Options.SHOW_WEEKDAYS) {
+-		var row = document.createElement("TR");
++		var row = document.createElement("tr");
+ 		var fillerCell;
+ 
+ 		YAHOO.widget.Calendar_Core.setCssClasses(row,[this.Style.CSS_WEEKDAY_ROW]);
+ 		
+ 		if (this.Config.Options.SHOW_WEEK_HEADER) {
+-			fillerCell = document.createElement("TH");
++			fillerCell = document.createElement("th");
+ 			YAHOO.widget.Calendar_Core.setCssClasses(fillerCell,[this.Style.CSS_WEEKDAY_CELL]);
+ 			row.appendChild(fillerCell);
+ 		}
+ 		
+ 		for(var i=0;i<this.Options.LOCALE_WEEKDAYS.length;++i) {
+-			var cell = document.createElement("TH");
++			var cell = document.createElement("th");
+ 			YAHOO.widget.Calendar_Core.setCssClasses(cell,[this.Style.CSS_WEEKDAY_CELL]);
+ 			cell.innerHTML=this.Options.LOCALE_WEEKDAYS[i];
+ 			row.appendChild(cell);
+ 		}
+ 
+ 		if (this.Config.Options.SHOW_WEEK_FOOTER) {
+-			fillerCell = document.createElement("TH");
++			fillerCell = document.createElement("th");
+ 			YAHOO.widget.Calendar_Core.setCssClasses(fillerCell,[this.Style.CSS_WEEKDAY_CELL]);
+ 			row.appendChild(fillerCell);
+ 		}
+@@ -937,21 +937,21 @@
+ */
+ YAHOO.widget.Calendar_Core.prototype.buildShellBody = function() {
+ 	// This should only get executed once
+-	this.tbody = document.createElement("TBODY");
++	this.tbody = document.createElement("tbody");
+ 
+ 	for (var r=0;r<6;++r) {
+-		var row = document.createElement("TR");
++		var row = document.createElement("tr");
+ 		
+ 		for (var c=0;c<this.headerCell.colSpan;++c) {
+ 			var cell;
+ 			if (this.Config.Options.SHOW_WEEK_HEADER && c===0) { // Row header
+-				cell = document.createElement("TH");
++				cell = document.createElement("th");
+ 				this.weekHeaderCells[this.weekHeaderCells.length] = cell;
+ 			} else if (this.Config.Options.SHOW_WEEK_FOOTER && c==(this.headerCell.colSpan-1)){ // Row footer
+-				cell = document.createElement("TH");
++				cell = document.createElement("th");
+ 				this.weekFooterCells[this.weekFooterCells.length] = cell;
+ 			} else {
+-				cell = document.createElement("TD");
++				cell = document.createElement("td");
+ 				this.cells[this.cells.length] = cell;
+ 				YAHOO.widget.Calendar_Core.setCssClasses(cell, [this.Style.CSS_CELL]);
+ 				YAHOO.util.Event.addListener(cell, "click", this.doSelectCell, this);
+@@ -1015,7 +1015,7 @@
+ YAHOO.widget.Calendar_Core.prototype.renderHeader = function() {
+ 	this.headerCell.innerHTML = "";
+ 	
+-	var headerContainer = document.createElement("DIV");
++	var headerContainer = document.createElement("div");
+ 	headerContainer.className = this.Style.CSS_HEADER;
+ 	
+ 	headerContainer.appendChild(document.createTextNode(this.buildMonthLabel()));
+@@ -1574,7 +1574,7 @@
+ YAHOO.widget.Calendar_Core.prototype.selectCell = function(cellIndex) {
+ 	this.onBeforeSelect();
+ 
+-	this.cells = this.tbody.getElementsByTagName("TD");
++	this.cells = this.tbody.getElementsByTagName("td");
+ 
+ 	var cell = this.cells[cellIndex];
+ 	var cellDate = this.cellDates[cellIndex];
+@@ -1640,7 +1640,7 @@
+ */
+ YAHOO.widget.Calendar_Core.prototype.deselectCell = function(i) {
+ 	this.onBeforeDeselect();
+-	this.cells = this.tbody.getElementsByTagName("TD");
++	this.cells = this.tbody.getElementsByTagName("td");
+ 
+ 	var cell = this.cells[i];
+ 	var cellDate = this.cellDates[i];
+@@ -1962,7 +1962,7 @@
+ * @param	{HTMLTableCellElement}	The cell to clear
+ */ 
+ YAHOO.widget.Calendar_Core.prototype.clearElement = function(cell) {
+-	cell.innerHTML = "&nbsp;";
++	cell.innerHTML = "&#160;";
+ 	cell.className="";
+ };
+ 
+@@ -2154,10 +2154,10 @@
+ YAHOO.widget.Calendar.prototype = new YAHOO.widget.Calendar_Core();
+ 
+ YAHOO.widget.Calendar.prototype.buildShell = function() {
+-	this.border = document.createElement("DIV");
++	this.border = document.createElement("div");
+ 	this.border.className =  this.Style.CSS_CONTAINER;
+ 	
+-	this.table = document.createElement("TABLE");
++	this.table = document.createElement("table");
+ 	this.table.cellSpacing = 0;	
+ 	
+ 	YAHOO.widget.Calendar_Core.setCssClasses(this.table, [this.Style.CSS_CALENDAR]);
+@@ -2178,14 +2178,14 @@
+ YAHOO.widget.Calendar.prototype.renderHeader = function() {
+ 	this.headerCell.innerHTML = "";
+ 	
+-	var headerContainer = document.createElement("DIV");
++	var headerContainer = document.createElement("div");
+ 	headerContainer.className = this.Style.CSS_HEADER;
+ 	
+ 	if (this.linkLeft) {
+ 		YAHOO.util.Event.removeListener(this.linkLeft, "mousedown", this.previousMonth);
+ 	}
+-	this.linkLeft = document.createElement("A");
+-	this.linkLeft.innerHTML = "&nbsp;";
++	this.linkLeft = document.createElement("a");
++	this.linkLeft.innerHTML = "&#160;";
+ 	YAHOO.util.Event.addListener(this.linkLeft, "mousedown", this.previousMonth, this, true);
+ 	this.linkLeft.style.backgroundImage =  "url(" + this.Options.NAV_ARROW_LEFT + ")";
+ 	this.linkLeft.className = this.Style.CSS_NAV_LEFT;
+@@ -2193,8 +2193,8 @@
+ 	if (this.linkRight) {
+ 		YAHOO.util.Event.removeListener(this.linkRight, "mousedown", this.nextMonth);
+ 	}
+-	this.linkRight = document.createElement("A");
+-	this.linkRight.innerHTML = "&nbsp;";
++	this.linkRight = document.createElement("a");
++	this.linkRight.innerHTML = "&#160;";
+ 	YAHOO.util.Event.addListener(this.linkRight, "mousedown", this.nextMonth, this, true);
+ 	this.linkRight.style.backgroundImage = "url(" + this.Options.NAV_ARROW_RIGHT + ")";
+ 	this.linkRight.className = this.Style.CSS_NAV_RIGHT;
+@@ -2675,7 +2675,7 @@
+ YAHOO.widget.Calendar2up_Cal.prototype.renderHeader = function() {
+ 	this.headerCell.innerHTML = "";
+ 	
+-	var headerContainer = document.createElement("DIV");
++	var headerContainer = document.createElement("div");
+ 	headerContainer.className = this.Style.CSS_HEADER;
+ 	
+ 	if (this.index == 0) {
+@@ -2683,8 +2683,8 @@
+ 		if (this.linkLeft) {
+ 			YAHOO.util.Event.removeListener(this.linkLeft, "mousedown", this.parent.doPreviousMonth);
+ 		}
+-		this.linkLeft = document.createElement("A");
+-		this.linkLeft.innerHTML = "&nbsp;";
++		this.linkLeft = document.createElement("a");
++		this.linkLeft.innerHTML = "&#160;";
+ 		this.linkLeft.style.backgroundImage =  "url(" + this.Options.NAV_ARROW_LEFT + ")";
+ 		this.linkLeft.className = this.Style.CSS_NAV_LEFT;
+ 		
+@@ -2699,8 +2699,8 @@
+ 		if (this.linkRight) {
+ 			YAHOO.util.Event.removeListener(this.linkRight, "mousedown", this.parent.doNextMonth);
+ 		}
+-		this.linkRight = document.createElement("A");
+-		this.linkRight.innerHTML = "&nbsp;";
++		this.linkRight = document.createElement("a");
++		this.linkRight.innerHTML = "&#160;";
+ 		this.linkRight.style.backgroundImage = "url(" + this.Options.NAV_ARROW_RIGHT + ")";
+ 		this.linkRight.className = this.Style.CSS_NAV_RIGHT;
+ 
+@@ -2787,16 +2787,16 @@
+ 	
+ 	outerContainer.className = YAHOO.widget.Calendar2up.CSS_2UPWRAPPER;
+ 	
+-	var innerContainer = document.createElement("DIV");
++	var innerContainer = document.createElement("div");
+ 	innerContainer.className = YAHOO.widget.Calendar2up.CSS_CONTAINER;
+ 	innerContainer.id = containerId + "_inner";
+ 	
+-	var cal1Container = document.createElement("DIV");
++	var cal1Container = document.createElement("div");
+ 	cal1Container.id = containerId + "_0";
+ 	cal1Container.className = YAHOO.widget.Calendar2up.CSS_2UPCONTAINER;
+ 	cal1Container.style.marginRight = "10px";
+ 	
+-	var cal2Container = document.createElement("DIV");
++	var cal2Container = document.createElement("div");
+ 	cal2Container.id = containerId + "_1"; 
+ 	cal2Container.className = YAHOO.widget.Calendar2up.CSS_2UPCONTAINER;
+ 	
+@@ -2826,7 +2826,7 @@
+ 	}
+ 	if (! this.titleDiv)
+ 	{
+-		this.titleDiv = document.createElement("DIV");
++		this.titleDiv = document.createElement("div");
+ 		if (this.title == "")
+ 		{
+ 			this.titleDiv.style.display="none";
+@@ -2838,11 +2838,11 @@
+ 
+ 	if (this.outerContainer.style.position == "absolute")
+ 	{
+-		var linkClose = document.createElement("A");
++		var linkClose = document.createElement("a");
+ 		linkClose.href = "javascript:void(null)";
+ 		YAHOO.util.Event.addListener(linkClose, "click", this.hide, this);
+ 
+-		var imgClose = document.createElement("IMG");
++		var imgClose = document.createElement("img");
+ 		imgClose.src = YAHOO.widget.Calendar_Core.IMG_ROOT + "us/my/bn/x_d.gif";
+ 		imgClose.className = YAHOO.widget.Calendar2up.CSS_2UPCLOSE;
+ 

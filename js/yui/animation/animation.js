@@ -2,9 +2,8 @@
 Copyright (c) 2006, Yahoo! Inc. All rights reserved.
 Code licensed under the BSD License:
 http://developer.yahoo.net/yui/license.txt
-Version: 0.10.0
+Version: 0.11.1
 */
-
 /**
  *
  * Base class for animated DOM objects.
@@ -25,8 +24,7 @@ Version: 0.10.0
  * @param {Function} method (optional, defaults to YAHOO.util.Easing.easeNone) Computes the values that are applied to the attributes per frame (generally a YAHOO.util.Easing method)
  */
 
-YAHOO.util.Anim = function(el, attributes, duration, method) 
-{
+YAHOO.util.Anim = function(el, attributes, duration, method) {
    if (el) {
       this.init(el, attributes, duration, method); 
    }
@@ -34,46 +32,131 @@ YAHOO.util.Anim = function(el, attributes, duration, method)
 
 YAHOO.util.Anim.prototype = {
    /**
+    * toString method
+    * @return {String} string represenation of anim obj
+    */
+   toString: function() {
+      var el = this.getEl();
+      var id = el.id || el.tagName;
+      return ("Anim " + id);
+   },
+   
+   patterns: { // cached for performance
+      noNegatives:      /width|height|opacity|padding/i, // keep at zero or above
+      offsetAttribute:  /^((width|height)|(top|left))$/, // use offsetValue as default
+      defaultUnit:      /width|height|top$|bottom$|left$|right$/i, // use 'px' by default
+      offsetUnit:       /\d+(em|%|en|ex|pt|in|cm|mm|pc)$/i // IE may return these, so convert these to offset
+   },
+   
+   /**
     * Returns the value computed by the animation's "method".
-    * @param {String} attribute The name of the attribute.
+    * @param {String} attr The name of the attribute.
     * @param {Number} start The value this attribute should start from for this animation.
     * @param {Number} end  The value this attribute should end at for this animation.
     * @return {Number} The Value to be applied to the attribute.
     */
-   doMethod: function(attribute, start, end) {
+   doMethod: function(attr, start, end) {
       return this.method(this.currentFrame, start, end - start, this.totalFrames);
    },
    
    /**
     * Applies a value to an attribute
-    * @param {String} attribute The name of the attribute.
+    * @param {String} attr The name of the attribute.
     * @param {Number} val The value to be applied to the attribute.
     * @param {String} unit The unit ('px', '%', etc.) of the value.
     */
-   setAttribute: function(attribute, val, unit) {
-      YAHOO.util.Dom.setStyle(this.getEl(), attribute, val + unit); 
+   setAttribute: function(attr, val, unit) {
+      if ( this.patterns.noNegatives.test(attr) ) {
+         val = (val > 0) ? val : 0;
+      }
+
+      YAHOO.util.Dom.setStyle(this.getEl(), attr, val + unit);
    },                  
    
    /**
     * Returns current value of the attribute.
-    * @param {String} attribute The name of the attribute.
+    * @param {String} attr The name of the attribute.
     * @return {Number} val The current value of the attribute.
     */
-   getAttribute: function(attribute) {
-      return parseFloat( YAHOO.util.Dom.getStyle(this.getEl(), attribute));
+   getAttribute: function(attr) {
+      var el = this.getEl();
+      var val = YAHOO.util.Dom.getStyle(el, attr);
+
+      if (val !== 'auto' && !this.patterns.offsetUnit.test(val)) {
+         return parseFloat(val);
+      }
+      
+      var a = this.patterns.offsetAttribute.exec(attr) || [];
+      var pos = !!( a[3] ); // top or left
+      var box = !!( a[2] ); // width or height
+      
+      // use offsets for width/height and abs pos top/left
+      if ( box || (YAHOO.util.Dom.getStyle(el, 'position') == 'absolute' && pos) ) {
+         val = el['offset' + a[0].charAt(0).toUpperCase() + a[0].substr(1)];
+      } else { // default to zero for other 'auto'
+         val = 0;
+      }
+
+      return val;
    },
    
    /**
-    * The default unit to use for all attributes if not defined per attribute.
-    * @type String
+    * Returns the unit to use when none is supplied.
+    * Applies the "defaultUnit" test to decide whether to use pixels or not
+    * @param {attr} attr The name of the attribute.
+    * @return {String} The default unit to be used.
     */
-   defaultUnit: 'px',
-   
+   getDefaultUnit: function(attr) {
+       if ( this.patterns.defaultUnit.test(attr) ) {
+         return 'px';
+       }
+       
+       return '';
+   },
+      
    /**
-    * Per attribute units that should be used by default.
-    * @type Object
+    * Sets the actual values to be used during the animation.
+    * Should only be needed for subclass use.
+    * @param {Object} attr The attribute object
+    * @private 
     */
-   defaultUnits: { opacity: ' ' },
+   setRuntimeAttribute: function(attr) {
+      var start;
+      var end;
+      var attributes = this.attributes;
+
+      this.runtimeAttributes[attr] = {};
+      
+      var isset = function(prop) {
+         return (typeof prop !== 'undefined');
+      };
+      
+      if ( !isset(attributes[attr]['to']) && !isset(attributes[attr]['by']) ) {
+         return false; // note return; nothing to animate to
+      }
+      
+      start = ( isset(attributes[attr]['from']) ) ? attributes[attr]['from'] : this.getAttribute(attr);
+
+      // To beats by, per SMIL 2.1 spec
+      if ( isset(attributes[attr]['to']) ) {
+         end = attributes[attr]['to'];
+      } else if ( isset(attributes[attr]['by']) ) {
+         if (start.constructor == Array) {
+            end = [];
+            for (var i = 0, len = start.length; i < len; ++i) {
+               end[i] = start[i] + attributes[attr]['by'][i];
+            }
+         } else {
+            end = start + attributes[attr]['by'];
+         }
+      }
+      
+      this.runtimeAttributes[attr].start = start;
+      this.runtimeAttributes[attr].end = end;
+
+      // set units if needed
+      this.runtimeAttributes[attr].unit = ( isset(attributes[attr].unit) ) ? attributes[attr]['unit'] : this.getDefaultUnit(attr);
+   },
 
    /**
     * @param {String or HTMLElement} el Reference to the element that will be animated
@@ -85,7 +168,6 @@ YAHOO.util.Anim.prototype = {
     * @param {Function} method (optional, defaults to YAHOO.util.Easing.easeNone) Computes the values that are applied to the attributes per frame (generally a YAHOO.util.Easing method)
     */ 
    init: function(el, attributes, duration, method) {
-   
       /**
        * Whether or not the animation is running.
        * @private
@@ -101,25 +183,11 @@ YAHOO.util.Anim.prototype = {
       var startTime = null;
       
       /**
-       * A Date object that is created when the animation ends.
-       * @private
-       * @type Date
-       */
-      var endTime = null;
-      
-      /**
        * The number of frames this animation was able to execute.
        * @private
        * @type Int
        */
-      var actualFrames = 0;
-      
-      /**
-       * The attribute values that will be used if no "from" is supplied.
-       * @private
-       * @type Object
-       */
-      var defaultValues = {};      
+      var actualFrames = 0; 
 
       /**
        * The element to be animated.
@@ -181,51 +249,6 @@ YAHOO.util.Anim.prototype = {
        */
       this.getEl = function() { return el; };
       
-      
-      /**
-       * Sets the default value to be used when "from" is not supplied.
-       * @param {String} attribute The attribute being set.
-       * @param {Number} val The default value to be applied to the attribute.
-       */
-      this.setDefault = function(attribute, val) {
-         if ( val.constructor != Array && (val == 'auto' || isNaN(val)) ) { // if 'auto' or NaN, set defaults for well known attributes, zero for others
-            switch(attribute) {
-               case'width':
-                  val = el.clientWidth || el.offsetWidth; // computed width
-                  break;
-               case 'height':
-                  val = el.clientHeight || el.offsetHeight; // computed height
-                  break;
-               case 'left':
-                  if (YAHOO.util.Dom.getStyle(el, 'position') == 'absolute') {
-                     val = el.offsetLeft; // computed left
-                  } else {
-                     val = 0;
-                  }
-                  break;
-               case 'top':
-                  if (YAHOO.util.Dom.getStyle(el, 'position') == 'absolute') {
-                     val = el.offsetTop; // computed top
-                  } else {
-                     val = 0;
-                  }
-                  break;                     
-               default:
-                  val = 0;
-            }
-         }
-
-         defaultValues[attribute] = val;
-      };
-      
-      /**
-       * Returns the default value for the given attribute.
-       * @param {String} attribute The attribute whose value will be returned.
-       */      
-      this.getDefault = function(attribute) {
-         return defaultValues[attribute];
-      };
-      
       /**
        * Checks whether the element is currently animated.
        * @return {Boolean} current value of isAnimated.    
@@ -242,119 +265,98 @@ YAHOO.util.Anim.prototype = {
          return startTime;
       };      
       
+      this.runtimeAttributes = {};
+      
+      
+      
       /**
        * Starts the animation by registering it with the animation manager.   
        */
       this.animate = function() {
          if ( this.isAnimated() ) { return false; }
          
-         this.onStart.fire();
-         this._onStart.fire();
+         this.currentFrame = 0;
          
          this.totalFrames = ( this.useSeconds ) ? Math.ceil(YAHOO.util.AnimMgr.fps * this.duration) : this.duration;
+   
          YAHOO.util.AnimMgr.registerElement(this);
-         
-         // get starting values or use defaults
-         var attributes = this.attributes;
-         var el = this.getEl();
-         var val;
-         
-         for (var attribute in attributes) {
-            val = this.getAttribute(attribute);
-            this.setDefault(attribute, val);
-         }
-         
-         isAnimated = true;
-         actualFrames = 0;
-         startTime = new Date();   
       };
         
       /**
        * Stops the animation.  Normally called by AnimMgr when animation completes.
        */ 
       this.stop = function() {
-         if ( !this.isAnimated() ) { return false; } 
+         YAHOO.util.AnimMgr.stop(this);
+      };
+      
+      var onStart = function() {
+         this.onStart.fire();
+         for (var attr in this.attributes) {
+            this.setRuntimeAttribute(attr);
+         }
          
-         this.currentFrame = 0;
-         
-         endTime = new Date();
-         
-         var data = {
-            time: endTime,
-            duration: endTime - startTime,
-            frames: actualFrames,
-            fps: actualFrames / this.duration
-         };
-
-         isAnimated = false;  
+         isAnimated = true;
          actualFrames = 0;
-         
-         this.onComplete.fire(data);
+         startTime = new Date(); 
       };
       
       /**
        * Feeds the starting and ending values for each animated attribute to doMethod once per frame, then applies the resulting value to the attribute(s).
        * @private
        */
+       
       var onTween = function() {
-         var start;
-         var end = null;
-         var val;
-         var unit;
-         var attributes = this['attributes'];
+         var data = {
+            duration: new Date() - this.getStartTime(),
+            currentFrame: this.currentFrame
+         };
          
-         for (var attribute in attributes) {
-            unit = attributes[attribute]['unit'] || this.defaultUnits[attribute] || this.defaultUnit;
-   
-            if (typeof attributes[attribute]['from'] != 'undefined') {
-               start = attributes[attribute]['from'];
-            } else {
-               start = this.getDefault(attribute);
-            }
-   
-
-            // To beats by, per SMIL 2.1 spec
-            if (typeof attributes[attribute]['to'] != 'undefined') {
-               end = attributes[attribute]['to'];
-            } 
-            else if (typeof attributes[attribute]['by'] != 'undefined') 
-            {
-               if (start.constructor == Array) {
-                  end = [];
-                  for (var i = 0, len = start.length; i < len; ++i)
-                  {
-                     end[i] = start[i] + attributes[attribute]['by'][i];
-                  }
-               }
-               else
-               {
-                  end = start + attributes[attribute]['by'];
-               }
-            }
-   
-            // if end is null, dont change value
-            if (end !== null && typeof end != 'undefined') {
-   
-               val = this.doMethod(attribute, start, end);
-
-               // negative not allowed for these (others too, but these are most common)
-               if ( (attribute == 'width' || attribute == 'height' || attribute == 'opacity') && val < 0 ) {
-                  val = 0;
-               }
-
-               this.setAttribute(attribute, val, unit); 
-            }
+         data.toString = function() {
+            return (
+               'duration: ' + data.duration +
+               ', currentFrame: ' + data.currentFrame
+            );
+         };
+         
+         this.onTween.fire(data);
+         
+         var runtimeAttributes = this.runtimeAttributes;
+         
+         for (var attr in runtimeAttributes) {
+            this.setAttribute(attr, this.doMethod(attr, runtimeAttributes[attr].start, runtimeAttributes[attr].end), runtimeAttributes[attr].unit); 
          }
          
          actualFrames += 1;
+      };
+      
+      var onComplete = function() {
+         var actual_duration = (new Date() - startTime) / 1000 ;
+         
+         var data = {
+            duration: actual_duration,
+            frames: actualFrames,
+            fps: actualFrames / actual_duration
+         };
+         
+         data.toString = function() {
+            return (
+               'duration: ' + data.duration +
+               ', frames: ' + data.frames +
+               ', fps: ' + data.fps
+            );
+         };
+         
+         isAnimated = false;
+         actualFrames = 0;
+         this.onComplete.fire(data);
       };
       
       /**
        * Custom event that fires after onStart, useful in subclassing
        * @private
        */   
-      this._onStart = new YAHOO.util.CustomEvent('_onStart', this);
-      
+      this._onStart = new YAHOO.util.CustomEvent('_start', this, true);
+
       /**
        * Custom event that fires when animation begins
        * Listen via subscribe method (e.g. myAnim.onStart.subscribe(someFunction)
@@ -371,24 +373,24 @@ YAHOO.util.Anim.prototype = {
        * Custom event that fires after onTween
        * @private
        */
-      this._onTween = new YAHOO.util.CustomEvent('_tween', this);
+      this._onTween = new YAHOO.util.CustomEvent('_tween', this, true);
       
       /**
        * Custom event that fires when animation ends
        * Listen via subscribe method (e.g. myAnim.onComplete.subscribe(someFunction)
        */
       this.onComplete = new YAHOO.util.CustomEvent('complete', this);
+      /**
+       * Custom event that fires after onComplete
+       * @private
+       */
+      this._onComplete = new YAHOO.util.CustomEvent('_complete', this, true);
 
+      this._onStart.subscribe(onStart);
       this._onTween.subscribe(onTween);
+      this._onComplete.subscribe(onComplete);
    }
 };
-
-/*
-Copyright (c) 2006, Yahoo! Inc. All rights reserved.
-Code licensed under the BSD License:
-http://developer.yahoo.net/yui/license.txt
-Version: 0.10.0
-*/
 
 /**
  * @class Handles animation queueing and threading.
@@ -437,12 +439,19 @@ YAHOO.util.AnimMgr = new function() {
     * @param {object} tween The Anim instance to be be registered
     */
    this.registerElement = function(tween) {
-      if ( tween.isAnimated() ) { return false; }// but not if already animating
-      
       queue[queue.length] = tween;
       tweenCount += 1;
-
+      tween._onStart.fire();
       this.start();
+   };
+   
+   this.unRegister = function(tween, index) {
+      tween._onComplete.fire();
+      index = index || getIndex(tween);
+      if (index != -1) { queue.splice(index, 1); }
+      
+      tweenCount -= 1;
+      if (tweenCount <= 0) { this.stop(); }
    };
    
    /**
@@ -459,12 +468,11 @@ YAHOO.util.AnimMgr = new function() {
     * If no instance given, Manager stops thread and all animations.
     */   
    this.stop = function(tween) {
-      if (!tween)
-      {
+      if (!tween) {
          clearInterval(thread);
          for (var i = 0, len = queue.length; i < len; ++i) {
             if (queue[i].isAnimated()) {
-               queue[i].stop();  
+               this.unRegister(tween, i);  
             }
          }
          queue = [];
@@ -472,10 +480,7 @@ YAHOO.util.AnimMgr = new function() {
          tweenCount = 0;
       }
       else {
-         tween.stop();     
-         tweenCount -= 1;
-         
-         if (tweenCount <= 0) { this.stop(); }
+         this.unRegister(tween);
       }
    };
    
@@ -494,12 +499,19 @@ YAHOO.util.AnimMgr = new function() {
             if (tween.useSeconds) {
                correctFrame(tween);
             }
-            
-            tween.onTween.fire();     
             tween._onTween.fire();        
          }
-         else { YAHOO.util.AnimMgr.stop(tween); }
+         else { YAHOO.util.AnimMgr.stop(tween, i); }
       }
+   };
+   
+   var getIndex = function(anim) {
+      for (var i = 0, len = queue.length; i < len; ++i) {
+         if (queue[i] == anim) {
+            return i; // note return;
+         }
+      }
+      return -1;
    };
    
    /**
@@ -528,14 +540,6 @@ YAHOO.util.AnimMgr = new function() {
       }
    };
 };
-
-/*
-Copyright (c) 2006, Yahoo! Inc. All rights reserved.
-Code licensed under the BSD License:
-http://developer.yahoo.net/yui/license.txt
-Version: 0.10.0
-*/
-
 /**
  *
  * @class Used to calculate Bezier splines for any number of control points.
@@ -573,18 +577,178 @@ YAHOO.util.Bezier = new function()
    
    };
 };
+/**
+ * @class ColorAnim subclass for color fading
+ * <p>Usage: <code>var myAnim = new Y.ColorAnim(el, { backgroundColor: { from: '#FF0000', to: '#FFFFFF' } }, 1, Y.Easing.easeOut);</code></p>
+ * <p>Color values can be specified with either 112233, #112233, [255,255,255], or rgb(255,255,255)
+ * @requires YAHOO.util.Anim
+ * @requires YAHOO.util.AnimMgr
+ * @requires YAHOO.util.Easing
+ * @requires YAHOO.util.Bezier
+ * @requires YAHOO.util.Dom
+ * @requires YAHOO.util.Event
+ * @constructor
+ * @param {HTMLElement | String} el Reference to the element that will be animated
+ * @param {Object} attributes The attribute(s) to be animated.
+ * Each attribute is an object with at minimum a "to" or "by" member defined.
+ * Additional optional members are "from" (defaults to current value), "units" (defaults to "px").
+ * All attribute names use camelCase.
+ * @param {Number} duration (optional, defaults to 1 second) Length of animation (frames or seconds), defaults to time-based
+ * @param {Function} method (optional, defaults to YAHOO.util.Easing.easeNone) Computes the values that are applied to the attributes per frame (generally a YAHOO.util.Easing method)
+ */
+(function() {
+   YAHOO.util.ColorAnim = function(el, attributes, duration,  method) {
+      YAHOO.util.ColorAnim.superclass.constructor.call(this, el, attributes, duration, method);
+   };
+   
+   YAHOO.extend(YAHOO.util.ColorAnim, YAHOO.util.Anim);
+   
+   // shorthand
+   var Y = YAHOO.util;
+   var superclass = Y.ColorAnim.superclass;
+   var proto = Y.ColorAnim.prototype;
+   
+   /**
+    * toString method
+    * @return {String} string represenation of anim obj
+    */
+   proto.toString = function() {
+      var el = this.getEl();
+      var id = el.id || el.tagName;
+      return ("ColorAnim " + id);
+   };
+   
+   /**
+    * Only certain attributes should be treated as colors.
+    * @type Object
+    */
+   proto.patterns.color = /color$/i;
+   proto.patterns.rgb    = /^rgb\(([0-9]+)\s*,\s*([0-9]+)\s*,\s*([0-9]+)\)$/i;
+   proto.patterns.hex    = /^#?([0-9A-F]{2})([0-9A-F]{2})([0-9A-F]{2})$/i;
+   proto.patterns.hex3   = /^#?([0-9A-F]{1})([0-9A-F]{1})([0-9A-F]{1})$/i;
+   
+   /**
+    * Attempts to parse the given string and return a 3-tuple.
+    * @param {String} s The string to parse.
+    * @return {Array} The 3-tuple of rgb values.
+    */
+   proto.parseColor = function(s) {
+      if (s.length == 3) { return s; }
+   
+      var c = this.patterns.hex.exec(s);
+      if (c && c.length == 4) {
+         return [ parseInt(c[1], 16), parseInt(c[2], 16), parseInt(c[3], 16) ];
+      }
+   
+      c = this.patterns.rgb.exec(s);
+      if (c && c.length == 4) {
+         return [ parseInt(c[1], 10), parseInt(c[2], 10), parseInt(c[3], 10) ];
+      }
+   
+      c = this.patterns.hex3.exec(s);
+      if (c && c.length == 4) {
+         return [ parseInt(c[1] + c[1], 16), parseInt(c[2] + c[2], 16), parseInt(c[3] + c[3], 16) ];
+      }
+      
+      return null;
+   };
+   
+   /**
+    * Returns current value of the attribute.
+    * @param {String} attr The name of the attribute.
+    * @return {Number} val The current value of the attribute.
+    */
+   proto.getAttribute = function(attr) {
+      var el = this.getEl();
+      if (  this.patterns.color.test(attr) ) {
+         var val = YAHOO.util.Dom.getStyle(el, attr);
+         
+         if (val == 'transparent') { // bgcolor default
+            var parent = el.parentNode; // try and get from an ancestor
+            val = Y.Dom.getStyle(parent, attr);
+         
+            while (parent && val == 'transparent') {
+               parent = parent.parentNode;
+               val = Y.Dom.getStyle(parent, attr);
+               if (parent.tagName.toLowerCase() == 'html') {
+                  val = 'ffffff';
+               }
+            }
+         }
+      } else {
+         val = superclass.getAttribute.call(this, attr);
+      }
 
-/*
-Copyright (c) 2006, Yahoo! Inc. All rights reserved.
-Code licensed under the BSD License:
-http://developer.yahoo.net/yui/license.txt
-Version: 0.10.0
+      return val;
+   };
+   
+   /**
+    * Returns the value computed by the animation's "method".
+    * @param {String} attr The name of the attribute.
+    * @param {Number} start The value this attribute should start from for this animation.
+    * @param {Number} end  The value this attribute should end at for this animation.
+    * @return {Number} The Value to be applied to the attribute.
+    */
+   proto.doMethod = function(attr, start, end) {
+      var val;
+   
+      if ( this.patterns.color.test(attr) ) {
+         val = [];
+         for (var i = 0, len = start.length; i < len; ++i) {
+            val[i] = superclass.doMethod.call(this, attr, start[i], end[i]);
+         }
+         
+         val = 'rgb('+Math.floor(val[0])+','+Math.floor(val[1])+','+Math.floor(val[2])+')';
+      }
+      else {
+         val = superclass.doMethod.call(this, attr, start, end);
+      }
+
+      return val;
+   };
+   
+   /**
+    * Sets the actual values to be used during the animation.
+    * Should only be needed for subclass use.
+    * @param {Object} attr The attribute object
+    * @private 
+    */
+   proto.setRuntimeAttribute = function(attr) {
+      superclass.setRuntimeAttribute.call(this, attr);
+      
+      if ( this.patterns.color.test(attr) ) {
+         var attributes = this.attributes;
+         var start = this.parseColor(this.runtimeAttributes[attr].start);
+         var end = this.parseColor(this.runtimeAttributes[attr].end);
+         // fix colors if going "by"
+         if ( typeof attributes[attr]['to'] === 'undefined' && typeof attributes[attr]['by'] !== 'undefined' ) {
+            end = this.parseColor(attributes[attr].by);
+         
+            for (var i = 0, len = start.length; i < len; ++i) {
+               end[i] = start[i] + end[i];
+            }
+         }
+         
+         this.runtimeAttributes[attr].start = start;
+         this.runtimeAttributes[attr].end = end;
+      }
+   };
+})();/*
+TERMS OF USE - EASING EQUATIONS
+Open source under the BSD License.
+Copyright © 2001 Robert Penner All rights reserved.
+
+Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+
+    * Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+    * Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+    * Neither the name of the author nor the names of contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
 */
 
-/**
- * @class Class for defining the acceleration rate and path of animations.
- */
-YAHOO.util.Easing = new function() {
+YAHOO.util.Easing = {
 
    /**
     * Uniform speed between points.
@@ -594,99 +758,224 @@ YAHOO.util.Easing = new function() {
     * @param {Number} d Total length of animation.
     * @return {Number} The computed value for the current animation frame.
     */
-   this.easeNone = function(t, b, c, d) {
-	return b+c*(t/=d); 
-   };
+   easeNone: function (t, b, c, d) {
+   	return c*t/d + b;
+   },
    
    /**
-    * Begins slowly and accelerates towards end.
+    * Begins slowly and accelerates towards end. (quadratic)
     * @param {Number} t Time value used to compute current value.
     * @param {Number} b Starting value.
     * @param {Number} c Delta between start and end values.
     * @param {Number} d Total length of animation.
     * @return {Number} The computed value for the current animation frame.
     */
-   this.easeIn = function(t, b, c, d) {
-   	return b+c*((t/=d)*t*t);
-   };
-   
-   /**
-    * Begins quickly and decelerates towards end.
-    * @param {Number} t Time value used to compute current value.
-    * @param {Number} b Starting value.
-    * @param {Number} c Delta between start and end values.
-    * @param {Number} d Total length of animation.
-    * @return {Number} The computed value for the current animation frame.
-    */
-   this.easeOut = function(t, b, c, d) {
-   	var ts=(t/=d)*t;
-   	var tc=ts*t;
-   	return b+c*(tc + -3*ts + 3*t);
-   };
-   
-   /**
-    * Begins slowly and decelerates towards end.
-    * @param {Number} t Time value used to compute current value.
-    * @param {Number} b Starting value.
-    * @param {Number} c Delta between start and end values.
-    * @param {Number} d Total length of animation.
-    * @return {Number} The computed value for the current animation frame.
-    */
-   this.easeBoth = function(t, b, c, d) {
-   	var ts=(t/=d)*t;
-   	var tc=ts*t;
-   	return b+c*(-2*tc + 3*ts);
-   };
-   
-   /**
-    * Begins by going below staring value.
-    * @param {Number} t Time value used to compute current value.
-    * @param {Number} b Starting value.
-    * @param {Number} c Delta between start and end values.
-    * @param {Number} d Total length of animation.
-    * @return {Number} The computed value for the current animation frame.
-    */
-   this.backIn = function(t, b, c, d) {
-   	var ts=(t/=d)*t;
-   	var tc=ts*t;
-   	return b+c*(-3.4005*tc*ts + 10.2*ts*ts + -6.2*tc + 0.4*ts);
-   };
-   
-   /**
-    * End by going beyond ending value.
-    * @param {Number} t Time value used to compute current value.
-    * @param {Number} b Starting value.
-    * @param {Number} c Delta between start and end values.
-    * @param {Number} d Total length of animation.
-    * @return {Number} The computed value for the current animation frame.
-    */
-   this.backOut = function(t, b, c, d) {
-   	var ts=(t/=d)*t;
-   	var tc=ts*t;
-   	return b+c*(8.292*tc*ts + -21.88*ts*ts + 22.08*tc + -12.69*ts + 5.1975*t);
-   };
-   
-   /**
-    * Starts by going below staring value, and ends by going beyond ending value.
-    * @param {Number} t Time value used to compute current value.
-    * @param {Number} b Starting value.
-    * @param {Number} c Delta between start and end values.
-    * @param {Number} d Total length of animation.
-    * @return {Number} The computed value for the current animation frame.
-    */
-   this.backBoth = function(t, b, c, d) {
-   	var ts=(t/=d)*t;
-   	var tc=ts*t;
-   	return b+c*(0.402*tc*ts + -2.1525*ts*ts + -3.2*tc + 8*ts + -2.05*t);
-   };
-};
+   easeIn: function (t, b, c, d) {
+   	return c*(t/=d)*t + b;
+   },
 
-/*
-Copyright (c) 2006, Yahoo! Inc. All rights reserved.
-Code licensed under the BSD License:
-http://developer.yahoo.net/yui/license.txt
-Version: 0.10.0
-*/
+   /**
+    * Begins quickly and decelerates towards end.  (quadratic)
+    * @param {Number} t Time value used to compute current value.
+    * @param {Number} b Starting value.
+    * @param {Number} c Delta between start and end values.
+    * @param {Number} d Total length of animation.
+    * @return {Number} The computed value for the current animation frame.
+    */
+   easeOut: function (t, b, c, d) {
+   	return -c *(t/=d)*(t-2) + b;
+   },
+   
+   /**
+    * Begins slowly and decelerates towards end. (quadratic)
+    * @param {Number} t Time value used to compute current value.
+    * @param {Number} b Starting value.
+    * @param {Number} c Delta between start and end values.
+    * @param {Number} d Total length of animation.
+    * @return {Number} The computed value for the current animation frame.
+    */
+   easeBoth: function (t, b, c, d) {
+   	if ((t/=d/2) < 1) return c/2*t*t + b;
+   	return -c/2 * ((--t)*(t-2) - 1) + b;
+   },
+   
+   /**
+    * Begins slowly and accelerates towards end. (quartic)
+    * @param {Number} t Time value used to compute current value.
+    * @param {Number} b Starting value.
+    * @param {Number} c Delta between start and end values.
+    * @param {Number} d Total length of animation.
+    * @return {Number} The computed value for the current animation frame.
+    */
+   easeInStrong: function (t, b, c, d) {
+   	return c*(t/=d)*t*t*t + b;
+   },
+   
+   /**
+    * Begins quickly and decelerates towards end.  (quartic)
+    * @param {Number} t Time value used to compute current value.
+    * @param {Number} b Starting value.
+    * @param {Number} c Delta between start and end values.
+    * @param {Number} d Total length of animation.
+    * @return {Number} The computed value for the current animation frame.
+    */
+   easeOutStrong: function (t, b, c, d) {
+   	return -c * ((t=t/d-1)*t*t*t - 1) + b;
+   },
+   
+   /**
+    * Begins slowly and decelerates towards end. (quartic)
+    * @param {Number} t Time value used to compute current value.
+    * @param {Number} b Starting value.
+    * @param {Number} c Delta between start and end values.
+    * @param {Number} d Total length of animation.
+    * @return {Number} The computed value for the current animation frame.
+    */
+   easeBothStrong: function (t, b, c, d) {
+   	if ((t/=d/2) < 1) return c/2*t*t*t*t + b;
+   	return -c/2 * ((t-=2)*t*t*t - 2) + b;
+   },
+
+   /**
+    * snap in elastic effect
+    * @param {Number} t Time value used to compute current value.
+    * @param {Number} b Starting value.
+    * @param {Number} c Delta between start and end values.
+    * @param {Number} d Total length of animation.
+    * @param {Number} p Period (optional)
+    * @return {Number} The computed value for the current animation frame.
+    */
+
+   elasticIn: function (t, b, c, d, a, p) {
+   	if (t==0) return b;  if ((t/=d)==1) return b+c;  if (!p) p=d*.3;
+   	if (!a || a < Math.abs(c)) { a=c; var s=p/4; }
+   	else var s = p/(2*Math.PI) * Math.asin (c/a);
+   	return -(a*Math.pow(2,10*(t-=1)) * Math.sin( (t*d-s)*(2*Math.PI)/p )) + b;
+   },
+
+   /**
+    * snap out elastic effect
+    * @param {Number} t Time value used to compute current value.
+    * @param {Number} b Starting value.
+    * @param {Number} c Delta between start and end values.
+    * @param {Number} d Total length of animation.
+    * @param {Number} p Period (optional)
+    * @return {Number} The computed value for the current animation frame.
+    */
+   elasticOut: function (t, b, c, d, a, p) {
+   	if (t==0) return b;  if ((t/=d)==1) return b+c;  if (!p) p=d*.3;
+   	if (!a || a < Math.abs(c)) { a=c; var s=p/4; }
+   	else var s = p/(2*Math.PI) * Math.asin (c/a);
+   	return a*Math.pow(2,-10*t) * Math.sin( (t*d-s)*(2*Math.PI)/p ) + c + b;
+   },
+   
+   /**
+    * snap both elastic effect
+    * @param {Number} t Time value used to compute current value.
+    * @param {Number} b Starting value.
+    * @param {Number} c Delta between start and end values.
+    * @param {Number} d Total length of animation.
+    * @param {Number} p Period (optional)
+    * @return {Number} The computed value for the current animation frame.
+    */
+   elasticBoth: function (t, b, c, d, a, p) {
+   	if (t==0) return b;  if ((t/=d/2)==2) return b+c;  if (!p) p=d*(.3*1.5);
+   	if (!a || a < Math.abs(c)) { a=c; var s=p/4; }
+   	else var s = p/(2*Math.PI) * Math.asin (c/a);
+   	if (t < 1) return -.5*(a*Math.pow(2,10*(t-=1)) * Math.sin( (t*d-s)*(2*Math.PI)/p )) + b;
+   	return a*Math.pow(2,-10*(t-=1)) * Math.sin( (t*d-s)*(2*Math.PI)/p )*.5 + c + b;
+   },
+
+   /**
+    * back easing in - backtracking slightly, then reversing direction and moving to target
+    * @param {Number} t Time value used to compute current value.
+    * @param {Number} b Starting value.
+    * @param {Number} c Delta between start and end values.
+    * @param {Number} d Total length of animation.
+    * @param {Number) s Overshoot (optional)
+    * @return {Number} The computed value for the current animation frame.
+    */
+   backIn: function (t, b, c, d, s) {
+   	if (typeof s == 'undefined') s = 1.70158;
+   	return c*(t/=d)*t*((s+1)*t - s) + b;
+   },
+
+   /**
+    * back easing out - moving towards target, overshooting it slightly,
+    * then reversing and coming back to target
+    * @param {Number} t Time value used to compute current value.
+    * @param {Number} b Starting value.
+    * @param {Number} c Delta between start and end values.
+    * @param {Number} d Total length of animation.
+    * @param {Number) s Overshoot (optional)
+    * @return {Number} The computed value for the current animation frame.
+    */
+   backOut: function (t, b, c, d, s) {
+   	if (typeof s == 'undefined') s = 1.70158;
+   	return c*((t=t/d-1)*t*((s+1)*t + s) + 1) + b;
+   },
+   
+   /**
+    * back easing in/out - backtracking slightly, then reversing direction and moving to target,
+    * then overshooting target, reversing, and finally coming back to target
+    * @param {Number} t Time value used to compute current value.
+    * @param {Number} b Starting value.
+    * @param {Number} c Delta between start and end values.
+    * @param {Number} d Total length of animation.
+    * @param {Number) s Overshoot (optional)
+    * @return {Number} The computed value for the current animation frame.
+    */
+   backBoth: function (t, b, c, d, s) {
+   	if (typeof s == 'undefined') s = 1.70158; 
+   	if ((t/=d/2) < 1) return c/2*(t*t*(((s*=(1.525))+1)*t - s)) + b;
+   	return c/2*((t-=2)*t*(((s*=(1.525))+1)*t + s) + 2) + b;
+   },
+
+   /**
+    * bounce in
+    * @param {Number} t Time value used to compute current value.
+    * @param {Number} b Starting value.
+    * @param {Number} c Delta between start and end values.
+    * @param {Number} d Total length of animation.
+    * @return {Number} The computed value for the current animation frame.
+    */
+   bounceIn: function (t, b, c, d) {
+   	return c - YAHOO.util.Easing.bounceOut(d-t, 0, c, d) + b;
+   },
+   
+   /**
+    * bounce out
+    * @param {Number} t Time value used to compute current value.
+    * @param {Number} b Starting value.
+    * @param {Number} c Delta between start and end values.
+    * @param {Number} d Total length of animation.
+    * @return {Number} The computed value for the current animation frame.
+    */
+   bounceOut: function (t, b, c, d) {
+   	if ((t/=d) < (1/2.75)) {
+   		return c*(7.5625*t*t) + b;
+   	} else if (t < (2/2.75)) {
+   		return c*(7.5625*(t-=(1.5/2.75))*t + .75) + b;
+   	} else if (t < (2.5/2.75)) {
+   		return c*(7.5625*(t-=(2.25/2.75))*t + .9375) + b;
+   	} else {
+   		return c*(7.5625*(t-=(2.625/2.75))*t + .984375) + b;
+   	}
+   },
+   
+   /**
+    * bounce both
+    * @param {Number} t Time value used to compute current value.
+    * @param {Number} b Starting value.
+    * @param {Number} c Delta between start and end values.
+    * @param {Number} d Total length of animation.
+    * @return {Number} The computed value for the current animation frame.
+    */
+   bounceBoth: function (t, b, c, d) {
+   	if (t < d/2) return YAHOO.util.Easing.bounceIn(t*2, 0, c, d) * .5 + b;
+   	return YAHOO.util.Easing.bounceOut(t*2-d, 0, c, d) * .5 + c*.5 + b;
+   }
+};
 
 /**
  * @class Anim subclass for moving elements along a path defined by the "points" member of "attributes".  All "points" are arrays with x, y coordinates.
@@ -707,169 +996,163 @@ Version: 0.10.0
  * @param {Number} duration (optional, defaults to 1 second) Length of animation (frames or seconds), defaults to time-based
  * @param {Function} method (optional, defaults to YAHOO.util.Easing.easeNone) Computes the values that are applied to the attributes per frame (generally a YAHOO.util.Easing method)
  */
-YAHOO.util.Motion = function(el, attributes, duration, method) {
-   if (el) {
-      this.initMotion(el, attributes, duration, method);
-   }
-};
-
-YAHOO.util.Motion.prototype = new YAHOO.util.Anim();
-
-/**
- * Per attribute units that should be used by default.
- * Motion points default to 'px' units.
- * @type Object
- */
-YAHOO.util.Motion.prototype.defaultUnits.points = 'px';
-
-/**
- * Returns the value computed by the animation's "method".
- * @param {String} attribute The name of the attribute.
- * @param {Number} start The value this attribute should start from for this animation.
- * @param {Number} end  The value this attribute should end at for this animation.
- * @return {Number} The Value to be applied to the attribute.
- */
-YAHOO.util.Motion.prototype.doMethod = function(attribute, start, end) {
-   var val = null;
-   
-   if (attribute == 'points') {
-      var translatedPoints = this.getTranslatedPoints();
-      var t = this.method(this.currentFrame, 0, 100, this.totalFrames) / 100;				
-   
-      if (translatedPoints) {
-         val = YAHOO.util.Bezier.getPosition(translatedPoints, t);
+(function() {
+   YAHOO.util.Motion = function(el, attributes, duration,  method) {
+      if (el) { // dont break existing subclasses not using YAHOO.extend
+         YAHOO.util.Motion.superclass.constructor.call(this, el, attributes, duration, method);
       }
-      
-   } else {
-      val = this.method(this.currentFrame, start, end - start, this.totalFrames);
-   }
-   
-   return val;
-};
+   };
 
-/**
- * Returns current value of the attribute.
- * @param {String} attribute The name of the attribute.
- * @return {Number} val The current value of the attribute.
- */
-YAHOO.util.Motion.prototype.getAttribute = function(attribute) {
-   var val = null;
+   YAHOO.extend(YAHOO.util.Motion, YAHOO.util.ColorAnim);
    
-   if (attribute == 'points') {
-      val = [ this.getAttribute('left'), this.getAttribute('top') ];
-      if ( isNaN(val[0]) ) { val[0] = 0; }
-      if ( isNaN(val[1]) ) { val[1] = 0; }
-   } else {
-      val = parseFloat( YAHOO.util.Dom.getStyle(this.getEl(), attribute) );
-   }
-   
-   return val;
-};
+   // shorthand
+   var Y = YAHOO.util;
+   var superclass = Y.Motion.superclass;
+   var proto = Y.Motion.prototype;
 
-/**
- * Applies a value to an attribute
- * @param {String} attribute The name of the attribute.
- * @param {Number} val The value to be applied to the attribute.
- * @param {String} unit The unit ('px', '%', etc.) of the value.
- */
-YAHOO.util.Motion.prototype.setAttribute = function(attribute, val, unit) {
-   if (attribute == 'points') {
-      YAHOO.util.Dom.setStyle(this.getEl(), 'left', val[0] + unit);
-      YAHOO.util.Dom.setStyle(this.getEl(), 'top', val[1] + unit);
-   } else {
-      YAHOO.util.Dom.setStyle(this.getEl(), attribute, val + unit); 
-   }
-};
+   /**
+    * toString method
+    * @return {String} string represenation of anim obj
+    */
+   proto.toString = function() {
+      var el = this.getEl();
+      var id = el.id || el.tagName;
+      return ("Motion " + id);
+   };
+   
+   proto.patterns.points = /^points$/i;
+   
+   /**
+    * Applies a value to an attribute
+    * @param {String} attr The name of the attribute.
+    * @param {Number} val The value to be applied to the attribute.
+    * @param {String} unit The unit ('px', '%', etc.) of the value.
+    */
+   proto.setAttribute = function(attr, val, unit) {
+      if (  this.patterns.points.test(attr) ) {
+         unit = unit || 'px';
+         superclass.setAttribute.call(this, 'left', val[0], unit);
+         superclass.setAttribute.call(this, 'top', val[1], unit);
+      } else {
+         superclass.setAttribute.call(this, attr, val, unit);
+      }
+   };
+   
+   /**
+    * Sets the default value to be used when "from" is not supplied.
+    * @param {String} attr The attribute being set.
+    * @param {Number} val The default value to be applied to the attribute.
+    */
+   proto.getAttribute = function(attr) {
+      if (  this.patterns.points.test(attr) ) {
+         var val = [
+            superclass.getAttribute.call(this, 'left'),
+            superclass.getAttribute.call(this, 'top')
+         ];
+      } else {
+         val = superclass.getAttribute.call(this, attr);
+      }
 
-/**
- * @param {String or HTMLElement} el Reference to the element that will be animated
- * @param {Object} attributes The attribute(s) to be animated.  
- * Each attribute is an object with at minimum a "to" or "by" member defined.  
- * Additional optional members are "from" (defaults to current value), "units" (defaults to "px").  
- * All attribute names use camelCase.
- * @param {Number} duration (optional, defaults to 1 second) Length of animation (frames or seconds), defaults to time-based
- * @param {Function} method (optional, defaults to YAHOO.util.Easing.easeNone) Computes the values that are applied to the attributes per frame (generally a YAHOO.util.Easing method)
- */ 
-YAHOO.util.Motion.prototype.initMotion = function(el, attributes, duration, method) {
-   YAHOO.util.Anim.call(this, el, attributes, duration, method);
+      return val;
+   };
    
-   attributes = attributes || {};
-   attributes.points = attributes.points || {};
-   attributes.points.control = attributes.points.control || [];
+   /**
+    * Returns the value computed by the animation's "method".
+    * @param {String} attr The name of the attribute.
+    * @param {Number} start The value this attribute should start from for this animation.
+    * @param {Number} end  The value this attribute should end at for this animation.
+    * @return {Number} The Value to be applied to the attribute.
+    */
+   proto.doMethod = function(attr, start, end) {
+      var val = null;
+
+      if ( this.patterns.points.test(attr) ) {
+         var t = this.method(this.currentFrame, 0, 100, this.totalFrames) / 100;				
+         val = Y.Bezier.getPosition(this.runtimeAttributes[attr], t);
+      } else {
+         val = superclass.doMethod.call(this, attr, start, end);
+      }
+      return val;
+   };
    
-   this.attributes = attributes;
+   /**
+    * Sets the actual values to be used during the animation.
+    * Should only be needed for subclass use.
+    * @param {Object} attr The attribute object
+    * @private 
+    */
+   proto.setRuntimeAttribute = function(attr) {
+      if ( this.patterns.points.test(attr) ) {
+         var el = this.getEl();
+         var attributes = this.attributes;
+         var start;
+         var control = attributes['points']['control'] || [];
+         var end;
+         var i, len;
+         
+         if (control.length > 0 && !(control[0] instanceof Array) ) { // could be single point or array of points
+            control = [control];
+         } else { // break reference to attributes.points.control
+            var tmp = []; 
+            for (i = 0, len = control.length; i< len; ++i) {
+               tmp[i] = control[i];
+            }
+            control = tmp;
+         }
+
+         if (Y.Dom.getStyle(el, 'position') == 'static') { // default to relative
+            Y.Dom.setStyle(el, 'position', 'relative');
+         }
    
-   var start;
-   var end = null;
-   var translatedPoints = null;
+         if ( isset(attributes['points']['from']) ) {
+            Y.Dom.setXY(el, attributes['points']['from']); // set position to from point
+         } 
+         else { Y.Dom.setXY( el, Y.Dom.getXY(el) ); } // set it to current position
+         
+         start = this.getAttribute('points'); // get actual top & left
+         
+         // TO beats BY, per SMIL 2.1 spec
+         if ( isset(attributes['points']['to']) ) {
+            end = translateValues.call(this, attributes['points']['to'], start);
+            
+            var pageXY = Y.Dom.getXY(this.getEl());
+            for (i = 0, len = control.length; i < len; ++i) {
+               control[i] = translateValues.call(this, control[i], start);
+            }
+
+            
+         } else if ( isset(attributes['points']['by']) ) {
+            end = [ start[0] + attributes['points']['by'][0], start[1] + attributes['points']['by'][1] ];
+            
+            for (i = 0, len = control.length; i < len; ++i) {
+               control[i] = [ start[0] + control[i][0], start[1] + control[i][1] ];
+            }
+         }
+
+         this.runtimeAttributes[attr] = [start];
+         
+         if (control.length > 0) {
+            this.runtimeAttributes[attr] = this.runtimeAttributes[attr].concat(control); 
+         }
+
+         this.runtimeAttributes[attr][this.runtimeAttributes[attr].length] = end;
+      }
+      else {
+         superclass.setRuntimeAttribute.call(this, attr);
+      }
+   };
    
-   this.getTranslatedPoints = function() { return translatedPoints; };
-   
-   var translateValues = function(val, self) {
-      var pageXY = YAHOO.util.Dom.getXY(self.getEl());
+   var translateValues = function(val, start) {
+      var pageXY = Y.Dom.getXY(this.getEl());
       val = [ val[0] - pageXY[0] + start[0], val[1] - pageXY[1] + start[1] ];
-   
+
       return val; 
    };
    
-   var onStart = function() {
-      start = this.getAttribute('points');
-      var attributes = this.attributes;
-      var control =  attributes['points']['control'] || [];
-
-      if (control.length > 0 && control[0].constructor != Array) { // could be single point or array of points
-         control = [control];
-      }
-      
-      if (YAHOO.util.Dom.getStyle(this.getEl(), 'position') == 'static') { // default to relative
-         YAHOO.util.Dom.setStyle(this.getEl(), 'position', 'relative');
-      }
-
-      if (typeof attributes['points']['from'] != 'undefined') {
-         YAHOO.util.Dom.setXY(this.getEl(), attributes['points']['from']); // set to from point
-         start = this.getAttribute('points'); // get actual offset values
-      } 
-      else if ((start[0] === 0 || start[1] === 0)) { // these sometimes up when auto
-         YAHOO.util.Dom.setXY(this.getEl(), YAHOO.util.Dom.getXY(this.getEl())); // set it to current position, giving offsets
-         start = this.getAttribute('points'); // get actual offset values
-      }
-
-      var i, len;
-      // TO beats BY, per SMIL 2.1 spec
-      if (typeof attributes['points']['to'] != 'undefined') {
-         end = translateValues(attributes['points']['to'], this);
-         
-         for (i = 0, len = control.length; i < len; ++i) {
-            control[i] = translateValues(control[i], this);
-         }
-         
-      } else if (typeof attributes['points']['by'] != 'undefined') {
-         end = [ start[0] + attributes['points']['by'][0], start[1] + attributes['points']['by'][1]];
-         
-         for (i = 0, len = control.length; i < len; ++i) {
-            control[i] = [ start[0] + control[i][0], start[1] + control[i][1] ];
-         }
-      }
-
-      if (end) {
-         translatedPoints = [start];
-         
-         if (control.length > 0) { translatedPoints = translatedPoints.concat(control); }
-         
-         translatedPoints[translatedPoints.length] = end;
-      }
+   var isset = function(prop) {
+      return (typeof prop !== 'undefined');
    };
-   
-   this._onStart.subscribe(onStart);
-};
-
-/*
-Copyright (c) 2006, Yahoo! Inc. All rights reserved.
-Code licensed under the BSD License:
-http://developer.yahoo.net/yui/license.txt
-Version: 0.10.0
-*/
-
+})();
 /**
  * @class Anim subclass for scrolling elements to a position defined by the "scroll" member of "attributes".  All "scroll" members are arrays with x, y scroll positions.
  * <p>Usage: <code>var myAnim = new YAHOO.util.Scroll(el, { scroll: { to: [0, 800] } }, 1, YAHOO.util.Easing.easeOut);</code></p>
@@ -889,74 +1172,84 @@ Version: 0.10.0
  * @param {Number} duration (optional, defaults to 1 second) Length of animation (frames or seconds), defaults to time-based
  * @param {Function} method (optional, defaults to YAHOO.util.Easing.easeNone) Computes the values that are applied to the attributes per frame (generally a YAHOO.util.Easing method)
  */
-YAHOO.util.Scroll = function(el, attributes, duration,  method) {
-   if (el) {
-      YAHOO.util.Anim.call(this, el, attributes, duration, method);
-   }
-};
+(function() {
+   YAHOO.util.Scroll = function(el, attributes, duration,  method) {
+      if (el) { // dont break existing subclasses not using YAHOO.extend
+         YAHOO.util.Scroll.superclass.constructor.call(this, el, attributes, duration, method);
+      }
+   };
 
-YAHOO.util.Scroll.prototype = new YAHOO.util.Anim();
+   YAHOO.extend(YAHOO.util.Scroll, YAHOO.util.ColorAnim);
+   
+   // shorthand
+   var Y = YAHOO.util;
+   var superclass = Y.Scroll.superclass;
+   var proto = Y.Scroll.prototype;
 
-/**
- * Per attribute units that should be used by default.
- * Scroll positions default to no units.
- * @type Object
- */
-YAHOO.util.Scroll.prototype.defaultUnits.scroll = ' ';
-
-/**
- * Returns the value computed by the animation's "method".
- * @param {String} attribute The name of the attribute.
- * @param {Number} start The value this attribute should start from for this animation.
- * @param {Number} end  The value this attribute should end at for this animation.
- * @return {Number} The Value to be applied to the attribute.
- */
-YAHOO.util.Scroll.prototype.doMethod = function(attribute, start, end) {
-   var val = null;
-
-   if (attribute == 'scroll') {
-      val = [
-         this.method(this.currentFrame, start[0], end[0] - start[0], this.totalFrames),
-         this.method(this.currentFrame, start[1], end[1] - start[1], this.totalFrames)
-      ];
+   /**
+    * toString method
+    * @return {String} string represenation of anim obj
+    */
+   proto.toString = function() {
+      var el = this.getEl();
+      var id = el.id || el.tagName;
+      return ("Scroll " + id);
+   };
+   
+   /**
+    * Returns the value computed by the animation's "method".
+    * @param {String} attr The name of the attribute.
+    * @param {Number} start The value this attribute should start from for this animation.
+    * @param {Number} end  The value this attribute should end at for this animation.
+    * @return {Number} The Value to be applied to the attribute.
+    */
+   proto.doMethod = function(attr, start, end) {
+      var val = null;
+   
+      if (attr == 'scroll') {
+         val = [
+            this.method(this.currentFrame, start[0], end[0] - start[0], this.totalFrames),
+            this.method(this.currentFrame, start[1], end[1] - start[1], this.totalFrames)
+         ];
+         
+      } else {
+         val = superclass.doMethod.call(this, attr, start, end);
+      }
+      return val;
+   };
+   
+   /**
+    * Returns current value of the attribute.
+    * @param {String} attr The name of the attribute.
+    * @return {Number} val The current value of the attribute.
+    */
+   proto.getAttribute = function(attr) {
+      var val = null;
+      var el = this.getEl();
       
-   } else {
-      val = this.method(this.currentFrame, start, end - start, this.totalFrames);
-   }
-   return val;
-};
-
-/**
- * Returns current value of the attribute.
- * @param {String} attribute The name of the attribute.
- * @return {Number} val The current value of the attribute.
- */
-YAHOO.util.Scroll.prototype.getAttribute = function(attribute) {
-   var val = null;
-   var el = this.getEl();
+      if (attr == 'scroll') {
+         val = [ el.scrollLeft, el.scrollTop ];
+      } else {
+         val = superclass.getAttribute.call(this, attr);
+      }
+      
+      return val;
+   };
    
-   if (attribute == 'scroll') {
-      val = [ el.scrollLeft, el.scrollTop ];
-   } else {
-      val = parseFloat( YAHOO.util.Dom.getStyle(el, attribute) );
-   }
-   
-   return val;
-};
-
-/**
- * Applies a value to an attribute
- * @param {String} attribute The name of the attribute.
- * @param {Number} val The value to be applied to the attribute.
- * @param {String} unit The unit ('px', '%', etc.) of the value.
- */
-YAHOO.util.Scroll.prototype.setAttribute = function(attribute, val, unit) {
-   var el = this.getEl();
-   
-   if (attribute == 'scroll') {
-      el.scrollLeft = val[0];
-      el.scrollTop = val[1];
-   } else {
-      YAHOO.util.Dom.setStyle(el, attribute, val + unit); 
-   }
-};
+   /**
+    * Applies a value to an attribute
+    * @param {String} attr The name of the attribute.
+    * @param {Number} val The value to be applied to the attribute.
+    * @param {String} unit The unit ('px', '%', etc.) of the value.
+    */
+   proto.setAttribute = function(attr, val, unit) {
+      var el = this.getEl();
+      
+      if (attr == 'scroll') {
+         el.scrollLeft = val[0];
+         el.scrollTop = val[1];
+      } else {
+         superclass.setAttribute.call(this, attr, val, unit);
+      }
+   };
+})();
