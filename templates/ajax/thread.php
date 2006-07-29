@@ -54,7 +54,7 @@ while($contextEntry->type == 4) $contextEntry = $contextEntry->getParent();
 			<div class="postDiv box <?php echo $i++ % 2 ? 'even' : 'odd' ?>">
 				<?php if ($post->type == Entry::$TYPE_POST) { ?>
 					<div class="postSidepanel">
-						<img src="<?php echo User::getUser($post->userref)->picture ? htmlentities(User::getUser($post->userref)->picture) : $this->photo_placeholder ?>" alt="profilephoto" class="profilePhoto" />
+						<img src="<?php echo (isset(User::getUser($post->userref)->picture) ? htmlentities(User::getUser($post->userref)->picture) : $this->photo_placeholder) ?>" alt="profilephoto" class="profilePhoto" />
 					</div>
 					<h3 class="postTitle">
 						<div>
