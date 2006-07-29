@@ -199,7 +199,7 @@ if(file_exists("../scripts/configuration/installer_disabled"))
 					<input id='prefShowEmail' name='showEmail' type='checkbox' <?php if(UserManager::getUser()->email_visible) echo 'checked="Checked"' ?> /><?php echo L10n::$visible_in_profile ?>
 					</p>
 					<p><?php echo L10n::$profile_photo ?><br />
-					<input id='prefPhoto' name='photo' type='text' value='<?php if(isset(UserManager::getUser()->photo)) echo UserManager::getUser()->photo ?>' />
+					<input id='prefPhoto' name='picture' type='text' value='<?php if(isset(UserManager::getUser()->picture)) echo UserManager::getUser()->picture ?>' />
 					</p>
 				</fieldset>
 			</form>

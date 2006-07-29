@@ -26,7 +26,7 @@ while($contextEntry->type == 4) $contextEntry = $contextEntry->getParent();
 		<div class="postsContainer content">
 			<div class="postDiv box odd">
 				<div class="postSidepanel">
-					<img src="<?php echo User::getUser($this->entry->userref)->picture ? htmlentities(User::getUser($this->entry->userref)->picture) : $this->photo_placeholder ?>" alt="profilephoto" class="profilePhoto" />
+					<img src="<?php echo (isset(User::getUser($this->entry->userref)->picture) && User::getUser($this->entry->userref)->picture ? htmlentities(User::getUser($this->entry->userref)->picture) : $this->photo_placeholder) ?>" alt="profilephoto" class="profilePhoto" />
 				</div>
 				<h3 class="postTitle">
 					<div>
@@ -54,7 +54,7 @@ while($contextEntry->type == 4) $contextEntry = $contextEntry->getParent();
 			<div class="postDiv box <?php echo $i++ % 2 ? 'even' : 'odd' ?>">
 				<?php if ($post->type == Entry::$TYPE_POST) { ?>
 					<div class="postSidepanel">
-						<img src="<?php echo (isset(User::getUser($post->userref)->picture) ? htmlentities(User::getUser($post->userref)->picture) : $this->photo_placeholder) ?>" alt="profilephoto" class="profilePhoto" />
+						<img src="<?php echo (isset(User::getUser($post->userref)->picture) && User::getUser($post->userref)->picture ? htmlentities(User::getUser($post->userref)->picture) : $this->photo_placeholder) ?>" alt="profilephoto" class="profilePhoto" />
 					</div>
 					<h3 class="postTitle">
 						<div>

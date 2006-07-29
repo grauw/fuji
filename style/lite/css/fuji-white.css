@@ -122,3 +122,22 @@ a:hover {
 .box ul.menu li:hover ul li:hover {
   background-color: #eaeae9;
 }
+
+/* trees */
+ul.tree li {
+  background-color: #dadad9;
+  border-color: #ffffff;
+}
+ul.tree li ul li {
+  background-color: #fefeff;
+}
+ul.tree li.leaf {
+  background-image: url('../graphics/tn.gif') 0 0 no-repeat;
+  background-color: inherit;
+}
+ul.tree li.closed {
+  background-image: url('../graphics/tp.gif') 0 0 no-repeat;
+}
+ul.tree li.open {
+  background-image: url('../graphics/tm.gif') 0 0 no-repeat;
+}

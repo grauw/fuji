@@ -238,3 +238,11 @@ a.feed {
 	display: block;
 	padding: 0 0.3em;
 }
+
+/* trees */
+ul.tree li {
+	border: 1px solid;
+}
+ul.tree li ul {
+	margin-left: -32px;
+}

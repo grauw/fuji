@@ -37,8 +37,9 @@ class Preferences {
 				$user->visual_effects = ($_POST['visualEffects'] == 'on' ? '1' : '0');
 			else
 				$user->visual_effects = '0';							
-			if(isset($_POST['photo']) && $_POST['photo'] != '' && $_POST['photo'] != $user->picture)
-				$user->picture = $_POST['photo'];
+			//if(isset($_POST['picture']) && $_POST['picture'] != '' && $_POST['picture'] != $user->picture)
+			if((isset($_POST['picture']) && (!isset($_POST['picture']) || $_POST['picture'] != $user->picture)) || (!isset($_POST['picture']) && isset($_POST['picture'])))
+				$user->picture = $_POST['picture'];
 		}
 	}
 	
