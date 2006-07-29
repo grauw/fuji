@@ -1,7 +1,6 @@
 <?php
 require_once 'dataclass.php';
 require_once 'database.php';
-require_once 'templateview.php';
 require_once 'l10nmanager.php';
 
 class Template extends Dataclass {
