@@ -32,16 +32,14 @@ RewriteRule ^(.*)\.fuji$ $1?mime=application/x-fuji\%2Bxhtml\%2Bxml [QSA]
 # GET /
 RewriteRule ^$ scripts/index.php [L,QSA]
 
-# POST /item
-RewriteRule ^item$ scripts/item.php [L,QSA]
-
 # GET /item/<id>
+# POST /item/<id>
 # DELETE /item/<id>
-# PUT /item/<id> (currently uses POST)
+# PUT /item/<id>
 RewriteRule ^item/(\d+)/?$ scripts/item.php?id=$1 [L,QSA]
 
 # GET /item/<id>/source
-RewriteRule ^item/(\d+)/source$ scripts/item.php?id=$1&source [L,QSA]
+RewriteRule ^item/(\d+)/source$ scripts/itemsource.php?id=$1 [L,QSA]
 
 # POST /item/<id>/rights
 RewriteRule ^item/(\d+)/rights$ scripts/config_rights.php?id=$1 [L,QSA]
