@@ -1,0 +1,67 @@
+/* Fuji Lite - Text */
+
+body {
+	font-family: Verdana, Helvetica, sans-serif;
+	font-size: 10pt;
+}
+
+h1 {
+	font-size: 20pt;
+	margin: 0;
+}
+
+h2 {
+	margin: 0;
+}
+
+h3 {
+	margin: 0;
+	font-size: 10pt;
+	font-weight: normal;
+}
+
+h4 {
+	margin: 0;
+	font-weight: normal;
+}
+
+h5 {
+	margin: 0;
+	font-weight: normal;
+}
+
+a:link {
+	text-decoration: none;
+}
+
+a:visited {
+	text-decoration: none;
+}
+
+#menuDiv {
+	text-align: right;
+}
+
+.code {
+	margin: 1em;
+	font-family: monospace;
+	border: 0.1em dotted;
+}
+
+.quote {
+	margin: 1em;
+	font-weight: bold;
+	border: 0.1em solid;
+}
+
+.quotecontent {
+	font-weight: normal;
+	border-top: 0.1em solid;
+}
+
+.forumContainer .box .content a:link,
+.forumContainer .box .content a:hover,
+.postsContainer .box .content a:link,
+.postsContainer .box .content a:hover {
+	text-decoration: underline;
+}

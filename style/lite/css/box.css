@@ -1,0 +1,55 @@
+/* Fuji Lite - Box */
+
+.box {
+}
+
+.box h2 {
+	padding-top: 2px;
+	font-size: 12pt;
+	font-weight: bold;
+	border-top: 1px solid;
+	border-bottom: 1px solid;
+}
+
+.box ul.menu {
+	margin: 0;
+	padding: 0;
+	border-bottom: 1px solid;
+}
+
+.box ul.menu li {
+	display: inline;
+	list-style-type: none;
+	padding: 0 3px;
+}
+
+.box ul.menu li {
+	position: relative;
+}
+
+.box ul.menu li ul {
+	display: none;
+	position: absolute;
+	left: 0;
+	width: 15em;
+	margin: 0;
+	padding: .5em 0;
+	border: 1px solid;
+}
+
+.box ul.menu li:hover ul {
+	display: block;
+}
+
+.box ul.menu li:hover ul li {
+	display: block;
+}
+
+.box ul.menu li ul li a {
+	display: block;
+	padding: 0 0.3em;
+}
+
+.box .withpager .pager {
+	border-top: 1px solid;
+}

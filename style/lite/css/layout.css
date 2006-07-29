@@ -1,0 +1,35 @@
+/* Fuji Lite - Layout */
+
+body {
+	position: relative;
+	max-width: 70em;
+}
+
+.logo {
+	position: absolute;
+	height: 3em;
+	width: 3.2em;
+	margin: 0;
+}
+
+#foraDiv {
+	float: right;
+	width: 14em;
+	min-height: 20em;
+}
+
+#menuDiv {
+	padding: 0.2em;
+	padding-right: 1em;
+	height: 6em;
+	margin-bottom: 0.5em;
+}
+
+* html #menuDiv { /* IE hack (TODO: check if it still works/needed)*/
+	padding-top: 10px;
+	height: 70px;
+}
+
+#threadsDiv {
+	margin-right: 14.5em;
+}

@@ -1,0 +1,168 @@
+/* Fuji Lite - Colours */
+
+html {
+	color: #111;
+}
+
+.logo {
+	background: url(../graphics/fuji.jpg) no-repeat;
+	border-color: #fff;
+	background-color: #e2e2e1;  
+	color: #fff;
+}
+
+.logo a:link,
+.logo a:visited {
+	color: #fff;
+}
+
+.box {
+	border-color: #fff;
+}
+
+.box h2 {
+	background-image: url(../graphics/bar.png);
+	background-color: #e2e2e1;
+	border-color: #fff;
+}
+
+.box ul.menu {
+	background-color: #f6f6f5;
+	border-color: #fff;
+}
+
+#foraDiv {
+	background-color: #fafaf9;
+}
+
+#menuDiv {
+	background-color: #e2e2e1;
+}
+
+#menuDiv h2 {
+	background-image: none;
+	background-color: transparent;
+}
+
+#threadsDiv {
+	background-color: #fafaf9;
+}
+
+#postsDiv {
+	background-color: #fafaf9;
+}
+
+.postsContainer .box {
+	border-color: #fff;
+}
+
+.forumContainer table {
+	border-color: #fff;
+}
+
+.forumContainer .box h3,
+.postsContainer .box h3 {
+	background-color: #f2f2f1;
+	border-color: #fff;
+}
+
+.forumContainer .box .content,
+.postsContainer .box .content {
+	background-color: #fafaf9;
+}
+
+.forumContainer table thead {
+	background-color: #f2f2f1;
+}
+
+table td {
+	border-color: #fff;
+}
+
+.forumContainer table tfoot {
+	background-color: #f2f2f1;
+}
+
+.forumContainer table .tableForumEntry {
+	background-color: #fbfbfa;
+}
+
+.forumContainer table .tableThreadEntry {
+	background-color: #fafaf9;
+}
+
+a:link {
+	color: #111;
+}
+
+a:visited {
+	color: #111;
+}
+
+a:hover {
+	color: #666;
+}
+
+.postsContainer .box .postSidepanel {
+	background-color: #f2f2f1;
+	border-color: #fff;
+}
+
+.code {
+	background-color: #fefefd;
+	border-color: #ccc;
+}
+
+.quote {
+	background-color: #f2f2f1;
+	border-color: #ccc;
+}
+
+.quotecontent {
+	background-color: #fefefd;
+	border-color: #ccc;
+}
+
+.forumContainer .box .content a:link,
+.postsContainer .box .content a:link {
+	color: #444;
+}
+
+.forumContainer .box .content a:visited,
+.postsContainer .box .content a:visited {
+	color: #555;
+}
+
+.forumContainer .box .content a:hover,
+.postsContainer .box .content a:hover {
+	color: #888;
+}
+
+/* submenus */
+.box ul.menu li ul {
+	border-color: #fff;
+	background-color: #eaeae9;
+}
+.box ul.menu li:hover ul li:hover {
+	background-color: #dadad9;
+}
+
+/* trees */
+/*
+ul.tree li {
+  background-color: #dadad9;
+  border-color: #fff;
+}
+ul.tree li ul li {
+  background-color: #fefeff;
+}
+ul.tree li.leaf {
+  background-image: url('../graphics/tn.gif') 0 0 no-repeat;
+  background-color: inherit;
+}
+ul.tree li.closed {
+  background-image: url('../graphics/tp.gif') 0 0 no-repeat;
+}
+ul.tree li.open {
+  background-image: url('../graphics/tm.gif') 0 0 no-repeat;
+} */

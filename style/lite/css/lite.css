@@ -1,4 +1,7 @@
 @import "../../../js/tree/tree.css";
-@import "fuji-lite.css";
-@import "fuji-white.css";
+@import "style.css";
+@import "box.css";
+@import "colours.css";
+@import "layout.css";
+@import "text.css";
 @import "container.css";
