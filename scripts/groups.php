@@ -28,15 +28,18 @@ class Groups extends Resource {
 			if($_POST['newGroupDelete']) $array['may_delete'] = 1; else $array['may_delete'] = 0;
 			$group->updateRights($array);
 		}
-		elseif($_GET['id']){
-			$array = array();
-			$group = Group::getGroup($_GET['id']);
-			if($_POST['editGroupRead']) $array['may_read'] = 1; else $array['may_read'] = 0;
-			if($_POST['editGroupPost']) $array['may_post'] = 1; else $array['may_post'] = 0;
-			if($_POST['editGroupEdit']) $array['may_edit'] = 1; else $array['may_edit'] = 0;
-			if($_POST['editGroupDelete']) $array['may_delete'] = 1; else $array['may_delete'] = 0;
-			$group->updateRights($array);
-		}
+	}
+	
+	function httpPut()
+	{
+		UserManager::authenticate();
+		$array = array();
+		$group = Group::getGroup($_GET['id']);
+		if($_POST['editGroupRead']) $array['may_read'] = 1; else $array['may_read'] = 0;
+		if($_POST['editGroupPost']) $array['may_post'] = 1; else $array['may_post'] = 0;
+		if($_POST['editGroupEdit']) $array['may_edit'] = 1; else $array['may_edit'] = 0;
+		if($_POST['editGroupDelete']) $array['may_delete'] = 1; else $array['may_delete'] = 0;
+		$group->updateRights($array);
 	}
 	
 	function httpDelete()

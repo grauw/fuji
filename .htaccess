@@ -75,7 +75,7 @@ RewriteRule ^register$ scripts/register/index.php [L,QSA]
 RewriteRule ^preferences$ scripts/preferences.php [L,QSA]
 
 # POST /serversettings
-RewriteRule ^serversettings$ scripts/serversettings [L,QSA]
+RewriteRule ^serversettings$ scripts/serversettings.php [L,QSA]
 
 # POST /login
 RewriteRule ^login$ scripts/loginout.php?action=login [L,QSA]

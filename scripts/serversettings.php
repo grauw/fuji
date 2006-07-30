@@ -1,22 +1,11 @@
 <?php
 require_once 'usermanager.php';
 require_once 'database.php';
+require_once 'resource.php';
 
-new ServerSettings();
+class ServerSettings extends Resource {
 	
-class ServerSettings {
-	
-	function __construct()
-	{
-		$method = $_SERVER['REQUEST_METHOD'];
-		if ($method == 'POST') {
-			$this->httpPost();
-		} else {
-			$this->httpMethodNotAllowed();
-		}
-	}
-	
-	function httpPost()
+	function httpPut()
 	{
 		UserManager::authenticate();
 		$user = UserManager::getUser();
@@ -40,12 +29,8 @@ class ServerSettings {
 		}
 	}
 	
-	function httpMethodNotAllowed()
-	{
-		// 405 Method Not Allowed
-		header('Allow: POST', true, '405');
-	}
-	
-}	
-	
+}
+
+new ServerSettings();
+
 ?>
