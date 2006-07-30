@@ -1,6 +1,51 @@
 <?php
 require_once 'database.php';
 
+	/**
+	 * Generic base class for database data objects
+	 * 
+	 * This is a base class which can be inherited by database objects, to offer a
+	 * wrapper around the SQL functions with easy access to the attributes, etc.
+	 * 
+	 * This class is abstract, and each derived class must implement the following methods:
+	 *  - getTableName(); returns the name of the database table to use.
+	 *  - getPrimaryKeyName(); returns the name of the table’s primary key.
+	 *    NOTE: more than one primary keys don’t really work yet. TODO.
+	 *  - getResourceUriFormat(); returns a pattern to uniquely identify an instance,
+	 *    in the form of an URI (e.g. 'item/%s'), which is also sometimes used for output.
+	 * 
+	 * On an instance of this class, the following methods are available to access attributes:
+	 *  - getAttribute($name); gets an attribute (if unavailable, loads from db).
+	 *  - getAttributeState($name); gets the state of an attribute (NONE, FRESH, DIRTY).
+	 *  - setAttribute($name, $value); sets an attribute (and marks it for saving).
+	 *  - setAttributeInitial($name, $value); sets an attribute without marking it for saving.
+	 *  - setAttributeState($name, $value); sets the state of an attribute.
+	 *  - hasAttribute($name); checks whether an attribute is loaded on the object.
+	 *  - removeAttribute($name); removes an attribute from the object.
+	 *  - getData(); gets you the data object. Avoid.
+	 * 
+	 * Q: Maybe getAttributeState and setAttributeState should be private methods?
+	 * 
+	 * Also, the following attribute access getter/setter shorthands are available:
+	 *  - __get($name); shorthand for getAttribute($name).
+	 *  - __set($name, $value); shorthand for setAttribute($name, $value).
+	 *  - __isset($name); shorthand for hasAttribute($name).
+	 *  - __unset($name); shorthand for removeAttribute($name).
+	 * 
+	 * Finally, you can use the following methods on a Dataclass-based object:
+	 *  - load(); explicitly loads data from the database. Should be no need to use,
+	 *    the object is populated automatically when values are read. Calls loadData(),
+	 *    which can be hooked if necessary.
+	 *  - save(); save modified attributes into the database. Creates a new row in the DB for
+	 *    objects without a primary key value set. saveNew() and saveUpdate() are functions that
+	 *    can be hooked in case you need to set additional values (such as modification dates).
+	 *  - remove(); removes the object from the database. Primary key must be set.
+	 *  - exists(); checks whether the object exists in the database (based on primary key).
+	 *  - getURI(); gets the unique URI for this resource based on getResourceUriFormat().
+	 *  - getAbsoluteURI(); same as getURI, but then a full URI.
+	 *  - getForumRoot(); gets the root path of the forum. Should move to utility class.
+	 * 
+	 */
 	abstract class Dataclass {
 		
 		private $data = array();
@@ -31,11 +76,8 @@ require_once 'database.php';
 		/**
 		 * Abstract functions which the deriving class needs to implement
 		 */
-		// return table name
 		abstract static function getTableName();
-		// return primary key name
 		abstract static function getPrimaryKeyName();
-		// return resource uri format (e.g. 'item/%s')
 		abstract static function getResourceUriFormat();
 		
 		
@@ -193,7 +235,7 @@ require_once 'database.php';
 		
 		
 		/**
-		 * Returns whether the resource exists in the database
+		 * Check whether the resource exists in the database
 		 */
 		function exists() {
 			if (count($this->loadData()) == 0) return false;
