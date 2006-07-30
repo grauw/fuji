@@ -2,18 +2,20 @@
 <fuji:item xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:fuji="http://fuji.sourceforge.net/ns"
 	xml:lang="<?php echo L10n::$language ?>"
-	loadcontext="fuji-body">
+	loadcontext="fujiBody">
 	<fuji:loadhandler function="Fuji.init"/>
 	<fuji:content>
+		
+		<!-- Page content -->
 		<h1 class="logoDiv logo window"><a href="http://fuji.sourceforge.net">Fuji</a></h1>
-		<div id="menuDiv" class="menuContainer box">
-			<h2 class="windowTitle"><?php echo L10n::$menu ?></h2>
-			<div id="menuListDiv"></div>
+		<div id="menuDiv" class="menuContainer box"/>
+		<div class="sideContainer">
+			<div id="foraDiv" class="forumListContainer box"/>
+			<div id="calendarDiv" class="calendarContainer box"/>
 		</div>
-		<div id="foraDiv" class="forumListContainer box">
-		</div>
-		<div id="threadsDiv">
-		</div>
+		<div id="threadsDiv"/>
+		
+		<!-- Dialogs -->
 		<div id="createDialog" style="display: none">
 			<div id="createTitle" class="hd"><?php echo L10n::$new ?></div>
 			<div id="createForm" class="bd">

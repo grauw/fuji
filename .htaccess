@@ -108,3 +108,6 @@ RewriteRule ^search/(\w+)/(\w+)/(\w+)/$ scripts/search.php?field=$1&query=$2&ord
 
 # GET /search/<field>/<query>/<order>/<page>
 RewriteRule ^search/(\w+)/(\w+)/(\w+)/(\d+)$ scripts/search.php?field=$1&query=$2&order=$3&page=$4 [L,QSA]
+
+# GET /calendar
+RewriteRule ^calendar$ scripts/calendar.php [L,QSA]

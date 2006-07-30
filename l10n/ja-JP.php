@@ -5,6 +5,7 @@ class L10n {
 	static $admin = 'アドミニストレータ';
 	static $anonymous_user = 'Anonymous user';	
 	static $back = '戻る';
+	static $calendar = 'カレンダー';
 	static $cancel = 'キャンセル';
 	static $config_rights = 'Configure rights';
 	static $contact_administrator = 'Contact the server administrator for more information.';
@@ -102,6 +103,39 @@ class L10n {
 	static $warning = '警告';
 	static $welcome = 'Welcome';
 	static $welcome_message = 'Welcome to your Fuji Forum!';
+	
+	
+	// Days
+	static $monday    = '月曜日';
+	static $tuesday   = '火曜日';
+	static $wednesday = '水曜日';
+	static $thursday  = '木曜日';
+	static $friday    = '金曜日';
+	static $saturday  = '土曜日';
+	static $sunday    = '日曜日';
+	
+	// Days short
+	static $short_monday    = '月';
+	static $short_tuesday   = '火';
+	static $short_wednesday = '水';
+	static $short_thursday  = '木';
+	static $short_friday    = '金';
+	static $short_saturday  = '土';
+	static $short_sunday    = '日';
+	
+	// Months
+	static $january   = '一月';
+	static $february  = '二月';
+	static $march     = '三月';
+	static $april     = '四月';
+	static $may       = '五月';
+	static $june      = '六月';
+	static $july      = '七月';
+	static $august    = '八月';
+	static $september = '九月';
+	static $october   = '十月';
+	static $november  = '十一月';
+	static $december  = '十二月';
 }
 
 ?>

@@ -16,9 +16,13 @@ body {
 	margin: 0;
 }
 
-#foraDiv {
-	float: right;
+.sideContainer {
+	position: absolute;
+	right: 0;
 	width: 14em;
+}
+
+#foraDiv {
 	min-height: 15em;
 }
 

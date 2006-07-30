@@ -18,6 +18,12 @@ body {
 	min-height: 20em;
 }
 
+#calendarDiv {
+	clear: right;
+	float: right;
+	width: 14em;
+}
+
 #menuDiv {
 	padding: 0.2em;
 	padding-right: 1em;

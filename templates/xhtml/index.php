@@ -28,7 +28,7 @@ if(file_exists("../scripts/configuration/installer_disabled"))
 		Fuji.settings = { visual_effects : <?php echo UserManager::getUser()->visual_effects == '1' ? 'true' : 'false' ?> }
 	</script>
 </head>
-<body onload="Fuji.boot()" id="fuji-body">
+<body onload="Fuji.boot()" id="fujiBody">
 	<h1><a href="http://fuji.sourceforge.net">Fuji</a></h1>
 	
 	<h2>HTML version</h2>

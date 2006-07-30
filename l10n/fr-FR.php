@@ -5,6 +5,7 @@ class L10n {
 	static $admin = 'Administrateur';
 	static $anonymous_user = 'Utilisateur anonyme';	
 	static $back = 'Retour';
+	static $calendar = 'Calendrier';
 	static $cancel = 'Annuler';
 	static $config_rights = 'Configurer les droits';
 	static $contact_administrator = 'Contacter le administrateur du serveur pour plus d’information.';
@@ -102,6 +103,38 @@ class L10n {
 	static $warning = 'Attention';
 	static $welcome = 'Bienvenue';
 	static $welcome_message = 'Bienvenue au votre Forum Fuji!';
+	
+	// Days
+	static $monday    = 'Lundi';
+	static $tuesday   = 'Mardi';
+	static $wednesday = 'Mercredi';
+	static $thursday  = 'Jeudi';
+	static $friday    = 'Vendredi';
+	static $saturday  = 'Samedi';
+	static $sunday    = 'Dimanche';
+	
+	// Days short
+	static $short_monday    = 'lun';
+	static $short_tuesday   = 'mar';
+	static $short_wednesday = 'mer';
+	static $short_thursday  = 'jeu';
+	static $short_friday    = 'ven';
+	static $short_saturday  = 'sam';
+	static $short_sunday    = 'dim';
+	
+	// Months
+	static $january   = 'Janvier';
+	static $february  = 'Février';
+	static $march     = 'Mars';
+	static $april     = 'Avril';
+	static $may       = 'Mai';
+	static $june      = 'Juin';
+	static $july      = 'Juillet';
+	static $august    = 'Août';
+	static $september = 'Septembre';
+	static $october   = 'Octobre';
+	static $november  = 'Novembre';
+	static $december  = 'Décembre';
 }
 
 ?>

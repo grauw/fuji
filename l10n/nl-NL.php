@@ -5,6 +5,7 @@ class L10n {
 	static $admin = 'Beheerder';
 	static $anonymous_user = 'Anonieme gebruiker';
 	static $back = 'Terug';
+	static $calendar = 'Kalender';
 	static $cancel = 'Annuleren';
 	static $config_rights = 'Configureer rechten';
 	static $contact_administrator = 'Neem contact op met de serverbeheerder voor meer informatie.';
@@ -101,7 +102,39 @@ class L10n {
 	static $visual_effects = 'Grafische effecten';
 	static $warning = 'Waarschuwing';
 	static $welcome = 'Welkom';
-	static $welcome_message = 'Welkom op uw Fuji Forum!';	
+	static $welcome_message = 'Welkom op uw Fuji Forum!';
+	
+	// Days
+	static $monday    = 'Maandag';
+	static $tuesday   = 'Dinsdag';
+	static $wednesday = 'Woensdag';
+	static $thursday  = 'Donderdag';
+	static $friday    = 'Vrijdag';
+	static $saturday  = 'Zaterdag';
+	static $sunday    = 'Zondag';
+	
+	// Days short
+	static $short_monday    = 'ma';
+	static $short_tuesday   = 'di';
+	static $short_wednesday = 'wo';
+	static $short_thursday  = 'do';
+	static $short_friday    = 'vr';
+	static $short_saturday  = 'za';
+	static $short_sunday    = 'zo';
+	
+	// Months
+	static $january   = 'Januari';
+	static $february  = 'Februari';
+	static $march     = 'Maart';
+	static $april     = 'April';
+	static $may       = 'Mei';
+	static $june      = 'Juni';
+	static $july      = 'Juli';
+	static $august    = 'Augustus';
+	static $september = 'September';
+	static $october   = 'Oktober';
+	static $november  = 'November';
+	static $december  = 'December';
 }
 
 ?>

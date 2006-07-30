@@ -90,5 +90,6 @@
 }
 .box .userinfo {
 	float: right;
+	margin-left: .5em;
 }
 

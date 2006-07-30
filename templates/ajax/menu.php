@@ -2,8 +2,9 @@
 <fuji:menu xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:fuji="http://fuji.sourceforge.net/ns"
 	xml:lang="<?php echo L10n::$language ?>"
-	loadcontext="menuListDiv">
+	loadcontext="menuDiv">
 	<fuji:content>
+		<h2 class="windowTitle"><?php echo L10n::$menu ?></h2>
 		<?php if(UserManager::getUser()->nickname == 'anonymous') { ?>
 			<p><?php echo L10n::$anonymous_user ?></p>
 		<?php } else { ?>

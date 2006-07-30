@@ -210,6 +210,7 @@ Fuji = {
 	init : function() {
 		YAHOO.util.Dom.removeClass(document.documentElement, 'loading');
 		Fuji.reloadItem('menu', 0);
+		Fuji.reloadItem('calendar', 0);
 		Fuji.loadItem('item/1');
 		if (location.hash == '') location.hash='item/2';
 		Fuji.startUrlChangeListener();
