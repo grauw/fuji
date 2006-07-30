@@ -3,6 +3,7 @@
  * HTML structure:
  *
  * <div class="box">
+ *    <ul class="userinfo"/>
  *    <h2>Title</h2>
  *    <ul class="menu"/>
  *    <div class="content"/>
@@ -87,5 +88,7 @@
 	-moz-border-radius: 5px;
 	border-bottom: 2px solid;
 }
-
+.box .userinfo {
+	float: right;
+}
 
