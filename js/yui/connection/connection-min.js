@@ -23,8 +23,8 @@ finally
 {return o;}},asyncRequest:function(method,uri,callback,postData)
 {var o=this.getConnectionObject();if(!o){return null;}
 else{if(this._isFormSubmit){if(this._isFileUpload){this.uploadFile(o.tId,callback,uri);this.releaseObject(o);return;}
-if(method=='GET'){uri+="?"+this._sFormData;}
-else if(method=='POST'){postData=this._sFormData;}
+if(method=='GET'||method=='HEAD'){uri+="?"+this._sFormData;}
+else{postData=this._sFormData;}
 this._sFormData='';}
 o.conn.open(method,uri,true);if(this._isFormSubmit||(postData&&this._default_post_header)){this.initHeader('Content-Type','application/x-www-form-urlencoded');if(this._isFormSubmit){this._isFormSubmit=false;}}
 if(this._has_http_headers){this.setHeader(o);}

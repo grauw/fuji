@@ -3093,7 +3093,8 @@ YAHOO.widget.Dialog.prototype.initDefaultConfig = function() {
 		switch (method) {
 			case "async":
 				YAHOO.util.Connect.setForm(this.form.name);
-				var cObj = YAHOO.util.Connect.asyncRequest('POST', this.form.action, this.callback);
+				var formmethod = this.form.getAttribute('method') ? this.form.getAttribute('method').toUpperCase() : 'GET';
+				var cObj = YAHOO.util.Connect.asyncRequest(formmethod, this.form.action, this.callback);
 				this.asyncSubmitEvent.fire();
 				break;
 			case "form":

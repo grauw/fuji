@@ -235,13 +235,13 @@ YAHOO.util.Connect =
 					return;
 				}
 
-				//If the specified HTTP method is GET, setForm() will return an
-				//encoded string that is concatenated to the uri to
+				//If the specified HTTP method is GET or HEAD, setForm() will
+				//return an encoded string that is concatenated to the uri to
 				//create a querystring.
-				if(method == 'GET'){
+				if(method == 'GET' || method == 'HEAD'){
 					uri += "?" +  this._sFormData;
 				}
-				else if(method == 'POST'){
+				else{
 					postData =  this._sFormData;
 				}
 				this._sFormData = '';
