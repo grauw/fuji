@@ -1,5 +1,5 @@
-<?php 	$this->page_size = 20; 
-	$this->photo_placeholder = 'style/default/graphics/no-photo.png';
+<?php 	$page_size = 20; 
+	$photo_placeholder = 'style/default/graphics/no-photo.png';
 ?>
 <?xml version="1.0" encoding="UTF-8"?>
 <?php
@@ -18,7 +18,7 @@ while($contextEntry->type == 4) $contextEntry = $contextEntry->getParent();
 			<?php if (UserManager::getUser()->getRights($this->entry)->may_post) { ?>
 				<li id="actionReplyPost"><a href="javascript:Fuji.Dialogs.newCreateDialog('<?php echo $this->entry->getURI() ?>', '4')"><?php echo L10n::$reply ?></a></li>
 			<?php } if (UserManager::getUser()->getRights($this->entry)->may_delete) { ?>
-				<li id="actionDeletePost"><a href="javascript:Fuji.Dialogs.newDeleteDialog('<?php echo $this->entry->getURI() ?>', '<?php echo $this->entry->getParentURI() ?>')"><?php echo L10n::$delete ?></a></li>
+				<li id="actionDeletePost"><a href="javascript:Fuji.Dialogs.newDeleteDialog('<?php echo $this->entry->getURI() ?>', '<?php echo $this->entry->getParent()->getURI() ?>')"><?php echo L10n::$delete ?></a></li>
 			<?php } ?>
 			<li><a href="<?php echo $this->entry->getURI() ?>.rss" rel="alternate" type="application/rss+xml" class="feed">RSS</a></li>
 			<li><a href="<?php echo $this->entry->getURI() ?>.atom" rel="alternate" type="application/atom+xml" class="feed">Atom</a></li>
@@ -26,7 +26,7 @@ while($contextEntry->type == 4) $contextEntry = $contextEntry->getParent();
 		<div class="postsContainer content">
 			<div class="postDiv box odd">
 				<div class="postSidepanel">
-					<img src="<?php echo (isset(User::getUser($this->entry->userref)->picture) && User::getUser($this->entry->userref)->picture ? htmlentities(User::getUser($this->entry->userref)->picture) : $this->photo_placeholder) ?>" alt="profilephoto" class="profilePhoto" />
+					<img src="<?php echo (isset(User::getUser($this->entry->userref)->picture) && User::getUser($this->entry->userref)->picture ? htmlentities(User::getUser($this->entry->userref)->picture) : $photo_placeholder) ?>" alt="profilephoto" class="profilePhoto" />
 				</div>
 				<h3 class="postTitle">
 					<div>
@@ -50,11 +50,11 @@ while($contextEntry->type == 4) $contextEntry = $contextEntry->getParent();
 			<?php 	$num_of_children = count($this->entry->getChildren());
 					$i = 1;
 					if($num_of_children > 0)
-					foreach($this->entry->getChildren('created', ($this->page - 1) * $this->page_size . ', ' . $this->page_size) as $post) { ?>
+					foreach($this->entry->getChildren('created', ($this->page - 1) * $page_size . ', ' . $page_size) as $post) { ?>
 			<div class="postDiv box <?php echo $i++ % 2 ? 'even' : 'odd' ?>">
 				<?php if ($post->type == Entry::$TYPE_POST) { ?>
 					<div class="postSidepanel">
-						<img src="<?php echo (isset(User::getUser($post->userref)->picture) && User::getUser($post->userref)->picture ? htmlentities(User::getUser($post->userref)->picture) : $this->photo_placeholder) ?>" alt="profilephoto" class="profilePhoto" />
+						<img src="<?php echo (isset(User::getUser($post->userref)->picture) && User::getUser($post->userref)->picture ? htmlentities(User::getUser($post->userref)->picture) : $photo_placeholder) ?>" alt="profilephoto" class="profilePhoto" />
 					</div>
 					<h3 class="postTitle">
 						<div>
@@ -71,7 +71,7 @@ while($contextEntry->type == 4) $contextEntry = $contextEntry->getParent();
 						<?php if (UserManager::getUser()->getRights($post)->may_edit) { ?>
 							<li><a href="javascript:Fuji.Dialogs.newEditDialog('<?php echo $post->getURI() ?>')"><?php echo L10n::$edit ?></a></li>
 						<?php } if (UserManager::getUser()->getRights($post)->may_delete) { ?>
-							<li><a href="javascript:Fuji.Dialogs.newDeleteDialog('<?php echo $post->getURI() ?>', '<?php echo $post->getParentURI() ?>')"><?php echo L10n::$delete ?></a></li>
+							<li><a href="javascript:Fuji.Dialogs.newDeleteDialog('<?php echo $post->getURI() ?>', '<?php echo $post->getParent()->getURI() ?>')"><?php echo L10n::$delete ?></a></li>
 						<?php } ?>
 					</ul>
 					<?php } ?>
@@ -88,8 +88,8 @@ while($contextEntry->type == 4) $contextEntry = $contextEntry->getParent();
 		<div class="threadPageSelector pager">
 			<?php echo L10n::$page?>
 			<?php if($this->page > 1) { ?><a href="#<?php echo $this->entry->getURI().'/'.($this->page-1) ?>">&lt;</a> <?php } ?>
-			<?php for($n = 1; $n <= max(0, $num_of_children - 1) / $this->page_size + 1; $n++) { ?><a href="#<?php echo $this->entry->getURI().($n>1?'/'.$n:'') ?>"><?php echo $n ?></a> <?php } ?>
-			<?php if(max(0, $num_of_children - 1) / $this->page_size > $this->page) { ?><a href="#<?php echo $this->entry->getURI().'/'.($this->page+1) ?>">&gt;</a> <?php } ?>
+			<?php for($n = 1; $n <= max(0, $num_of_children - 1) / $page_size + 1; $n++) { ?><a href="#<?php echo $this->entry->getURI().($n>1?'/'.$n:'') ?>"><?php echo $n ?></a> <?php } ?>
+			<?php if(max(0, $num_of_children - 1) / $page_size > $this->page) { ?><a href="#<?php echo $this->entry->getURI().'/'.($this->page+1) ?>">&gt;</a> <?php } ?>
 		</div>
 		</div>
 	</fuji:content>

@@ -43,8 +43,7 @@ class InstallDb
 	
 	function addWelcomeMessage($title, $message)
 	{
-		Database::execute("INSERT INTO " . Database::$db_tprefix . "entries (id, ref, contentref, userref, title, created, modified, type) VALUES ('4', '3', '4', '2', '$title', NOW(), NOW(), '4')");
-		Database::execute("INSERT INTO " . Database::$db_tprefix . "content (id, content, processor) VALUES ('4', '$message', '0')");				
+		Database::execute("INSERT INTO " . Database::$db_tprefix . "entries (id, ref, userref, title, content, processor, created, modified, type) VALUES ('4', '3', '2', '$title', '$message', '0', NOW(), NOW(), '4')");
 	}	
 }
 ?>

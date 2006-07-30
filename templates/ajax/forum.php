@@ -1,4 +1,4 @@
-<?php $this->page_size = 8; ?>
+<?php $page_size = 8; ?>
 <?xml version="1.0" encoding="UTF-8"?>
 <fuji:item xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:fuji="http://fuji.sourceforge.net/ns"
@@ -14,7 +14,7 @@
 			<?php } if (UserManager::getUser()->getRights($this->entry)->may_edit) { ?>
 				<li id="actionEditThread"><a href="javascript:Fuji.Dialogs.newEditDialog('<?php echo $this->entry->getURI() ?>')"><?php echo L10n::$edit ?></a></li>
 			<?php } if (UserManager::getUser()->getRights($this->entry)->may_delete) { ?>
-				<li id="actionDeleteThread"><a href="javascript:Fuji.Dialogs.newDeleteDialog('<?php echo $this->entry->getURI() ?>', '<?php echo $this->entry->getParentURI() ?>')"><?php echo L10n::$delete ?></a></li>
+				<li id="actionDeleteThread"><a href="javascript:Fuji.Dialogs.newDeleteDialog('<?php echo $this->entry->getURI() ?>', '<?php echo $this->entry->getParent()->getURI() ?>')"><?php echo L10n::$delete ?></a></li>
 			<?php } if (UserManager::isAdmin()) { ?>
 				<li id="actionConfigRights"><a href="javascript:Fuji.loadItem('<?php echo $this->entry->getURI() ?>/rights')"><?php echo L10n::$config_rights ?></a></li>
 			<?php } ?>
@@ -54,7 +54,7 @@
 				<?php 	$num_of_children = count($this->entry->getChildren());
 						$i = 0;
 						if($num_of_children > 0)
-						foreach($this->entry->getChildren('type, created DESC', ($this->page - 1) * $this->page_size . ', ' . $this->page_size) as $post) { ?>
+						foreach($this->entry->getChildren('type, created DESC', ($this->page - 1) * $page_size . ', ' . $page_size) as $post) { ?>
 						<?php if ($post->type == Entry::$TYPE_FORUM) { ?>
 						<tr class="tableForumEntry <?php echo $i++ % 2 ? 'even' : 'odd' ?>">
 							<td><a href="#<?php echo $post->getURI() ?>"><?php echo htmlentities($post->title, ENT_NOQUOTES) ?></a></td>
@@ -86,8 +86,8 @@
 		<div class="threadPageSelector pager">
 			<?php echo L10n::$page?>
 			<?php if($this->page > 1) { ?><a href="#<?php echo $this->entry->getURI().'/'.($this->page-1) ?>">&lt;</a> <?php } ?>
-			<?php for($n = 1; $n <= max(0, $num_of_children - 1) / $this->page_size + 1; $n++) { ?><a href="#<?php echo $this->entry->getURI().($n>1?'/'.$n:'') ?>"><?php echo $n ?></a> <?php } ?>
-			<?php if(max(0, $num_of_children - 1) / $this->page_size > $this->page) { ?><a href="#<?php echo $this->entry->getURI().'/'.($this->page+1) ?>">&gt;</a> <?php } ?>
+			<?php for($n = 1; $n <= max(0, $num_of_children - 1) / $page_size + 1; $n++) { ?><a href="#<?php echo $this->entry->getURI().($n>1?'/'.$n:'') ?>"><?php echo $n ?></a> <?php } ?>
+			<?php if(max(0, $num_of_children - 1) / $page_size > $this->page) { ?><a href="#<?php echo $this->entry->getURI().'/'.($this->page+1) ?>">&gt;</a> <?php } ?>
 		</div>
 		</div>
 		<div id="<?php echo $this->entry->getURI() ?>_postsDiv" class="postsDiv"></div>

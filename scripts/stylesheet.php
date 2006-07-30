@@ -7,7 +7,15 @@ class Stylesheet extends Dataclass {
 	
 	public $default;
 	
-	static function getTable() { return 'styles'; }
+	static function getTableName() {
+		return 'styles';
+	}
+	static function getPrimaryKeyName() {
+		return 'name';
+	}
+	static function getResourceUriFormat() {
+		return 'style/%s';
+	}
 	
 	function __construct($data, $default = FALSE)
 	{
@@ -41,10 +49,7 @@ class Stylesheet extends Dataclass {
 	 * @returns Stylesheet
 	 */
 	static function getStylesheet($id) {
-		$data = Database::getArray("SELECT * FROM " . DbVar::$db_tprefix . "styles WHERE id = '$id'");
-		$styledata = $data[0];
-		if($styledata)
-			return new Stylesheet($styledata);
+		return new Stylesheet(array('id' => $id));
 	}
 	
 	static function getStylesheetsHTML()

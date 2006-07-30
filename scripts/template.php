@@ -11,8 +11,14 @@ class Template extends Dataclass {
 	public $entries;
 	public $page;
 	
-	static function getTable() {
+	static function getTableName() {
 		return 'templates';
+	}
+	static function getPrimaryKeyName() {
+		return 'mimetype';
+	}
+	static function getResourceUriFormat() {
+		return 'template/%s';
 	}
 	
 	static function getTemplate($mimetype = NULL) {

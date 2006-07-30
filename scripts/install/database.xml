@@ -8,29 +8,16 @@
 		<field name="ref" type="I"><UNSIGNED/></field>
 		<field name="userref" type="I"><UNSIGNED/><NOTNULL/></field>
 		<field name="title" type="C" size="255"><NOTNULL/></field>
+		<field name="content" type="XL"><NOTNULL/></field>
 		<field name="processor" type="I1"><UNSIGNED/><NOTNULL/></field>
-		<field name="contentref" type="I"><UNSIGNED/></field>
 		<field name="created" type="datetime"></field>
 		<field name="modified" type="datetime"></field>
 		<field name="type" type="I1"><NOTNULL/></field>
 		
 		<data>
-			<row><f name="id">1</f><f name="contentref">1</f><f name="userref">2</f><f name="title">root</f><f name="created" value="NOW()"/><f name="modified" value="NOW()"/><f name="type">1</f></row>
-			<row><f name="id">2</f><f name="ref">1</f><f name="contentref">2</f><f name="userref">2</f><f name="title">Fora</f><f name="created" value="NOW()"/><f name="modified" value="NOW()"/><f name="type">2</f></row>
-			<row><f name="id">3</f><f name="ref">2</f><f name="contentref">3</f><f name="userref">2</f><f name="title">Forum 1</f><f name="created" value="NOW()"/><f name="modified" value="NOW()"/><f name="type">3</f></row>
-		</data>
-	</table>
-	
-	<table name="content">
-		<descr>Content for an entry</descr>
-		<field name="id" type="I"><UNSIGNED/><KEY/><AUTOINCREMENT/></field>
-		<field name="content" type="XL"><NOTNULL/></field>
-		<field name="processor" type="I1"><UNSIGNED/><NOTNULL/></field>
-		
-		<data>
-			<row><f>1</f><f></f><f>0</f></row>
-			<row><f>2</f><f></f><f>0</f></row>
-			<row><f>3</f><f></f><f>0</f></row>
+			<row><f name="id">1</f><f name="content"></f><f name="userref">2</f><f name="title">root</f><f name="created" value="NOW()"/><f name="modified" value="NOW()"/><f name="type">1</f></row>
+			<row><f name="id">2</f><f name="ref">1</f><f name="content"></f><f name="userref">2</f><f name="title">Fora</f><f name="created" value="NOW()"/><f name="modified" value="NOW()"/><f name="type">2</f></row>
+			<row><f name="id">3</f><f name="ref">2</f><f name="content"></f><f name="userref">2</f><f name="title">Forum 1</f><f name="created" value="NOW()"/><f name="modified" value="NOW()"/><f name="type">3</f></row>
 		</data>
 	</table>
 	
@@ -43,8 +30,7 @@
 	
 	<table name="templates">
 		<descr>Output templates</descr>
-		<field name="id" type="I1"><UNSIGNED/><KEY/><AUTOINCREMENT/></field>
-		<field name="mimetype" type="C" size="255"><NOTNULL/></field>
+		<field name="mimetype" type="C" size="255"><KEY/></field>
 		<field name="quality" type="C" size="5"><NOTNULL/><DEFAULT value="0.5"/></field>
 		<field name="public" type="L"><NOTNULL/></field>
 		<field name="basedir" type="C" size="255"><NOTNULL/></field>

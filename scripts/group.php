@@ -7,24 +7,23 @@ require_once "utils/functions.php";
 
 class Group extends Dataclass {
 	
-	static function getTable() {
+	static function getTableName() {
 		return 'groups';
 	}
-	
-	// URI format (hardcoded for now)
-	private $uri_format = "groups/%s";
+	static function getPrimaryKeyName() {
+		return 'id';
+	}
+	static function getResourceUriFormat() {
+		return 'groups/%s';
+	}
 	
 	/**
 	 * Get group by id
 	 * @param {Int} $id the group to be returned
 	 * @returns Group object
 	 */
-	static function getGroup($id)
-	{		
-		$data = Database::getArray("SELECT * FROM " . Database::$db_tprefix . "groups WHERE id = '$id'");
-		$groupdata = $data[0];
-		if($groupdata)
-			return new Group($groupdata);			
+	static function getGroup($id) {
+		return new Group(array('id'=>$id));			
 	}
 	
 	/**
@@ -53,11 +52,11 @@ class Group extends Dataclass {
 	 * @returns String array with group names
 	 */
 	static function getGroupNames()
-	{		
+	{
 		$data = Database::getArray("SELECT name FROM " . Database::$db_tprefix . "groups");
 		$return = Array();
 		foreach($data as $row) array_push($return, $row['name']);
-		return $return;			
+		return $return;
 	}
 	
 	/**
@@ -138,13 +137,6 @@ class Group extends Dataclass {
 		$return = Array();
 		foreach($data as $row) array_push($return, new Group($row));
 		return $return;			
-	}
-	
-	/**
-	 * Gets the URI of this group
-	 */
-	function getURI() {
-		return sprintf($this->uri_format, $this->id);
 	}
 	
 	/**

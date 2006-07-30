@@ -7,24 +7,23 @@ require_once "rights.php";
 
 class User extends Dataclass {
 	
-	static function getTable() {
+	static function getTableName() {
 		return 'users';
 	}
-	
-	// URI format (hardcoded for now)
-	private $uri_format = "profile/%s";
+	static function getPrimaryKeyName() {
+		return 'id';
+	}
+	static function getResourceUriFormat() {
+		return 'profile/%s';
+	}
 	
 	/**
 	 * Get user by id
 	 * @param {Int} $id the user to be returned
 	 * @returns User object
 	 */
-	static function getUser($id)
-	{		
-		$data = Database::getArray("SELECT * FROM " . Database::$db_tprefix . "users WHERE id = '$id'");
-		$userdata = $data[0];
-		if($userdata)
-			return new User($userdata);
+	static function getUser($id) {
+		return new User(array('id' => $id));
 	}
 	
 	/**
@@ -178,20 +177,12 @@ class User extends Dataclass {
 	}
 	
 	/**
-	 * Gets the URI of this entry
-	 */
-	function getURI() {
-		return sprintf($this->uri_format, $this->id);
-	}
-	
-	
-	/**
 	 * Removes a user from the users and groupmembers databases
 	 */
 	function remove()
 	{
 		Database::execute("DELETE FROM " . Database::$db_tprefix . "groupmembers WHERE userid = '$this->id'");
-		Database::execute("DELETE FROM " . Database::$db_tprefix . "users WHERE id = '$this->id'");
+		parent::remove();
 	}
 }
 ?>

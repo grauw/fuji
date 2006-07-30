@@ -12,12 +12,15 @@ class Entry extends Dataclass {
 	static public $TYPE_FORUM = 3;
 	static public $TYPE_POST = 4;
 	
-	static function getTable() {
+	static function getTableName() {
 		return 'entries';
 	}
-	
-	// URI format (hardcoded for now)
-	private $uri_format = "item/%s";
+	static function getPrimaryKeyName() {
+		return 'id';
+	}
+	static function getResourceUriFormat() {
+		return 'item/%s';
+	}
 	
 	/**
 	 * returns an Entry-object given its id
@@ -25,17 +28,22 @@ class Entry extends Dataclass {
 	 * @returns Entry
 	 */
 	static function getEntry($id) {
-		$data = Database::getArray("SELECT * FROM " . DbVar::$db_tprefix . "entries WHERE id = '$id'");
-		$entrydata = $data[0];
-		if($entrydata)
-			return new Entry($entrydata);
+		return new Entry(array('id' => $id));
+	}
+	
+	/**
+	 * Get entry's parent
+	 * @returns Parent entry (null if not present?)
+	 */
+	function getParent() {
+		if ($this->ref === NULL) return NULL;
+		return self::getEntry($this->ref);
 	}
 	
 	static function search($query, $field, $orderby = null, $limit = null) {
 		$entries = array();
 		$entriesdata = Database::getArray("SELECT *, MATCH($field) AGAINST ('$query' IN BOOLEAN MODE) AS score FROM " . DbVar::$db_tprefix . "entries WHERE MATCH($field) AGAINST ('$query' IN BOOLEAN MODE) AND type > '3'" . (isset($orderby) ? " ORDER BY $orderby" : "") . (isset($limit) ? " LIMIT $limit" : ""));
-		foreach($entriesdata as $entrydata)
-		{
+		foreach($entriesdata as $entrydata) {
 			array_push($entries, new Entry($entrydata));
 		}
 		return $entries;		
@@ -50,45 +58,21 @@ class Entry extends Dataclass {
 	static function getEntriesByType($type, $orderby = null, $limit = null) {
 		$entries = array();
 		$entriesdata = Database::getArray("SELECT * FROM " . DbVar::$db_tprefix . "entries WHERE type = '$type'" . (isset($orderby) ? " ORDER BY $orderby" : "") . (isset($limit) ? " LIMIT $limit" : ""));
-		foreach($entriesdata as $entrydata)
-		{
+		foreach($entriesdata as $entrydata) {
 			array_push($entries, new Entry($entrydata));
 		}
 		return $entries;
 	}	
 	
 	/**
-	 * adds an Entry to the entry table. If content is given it adds content to the content table.
-	 * @param {array}  $data hash/assoc array. Key = column name in table, value is value.
+	 * Creates a new entry which is a reply to this entry.
+	 * @param {Entry} $entry New entry to add to this entry.
 	 * @returns the new Entry
 	 */
-	static function addEntry($data) {
-		$default_proc = 1;
-		if(count($data) > 0)
-		{
-			if(array_key_exists('content', $data) && $data['content'] != null && $data['content'] !== '')
-			{
-				$content = $data['content'];
-				unset($data['content']);
-				if(array_key_exists('processor', $data))
-				{
-					$processor = $data['processor'];
-					unset($data['processor']);
-				}
-				else $processor = $default_proc;
-				
-				Database::execute("INSERT INTO " . DbVar::$db_tprefix . "content VALUES ('', '$content', '$processor')");
-				$data['contentref'] = Database::insert_id();
-			}
-			$keys = implode(',', array_keys($data));
-			$values = implode('\',\'', $data);
-			
-			Database::execute("INSERT INTO " . Database::$db_tprefix . "entries ($keys, created, modified) VALUES ('$values', NOW(), NOW())");
-			$data['id'] = Database::insert_id();
-			if(isset($data->ref))
-				Entry::getEntry($data->ref)->updateDate();
-			return new Entry($data);
-		}
+	function newReply() {
+		$entry = new Entry();
+		$entry->setAttributeInitial('ref', $this->id);
+		return $entry;
 	}
 	
 	/**
@@ -97,7 +81,7 @@ class Entry extends Dataclass {
 	 */
 	static function getRoot() {
 		$data = Database::getArray("SELECT * FROM " . DbVar::$db_tprefix . "entries WHERE ref IS NULL");
-		if(count($data) != 1) echo 'fout';
+		if(count($data) != 1) trigger_error('No or more than one root elements found');
 		$entrydata = $data[0];
 		if($entrydata)
 			return new Entry($entrydata);
@@ -108,17 +92,13 @@ class Entry extends Dataclass {
 	 * @returns content as String
 	 */
 	function getProcessedContent() {
-		if(isset($this->contentref))
-		{
-			$data = Database::getArray("SELECT content, processor FROM " . DbVar::$db_tprefix . "content WHERE id = '$this->contentref'");
-			$contentdata = $data[0];
-			if ($contentdata['processor'] == '0') {
-				return $contentdata['content'];
-			}
-			else if ($contentdata['processor'] == '1') {
-				$bbcode = new BBCode();
-				return $bbcode->parse($contentdata['content']);
-			}
+		$processor = $this->processor;
+		if ($processor == '0') {
+			return $this->content;
+		}
+		else if ($processor == '1') {
+			$bbcode = new BBCode();
+			return $bbcode->parse($this->content);
 		}
 	}
 	
@@ -127,28 +107,15 @@ class Entry extends Dataclass {
 	 * @returns content as String
 	 */
 	function getContent() {
-		if(isset($this->contentref))
-		{
-			$data = Database::getArray("SELECT content FROM " . DbVar::$db_tprefix . "content WHERE id = '$this->contentref'");
-			// TODO: not returning 'processor' information
-			return $data[0]['content'];
-		}
-	}
-	
-	/**
-	 * Remove entry's content
-	 */
-	function removeContent() {
-		Database::execute("DELETE FROM " . Database::$db_tprefix . "content WHERE id = '$this->contentref'");
-		$this->updateDate();
+		return $this->content;
 	}
 	
 	/**
 	 * Update entry's content
 	 */
-	function updateContent($data) {
-		Database::execute("UPDATE " . Database::$db_tprefix . "content SET content = '$data' WHERE id = '$this->contentref'");
-		$this->updateDate();
+	function updateContent($content) {
+		$this->content = $content;
+		$this->save();
 	}
 	
 	/**
@@ -173,33 +140,7 @@ class Entry extends Dataclass {
 	function removeChildren() {
 		$children = $this->getChildren();
 		foreach($children as $child) $child->remove();
-		$this->updateDate();
-	}
-	
-	/**
-	 * Get entry's parent
-	 * @returns parent as Entry
-	 */
-	function getParent() {
-		if($this->ref)
-		{
-			$data = Database::getArray("SELECT * FROM " . DbVar::$db_tprefix . "entries WHERE id = '$this->ref'");
-			$parentdata = $data[0];
-			return new Entry($parentdata);
-		}
-	}
-	
-	/**
-	 * removes entry + descendents from entry + content database
-	 */
-	function remove()
-	{
-		$this->removeContent();
-		$this->removeChildren();
-		Database::execute("DELETE FROM " . Database::$db_tprefix . "entries WHERE id = '$this->id'");
-		$parent = $this->getParent();
-		if(isset($parent))
-			$parent->updateDate();
+		$this->save(); // updates modification time
 	}
 	
 	/**
@@ -215,36 +156,6 @@ class Entry extends Dataclass {
 	}
 	
 	/**
-	 * Gets the URI of this entry
-	 */
-	function getURI() {
-		return sprintf($this->uri_format, $this->id);
-	}
-	
-	/**
-	 * Gets the absolute URI of this entry
-	 */
-	function getAbsoluteURI() {
-		return 'http://'.$_SERVER['HTTP_HOST'].$this->getForumRoot().$this->getURI();
-	}
-	
-	/**
-	 * Gets the root path of the forum
-	 * TODO: bit flaky, must be in scripts/ path and must have not parent dir named similarly.
-	 * Better way to determine?
-	 */
-	function getForumRoot() {
-		return substr($_SERVER['PHP_SELF'], 0, strpos($_SERVER['PHP_SELF'], '/scripts/') + 1);
-	}
-	
-	/**
-	 * Gets the URI of this entry's parent
-	 */
-	function getParentURI() {
-		return sprintf($this->uri_format, $this->ref);
-	}
-	
-	/**
 	 * Gets the name of the view 
 	 */
 	function getView() {
@@ -257,16 +168,52 @@ class Entry extends Dataclass {
 	}
 	
 	
-	function __set($name, $value) {
-		parent::__set($name, $value);
-		$this->updateDate();
+	/**
+	 *******************************
+	 * Hook into Dataclass methods *
+	 *******************************
+	 */
+	
+	/**
+	 * Override saveNew, add creation and modification time
+	 */
+	function saveNew($data) {
+		$data['created'] = 'NOW()';
+		$data['modified'] = 'NOW()';
+		return parent::saveNew($data);
 	}
 	
-	function updateDate() {
-		Database::execute("UPDATE " . Database::$db_tprefix . $this->getTable() . " SET modified=NOW() WHERE id='$this->id'");
-		$parent = $this->getParent();
-		if(isset($parent))
-			$parent->updateDate();
+	/**
+	 * Override saveNew, add modification time
+	 */
+	function saveUpdate($data) {
+		$data['modified'] = 'NOW()';
+		return parent::saveUpdate($data);
 	}
+	
+	/**
+	 * Override save, propagate modification time
+	 */
+	function save() {
+		$result = parent::save();
+		$parent = $this->getParent();
+		if ($parent !== NULL)
+			$parent->save(); // updates modification time
+		return $result;
+	}
+	
+	/**
+	 * Removes entry and its descendants from the database
+	 */
+	function remove()
+	{
+		$this->removeContent();
+		$this->removeChildren();
+		$parent = $this->getParent();
+		parent::remove();
+		if ($parent !== NULL)
+			$parent->save(); // updates modification time
+	}
+	
 }
 ?>
