@@ -174,7 +174,7 @@ Fuji = {
 			argument: []
 		}
 		YAHOO.util.Connect.setForm('editF');
-		YAHOO.util.Connect.asyncRequest('POST', sURI, callback, null); 
+		YAHOO.util.Connect.asyncRequest('PUT', sURI, callback, null); 
 	},
 	
 	/**

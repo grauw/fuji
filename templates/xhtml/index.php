@@ -17,7 +17,6 @@ if(file_exists("../scripts/configuration/installer_disabled"))
 	<script type="text/javascript" src="js/yui/yahoo/yahoo-min.js"></script>
 	<script type="text/javascript" src="js/yui/dom/dom-min.js"></script>
 	<script type="text/javascript" src="js/yui/event/event-min.js"></script>
-	<script type="text/javascript" src="js/yui/treeview/treeview-min.js"></script>
 	<script type="text/javascript" src="js/yui/connection/connection-min.js"></script>
 	<script type="text/javascript" src="js/yui/container/container-min.js"></script>
 	<script type="text/javascript" src="js/yui/animation/animation-min.js"></script>
@@ -60,8 +59,7 @@ if(file_exists("../scripts/configuration/installer_disabled"))
 	<div id="editDialog" style="display: none">
 		<div id="editTitle" class="hd"><?php echo L10n::$edit ?></div>
 		<div id="editForm" class="bd">
-			<form id="editF" name="editF" class="createEditF" method="POST" enctype="text/plain">
-				<input name='PUT' type='hidden' value='' />
+			<form id="editF" name="editF" class="createEditF" method="PUT">
 				<div><span><?php echo L10n::$title ?></span><input id='editT' class="createEditT" name='title' type='text' value='' /></div>
 				<div>	<img alt="Bold" src="style/default/graphics/button-bold.png" onclick="Fuji.addTags(document.getElementById('editContent'), '[b][/b]')" />
 						<img alt="Italic" src="style/default/graphics/button-italic.png" onclick="Fuji.addTags(document.getElementById('editContent'), '[i][/i]')" />
