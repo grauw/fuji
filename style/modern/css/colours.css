@@ -27,13 +27,22 @@ table tbody tr:hover td {
 
 /* Calendar table */
 
+.calendar tr:hover td {
+	background-color: inherit;
+}
+table.calendar td.weekend {
+	background-color: #92f800;
+}
+table.calendar td.othermonth {
+	color: #694;	/* (#9f0 + #339) / 2 */
+}
 table.calendar td.event {
 	background-color: #8e0;
 }
 table.calendar td.event a {
 	text-decoration: none;
 }
-table.calendar td:hover {
+table.calendar td.event:hover {
 	background-color: #7d0;
 }
 

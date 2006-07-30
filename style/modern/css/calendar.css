@@ -6,7 +6,11 @@ table.calendar {
 table.calendar td {
 	text-align: center;
 }
+table.calendar td.weekend {
+}
 table.calendar td.event {
+}
+table.calendar td.othermonth {
 }
 table.calendar td:hover {
 }
