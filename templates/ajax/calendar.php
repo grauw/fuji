@@ -6,8 +6,15 @@
 	<fuji:content>
 		<h2><?php echo L10n::$calendar ?></h2>
 		<div class="content">
-			<table style="table-layout:fixed">
+			<table class="calendar">
 				<caption><?php echo L10n::$january ?> 2006</caption>
+				<col/>
+				<col/>
+				<col/>
+				<col/>
+				<col/>
+				<col/>
+				<col/>
 				<thead>
 					<tr>
 						<th><?php echo L10n::$short_monday    ?></th>
@@ -21,8 +28,8 @@
 				</thead>
 				<tbody>
 					<tr>
-						<td><a>1</a></td>
-						<td><a>2</a></td>
+						<td class="event"><a href="javascript://">1</a></td>
+						<td class="event"><a href="javascript://">2</a></td>
 						<td>3</td>
 						<td>4</td>
 						<td>5</td>
@@ -33,7 +40,7 @@
 						<td>8</td>
 						<td>9</td>
 						<td>10</td>
-						<td><a>11</a></td>
+						<td class="event"><a href="javascript://">11</a></td>
 						<td>12</td>
 						<td>13</td>
 						<td>14</td>
@@ -51,10 +58,10 @@
 						<td>22</td>
 						<td>23</td>
 						<td>24</td>
-						<td><a>25</a></td>
-						<td><a>26</a></td>
+						<td class="event"><a href="javascript://">25</a></td>
+						<td class="event"><a href="javascript://">26</a></td>
 						<td>27</td>
-						<td><a>28</a></td>
+						<td class="event"><a href="javascript://">28</a></td>
 					</tr>
 					<tr>
 						<td>29</td>

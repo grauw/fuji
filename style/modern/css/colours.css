@@ -25,6 +25,19 @@ table tbody tr:hover td {
 }
 
 
+/* Calendar table */
+
+table.calendar td.event {
+	background-color: #8e0;
+}
+table.calendar td.event a {
+	text-decoration: none;
+}
+table.calendar td:hover {
+	background-color: #7d0;
+}
+
+
 /* Forum list colours */
 
 ul.tree a:hover {
