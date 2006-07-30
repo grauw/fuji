@@ -91,10 +91,7 @@ table td {
 	background-color: #fafaf9;
 }
 
-a:link {
-	color: #111;
-}
-
+a:link,
 a:visited {
 	color: #111;
 }

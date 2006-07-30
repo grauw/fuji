@@ -1,6 +1,9 @@
-@import "fuji.css";
-@import "fuji-blue.css";
+@import "style.css";
+@import "layout.css";
+@import "box.css";
+@import "text.css";
 @import "container.css";
 @import "treeview.css";
+@import "colours.css";
 @import "wizard.css";
 @import "../../../js/tree/tree.css";

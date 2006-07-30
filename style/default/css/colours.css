@@ -1,0 +1,105 @@
+.logo {
+	background: url(../graphics/fuji.jpg) no-repeat;
+	color: #fff;
+	border-color: #3377cc;
+}
+
+.logo a:link,
+.logo a:visited {
+	color: #fff;
+}
+
+.box {
+	background: #dfefff;
+	border-color: #3377cc;	
+}
+
+.box h2 {
+	background-image: url(../graphics/bar.png);
+	color: #000;
+}
+
+.box ul.menu {
+	background-color: #77bbff;
+	color: #000;
+	border-color: #3377cc;
+}
+
+#foraDiv {
+	background-color: #ccddff;
+}
+
+#menuDiv {
+	background-color: #ccddff;
+}
+
+#threadsDiv {
+	background-color: #fff;
+}
+
+#postsDiv {
+	background-color: #dfefff;
+}
+
+.forumContainer table {
+	border-color: #3377cc;
+}
+
+.postsContainer .box {
+	border-color: #3377cc;
+}
+
+.postsContainer .box h3 {
+	background-color: #5599ee;
+	border-color: #3377cc;
+}
+
+.postsContainer .box .content{
+	background-color: #ddeeff;
+}
+
+.forumContainer table thead {
+	background-color: #5599ee;
+}
+
+.forumContainer table tfoot {
+	background-color: #77bbff;
+}
+
+.forumContainer table td {
+	border-color: #3377cc;	
+}
+
+.forumContainer table .tableForumEntry {
+	background-color: #ccddff;
+}
+
+.forumContainer table .tableThreadEntry {
+	background-color: #dfefff;
+}
+
+.pager{
+	background-color: #77bbff;
+}
+
+a:link,
+a:visited {
+	color: #000;
+}
+
+a:hover {
+	color: #222299;
+}
+
+.postsContainer .box .postSidepanel {
+	background-color: #ddeeff;
+	border-color: #3377cc;
+}
+
+.box ul.menu li ul {
+  border-color: #3377cc;
+  background-color: #88ccff;
+}
+.box ul.menu li:hover ul li:hover {
+  background-color: #6688ff;
+}

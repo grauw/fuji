@@ -1,105 +1,113 @@
-@import "dark-container.css";
-@import "../../../js/tree/tree.css";
-@import "../../default/css/fuji.css";
+@import "../../default/css/default.css";
+@import "container.css";
 
 .logo {
-  background: url(../graphics/fuji.jpg) no-repeat;
+	background-image: url(../graphics/fuji.jpg);
 }
-.logoDiv {
-  color: white;
-  border-color: #3377cc;
+
+.box {	
+	border-color: #001177;
+	background-color: #bbccee;
 }
-.logo a:link {
-  color: white;
+
+.box h2 {
+	background-image: url(../graphics/bar.png);
+	color: #fff;
 }
-.logo a:visited {
-  color: white;
+
+.box ul.menu {
+	background-image: url(../graphics/bar2.png);
+	border-color: #001177;
 }
-.window {	
-  border-color: #3377cc;	
-}
-.windowTitle {
-  background-image: url(../graphics/bar.png);
-  height: 24px;
-  color: white;
-}
-ul.windowActions {
-  background-color: #77bbff;
-  background-image: url(../graphics/bar2.png);
-  height: 24px;
-  color: black;
-  border-color: #3377cc;
-}
-ul.windowActions a:hover {
-  color: white;
-}
+
 #foraDiv {
-  background-color: #ccddff;
+	background-color: #aabbdd;
 }
+
 #menuDiv {
-  background-color: #ccddff;
+	background-color: #aabbdd;
 }
+
 #threadsDiv {
-  background-color: #ccddff;
+	background-color: #fff;
 }
+
 #postsDiv {
-  background-color: #ccddff;
+	background-color: #bbccee;
 }
-.forumPostDiv {
-  border-color: #3377cc;
+
+.forumContainer table {
+	border-color: #001177;
 }
-.postDiv {
-  border-color: #3377cc;
+
+.postsContainer .box {
+	border-color: #001177;
 }
-.postTitle {
-  background-color: #5599ee;
-  border-color: #3377cc;
+
+.postsContainer .box h3 {
+	background-color: #111166;
+	color: #fff;
+	border-color: #001177;
 }
-.postContent {
-  background-color: #ddeeff;
+
+.postsContainer .box h3 a {
+	color: #fff
 }
-#threadsTableDiv table thead {
-  background-color: #5599ee;
+
+.postsContainer .box h3 a:hover {
+	color: #aaaaff;
 }
-#threadsTableDiv table tfoot {
-  background-color: #77bbff;
+
+.postsContainer .box .content {
+	background-color: #ccddf9;
 }
-#threadsTableDiv table td {
-  border-color: #3377cc;	
+
+.forumContainer table thead {
+	background-color: #555599;
+	color: #fff;
 }
-#threadsTableDiv table .tableForumEntry {
-  background-color: #ccddff;
+
+.forumContainer table tfoot {
+	background-color: #77bbff;
 }
-#threadsTableDiv table .tableThreadEntry {
-  background-color: #dfefff;
+
+.forumContainer table td {
+	border-color: #001177;
 }
-#threadPageSelector{
-  border-color: #3377cc;
-  background-color: #77bbff;
+
+.forumContainer table .tableForumEntry {
+	background-color: #bbccee;
 }
-#threadPageSelector{
-  border-color: #3377cc;
-  background-color: #77bbff;
+
+.forumContainer table .tableThreadEntry {
+	background-color: #ccddff;
 }
-a:link {
-  color: black;
+
+.pager {
+	border-color: #001177;
+	background-color: #111166;
+	color: #fff;
 }
-a:visited {
-  color: black;
+
+.pager a {
+	color: #fff;
 }
-a.feed {
-  padding-left: 15px;
-  background: url('../graphics/feed-icon.png') 0 3px no-repeat;
-} 
-.postDiv .postSidepanel {
-  background-color: #ddeeff;
-  border-color: #3377cc;
+
+.pager a:hover {
+	color: #aaaaff;
 }
+
+.postsContainer .box .postSidepanel {
+	background-color: #ccddf9;
+	border-color: #001177;
+}
+
 /* submenus */
 .box ul.menu li ul {
-  border-color: #3377cc;
-  background-color: #88ccff;
+	border-color: #001177;
+	background-color: #6699dd;
 }
+
 .box ul.menu li:hover ul li:hover {
-  background-color: #6688ff;
+	background-color: #77aaff;
 }

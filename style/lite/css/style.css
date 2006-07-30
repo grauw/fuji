@@ -16,7 +16,7 @@
 }
 
 .forumContainer table {
-	border-top: 01px solid;
+	border-top: 1px solid;
 }
 
 .postsContainer .box {
@@ -27,6 +27,10 @@
 
 .postsContainer .box h3 {
 	border-bottom: 1px solid;
+}
+
+.postsContainer .box h3 span {
+	margin: 0.3em;
 }
 
 .postsContainer .box .content {

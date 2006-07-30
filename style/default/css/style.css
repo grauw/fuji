@@ -1,0 +1,111 @@
+/* Fuji Default - Box */
+
+.threadContainer {
+	margin-top: 10px;
+}
+
+.forumContainer table {
+	border-top: 1px solid;
+}
+
+.postsContainer .box {
+	border: 1px solid;
+	position: relative;
+	margin: 5px;
+}
+
+.postsContainer .box h3 {
+	border-bottom: 1px solid;
+}
+
+.postsContainer .box h3 span {
+	margin: 0.3em;
+}
+
+.postsContainer .box .content {
+  	padding: 0.5em;
+}
+
+table {
+	border-spacing: 0;
+	border-collapse: collapse;
+	width: 100%;
+}
+
+table td{
+	border-bottom: 1px solid;
+}
+
+.forumContainer table tfoot{
+	height: 1.5em;
+}
+
+.forumContainer table .tableForumEntry {
+	font-weight: bold;
+}
+
+.forumContainer table .tableThreadEntry {
+}
+
+.forumContainer table .tableUnsupportedEntry {
+}
+
+#deleteThreadSelect {
+	width: 100%;
+}
+
+#menuListDiv div ul {
+	list-style-type: none;
+	padding: 0;
+	margin: 0;
+}
+
+#newThreadDialog{
+	height: 300px;
+	width: 400px;
+}
+
+#editThreadDialog{
+	height: 300px;
+	width: 400px;
+}
+
+.dialogToolbar {
+	height: 1.5em;
+}
+
+.createEditF div {
+	margin-top: 3px;
+	margin-bottom: 3px;
+}
+
+.createEditF div span {
+	margin-right: 10px;
+}
+
+.createEditT {
+	width: 253px;
+}
+
+.createEditContent {
+	height: 100px;
+	width: 288px;
+}
+
+a.feed {
+	padding-left: 15px;
+	background: url('../graphics/feed-icon.png') 0 3px no-repeat;
+}
+
+.postsContainer .box .profilePhoto {
+	width: 60px;
+	height: 60px;
+}
+
+.postsContainer .box .postSidepanel {
+	width: 60px;
+	height: 60px;
+	float: left;
+	border-right: 1px solid;
+	border-bottom: 1px solid;
+}

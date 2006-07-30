@@ -1,0 +1,28 @@
+/* Fuji Default - Layout */
+
+body {
+	position: relative;
+	max-width: 70em;
+}
+
+#menuDiv {
+	position: absolute;
+	margin-top: 8em;
+	height: 17em;
+	width: 198px;
+}
+
+#threadsDiv {
+	margin-left: 210px;
+}
+
+#foraDiv {
+	position: absolute;
+	margin-top: 25.5em;
+	min-height: 20em;
+	width: 198px;
+}
+
+.logo {
+	position: absolute;
+}
