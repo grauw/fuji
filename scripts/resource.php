@@ -100,7 +100,7 @@ class Resource {
 				$value = urldecode($components2[1]);
 				$_POST[$key] = $value;
 			}
-//		}
+//		} else header('HTTP/1.1 415 Unsupported Media Type');
 	}
 	
 }	
