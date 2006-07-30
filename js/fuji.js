@@ -208,10 +208,30 @@ Fuji = {
 	 * Initialises items when the page is loaded
 	 */
 	init : function() {
+		YAHOO.util.Dom.removeClass(document.documentElement, 'loading');
 		Fuji.reloadItem('menu', 0);
 		Fuji.loadItem('item/1');
 		if (location.hash == '') location.hash='item/2';
 		Fuji.startUrlChangeListener();
+	},
+	
+	/**
+	 * Boots the AJAX engine from the HTML page
+	 */
+	boot : function() {
+		Fuji.loadItem('/');
+	},
+	
+	/**
+	 * Hides the HTML page while loading
+	 */
+	preBoot : function() {
+		// do browser test!
+		var style = document.createElement('style');
+		style.type = 'text/css';
+		style.appendChild(document.createTextNode('.loading body { display: none }'));
+		document.documentElement.appendChild(style);
+		YAHOO.util.Dom.addClass(document.documentElement, 'loading');
 	},
 	
 	/**
@@ -411,3 +431,5 @@ Fuji.Tree = {
 		YAHOO.util.Event.stopPropagation(e);
 	}
 }
+
+Fuji.preBoot();
