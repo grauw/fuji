@@ -8,7 +8,7 @@ if(file_exists("../scripts/configuration/installer_disabled"))
 <!DOCTYPE html 
      PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" lang="<?php echo L10n::$language ?>" xml:lang="<?php echo L10n::$language ?>">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="<?php echo $this->l10n->language ?>" xml:lang="<?php echo $this->l10n->language ?>">
 <head>
 	<title>Fuji</title>
 	<?php echo $this->getHead() ?>

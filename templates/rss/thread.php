@@ -9,7 +9,7 @@
 		<description><?php echo $this->entry->getProcessedContent() ?></description>
 		<generator>Fuji 0.1</generator>
 		<docs>http://blogs.law.harvard.edu/tech/rss</docs>
-		<language><?php echo L10n::$language ?></language>		
+		<language><?php echo $this->l10n->language ?></language>		
 		<?php 	if(count($this->entry) > 0)
 				foreach($this->entry->getChildren('created DESC', 10) as $post) { ?>
 		<item>

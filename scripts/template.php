@@ -10,6 +10,7 @@ class Template extends Dataclass {
 	public $entry;
 	public $entries;
 	public $page;
+	public $l10n;
 	
 	static function getTableName() {
 		return 'templates';
@@ -39,7 +40,7 @@ class Template extends Dataclass {
 	}
 	
 	function applyView($view) {
-		L10nManager::loadL10n();
+		$this->l10n = new L10nManager();
 		$this->startGZIP();
 		require_once($this->getTemplateView($view));
 	}

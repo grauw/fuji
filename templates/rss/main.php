@@ -9,7 +9,7 @@
 		<docs>http://blogs.law.harvard.edu/tech/rss</docs>
 		<pubDate><?php echo $this->entry->getFormattedDate('created', '%a, %d %b %Y %H:%i:%s GMT') ?></pubDate>
 		<lastBuildDate><?php echo $this->entry->getFormattedDate('modified', '%a, %d %b %Y %H:%i:%s GMT') ?></lastBuildDate>
-		<language><?php echo L10n::$language ?></language>
+		<language><?php echo $this->l10n->language ?></language>
 		<?php 	if(count($this->entry) > 0)
 				foreach(Entry::getEntriesByType(4, 'created DESC', 10) as $post) { ?>
 		<item>

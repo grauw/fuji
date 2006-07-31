@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <fuji:item xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:fuji="http://fuji.sourceforge.net/ns"
-	xml:lang="<?php echo L10n::$language ?>"
+	xml:lang="<?php echo $this->l10n->language ?>"
 	loadcontext="threadsDiv">
 	<fuji:content>
 		<div class="box">
-			<h2><?php echo L10n::$groups; ?></h2>
+			<h2><?php echo $this->l10n->groups; ?></h2>
 			<ul class="menu">
-				<li><a href="javascript:Fuji.Dialogs.newDialog('newGroupDialog')"><?php echo L10n::$new_group ?></a></li>
+				<li><a href="javascript:Fuji.Dialogs.newDialog('newGroupDialog')"><?php echo $this->l10n->new_group ?></a></li>
 			</ul>
 			<div class="content">
 				<table>
 					<thead>
 						<tr>
-							<th><?php echo L10n::$name ?></th>
-							<th><?php echo L10n::$rights ?></th>
-							<th><?php echo L10n::$num_users ?></th>
-							<th><?php echo L10n::$actions ?></th>
+							<th><?php echo $this->l10n->name ?></th>
+							<th><?php echo $this->l10n->rights ?></th>
+							<th><?php echo $this->l10n->num_users ?></th>
+							<th><?php echo $this->l10n->actions ?></th>
 						</tr>
 					</thead>
 					<tbody>
@@ -31,11 +31,11 @@
 							<td><a href="#<?php echo $group->getURI() ?>/users"><?php echo htmlentities($group->name, ENT_NOQUOTES) ?></a></td>
 							<td><?php echo $grouprights->toString() ?></td>
 							<td><?php echo $group->getNumMembers() ?></td>
-							<td><a href="javascript:Fuji.Dialogs.editGroup('<?php echo $group->getURI() ?>',<?php echo $grouprights->may_read ?>,<?php echo $grouprights->may_post ?>,<?php echo $grouprights->may_edit ?>,<?php echo $grouprights->may_delete ?>)"><?php echo L10n::$edit ?></a>,
-								<a href="javascript:Fuji.Dialogs.newDeleteGroupDialog('<?php echo $group->getURI() ?>')"><?php echo L10n::$delete ?></a></td>
+							<td><a href="javascript:Fuji.Dialogs.editGroup('<?php echo $group->getURI() ?>',<?php echo $grouprights->may_read ?>,<?php echo $grouprights->may_post ?>,<?php echo $grouprights->may_edit ?>,<?php echo $grouprights->may_delete ?>)"><?php echo $this->l10n->edit ?></a>,
+								<a href="javascript:Fuji.Dialogs.newDeleteGroupDialog('<?php echo $group->getURI() ?>')"><?php echo $this->l10n->delete ?></a></td>
 						</tr>
 						<?php } ?>
-					<?php } else echo L10n::$error_no_groups ?>
+					<?php } else echo $this->l10n->error_no_groups ?>
 					</tbody>
 				</table>
 			</div>

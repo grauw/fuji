@@ -3,49 +3,70 @@
 	require_once "usermanager.php";
 	
 	class L10nManager {
+		private $custom_language_data = array();
+		private $default_language_data = array();
 		
-		/**
-		 * Loads the language file for this user
-		 */
-		static function loadL10n()
+		function __construct()
 		{
-			$languageInfo = self::findL10nPath();
-			require_once $languageInfo['path'];
-			header('Content-Language: '.L10n::$language);
+			$l10n = isset(UserManager::getUser()->language) ? UserManager::getUser()->language : "";
+			$defaultl10n = self::getDefaultL10n();
+			$this->default_language_data = $this->loadL10n($defaultl10n);
+			if($l10n && $l10n != $defaultl10n)
+				$this->custom_language_data = $this->loadL10n($l10n);
+			header('Content-Language: '.$this->language);
 		}
+		
+		function loadL10n($l10n)
+		{
+			$l10ndata = array();
+			$l10npath = self::checkL10nPaths($l10n);
+			if($l10npath)
+			{
+				$xml = new XMLReader();
+				$xml->open($l10npath);
+				$caption = "";
+				while($xml->read())
+				{
+					if($xml->name == 'message' && $xml->nodeType == XMLReader::ELEMENT)
+					{
+						$name = $xml->getAttribute('name');
+						$xml->read();
+						$value = $xml->value;
+						if($name && $value)
+							$l10ndata[$name] = $value;
+					}
+				}
+				return $l10ndata;
+			}
+			else
+				trigger_error("Failure loading L10n-file $l10n");
+		}
+		
+		function __get($name) {
+			if(isset($this->custom_language_data[$name]))
+				return $this->custom_language_data[$name];
+			elseif(isset($this->default_language_data[$name]))
+				return $this->default_language_data[$name];
+			trigger_error("Undefined variable $name requested");
+		}
+		
+		function __set($name, $value) {
+		}
+		
+		function __isset($name) {
+			return isset($this->custom_language_data[$name]) || isset($this->default_language_data[$name]);
+		}
+		
+		function __unset($name) {
+		}		
 		
 		/**
 		 * Gets an ETag for this user's language file
 		 */
 		static function getL10nCache()
 		{
-			$languageInfo = self::findL10nPath();
+			$languageInfo = isset(UserManager::getUser()->language) ? self::checkL10nPaths(UserManager::getUser()->language) : self::checkL10nPaths(self::getDefaultL10n());
 			return new Cache(filemtime($languageInfo['path']), $languageInfo['lang'], FALSE);
-		}
-		
-		/**
-		 * Resolves a language for this user
-		 * @returns a language info hash array with keys:
-		 *          'lang': the selected language
-		 *          'path': the path to the language file (FALSE if file not found)
-		 */
-		static function findL10nPath()
-		{
-			if(isset(UserManager::getUser()->language))
-			{
-				$lang = UserManager::getUser()->language;
-				$languagePath = self::checkL10nPaths($lang);
-				if ($languagePath === FALSE) {
-					$lang = self::getDefaultL10n();
-					$languagePath = self::checkL10nPaths($lang);
-				}
-			}
-			else
-			{
-				$lang = self::getDefaultL10n();
-				$languagePath = self::checkL10nPaths($lang);
-			}
-			return array('path' => $languagePath, 'lang' => $lang);
 		}
 		
 		/**
@@ -54,16 +75,7 @@
 		 */
 		static function manualLoadL10n($lang)
 		{
-			require_once self::checkL10nPaths($lang);
-		}
-		
-		/**
-		 * Load the specified language file
-		 * @param $path path to language file
-		 */
-		static function manualLoadL10nPath($path)
-		{
-			require_once $path;
+			$this->custom_language_data = $this->loadL10n($lang);
 		}
 		
 		/**
@@ -73,9 +85,9 @@
 		 */
 		static function checkL10nPaths($lang)
 		{
-			if (file_exists("../../l10n/$lang.php")) return "../../l10n/$lang.php";
-			if (file_exists("../l10n/$lang.php"))    return "../l10n/$lang.php";
-			if (file_exists("l10n/$lang.php"))       return "l10n/$lang.php";
+			if (file_exists("../../l10n/$lang.xml")) return "../../l10n/$lang.xml";
+			if (file_exists("../l10n/$lang.xml"))    return "../l10n/$lang.xml";
+			if (file_exists("l10n/$lang.xml"))       return "l10n/$lang.xml";
 			return FALSE;
 		}
 		

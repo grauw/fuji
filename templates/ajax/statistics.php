@@ -2,23 +2,23 @@
 <?php require_once('../scripts/database.php') ?>
 <fuji:item xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:fuji="http://fuji.sourceforge.net/ns"
-	xml:lang="<?php echo L10n::$language ?>"
+	xml:lang="<?php echo $this->l10n->language ?>"
 	loadcontext="threadsDiv">
 	<fuji:content>
 		<div class="box">
-			<h2 ><?php echo L10n::$statistics ?></h2>
+			<h2 ><?php echo $this->l10n->statistics ?></h2>
 			<div class="content">
 				<table>
 					<tr>
-						<td><?php echo L10n::$num_users ?></td>
+						<td><?php echo $this->l10n->num_users ?></td>
 						<td><?php	$n = Database::getArray('SELECT COUNT(*) ' . Database::$db_tprefix . 'FROM users'); echo $n[0][0]; ?></td>
 					</tr>
 					<tr>
-						<td><?php echo L10n::$num_posts ?></td>
+						<td><?php echo $this->l10n->num_posts ?></td>
 						<td><?php	$n = Database::getArray('SELECT COUNT(*) ' . Database::$db_tprefix . 'FROM entries'); echo $n[0][0]; ?></td>
 					</tr>
 					<tr>
-						<td><?php echo L10n::$most_active_user ?></td>
+						<td><?php echo $this->l10n->most_active_user ?></td>
 						<td><?php	$most_active_user = Database::getArray('SELECT userref,count(*) FROM ' . Database::$db_tprefix . 'entries GROUP BY userref HAVING count(*) >= ALL(SELECT count(*) FROM entries GROUP BY userref)');
 									$most_active_user_id = $most_active_user[0][0];
 									$most_active_user_count = $most_active_user[0][1];
@@ -28,7 +28,7 @@
 						</td>
 					</tr>
 					<tr>
-						<td><?php echo L10n::$most_active_thread ?></td>
+						<td><?php echo $this->l10n->most_active_thread ?></td>
 						<td><?php	$most_active_thread = Database::getArray("SELECT ref,count(*) FROM " . Database::$db_tprefix . "entries WHERE type = '4' GROUP BY ref HAVING count(*) >= ALL(SELECT count(*) FROM entries WHERE type = '4' GROUP BY ref)");
 									$most_active_thread_id = $most_active_thread[0][0];
 									$most_active_thread_count = $most_active_thread[0][1];
@@ -38,7 +38,7 @@
 						</td>
 					</tr>																	
 					<tr>
-						<td><?php echo L10n::$most_used_language ?></td>
+						<td><?php echo $this->l10n->most_used_language ?></td>
 						<td><?php	$langs = Database::getArray('SELECT language,count(*) FROM ' . Database::$db_tprefix . 'users GROUP BY language');
 									$default_lang = Database::getArray("SELECT value FROM " . Database::$db_tprefix . "defaults WHERE name = 'language'");
 									$default_lang_name = $default_lang[0][0];
@@ -70,7 +70,7 @@
 						</td>
 					</tr>
 					<tr>
-						<td><?php echo L10n::$most_used_style ?></td>
+						<td><?php echo $this->l10n->most_used_style ?></td>
 						<td><?php	$styles = Database::getArray('SELECT style,count(*) FROM ' . Database::$db_tprefix . 'users GROUP BY style');
 									$default_style = Database::getArray("SELECT value FROM defaults WHERE name = 'style'");
 									$default_style_name = $default_style[0][0];
@@ -100,7 +100,7 @@
 						</td>
 					</tr>
 					<tr>
-						<td><?php echo L10n::$newest_user ?></td>
+						<td><?php echo $this->l10n->newest_user ?></td>
 						<td><?php	$newest_member = Database::getArray('SELECT id, nickname ' . Database::$db_tprefix . 'FROM users GROUP BY id HAVING id >= ALL(SELECT id FROM users)');
 									$newest_member_id = $newest_member[0][0];
 									$newest_member_name = $newest_member[0][1];

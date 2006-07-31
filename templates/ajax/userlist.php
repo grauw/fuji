@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <fuji:item xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:fuji="http://fuji.sourceforge.net/ns"
-	xml:lang="<?php echo L10n::$language ?>"
+	xml:lang="<?php echo $this->l10n->language ?>"
 	loadcontext="threadsDiv">
 	<fuji:content>
 		<div class="box">
-			<h2><?php echo L10n::$users; ?></h2>
+			<h2><?php echo $this->l10n->users; ?></h2>
 			<div class="content">
 				<table>
 					<thead>
 						<tr>
-							<th><?php echo L10n::$name ?></th>
-							<th><?php echo L10n::$email_address ?></th>
-							<th><?php echo L10n::$group ?></th>
-							<th><?php echo L10n::$posts ?></th>
+							<th><?php echo $this->l10n->name ?></th>
+							<th><?php echo $this->l10n->email_address ?></th>
+							<th><?php echo $this->l10n->group ?></th>
+							<th><?php echo $this->l10n->posts ?></th>
 						</tr>
 					</thead>
 					<tbody>
@@ -29,7 +29,7 @@
 							<td><?php echo $user->getPosts() ?></td>
 						</tr>
 						<?php } ?>
-					<?php } else echo L10n::$error_no_users ?>
+					<?php } else echo $this->l10n->error_no_users ?>
 					</tbody>
 				</table>
 			</div>

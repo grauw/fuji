@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <fuji:menu xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:fuji="http://fuji.sourceforge.net/ns"
-	xml:lang="<?php echo L10n::$language ?>"
+	xml:lang="<?php echo $this->l10n->language ?>"
 	loadcontext="calendarDiv">
 	<fuji:content>
-		<h2><?php echo L10n::$calendar ?></h2>
+		<h2><?php echo $this->l10n->calendar ?></h2>
 		<div class="content">
 			<table class="calendar">
-				<caption><?php echo L10n::$january ?> 2006</caption>
+				<caption><?php echo $this->l10n->january ?> 2006</caption>
 				<col/>
 				<col/>
 				<col/>
@@ -17,13 +17,13 @@
 				<col/>
 				<thead>
 					<tr>
-						<th><?php echo L10n::$short_monday    ?></th>
-						<th><?php echo L10n::$short_tuesday   ?></th>
-						<th><?php echo L10n::$short_wednesday ?></th>
-						<th><?php echo L10n::$short_thursday  ?></th>
-						<th><?php echo L10n::$short_friday    ?></th>
-						<th class="weekend"><?php echo L10n::$short_saturday  ?></th>
-						<th class="weekend"><?php echo L10n::$short_sunday    ?></th>
+						<th><?php echo $this->l10n->short_monday    ?></th>
+						<th><?php echo $this->l10n->short_tuesday   ?></th>
+						<th><?php echo $this->l10n->short_wednesday ?></th>
+						<th><?php echo $this->l10n->short_thursday  ?></th>
+						<th><?php echo $this->l10n->short_friday    ?></th>
+						<th class="weekend"><?php echo $this->l10n->short_saturday  ?></th>
+						<th class="weekend"><?php echo $this->l10n->short_sunday    ?></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -75,8 +75,8 @@
 				</tbody>
 			</table>
 			<ul class="prevnext">
-				<li class="previous"><a href="javascript://">&#x2190; <?php echo L10n::$previous ?></a></li>
-				<li class="next"><a href="javascript://"><?php echo L10n::$next ?> &#x2192;</a></li>
+				<li class="previous"><a href="javascript://">&#x2190; <?php echo $this->l10n->previous ?></a></li>
+				<li class="next"><a href="javascript://"><?php echo $this->l10n->next ?> &#x2192;</a></li>
 			</ul>
 		</div>
 	</fuji:content>

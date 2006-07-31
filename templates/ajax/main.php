@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <fuji:item xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:fuji="http://fuji.sourceforge.net/ns"
-	xml:lang="<?php echo L10n::$language ?>"
+	xml:lang="<?php echo $this->l10n->language ?>"
 	loadcontext="foraDiv">
 	<fuji:loadhandler function="Fuji.Tree.init"/>
 	<fuji:content>
-		<h2><?php echo L10n::$fora ?></h2>
+		<h2><?php echo $this->l10n->fora ?></h2>
 		<div class="content">
 			<?php
 				function addChildren($entry, $root=true)
