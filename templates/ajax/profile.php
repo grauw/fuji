@@ -1,23 +1,8 @@
-<?php
+<?php	//TODO: Really needs some more cleanup/fixes (group memberships administration shouldn't be here)
 	require_once "../scripts/usermanager.php";
-	require_once "../scripts/l10nmanager.php";
 	require_once "../scripts/group.php";
 	
-	UserManager::authenticate();	
-	$user = null;
-	
-	if(isset($_GET['id']))
-	{
-		$user = User::getUser($_GET['id']);
-	}
-	else
-	{
-		$user = UserManager::getUser();
-	}
-	
-	L10nManager::loadL10n();
-	
-	//echo XHTML::pageHeaders();
+	$user = isset($_GET['id']) ? User::getUser($_GET['id']) : UserManager::getUser();
 	
 	if($_POST['updated']){
 		$groups = Database::getArray("SELECT name FROM " . DbVar::$db_tprefix . "groups");
