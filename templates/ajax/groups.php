@@ -5,12 +5,12 @@
 	loadcontext="threadsDiv">
 	<fuji:content>
 		<div class="box">
-			<h2 class="windowTitle"><?php echo L10n::$groups; ?></h2>
-			<ul id="groupActions" class="windowActions menu">
+			<h2><?php echo L10n::$groups; ?></h2>
+			<ul class="menu">
 				<li><a href="javascript:Fuji.Dialogs.newDialog('newGroupDialog')"><?php echo L10n::$new_group ?></a></li>
 			</ul>
-			<div id="threadsTableDiv" class="content">
-				<table id="threadsTable">
+			<div class="content">
+				<table>
 					<thead>
 						<tr>
 							<th><?php echo L10n::$name ?></th>

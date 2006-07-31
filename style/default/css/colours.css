@@ -41,6 +41,10 @@
 	background-color: #dfefff;
 }
 
+#calendarDiv {
+	background-color: #ccddff;
+}
+
 .forumContainer table {
 	border-color: #3377cc;
 }
@@ -91,15 +95,15 @@ a:hover {
 	color: #222299;
 }
 
-.postsContainer .box .postSidepanel {
+.postsContainer .box .userinfo {
 	background-color: #ddeeff;
 	border-color: #3377cc;
 }
 
 .box ul.menu li ul {
-  border-color: #3377cc;
-  background-color: #88ccff;
+	border-color: #3377cc;
+	background-color: #88ccff;
 }
 .box ul.menu li:hover ul li:hover {
-  background-color: #6688ff;
+	background-color: #6688ff;
 }

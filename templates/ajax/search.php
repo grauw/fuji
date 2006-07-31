@@ -5,8 +5,8 @@
 	loadcontext="threadsDiv">
 	<fuji:content>
 		<div class="box">
-			<h2 class="windowTitle"><?php echo L10n::$search ?></h2>
-			<div id="threadsTableDiv" class="content">
+			<h2><?php echo L10n::$search ?></h2>
+			<div class="content">
 				<form name="searchF">
 					<table>
 						<tr><td>Query:</td><td><input id="searchQuery" type="text" name="query" /></td></tr>

@@ -1,4 +1,4 @@
-/* Fuji Default - Box */
+/* Fuji Default - Style */
 
 .threadContainer {
 	margin-top: 10px;
@@ -54,7 +54,7 @@ table td{
 	width: 100%;
 }
 
-#menuListDiv div ul {
+#menuDiv div ul {
 	list-style-type: none;
 	padding: 0;
 	margin: 0;
@@ -97,15 +97,19 @@ a.feed {
 	background: url('../graphics/feed-icon.png') 0 3px no-repeat;
 }
 
-.postsContainer .box .profilePhoto {
-	width: 60px;
-	height: 60px;
-}
-
-.postsContainer .box .postSidepanel {
+.postsContainer .box .userinfo {
 	width: 60px;
 	height: 60px;
 	float: left;
 	border-right: 1px solid;
 	border-bottom: 1px solid;
+}
+
+.postsContainer .box .userinfo img {
+	width: 60px;
+	height: 60px;
+}
+
+.forumContainer .content .forumcontent {
+	padding: 1em;
 }

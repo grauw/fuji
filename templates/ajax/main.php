@@ -5,7 +5,7 @@
 	loadcontext="foraDiv">
 	<fuji:loadhandler function="Fuji.Tree.init"/>
 	<fuji:content>
-		<h2 id="foraTitle" class="windowTitle"><?php echo L10n::$fora ?></h2>
+		<h2><?php echo L10n::$fora ?></h2>
 		<div class="content">
 			<?php
 				function addChildren($entry, $root=true)

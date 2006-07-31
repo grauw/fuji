@@ -18,6 +18,7 @@ html {
 
 .box {
 	border-color: #fff;
+	background-color: #fafaf9;
 }
 
 .box h2 {
@@ -45,10 +46,14 @@ html {
 }
 
 #threadsDiv {
-	background-color: #fafaf9;
+	background-color: #fff;
 }
 
 #postsDiv {
+	background-color: #fafaf9;
+}
+
+#calendarDiv {
 	background-color: #fafaf9;
 }
 
@@ -100,7 +105,7 @@ a:hover {
 	color: #666;
 }
 
-.postsContainer .box .postSidepanel {
+.postsContainer .box .userinfo {
 	background-color: #f2f2f1;
 	border-color: #fff;
 }

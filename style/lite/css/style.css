@@ -15,6 +15,10 @@
 	margin-top: 0.5em;
 }
 
+.threadContainer {
+	margin-top: 0.5em;
+}
+
 .forumContainer table {
 	border-top: 1px solid;
 }
@@ -25,7 +29,12 @@
 	margin: 0.3em;
 }
 
+.postsContainer .box ul.menu {
+	margin-left: 60px;
+}
+
 .postsContainer .box h3 {
+	margin-left: 60px;
 	border-bottom: 1px solid;
 }
 
@@ -97,17 +106,22 @@ a.feed {
 	background: url('../graphics/feed-icon.png') 0 3px no-repeat;
 }
 
-.postsContainer .box .profilePhoto {
-	width: 60px;
-	height: 60px;
-}
-
-.postsContainer .box .postSidepanel {
+.postsContainer .box .userinfo {
+	position: absolute;
 	width: 60px;
 	height: 60px;
 	float: left;
 	border-right: 1px solid;
 	border-bottom: 1px solid;
+}
+
+.postsContainer .box .userinfo img {
+	width: 60px;
+	height: 60px;
+}
+
+.forumContainer .content .forumcontent {
+	padding: 1em;
 }
 
 /* trees */

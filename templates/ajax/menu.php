@@ -4,7 +4,7 @@
 	xml:lang="<?php echo L10n::$language ?>"
 	loadcontext="menuDiv">
 	<fuji:content>
-		<h2 class="windowTitle"><?php echo L10n::$menu ?></h2>
+		<h2><?php echo L10n::$menu ?></h2>
 		<?php if(UserManager::getUser()->nickname == 'anonymous') { ?>
 			<p><?php echo L10n::$anonymous_user ?></p>
 		<?php } else { ?>

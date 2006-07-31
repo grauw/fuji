@@ -18,8 +18,15 @@ body {
 
 #foraDiv {
 	position: absolute;
+	margin-top: 42em;
+	min-height: 15em;
+	width: 198px;
+}
+
+#calendarDiv {
+	position: absolute;
 	margin-top: 25.5em;
-	min-height: 20em;
+	height: 16em;
 	width: 198px;
 }
 

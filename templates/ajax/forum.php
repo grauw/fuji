@@ -7,16 +7,16 @@
 	parent="item/1">
 	<fuji:content>
 		<div class="forumContainer box withpager">
-		<h2 class="windowTitle"><?php echo L10n::$threads ?> – <?php echo htmlentities($this->entry->title, ENT_NOQUOTES) ?></h2>
-		<ul id="threadsActions" class="windowActions menu">
+		<h2><?php echo L10n::$threads ?> – <?php echo htmlentities($this->entry->title, ENT_NOQUOTES) ?></h2>
+		<ul class="menu">
 			<?php if (UserManager::getUser()->getRights($this->entry)->may_post) { ?>
-				<li id="actionNewThread"><a href="javascript:Fuji.Dialogs.newCreateDialog('<?php echo $this->entry->getURI() ?>', <?php echo $this->entry->type + 1 ?>)"><?php echo L10n::$new ?></a></li>
+				<li><a href="javascript:Fuji.Dialogs.newCreateDialog('<?php echo $this->entry->getURI() ?>', <?php echo $this->entry->type + 1 ?>)"><?php echo L10n::$new ?></a></li>
 			<?php } if (UserManager::getUser()->getRights($this->entry)->may_edit) { ?>
-				<li id="actionEditThread"><a href="javascript:Fuji.Dialogs.newEditDialog('<?php echo $this->entry->getURI() ?>')"><?php echo L10n::$edit ?></a></li>
+				<li><a href="javascript:Fuji.Dialogs.newEditDialog('<?php echo $this->entry->getURI() ?>')"><?php echo L10n::$edit ?></a></li>
 			<?php } if (UserManager::getUser()->getRights($this->entry)->may_delete) { ?>
-				<li id="actionDeleteThread"><a href="javascript:Fuji.Dialogs.newDeleteDialog('<?php echo $this->entry->getURI() ?>', '<?php echo $this->entry->getParent()->getURI() ?>')"><?php echo L10n::$delete ?></a></li>
+				<li><a href="javascript:Fuji.Dialogs.newDeleteDialog('<?php echo $this->entry->getURI() ?>', '<?php echo $this->entry->getParent()->getURI() ?>')"><?php echo L10n::$delete ?></a></li>
 			<?php } if (UserManager::isAdmin()) { ?>
-				<li id="actionConfigRights"><a href="javascript:Fuji.loadItem('<?php echo $this->entry->getURI() ?>/rights')"><?php echo L10n::$config_rights ?></a></li>
+				<li><a href="javascript:Fuji.loadItem('<?php echo $this->entry->getURI() ?>/rights')"><?php echo L10n::$config_rights ?></a></li>
 			<?php } ?>
 			<li><a href="<?php echo $this->entry->getURI() ?>.rss" rel="alternate" type="application/rss+xml" class="feed">RSS</a></li>
 			<li><a href="<?php echo $this->entry->getURI() ?>.atom" rel="alternate" type="application/atom+xml" class="feed">Atom</a></li>
@@ -28,12 +28,10 @@
 				</ul>
 			</li>
 		</ul>
-		<div class="threadsTableDiv content">
+		<div class="content">
 			<div may_post="<?php echo UserManager::getUser()->getRights($this->entry)->may_post ?>" may_edit="<?php echo UserManager::getUser()->getRights($this->entry)->may_edit ?>" may_delete="<?php echo UserManager::getUser()->getRights($this->entry)->may_delete ?>">
-				<div class="forumPostDiv">
-						<div class="postContent"><?php echo $this->entry->getProcessedContent() ?></div>
-				</div>	
-			<table class="threadsTable">
+			<div class="forumcontent"><?php echo $this->entry->getProcessedContent() ?></div>
+			<table>
 				<colgroup>
 					<col width="40%" />
 					<col />
@@ -83,13 +81,13 @@
 			</table>
 			</div>
 		</div>
-		<div class="threadPageSelector pager">
+		<div class="pager">
 			<?php echo L10n::$page?>
 			<?php if($this->page > 1) { ?><a href="#<?php echo $this->entry->getURI().'/'.($this->page-1) ?>">&lt;</a> <?php } ?>
 			<?php for($n = 1; $n <= max(0, $num_of_children - 1) / $page_size + 1; $n++) { ?><a href="#<?php echo $this->entry->getURI().($n>1?'/'.$n:'') ?>"><?php echo $n ?></a> <?php } ?>
 			<?php if(max(0, $num_of_children - 1) / $page_size > $this->page) { ?><a href="#<?php echo $this->entry->getURI().'/'.($this->page+1) ?>">&gt;</a> <?php } ?>
 		</div>
 		</div>
-		<div id="<?php echo $this->entry->getURI() ?>_postsDiv" class="postsDiv"></div>
+		<div id="<?php echo $this->entry->getURI() ?>_postsDiv"></div>
 	</fuji:content>
 </fuji:item>

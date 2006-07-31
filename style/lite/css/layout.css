@@ -16,6 +16,7 @@ body {
 	float: right;
 	width: 14em;
 	min-height: 20em;
+	margin-bottom: 0.5em;
 }
 
 #calendarDiv {

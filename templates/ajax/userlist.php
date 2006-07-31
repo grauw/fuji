@@ -5,9 +5,9 @@
 	loadcontext="threadsDiv">
 	<fuji:content>
 		<div class="box">
-			<h2 class="windowTitle"><?php echo L10n::$users; ?></h2>
-			<div id="threadsTableDiv" class="content">
-				<table id="threadsTable">
+			<h2><?php echo L10n::$users; ?></h2>
+			<div class="content">
+				<table>
 					<thead>
 						<tr>
 							<th><?php echo L10n::$name ?></th>

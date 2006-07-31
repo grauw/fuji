@@ -6,9 +6,9 @@
 	loadcontext="threadsDiv">
 	<fuji:content>
 		<div class="box">
-			<h2 class="windowTitle"><?php echo L10n::$statistics ?></h2>
-			<div id="threadsTableDiv" class="content">
-				<table id="threadsTable">
+			<h2 ><?php echo L10n::$statistics ?></h2>
+			<div class="content">
+				<table>
 					<tr>
 						<td><?php echo L10n::$num_users ?></td>
 						<td><?php	$n = Database::getArray('SELECT COUNT(*) ' . Database::$db_tprefix . 'FROM users'); echo $n[0][0]; ?></td>

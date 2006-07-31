@@ -36,6 +36,10 @@
 	background-color: #bbccee;
 }
 
+#calendarDiv {
+	background-color: #aabbdd;
+}
+
 .forumContainer table {
 	border-color: #001177;
 }
@@ -97,7 +101,7 @@
 	color: #aaaaff;
 }
 
-.postsContainer .box .postSidepanel {
+.postsContainer .box .userinfo {
 	background-color: #ccddf9;
 	border-color: #001177;
 }

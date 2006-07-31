@@ -7,9 +7,9 @@
 	parent="item/1">
 	<fuji:content>
 		<div class="forumContainer box withpager">
-		<h2 class="windowTitle"><?php echo L10n::$search ?></h2>
-		<div class="threadsTableDiv content">
-			<table class="threadsTable">
+		<h2><?php echo L10n::$search ?></h2>
+		<div class="content">
+			<table>
 				<colgroup>
 					<col width="40%" />
 					<col />
@@ -65,12 +65,12 @@
 			</table>
 			</div>
 		</div>
-		<div class="threadPageSelector pager">
+		<div class="pager">
 			<?php echo L10n::$page?>
 			<?php if($this->page > 1) { ?><a href="#<?php /*echo $entry->getURI().'/'.($this->page-1)*/ ?>">&lt;</a> <?php } ?>
 			<?php for($n = 1; $n <= max(0, $num_of_entries - 1) / $page_size + 1; $n++) { ?><a href="#<?php /*echo $entry->getURI().($n>1?'/'.$n:'')*/ ?>"><?php echo $n ?></a> <?php } ?>
 			<?php if(max(0, $num_of_entries - 1) / $page_size > $this->page) { ?><a href="#<?php echo $entry->getURI().'/'.($this->page+1) ?>">&gt;</a> <?php } ?>
 		</div>
-		<div id="<?php /*echo $entry->getURI()*/ ?>_postsDiv" class="postsDiv"></div>
+		<div id="<?php /*echo $entry->getURI()*/ ?>_postsDiv"></div>
 	</fuji:content>
 </fuji:item>

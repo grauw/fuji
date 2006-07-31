@@ -37,9 +37,9 @@
 	loadcontext="threadsDiv">
 	<fuji:content>	
 		<div class="box">
-			<h2 class="windowTitle"><?php echo L10n::$profile ?></h2>
-			<div id="threadsTableDiv" class="content">
-				<table id="threadsTable">
+			<h2><?php echo L10n::$profile ?></h2>
+			<div class="content">
+				<table>
 					<tr>
 						<td rowspan="4"><?php if(isset($user->picture)) { ?><img width="60" src="<?php echo htmlentities($user->picture) ?>" alt="picture"></img><?php } ?></td>
 						<td><?php echo L10n::$name ?>:</td><td><?php echo htmlentities($user->nickname, ENT_NOQUOTES) ?></td>
