@@ -220,7 +220,7 @@ Fuji = {
 	 * Boots the AJAX engine from the HTML page
 	 */
 	boot : function() {
-		Fuji.loadItem('/');
+		Fuji.loadItem('.');
 	},
 	
 	/**
