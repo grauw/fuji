@@ -52,34 +52,40 @@ class Stylesheet extends Dataclass {
 		return new Stylesheet(array('id' => $id));
 	}
 	
-	static function getStylesheetsHTML()
+	static function getStylesheetsHTML($depth=0)
 	{
 		$stylesheetsarr = Stylesheet::getStylesheets();
 		$stylesheets = '';
 		foreach ($stylesheetsarr as $value) {
-			$stylesheets .= $value->getStylesheetHTML();
+			$stylesheets .= $value->getStylesheetHTML($depth);
 		}
 		return $stylesheets;
 	}
 	
-	static function getStylesheetsXML()
+	static function getStylesheetsXML($depth=0)
 	{
 		$stylesheetsarr = Stylesheet::getStylesheets();
 		$stylesheets = '';
 		foreach ($stylesheetsarr as $value) {
-			$stylesheets .= $value->getStylesheetXML();
+			$stylesheets .= $value->getStylesheetXML($depth);
 		}
 		return $stylesheets;
 	}
 	
-	function getStylesheetHTML()
+	function getStylesheetHTML($depth=0)
 	{
-		return '<link rel="'.($this->default ? '' : 'alternate ').'stylesheet" type="text/css" href="'.$this->file.'" title="'.$this->name.'" />'."\n"; 
+		$rel_depth = '';
+		for($n = 0; $n < $depth; $n++)
+			$rel_depth .= '../';
+		return '<link rel="'.($this->default ? '' : 'alternate ').'stylesheet" type="text/css" href="'.$rel_depth.$this->file.'" title="'.$this->name.'" />'."\n"; 
 	}
 	
-	function getStylesheetXML()
+	function getStylesheetXML($depth=0)
 	{
-		return '<?xml-stylesheet href="'.$this->file.'" title="'.$this->name.'"'.($this->default ? '' : ' alternate="yes"').' type="text/css" ?'.">\n";
+		$rel_depth = '';
+		for($n = 0; $n < $depth; $n++)
+			$rel_depth .= '../';		
+		return '<?xml-stylesheet href="'.$rel_depth.$this->file.'" title="'.$this->name.'"'.($this->default ? '' : ' alternate="yes"').' type="text/css" ?'.">\n";
 	}
 }
 

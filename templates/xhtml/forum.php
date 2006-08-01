@@ -9,37 +9,76 @@
 	<link rel="alternate" type="application/rss+xml" title="RSS" href="/blog/rss.php" />
 	<link rel="meta" type="application/rdf+xml" title="FOAF" href="foaf.rdf" />
 	<link rel="icon" type="image/png" href="/images/siteicon.png" />
-	<?php echo $this->getHead() ?>
+	<?php echo $this->getHead(1) ?>
 </head>
 <body>
-	<?php echo $this->getHeader() ?>
-	
-	<h1><?php echo $this->entry->title ?></h1>
-	
-	<?php echo $this->entry->getProcessedContent() ?>
-	
+	<h1 class="logo"><a href="http://fuji.sourceforge.net">Fuji</a></h1>
+	<div id="menuDiv" class="menuContainer box">
+	<h2><?php echo $this->l10n->menu ?></h2>
+	<?php if(UserManager::getUser()->nickname == 'anonymous') { ?>
+		<p><?php echo $this->l10n->anonymous_user ?></p>
+	<?php } else { ?>
+		<p><?php echo $this->l10n->logged_in_as . ' ' . UserManager::getUser()->nickname ?></p>
+	<?php } ?>
 	<ul>
-		<?php foreach($this->entry->getChildren() as $post) { ?>
-		<li>
-			<?php if ($post->type == Entry::$TYPE_FORUM) { ?>
-			
-				<h2><a href="../<?php echo $post->getURI() ?>"><?php echo $post->title ?></a></h2>
-				
-				<?php echo $post->getProcessedContent() ?>
-			
-			<?php } else if ($post->type == Entry::$TYPE_POST) { ?>
-			
-				<a href="../<?php echo $post->getURI() ?>"><?php echo $post->title ?></a>
-			
-			<?php } else { ?>
-			
-				(<?php echo $this->l10n->type_unsupported ?>)
-			
-			<?php } ?>
-		</li>
-		<?php } ?>
+		<li><a href="../<?php echo $this->entry->getParent()->getURI() ?>"><?php echo $this->l10n->back ?></a></li>
 	</ul>
+	</div>
+	<div class="forumContainer box">
+	<div class="content">
+	<h2><?php echo $this->l10n->threads ?> – <?php echo htmlentities($this->entry->title, ENT_NOQUOTES) ?></h2>
 	
-	<?php echo $this->getFooter() ?>
+	<div class="forumcontent"><?php echo $this->entry->getProcessedContent() ?></div>
+	
+	<table>
+		<colgroup>
+			<col width="40%" />
+			<col />
+			<col />
+			<col />
+			<col />
+		</colgroup>
+		<thead>
+			<tr>
+				<th><?php echo $this->l10n->topic ?></th>
+				<th><?php echo $this->l10n->poster ?></th>
+				<th><?php echo $this->l10n->replies ?></th>
+				<th><?php echo $this->l10n->created ?></th>
+				<th><?php echo $this->l10n->modified ?></th>
+			</tr>
+		</thead>
+		<tbody>
+		<?php 	$num_of_children = count($this->entry->getChildren());
+				$i = 0;
+				if($num_of_children > 0)
+				foreach($this->entry->getChildren() as $post) { ?>
+				<?php if ($post->type == Entry::$TYPE_FORUM) { ?>
+				<tr class="tableForumEntry <?php echo $i++ % 2 ? 'even' : 'odd' ?>">
+					<td><a href="../<?php echo $post->getURI() ?>"><?php echo htmlentities($post->title, ENT_NOQUOTES) ?></a></td>
+					<td><a href="../<?php echo User::getUser($post->userref)->getURI() ?>"><?php echo htmlentities(User::getUser($post->userref)->nickname, ENT_NOQUOTES) ?></a></td>
+					<td><?php echo count($post->getChildren()) ?></td>
+					<td><?php echo $post->getFormattedDate('created', $this->l10n->date_format) ?></td>
+					<td><?php echo $post->getFormattedDate('modified', $this->l10n->date_format) ?></td>
+				
+				<?php } else if ($post->type == Entry::$TYPE_POST) { ?>
+				<tr class="tableThreadEntry <?php echo $i++ % 2 ? 'even' : 'odd' ?>">				
+					<td><a href="../<?php echo $post->getURI() ?>"><?php echo htmlentities($post->title, ENT_NOQUOTES) ?></a></td>
+					<td><a href="../<?php echo User::getUser($post->userref)->getURI() ?>"><?php echo htmlentities(User::getUser($post->userref)->nickname, ENT_NOQUOTES) ?></a></td>
+					<td><?php echo count($post->getChildren()) ?></td>
+					<td><?php echo $post->getFormattedDate('created', $this->l10n->date_format) ?></td>
+					<td><?php echo $post->getFormattedDate('modified', $this->l10n->date_format) ?></td>
+				<?php } else { ?>
+				<tr class="tableUnsupportedEntry">				
+					(<?php echo $this->l10n->type_unsupported ?>)
+				
+				<?php } ?>
+			</tr>
+		<?php } else echo $this->l10n->error_no_threads
+			// TODO: Invalid XHTML here!
+			?>
+		</tbody>
+	</table>
+	</div>
+	</div>
 </body>
 </html>

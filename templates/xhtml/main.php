@@ -9,43 +9,57 @@
 	<link rel="alternate" type="application/rss+xml" title="RSS" href="/blog/rss.php" />
 	<link rel="meta" type="application/rdf+xml" title="FOAF" href="foaf.rdf" />
 	<link rel="icon" type="image/png" href="/images/siteicon.png" />
-	<?php echo $this->getHead() ?>
+	<?php echo $this->getHead(1) ?>
 </head>
 <body>
-	<?php echo $this->getHeader() ?>
-	
-	<h1><?php echo $this->entry->title ?></h1>
+	<h1 class="logo"><a href="http://fuji.sourceforge.net">Fuji</a></h1>
+	<div id="menuDiv" class="menuContainer box">
+	<h2><?php echo $this->l10n->menu ?></h2>
+	<?php if(UserManager::getUser()->nickname == 'anonymous') { ?>
+		<p><?php echo $this->l10n->anonymous_user ?></p>
+	<?php } else { ?>
+		<p><?php echo $this->l10n->logged_in_as . ' ' . UserManager::getUser()->nickname ?></p>
+	<?php } ?>		
+	</div>	
+	<div class="box">
+	<h2><?php echo $this->l10n->fora ?></h2>
 	
 	<?php echo $this->entry->getProcessedContent() ?>
-	
-	<?php recur($this->entry) ?>
-	<?php function recur($entry) { ?>
-	<ul>
-		<?php foreach($entry->getChildren() as $post) { ?>
-			<?php if ($post->type == Entry::$TYPE_FORUMCONTAINER) { ?>
-			<li>
-				
-				<h2><?php echo $post->title ?></h2>
-				
-				<?php echo $post->getProcessedContent() ?>
-				
-				<?php recur($post) ?>
-				
-			</li>
-			<?php } ?>
-			<?php if ($post->type == Entry::$TYPE_FORUM) { ?>
-			<li>
-				
-				<h2><a href="../<?php echo $post->getURI() ?>"><?php echo $post->title ?></a></h2>
-				
-				<?php echo $post->getProcessedContent() ?>
-				
-			</li>
-			<?php } ?>
-		<?php } ?>
-	</ul>
-	<?php } ?>
-	
-	<?php echo $this->getFooter() ?>
+
+	<table>
+		<colgroup>
+			<col width="40%" />
+			<col />
+			<col />
+			<col />
+			<col />
+		</colgroup>
+		<thead>
+			<tr>
+				<th><?php echo $this->l10n->topic ?></th>
+				<th><?php echo $this->l10n->poster ?></th>
+				<th><?php echo $this->l10n->replies ?></th>
+				<th><?php echo $this->l10n->created ?></th>
+				<th><?php echo $this->l10n->modified ?></th>
+			</tr>
+		</thead>
+		<tbody>
+		<?php 	$num_of_children = count($this->entry->getChildren());
+				$i = 0;
+				if($num_of_children > 0)
+				foreach($this->entry->getChildren() as $post) { ?>
+				<tr class="<?php echo $i++ % 2 ? 'even' : 'odd' ?>">
+					<td><a href="../<?php echo $post->getURI() ?>"><?php echo htmlentities($post->title, ENT_NOQUOTES) ?></a></td>
+					<td><a href="../<?php echo User::getUser($post->userref)->getURI() ?>"><?php echo htmlentities(User::getUser($post->userref)->nickname, ENT_NOQUOTES) ?></a></td>
+					<td><?php echo count($post->getChildren()) ?></td>
+					<td><?php echo $post->getFormattedDate('created', $this->l10n->date_format) ?></td>
+					<td><?php echo $post->getFormattedDate('modified', $this->l10n->date_format) ?></td>
+				</tr>
+		<?php } else echo $this->l10n->error_no_threads
+			// TODO: Invalid XHTML here!
+			?>
+		</tbody>
+	</table>
+	</div>
 </body>
 </html>
