@@ -47,7 +47,7 @@
 				return $this->custom_language_data[$name];
 			elseif(isset($this->default_language_data[$name]))
 				return $this->default_language_data[$name];
-			trigger_error("Undefined variable $name requested");
+			return "FAIL:$name";
 		}
 		
 		function __set($name, $value) {
