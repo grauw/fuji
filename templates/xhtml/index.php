@@ -24,13 +24,14 @@ if(file_exists("../scripts/configuration/installer_disabled"))
 	<script type="text/javascript" src="js/fuji.js"></script>
 	<script type="text/javascript" src="js/l10n.js.php"></script>
 	<script type="text/javascript" src="js/dialogs.js"></script>
+	<script type="text/javascript" src="js/editor.js"></script>
 	<script type="text/javascript">
 		Fuji.settings = { visual_effects : <?php echo UserManager::getUser()->visual_effects == '1' ? 'true' : 'false' ?> }
 	</script>
 </head>
 <body onload="Fuji.boot()" id="fujiBody">
 	<h1 class="logo"><a href="http://fuji.sourceforge.net">Fuji</a></h1>
-	<div id="menuDiv" class="menuContainer box">
+	<div id="XHTML_menuDiv" class="menuContainer box">
 	<h2><?php echo $this->l10n->menu ?></h2>
 	<?php if(UserManager::getUser()->nickname == 'anonymous') { ?>
 		<p><?php echo $this->l10n->anonymous_user ?></p>
