@@ -1,7 +1,8 @@
 <?php	//TODO: Use javascript to access the language files (XML) directly, instead of using PHP
 	require_once("../scripts/l10nmanager.php");
-	require_once("../scripts/caching.php");
-	L10nManager::getL10nCache()->send();
+	/* Cache-version of this file should be reset when changing languages */
+	//require_once("../scripts/caching.php");
+	//L10nManager::getL10nCache()->send();
 	$l10n = new L10nManager();
 	header('Content-Type: application/javascript; charset=utf-8');
 ?>
@@ -28,5 +29,8 @@ Fuji.Messages = { 	warning							: "<?php echo $l10n->warning ?>",
 					contact_administrator			: "<?php echo $l10n->contact_administrator ?>",
 					error_loading_resource			: "<?php echo $l10n->error_loading_resource ?>",
 					loading							: "<?php echo $l10n->loading ?>",
-					please_wait						: "<?php echo $l10n->please_wait ?>"
+					please_wait						: "<?php echo $l10n->please_wait ?>",
+					enter_link_url							: "<?php echo $l10n->enter_link_url ?>",
+					enter_image_url							: "<?php echo $l10n->enter_image_url ?>",
+					enter_table_size							: "<?php echo $l10n->enter_table_size ?>"
 				}

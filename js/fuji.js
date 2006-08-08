@@ -372,7 +372,19 @@ Fuji.Util = {
 			}
 			return false;
 		}
-	}	
+	},
+		
+	/**
+	 * Finds a item in an array
+	 */
+	arraySearch : function (aHaystack, oNeedle) {
+		for(n = 0; n < aHaystack.length; n++)
+		{
+			if(aHaystack[n] == oNeedle)
+				return n;
+		}
+		return false;
+	}
 }
 
 Fuji.Tree = {

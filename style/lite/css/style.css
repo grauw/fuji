@@ -124,6 +124,38 @@ a.feed {
 	padding: 1em;
 }
 
+#editorContainer div {
+	margin-left: 0.5em;
+	margin-right: 0.5em;
+	margin-bottom: 0.25em;
+}
+
+#editorContainer div span {
+	margin-right: 0.75em;
+}
+
+.editortoolbar {
+	height: 1.8em;
+	border: 1px solid;
+}
+
+.editortoolbar select {
+	float: left;
+	margin-right: 0.75em;
+}
+
+.editortoolbar div {
+	height: 1.8em;
+	width: 20px;
+	float: left;
+}
+
+#editor {
+	width: 95%;
+	margin: 0.5em;
+	border: 1px solid;
+}
+
 /* trees */
 /*
 ul.tree li {

@@ -140,6 +140,39 @@ a:hover {
 	color: #888;
 }
 
+.editortoolbar {
+	background-color: #f6f6f5;
+	border-color: #fff;
+}
+
+.editorlink {
+	background: url(../../default/graphics/button-url.png) 0 0.15em no-repeat;
+}
+
+.editorimage {
+	background: url(../../default/graphics/button-image.png) 0 0.15em no-repeat;
+}
+
+.editortable {
+	background: url(../../default/graphics/button-table.png) 0 0.15em no-repeat;
+}
+
+.editorul {
+	background: url(../../default/graphics/button-ul.png) 0 0.15em no-repeat;
+}
+
+.editorol {
+	background: url(../../default/graphics/button-ol.png) 0 0.15em no-repeat;
+}
+
+.editortoolbar div:hover {
+	background-color: #d6d6d5;
+}
+
+#editor {
+	border-color: #111;
+}
+
 /* submenus */
 .box ul.menu li ul {
 	border-color: #fff;
