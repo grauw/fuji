@@ -18,11 +18,12 @@ require_once "database.php";
 		}
 		
 		function toString(){
+			$l10n = new L10nManager();
 			$string = '';
-			if($this->may_read) $string .= L10n::$read . ', ';
-			if($this->may_post) $string .= L10n::$post . ', ';
-			if($this->may_edit) $string .= L10n::$edit . ', ';
-			if($this->may_delete) $string .= L10n::$delete . ', ';
+			if($this->may_read) $string .= $l10n->read . ', ';
+			if($this->may_post) $string .= $l10n->post . ', ';
+			if($this->may_edit) $string .= $l10n->edit . ', ';
+			if($this->may_delete) $string .= $l10n->delete . ', ';
 			$string = rtrim($string, ', ');
 			return $string;
 		}
