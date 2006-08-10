@@ -2,22 +2,26 @@ Fuji.Editor = {
 	characterStyles: new Array("abbr", "acronym", "cite", "del", "dfn", "ins", "kbd", "em", "strong", "code", "var", "samp"),
 	init: function()
 	{
-		if(document.getElementById('editor').contentWindow.document.designMode /* TODO: Test if designMode is supported */ )
+		if(document.getElementById('editor').contentWindow.document.designMode)
 		{
-			document.getElementById('createF').style.display = 'none';
-			document.getElementById('editorContainer').style.display = 'block';
+			document.getElementById('textEditorContainer').style.display = 'none';
+			document.getElementById('richTextEditorContainer').style.display = 'block';
 			document.getElementById('editor').contentWindow.document.designMode="on";
-			document.getElementById('editor').contentWindow.document.execCommand('formatblock', false, 'p');
+			//document.getElementById('editor').contentWindow.document.execCommand('formatblock', false, 'p');
 		}
 	},
 	disable: function()
 	{
-		if(document.getElementById('editor').contentWindow.document.designMode /* TODO: Test if designMode is supported */ )
+		if(document.getElementById('editor').contentWindow.document.designMode)
 		{
-			document.getElementById('editorContainer').style.display = 'none';
-			document.getElementById('createF').style.display = 'block';
+			document.getElementById('richTextEditorContainer').style.display = 'none';
+			document.getElementById('textEditorContainer').style.display = 'block';
 			document.getElementById('editor').contentWindow.document.designMode="off";
 		}		
+	},
+	isEnabled: function()
+	{
+		return document.getElementById('richTextEditorContainer').style.display == 'block';
 	},
 	clickAction: function(sName)
 	{

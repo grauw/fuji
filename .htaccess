@@ -103,11 +103,8 @@ RewriteRule ^statistics$ scripts/statistics.php [L,QSA]
 # GET /search
 RewriteRule ^search$ scripts/search.php [L,QSA]
 
-# GET /search/<field>/<query>/<order>/
-RewriteRule ^search/(\w+)/(\w+)/(\w+)/$ scripts/search.php?field=$1&query=$2&order=$3 [L,QSA]
-
-# GET /search/<field>/<query>/<order>/<page>
-RewriteRule ^search/(\w+)/(\w+)/(\w+)/(\d+)$ scripts/search.php?field=$1&query=$2&order=$3&page=$4 [L,QSA]
+# GET /search?<vars>
+RewriteRule ^search?.*$ scripts/search.php?$1 [L,QSA]
 
 # GET /calendar
 RewriteRule ^calendar$ scripts/calendar.php [L,QSA]

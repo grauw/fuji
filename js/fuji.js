@@ -155,11 +155,16 @@ Fuji = {
 	 */		
 	updateEditDialog : function(oElm) {
 		var oSource = oElm.responseXML;
-		var oEditTitle = document.getElementById('editT');
-		var oEditContent = document.getElementById('editContent');
+		var oContent = oSource.getElementById('content');
+		var oEditTitle = document.getElementById('createEditTitle');
 		oEditTitle.value = oSource.getElementById('title').innerHTML;
-		oEditContent.value = oSource.getElementById('content').innerHTML;	
-
+		var oEditContent = document.getElementById('createEditContent');
+		oEditContent.value = oContent.innerHTML;		
+		if(Fuji.Editor.isEnabled())
+		{
+			var oEditor = document.getElementById('editor');
+			Fuji.Util.moveChildNodes(oContent, oEditor.contentWindow.document.body);
+		}
 	},
 	
 	/**
@@ -384,6 +389,31 @@ Fuji.Util = {
 				return n;
 		}
 		return false;
+	},
+	
+	/**
+	 * Moves all childnodes from oSource to oTarget
+	 */
+	moveChildNodes : function (oSource, oTarget) {
+		while(oSource.hasChildNodes())
+			oTarget.appendChild(oSource.firstChild);
+	},
+
+	/**
+	 * Copies all childnodes from oSource to oTarget
+	 */
+	copyChildNodes : function (oSource, oTarget) {
+		aChildNodes = oSource.childNodes;
+		for(n = 0; n < aChildNodes.length; n++)
+			oTarget.appendChild(aChildNodes[n].cloneNode(true));
+	},
+	
+	/**
+	 * Removes all childnodes from oNode
+	 */
+	removeChildNodes : function (oNode) {
+		while(oNode.hasChildNodes())
+			oNode.removeChild(oNode.firstChild);
 	}
 }
 

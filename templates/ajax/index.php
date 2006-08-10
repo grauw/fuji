@@ -16,13 +16,15 @@
 		<div id="threadsDiv"/>
 		
 		<!-- Dialogs -->
-		<div id="createDialog" style="display: none">
-			<div id="createTitle" class="hd"><?php echo $this->l10n->new ?></div>
-			<div id="createForm" class="bd">
-				<form id="createF" name="createF" class="createEditF" method="POST" action="item">
-					<input id='createType' name='type' type='hidden' value='' />
-					<div><span><?php echo $this->l10n->title ?></span><input id='createT' class="createEditT" name='title' type='text' value='' /></div>
-					<div>
+		<div id="createEditDialog" style="display: none">
+			<div class="hd"><span id="createDialogHd"><?php echo $this->l10n->new ?></span><span id="editDialogHd"><?php echo $this->l10n->edit ?></span></div>
+			<div class="bd">
+				<form id="createEditForm" name="createEditForm" method="POST" action="item">
+					<input id='createEditType' name='type' type='hidden' value='' />
+					<input id='createEditProcessor' name='processor' type='hidden' value='' />
+					<div><span><?php echo $this->l10n->title ?></span><input id="createEditTitle" name='title' type='text' value='' /></div>
+					<div id='textEditorContainer'>
+					<div class="editortoolbar">
 						<img alt="Bold" src="style/default/graphics/button-bold.png" onclick="Fuji.addTags(document.getElementById('createCtent'), '[b][/b]')" />
 						<img alt="Italic" src="style/default/graphics/button-italic.png" onclick="Fuji.addTags(document.getElementById('createCtent'), '[i][/i]')" />
 						<img alt="Underline" src="style/default/graphics/button-underline.png" onclick="Fuji.addTags(document.getElementById('createCtent'), '[u][/u]')" />
@@ -31,66 +33,48 @@
 						<img alt="URL" src="style/default/graphics/button-url.png" onclick="Fuji.addTags(document.getElementById('createCtent'), '[url][/url]')" />
 						<img alt="Image" src="style/default/graphics/button-image.png" onclick="Fuji.addTags(document.getElementById('createCtent'), '[img][/img]')" />
 					</div>
-					<div><textarea id='createCtent' class="createEditContent" name='content' type='text' value=''></textarea></div>
+					<div><textarea id='createEditContent' name='content' type='text' value=''></textarea></div>
+					</div>
+					<div id="richTextEditorContainer" style="display:none">
+						<div class="editortoolbar">
+							<select onchange="Fuji.Editor.changeAction(this)">
+								<option value="paragraph style"><?php echo $this->l10n->paragraph_style ?></option>
+								<option value="p"><?php echo $this->l10n->paragraph ?></option>
+								<option value="address"><?php echo $this->l10n->address ?></option>
+								<option value="blockquote"><?php echo $this->l10n->quotation ?></option>
+								<option value="h4"><?php echo $this->l10n->heading1 ?></option>
+								<option value="h5"><?php echo $this->l10n->heading2 ?></option>
+								<option value="h6"><?php echo $this->l10n->heading3 ?></option>
+								<option value="pre"><?php echo $this->l10n->preformatted ?></option>
+							</select>
+							<select onchange="Fuji.Editor.changeAction(this)">
+								<option value="character style"><?php echo $this->l10n->character_style ?></option>
+								<option value="default"><?php echo $this->l10n->default ?></option>
+								<option value="abbr"><?php echo $this->l10n->abbreviation ?></option>
+								<option value="acronym"><?php echo $this->l10n->acronym ?></option>
+								<option value="cite"><?php echo $this->l10n->citation ?></option>
+								<option value="del"><?php echo $this->l10n->deleted ?></option>
+								<option value="dfn"><?php echo $this->l10n->definition_term ?></option>
+								<option value="ins"><?php echo $this->l10n->inserted ?></option>
+								<option value="kbd"><?php echo $this->l10n->keyboard ?></option>
+								<option value="em"><?php echo $this->l10n->emphasis ?></option>
+								<option value="strong"><?php echo $this->l10n->strong_emphasis ?></option>
+								<option value="code"><?php echo $this->l10n->computer_code ?></option>
+								<option value="var"><?php echo $this->l10n->variable ?></option>
+								<option value="samp"><?php echo $this->l10n->sample_output ?></option>
+							</select>
+							<div class="editorlink" onclick="Fuji.Editor.clickAction('createlink')"></div>
+							<div class="editorimage" onclick="Fuji.Editor.clickAction('insertimage')"></div>
+							<div class="editortable" onclick="Fuji.Editor.clickAction('createtable')"></div>
+							<div class="editorol" onclick="Fuji.Editor.clickAction('insertol')"></div>
+							<div class="editorul" onclick="Fuji.Editor.clickAction('insertul')"></div>
+						</div>
+						<iframe id="editor" onload="Fuji.Editor.init()"></iframe>
+						<div><a href="javascript:Fuji.Editor.disable()"><?php echo $this->l10n->disable_rte ?></a></div>
+					</div>
 				</form>
-				<div id="editorContainer" style="display:none">
-				<div><span><?php echo $this->l10n->title ?></span><input id='createT' class="createEditT" name='title' type='text' value='' /></div>
-				<div class="editortoolbar">
-					<select onchange="Fuji.Editor.changeAction(this)">
-						<option value="paragraph style"><?php echo $this->l10n->paragraph_style ?></option>
-						<option value="p"><?php echo $this->l10n->paragraph ?></option>
-						<option value="address"><?php echo $this->l10n->address ?></option>
-						<option value="blockquote"><?php echo $this->l10n->quotation ?></option>
-						<option value="h4"><?php echo $this->l10n->heading1 ?></option>
-						<option value="h5"><?php echo $this->l10n->heading2 ?></option>
-						<option value="h6"><?php echo $this->l10n->heading3 ?></option>
-						<option value="pre"><?php echo $this->l10n->preformatted ?></option>
-					</select>
-					<select onchange="Fuji.Editor.changeAction(this)">
-						<option value="character style"><?php echo $this->l10n->character_style ?></option>
-						<option value="default"><?php echo $this->l10n->default ?></option>
-						<option value="abbr"><?php echo $this->l10n->abbreviation ?></option>
-						<option value="acronym"><?php echo $this->l10n->acronym ?></option>
-						<option value="cite"><?php echo $this->l10n->citation ?></option>
-						<option value="del"><?php echo $this->l10n->deleted ?></option>
-						<option value="dfn"><?php echo $this->l10n->definition_term ?></option>
-						<option value="ins"><?php echo $this->l10n->inserted ?></option>
-						<option value="kbd"><?php echo $this->l10n->keyboard ?></option>
-						<option value="em"><?php echo $this->l10n->emphasis ?></option>
-						<option value="strong"><?php echo $this->l10n->strong_emphasis ?></option>
-						<option value="code"><?php echo $this->l10n->computer_code ?></option>
-						<option value="var"><?php echo $this->l10n->variable ?></option>
-						<option value="samp"><?php echo $this->l10n->sample_output ?></option>
-					</select>
-					<div class="editorlink" onclick="Fuji.Editor.clickAction('createlink')"></div>
-					<div class="editorimage" onclick="Fuji.Editor.clickAction('insertimage')"></div>
-					<div class="editortable" onclick="Fuji.Editor.clickAction('createtable')"></div>
-					<div class="editorol" onclick="Fuji.Editor.clickAction('insertol')"></div>
-					<div class="editorul" onclick="Fuji.Editor.clickAction('insertul')"></div>
-				</div>
-				<iframe id="editor" onload="Fuji.Editor.init()"></iframe>
-				<div><a href="javascript:Fuji.Editor.disable()"><?php echo $this->l10n->disable_rte ?></a></div>
-				</div>
 			</div>
 		</div>
-		<div id="editDialog" style="display: none">
-			<div id="editTitle" class="hd"><?php echo $this->l10n->edit ?></div>
-			<div id="editForm" class="bd">
-				<form id="editF" name="editF" class="createEditF" method="PUT">
-					<div><span><?php echo $this->l10n->title ?></span><input id='editT' class="createEditT" name='title' type='text' value='' /></div>
-					<div>
-						<img alt="Bold" src="style/default/graphics/button-bold.png" onclick="Fuji.addTags(document.getElementById('editContent'), '[b][/b]')" />
-						<img alt="Italic" src="style/default/graphics/button-italic.png" onclick="Fuji.addTags(document.getElementById('editContent'), '[i][/i]')" />
-						<img alt="Underline" src="style/default/graphics/button-underline.png" onclick="Fuji.addTags(document.getElementById('editContent'), '[u][/u]')" />
-						<img alt="Code" src="style/default/graphics/button-code.png" onclick="Fuji.addTags(document.getElementById('editContent'), '[code][/code]')" />
-						<img alt="Quote" src="style/default/graphics/button-quote.png" onclick="Fuji.addTags(document.getElementById('editContent'), '[quote][/quote]')" />
-						<img alt="URL" src="style/default/graphics/button-url.png" onclick="Fuji.addTags(document.getElementById('editContent'), '[url][/url]')" />
-						<img alt="Image" src="style/default/graphics/button-image.png" onclick="Fuji.addTags(document.getElementById('editContent'), '[img][/img]')" />
-					</div>
-					<div><textarea id='editContent' class="createEditContent" name='content' type='text' value=''></textarea></div>
-				</form>
-			</div>
-		</div>	
 		<div id="newGroupDialog" style="display: none">
 			<div id="newGroupTitle" class="hd"><?php echo $this->l10n->new_group ?></div>
 			<div id="newGroupForm" class="bd">

@@ -85,17 +85,21 @@ Fuji.Dialogs = {
 	 * @param {String} sURI The uri of the item to be edit
 	 */		
 	newEditDialog : function(sURI) {
-		var callback =
+		if(!Fuji.Dialogs.Instances.createEditDialog || document.getElementById('createEditDialog_c').style.visibility == 'hidden')
 		{
-			success: Fuji.updateEditDialog,
-			failure: Fuji.newErrorDialog,
-			argument: []
+			var callback =
+			{
+				success: Fuji.updateEditDialog,
+				failure: Fuji.newErrorDialog,
+				argument: []
+			}
+			document.getElementById('createDialogHd').style.display = 'none';
+			document.getElementById('editDialogHd').style.display = 'block';
+			document.getElementById('createEditForm').action = sURI;
+			Fuji.Dialogs.Settings.createEditDialog.uri = sURI;
+			YAHOO.util.Connect.asyncRequest('GET', sURI + '/source', callback, null);
+			Fuji.Dialogs.newDialog('createEditDialog');
 		}
-		document.getElementById('editF').action = sURI;
-		Fuji.Dialogs.Settings.editDialog.uri = sURI;
-		YAHOO.util.Connect.asyncRequest('GET', sURI + '/source', callback, null); 		
-		document.getElementById('editDialog').style.display = 'block';		
-		Fuji.Dialogs.newDialog('editDialog');
 	},
 	
 	/**
@@ -104,10 +108,15 @@ Fuji.Dialogs = {
 	 * @param {Int} iType The type of the new item
 	 */
 	newCreateDialog : function(sURI, iType) {
-		document.getElementById('createType').value = iType; 
-		document.getElementById('createF').action = sURI;
-		Fuji.Dialogs.Settings.createDialog.uri = sURI;
-		Fuji.Dialogs.newDialog('createDialog');
+		if(!Fuji.Dialogs.Instances.createEditDialog || document.getElementById('createEditDialog_c').style.visibility == 'hidden')
+		{
+			document.getElementById('editDialogHd').style.display = 'none';
+			document.getElementById('createDialogHd').style.display = 'block';
+			document.getElementById('createEditType').value = iType; 
+			document.getElementById('createEditForm').action = sURI;
+			Fuji.Dialogs.Settings.createEditDialog.uri = sURI;
+			Fuji.Dialogs.newDialog('createEditDialog');
+		}
 	},
 	
 	/**
@@ -170,17 +179,17 @@ Fuji.Dialogs.Settings.configRightsDialog = {
 	handleSubmit : function() { this.submit(); document.getElementById('configRightsF').reset(); this.hide(); },
 	handleCancel : function() { this.cancel(); document.getElementById('configRightsF').reset(); this.hide(); }
 }
-Fuji.Dialogs.Settings.createDialog = {
+Fuji.Dialogs.Settings.createEditDialog = {
 	uri : null,	
-	onSuccess : function() { Fuji.reloadItem(Fuji.Dialogs.Settings.createDialog.uri, 999) },
-	handleSubmit : function() { this.submit(); document.getElementById('createF').reset(); this.hide(); },
-	handleCancel : function() { this.cancel(); document.getElementById('createF').reset(); this.hide(); }
-}
-Fuji.Dialogs.Settings.editDialog = {
-	uri : null,
-	onSuccess : function() { Fuji.reloadItem(Fuji.Dialogs.Settings.editDialog.uri, 999) },
-	handleSubmit : function() { this.submit(); document.getElementById('editF').reset(); this.hide(); },
-	handleCancel : function() { this.cancel(); document.getElementById('editF').reset(); this.hide(); }
+	onSuccess : function() { Fuji.reloadItem(Fuji.Dialogs.Settings.createEditDialog.uri, 999) },
+	handleSubmit : function() {	this.submit();
+					document.getElementById('createEditForm').reset();
+					Fuji.Util.removeChildNodes(document.getElementById('editor').contentWindow.document.body);
+					this.hide(); },
+	handleCancel : function() {	this.cancel();
+					document.getElementById('createEditForm').reset();
+					Fuji.Util.removeChildNodes(document.getElementById('editor').contentWindow.document.body);
+					this.hide(); }
 }
 Fuji.Dialogs.Settings.deleteDialog = {
 	uri : null,

@@ -83,24 +83,6 @@ table td{
 	height: 1.5em;
 }
 
-.createEditF div {
-	margin-top: 3px;
-	margin-bottom: 3px;
-}
-
-.createEditF div span {
-	margin-right: 10px;
-}
-
-.createEditT {
-	width: 253px;
-}
-
-.createEditContent {
-	height: 100px;
-	width: 288px;
-}
-
 a.feed {
 	padding-left: 15px;
 	background: url('../graphics/feed-icon.png') 0 3px no-repeat;
@@ -124,13 +106,15 @@ a.feed {
 	padding: 1em;
 }
 
-#editorContainer div {
+#textEditorContainer div,
+#richTextEditorContainer div {
 	margin-left: 0.5em;
 	margin-right: 0.5em;
 	margin-bottom: 0.25em;
 }
 
-#editorContainer div span {
+#textEditorContainer div span,
+#richTextEditorContainer div span {
 	margin-right: 0.75em;
 }
 
@@ -150,10 +134,16 @@ a.feed {
 	float: left;
 }
 
+#createEditContent,
 #editor {
 	width: 95%;
+	height: 15em;
 	margin: 0.5em;
 	border: 1px solid;
+}
+
+#createEditTitle {
+	width: 80%;
 }
 
 /* trees */
