@@ -25,8 +25,8 @@
 	</ul>
 	</div>
 	<div class="forumContainer box">
-	<div class="content">
 	<h2><?php echo $this->l10n->threads ?> – <?php echo htmlentities($this->entry->title, ENT_NOQUOTES) ?></h2>
+	<div class="content">
 	
 	<div class="forumcontent"><?php echo $this->entry->getProcessedContent() ?></div>
 	

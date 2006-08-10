@@ -24,6 +24,7 @@
 	<div class="box">
 	<h2><?php echo $this->l10n->fora ?></h2>
 	
+	<div class="content">
 	<?php echo $this->entry->getProcessedContent() ?>
 
 	<table>
@@ -60,6 +61,7 @@
 			?>
 		</tbody>
 	</table>
+	</div>
 	</div>
 </body>
 </html>
