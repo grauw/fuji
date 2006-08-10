@@ -24,7 +24,7 @@ class Install3 {
 			<tr>
 				<td>Default language</td>
 				<td><select name='language'>
-						<?php	$l10ns = L10nManager::getL10ns();
+						<?php	$l10ns = L10nManager::getL10nData();
 								foreach($l10ns as $l10n)
 								{ 
 									echo '<option value="' . $l10n['id'] . '"' . '>' . $l10n['name'] . '</option>';
@@ -73,12 +73,12 @@ class Install3 {
 	}
 	
 	function configDefaultOptions() {
-		L10nManager::manualLoadL10n($_POST['language']);
+		$l10n = new L10nManager($_POST['language']);
 		$idb = new InstallDb();
 		$idb->addDefaultLanguage($_POST['language']);
 		$idb->addDefaultStyle($_POST['style']);
 		$idb->addDefaultGZIP($_POST['gzip']);
-		$idb->addWelcomeMessage(L10n::$welcome, L10n::$welcome_message);				
+		$idb->addWelcomeMessage($l10n->welcome, $l10n->welcome_message);				
 	}
 }
 

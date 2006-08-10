@@ -4,16 +4,20 @@
 	require_once "resource.php";
 	
 	class L10nManager {
-		private $primary_language;
-		private $languages;
+		private $languages = array();
 		private $language_data = array();
 		
-		function __construct()
+		function __construct($initlang = FALSE)
 		{
-			$this->languages = self::intersectL10nLanguages();
-			$language = key($this->languages);
-			$this->loadL10n($language);
-			header('Content-Language: '.$language);
+			if (!$initlang) {
+				$this->languages = self::intersectL10nLanguages();
+				$language = key($this->languages);
+				$this->loadL10n($language);
+				header('Content-Language: '.$language);
+			} else {
+				$this->loadL10n($initlang);
+				header('Content-Language: '.$initlang);
+			}
 		}
 		
 		function loadL10n($language)
@@ -34,12 +38,9 @@
 							$this->language_data[$name] = $value;
 					}
 				}
-				if (!isset($this->primary_language)) $this->primary_language = $language;
-				return TRUE;
 			}
 			else
 				trigger_error("Failure loading L10n-file for $language");
-			return FALSE;
 		}
 		
 		function __get($name) {
@@ -67,15 +68,6 @@
 		{
 			$languageInfo = isset(UserManager::getUser()->language) ? self::checkL10nPaths(UserManager::getUser()->language) : self::checkL10nPaths(self::getDefaultL10n());
 			return new Cache(filemtime($languageInfo['path']), $languageInfo['lang'], FALSE);
-		}
-		
-		/**
-		 * Load the specified language
-		 * @param $lang language to load language file of
-		 */
-		static function manualLoadL10n($lang)
-		{
-			return $this->loadL10n($lang);
 		}
 		
 		/**
