@@ -47,7 +47,7 @@
 	<message name="error_resource_cannot_be_found">De pagina kon niet gevonden worden.</message>
 	<message name="error_restricted_forum">U probeert een forum of onderwerp te bekijken met beperkte toegang.</message>
 	<message name="error_rights_revoked">Uw rechten zijn ingetrokken (verbannen).</message>
-	<message name="error_server_misconfiguration">Een foutieve server configuratie.</message>	
+	<message name="error_server_misconfiguration">Een foutieve serverconfiguratie.</message>	
 	<message name="error_unknown">Onbekende fout.</message>	
 	<message name="fora">Fora</message>
 	<message name="group">Groep</message>
