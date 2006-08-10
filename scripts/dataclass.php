@@ -108,7 +108,6 @@ require_once 'database.php';
 			$this->datastate[$name] = $value;
 		}
 		public function hasAttribute($name) {
-			if ($this->data[$name] == NULL) return TRUE;
 			return isset($this->data[$name]);
 		}
 		public function removeAttribute($name) {
@@ -179,7 +178,7 @@ require_once 'database.php';
 			while (list($key, $value) = each($this->data)) {
 				if (is_numeric($key)) continue;
 				if ($this->getAttributeState($key) == self::STATE_DIRTY) {
-					if ($value == NULL)
+					if ($value === FALSE)
 						$creata[$key] = 'NULL';
 					else
 						$creata[$key] = "'" . addslashes($value) . "'";
