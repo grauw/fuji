@@ -29,7 +29,7 @@ class Stylesheet extends Dataclass {
 	 */
 	static function getStylesheets($user=true)
 	{
-		if ($user && isset(UserManager::getUser()->style)) {
+		if ($user && UserManager::getUser()->style != NULL) {
 			$primarystyle = UserManager::getUser()->style;
 		} else {
 			$default = Database::getArray("SELECT value FROM " . Database::$db_tprefix . "defaults WHERE name = 'style'");

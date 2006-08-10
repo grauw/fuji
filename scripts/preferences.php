@@ -13,9 +13,9 @@ class Preferences extends Resource {
 			if(isset($_POST['pass1']) && $_POST['pass1'] != '' && $_POST['pass1'] == $_POST['pass2'])
 				$user->setPassword($_POST['pass1']);
 			if(isset($_POST['language']))
-				$user->language = $_POST['language'];
+				$user->language = $_POST['language'] == 'NULL' ? NULL : $_POST['language'];
 			if(isset($_POST['style']))
-				$user->style = $_POST['style'];
+				$user->style = $_POST['style'] == 'NULL' ? NULL : $_POST['style'];
 			if(isset($_POST['email']) && $_POST['email'] != '')
 				$user->email = $_POST['email'];
 			if(isset($_POST['showEmail']))

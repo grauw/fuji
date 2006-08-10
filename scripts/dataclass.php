@@ -108,6 +108,7 @@ require_once 'database.php';
 			$this->datastate[$name] = $value;
 		}
 		public function hasAttribute($name) {
+			if ($this->data[$name] == NULL) return TRUE;
 			return isset($this->data[$name]);
 		}
 		public function removeAttribute($name) {
@@ -174,23 +175,23 @@ require_once 'database.php';
 		 * Save object to database
 		 */
 		function save() {
-			if(!$this->hasAttribute($this->getPrimaryKeyName())) {
-				$creata = array();
-				foreach ($this->data as $key => $value) {
-					$creata[$key] = "'" . addslashes($value) . "'";
+			$creata = array();
+			while (list($key, $value) = each($this->data)) {
+				if (is_numeric($key)) continue;
+				if ($this->getAttributeState($key) == self::STATE_DIRTY) {
+					if ($value == NULL)
+						$creata[$key] = 'NULL';
+					else
+						$creata[$key] = "'" . addslashes($value) . "'";
 					$this->setAttributeState($key, self::STATE_FRESH);
 				}
+			}
+			if(!$this->hasAttribute($this->getPrimaryKeyName())) {
 				$result = $this->saveNew($creata);
 				$this->setAttributeInitial($this->getPrimaryKeyName(), Database::insert_id());
 			} else {
-				$updata = array();
-				foreach ($this->data as $key => $value) {
-					if ($key != $this->getPrimaryKeyName() && $this->getAttributeState($key) == self::STATE_DIRTY) {
-						$updata[$key] = "'" . addslashes($value) . "'";
-						$this->setAttributeState($key, self::STATE_FRESH);
-					}
-				}
-				$result = $this->saveUpdate($updata);
+				unset($data[$this->getPrimaryKeyName()]);
+				$result = $this->saveUpdate($creata);
 			}
 			return $result;
 		}

@@ -178,12 +178,14 @@
 					<fieldset>
 						<legend><?php echo $this->l10n->lang ?></legend>
 						<select name='language'>
+							<option value="NULL"><?php echo $this->l10n->default_language ?></option>
+							<option disabled="disabled">━━━━━━━</option>
 							<?php
 								$l10ns = L10nManager::getL10nData();
 								$lang = isset(UserManager::getUser()->language) ? UserManager::getUser()->language : '';
 								foreach($l10ns as $l10n)
 								{
-									echo '<option value="' . $l10n['id'] . '"' . ($l10n['id'] == $lang ? ' selected="Selected"' : '') .  '>' . $l10n['name'] . '</option>';
+									echo '<option value="' . $l10n['id'] . '"' . ($l10n['id'] == $lang ? ' selected="Selected"' : '') . '>' . $l10n['name'] . '</option>';
 								}
 							?>
 						</select>
@@ -191,12 +193,14 @@
 					<fieldset>
 						<legend><?php echo $this->l10n->style ?></legend>
 						<select name='style'>
+							<option value="NULL"><?php echo $this->l10n->default_style ?></option>
+							<option disabled="disabled">━━━━━━━</option>
 							<?php
 								$styles = Stylesheet::getStylesheets();
 								$s = isset(UserManager::getUser()->style) ? UserManager::getUser()->style : '';
 								foreach($styles as $style)
 								{
-									echo '<option value="' . $style->name . '"' . (($style->name == $s) || ($s == '' && $style->name == $style->default) ? ' selected="Selected"' : '') .  '>' . $style->name . '</option>';
+									echo '<option value="' . $style->name . '"' . (($style->name == $s) ? ' selected="Selected"' : '') . '>' . $style->name . '</option>';
 								}
 							?>
 						</select>

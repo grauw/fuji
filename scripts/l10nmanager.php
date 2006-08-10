@@ -92,7 +92,7 @@
 		}
 		
 		/**
-		 * Return array of available languages and their quality
+		 * Return list of available languages (with quality)
 		 */
 		static function getL10ns()
 		{
@@ -127,27 +127,35 @@
 		static function getAcceptLanguage() {
 			Resource::addVary('Accept-Language');
 			$languages = array();
-			$acceptlangs = explode(',', str_replace(' ', '', $_SERVER['HTTP_ACCEPT_LANGUAGE']));
-			$i = 1;
-			foreach ($acceptlangs as $acceptlang) {
-				$langcomponents = explode(';q=', $acceptlang);
-				$lang = $langcomponents[0];
-				// order also matters a tiny little bit
-				$q = (isset($langcomponents[1]) ? floatval($langcomponents[1]) : 1.0) - 0.0001 * $i++;
-				$languages[$lang] = $q;
+			$accept_lang = str_replace(' ', '', $_SERVER['HTTP_ACCEPT_LANGUAGE']);
+			if ($accept_lang) {
+				$acceptlangs = explode(',', $accept_lang);
+				foreach ($acceptlangs as $acceptlang) {
+					list($lang, $q) = explode(';q=', $acceptlang);
+					$q = isset($q) ? floatval($q) : 1.0;
+					$languages[$lang] = $q;
+				}
+			} else {
+				$languages['*'] = 1.0;
 			}
 			return $languages;
 		}
 		
+		/**
+		 * Return list of languages that the user accepts (with quality)
+		 */
 		static function getLanguages() {
-			$userlangs = isset(UserManager::getUser()->language) ? array(UserManager::getUser()->language => 1.0) : array();
 			$acceptlangs = self::getAcceptLanguage();
-			$defaultlangs = array(self::getDefaultLanguage() => 0.0001);
-			return array_merge($userlangs, $acceptlangs, $defaultlangs);
+			if (isset(UserManager::getUser()->language))
+				$acceptlangs[UserManager::getUser()->language] = 9999;
+			$defaultlang = self::getDefaultLanguage();
+			if (!isset($acceptlangs[$defaultlang]) || $acceptlangs[$defaultlang] <= 0)
+				$acceptlangs[$defaultlang] = 0.0001;
+			return $acceptlangs;
 		}
 		
 		/**
-		 * Return the intersection of the languages and l10ns, return
+		 * Return the intersection of the languages and l10ns (with quality).
 		 */
 		static function intersectL10nLanguages() {
 			$languages = self::getLanguages();
@@ -163,6 +171,7 @@
 				} while ($l10nsub !== '');
 				if (isset($languages['*']) && $rv[$l10n] == -1)
 					$rv[$l10n] = $quality * $languages['*'];
+				if ($rv[$l10n] <= 0) unset($rv[$l10n]);
 			}
 			arsort($rv, SORT_NUMERIC);
 			return $rv;
