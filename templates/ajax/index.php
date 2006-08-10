@@ -124,8 +124,8 @@
 					<p><?php echo $this->l10n->default_language ?><br />
 						<select name='default_language'>
 							<?php
-								$l10ns = L10nManager::getL10ns();
-								$lang = L10nManager::getDefaultL10n();
+								$l10ns = L10nManager::getL10nData();
+								$lang = L10nManager::getDefaultLanguage();
 								foreach($l10ns as $l10n)
 								{ 
 									echo '<option value="' . $l10n['id'] . '"' . ($l10n['id'] == $lang ? ' selected="Selected"' : '') .  '>' . $l10n['name'] . '</option>';
@@ -179,7 +179,7 @@
 						<legend><?php echo $this->l10n->lang ?></legend>
 						<select name='language'>
 							<?php
-								$l10ns = L10nManager::getL10ns();
+								$l10ns = L10nManager::getL10nData();
 								$lang = isset(UserManager::getUser()->language) ? UserManager::getUser()->language : '';
 								foreach($l10ns as $l10n)
 								{
