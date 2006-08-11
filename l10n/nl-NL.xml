@@ -111,6 +111,7 @@
 	<message name="search">Zoeken</message>
 	<message name="server_settings">Serverinstellingen</message>	
 	<message name="statistics">Statistieken</message>
+	<message name="strong_emphasis">Sterke nadruk</message>
 	<message name="style">Stijl</message>
 	<message name="subscribe_to_atom">Abonneer op Atom feed</message>
 	<message name="subscribe_to_rss">Abonneer op RSS feed</message>

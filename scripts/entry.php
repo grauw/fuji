@@ -92,6 +92,7 @@ class Entry extends Dataclass {
 	 * @returns content as String
 	 */
 	function getProcessedContent() {
+		//TODO: Use the database instead of hardcoded processors
 		$processor = $this->processor;
 		if ($processor == '0') {
 			return $this->content;
