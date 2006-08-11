@@ -71,7 +71,8 @@ class Entry extends Dataclass {
 	 */
 	function newReply() {
 		$entry = new Entry();
-		$entry->setAttributeInitial('ref', $this->id);
+		//$entry->setAttributeInitial('ref', $this->id); Doesn't work, why?
+		$entry->ref = $this->id;
 		return $entry;
 	}
 	

@@ -97,6 +97,7 @@ Fuji.Dialogs = {
 			document.getElementById('editDialogHd').style.display = 'block';
 			document.getElementById('createEditForm').action = sURI;
 			document.getElementById('createEditForm').method = 'PUT';
+			Fuji.Dialogs.Settings.createEditDialog.uri = sURI;
 			YAHOO.util.Connect.asyncRequest('GET', sURI + '/source', callback, null);
 			Fuji.Dialogs.newDialog('createEditDialog');
 		}
@@ -115,6 +116,7 @@ Fuji.Dialogs = {
 			document.getElementById('createEditType').value = iType;
 			document.getElementById('createEditForm').action = sURI;
 			document.getElementById('createEditForm').method = 'POST';
+			Fuji.Dialogs.Settings.createEditDialog.uri = sURI;
 			Fuji.Dialogs.newDialog('createEditDialog');
 		}
 	},
@@ -180,6 +182,7 @@ Fuji.Dialogs.Settings.configRightsDialog = {
 	handleCancel : function() { this.cancel(); document.getElementById('configRightsF').reset(); this.hide(); }
 }
 Fuji.Dialogs.Settings.createEditDialog = {
+	uri : null,
 	onSuccess : function() { Fuji.reloadItem(Fuji.Dialogs.Settings.createEditDialog.uri, 999) },
 	handleSubmit : function() {	if(Fuji.Editor.isEnabled) document.getElementById('createEditContent').value = document.getElementById('editor').contentWindow.document.body.innerHTML;
 					this.submit();
