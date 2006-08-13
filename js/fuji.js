@@ -275,7 +275,7 @@ Fuji = {
 		var query = document.getElementById('searchQuery').value;
 		var field = document.getElementById('searchField').value;
 		var order = document.getElementById('searchOrder').value;
-		Fuji.loadItem('search/' + field + '/' + query + '/' + order + '/');
+		location.hash = 'search' + '?field=' + field + '&query=' + query + '&order=' + order;
 	}
 }
 Fuji.Util = {

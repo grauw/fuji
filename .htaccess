@@ -101,10 +101,7 @@ RewriteRule ^groups/(\d+)/users$  scripts/userlist.php?groupid=$1 [L,QSA]
 RewriteRule ^statistics$ scripts/statistics.php [L,QSA]
 
 # GET /search
-RewriteRule ^search$ scripts/search.php [L,QSA]
-
-# GET /search?<vars>
-RewriteRule ^search?.*$ scripts/search.php?$1 [L,QSA]
+RewriteRule ^search(.*)$ scripts/search.php$1 [L,QSA]
 
 # GET /calendar
 RewriteRule ^calendar$ scripts/calendar.php [L,QSA]

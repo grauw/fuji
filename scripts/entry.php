@@ -39,13 +39,32 @@ class Entry extends Dataclass {
 		return self::getEntry($this->ref);
 	}
 	
-	static function search($query, $field, $orderby = null, $limit = null) {
+	static function search($query, $field, $forumid = null, $orderby = null, $limit = null) {
+		$childrenids_string = "";
+		if(isset($forumid))
+		{
+			$forum = Entry::getEntry($forumid);
+			if(isset($forum))
+			{
+				$children = $forum->getChildrenRecursive();
+				$childrenids = array();
+				if(isset($subfora))
+				{
+					foreach($children as $child)
+					{
+						array_push($childrenids, "ref=$child->id");
+					}
+				}
+				if(count($childrenids) > 0)
+					$childrenids_string = ' AND ' . implode(" OR ", $childrenids);
+			}
+		}
 		$entries = array();
-		$entriesdata = Database::getArray("SELECT *, MATCH($field) AGAINST ('$query' IN BOOLEAN MODE) AS score FROM " . DbVar::$db_tprefix . "entries WHERE MATCH($field) AGAINST ('$query' IN BOOLEAN MODE) AND type > '3'" . (isset($orderby) ? " ORDER BY $orderby" : "") . (isset($limit) ? " LIMIT $limit" : ""));
+		$entriesdata = Database::getArray("SELECT *, MATCH($field) AGAINST ('$query' IN BOOLEAN MODE) AS score FROM " . DbVar::$db_tprefix . "entries WHERE MATCH($field) AGAINST ('$query' IN BOOLEAN MODE) AND type = '4'" . $childrenids_string . (isset($orderby) ? " ORDER BY $orderby" : "") . (isset($limit) ? " LIMIT $limit" : ""));
 		foreach($entriesdata as $entrydata) {
 			array_push($entries, new Entry($entrydata));
 		}
-		return $entries;		
+		return $entries;
 	}
 	
 	/**
@@ -124,6 +143,28 @@ class Entry extends Dataclass {
 		{
 			array_push($children, new Entry($entrydata));
 		}
+		return $children;
+	}
+	
+	function getSubfora() {
+		$children = array();
+		$childrendata = Database::getArray("SELECT * FROM " . DbVar::$db_tprefix . "entries WHERE ref = '$this->id' AND type < " . self::$TYPE_POST);
+		foreach($childrendata as $entrydata)
+			array_push($children, new Entry($entrydata));
+		if(count($children > 0))
+			foreach($children as $child)
+				$children = array_merge($children, $child->getSubfora());
+		return $children;
+	}
+	
+	function getChildrenRecursive() {
+		$children = array();
+		$childrendata = Database::getArray("SELECT * FROM " . DbVar::$db_tprefix . "entries WHERE ref = '$this->id'");
+		foreach($childrendata as $entrydata)
+			array_push($children, new Entry($entrydata));
+		if(count($children > 0))
+			foreach($children as $child)
+				$children = array_merge($children, $child->getChildrenRecursive());
 		return $children;
 	}
 	
