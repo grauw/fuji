@@ -69,6 +69,7 @@ class Entry extends Dataclass {
 	
 	/**
 	 * Get entries by type
+	 * @param Number type The type of entries to get
 	 * @param String orderby The column to order the entries by
 	 * @param String limit The limit of entries
 	 * @returns array of Entries
@@ -76,8 +77,28 @@ class Entry extends Dataclass {
 	static function getEntriesByType($type, $orderby = null, $limit = null) {
 		$entries = array();
 		$entriesdata = Database::getArray("SELECT * FROM " . DbVar::$db_tprefix . "entries WHERE type = '$type'" . (isset($orderby) ? " ORDER BY $orderby" : "") . (isset($limit) ? " LIMIT $limit" : ""));
-		foreach($entriesdata as $entrydata) {
-			array_push($entries, new Entry($entrydata));
+		if ($entriesdata !== FALSE) {
+			foreach($entriesdata as $entrydata) {
+				array_push($entries, new Entry($entrydata));
+			}
+		}
+		return $entries;
+	}	
+	
+	/**
+	 * Get entries by date
+	 * @param Date datestart The starting date to get the entries for
+	 * @param Date dateend The ending date to get the entries for
+	 * @param String limit The limit of entries
+	 * @returns array of Entries
+	 */
+	static function getEntriesByDate($startdate, $enddate, $limit = null) {
+		$entries = array();
+		$entriesdata = Database::getArray("SELECT * FROM " . DbVar::$db_tprefix . "entries WHERE type = 4 AND created >= '" . addslashes($startdate) . "' AND created < '" . addslashes($enddate) . "'" . (isset($limit) ? " LIMIT $limit" : ""));
+		if ($entriesdata !== FALSE) {
+			foreach($entriesdata as $entrydata) {
+				array_push($entries, new Entry($entrydata));
+			}
 		}
 		return $entries;
 	}	

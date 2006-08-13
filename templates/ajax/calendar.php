@@ -4,13 +4,11 @@
 			$this->l10n->july, $this->l10n->august, $this->l10n->september,
 			$this->l10n->october, $this->l10n->november, $this->l10n->december);
 	
-	$formonth = strtotime(date('Y-m-01', $this->date));
+	$thismonth = date('n', $this->date);
+	$thisyear  = date('Y', $this->date);
 	
-	$thismonth = date('n', $formonth);
-	$thisyear  = date('Y', $formonth);
-	
-	$lastmonthiso = date('Y-m', strtotime('last month', $formonth));
-	$nextmonthiso = date('Y-m', strtotime('next month', $formonth));
+	$lastmonthiso = date('Y-m', strtotime('last month', $this->date));
+	$nextmonthiso = date('Y-m', strtotime('next month', $this->date));
 ?>
 <?xml version="1.0" encoding="UTF-8"?>
 <fuji:menu xmlns="http://www.w3.org/1999/xhtml"
@@ -43,7 +41,7 @@
 				<tbody>
 				<?php
 					
-					$date = strtotime('next day', strtotime('last sunday', $formonth));
+					$date = strtotime('next day', strtotime('last sunday', $this->date));
 					do {
 						echo '<tr>';
 						for ($j=1; $j <= 7; $j++) {

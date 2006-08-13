@@ -16,6 +16,7 @@
 	<message name="contact_administrator">Contact the server administrator for more information.</message>
 	<message name="content">Content</message>
 	<message name="created">Created</message>
+	<message name="date_format">%d/%m/%Y</message>
 	<message name="datetime_format">%d/%m/%Y&#160;%H:%i</message>
 	<message name="default">Default</message>
 	<message name="default_language">Default language</message>

@@ -9,6 +9,7 @@
 	<message name="config_rights">Configurer les droits</message>
 	<message name="contact_administrator">Contacter le administrateur du serveur pour plus d’information.</message>
 	<message name="created">Créé</message>
+	<message name="date_format">%d/%m/%Y</message>
 	<message name="datetime_format">%d/%m/%Y&#160;%H:%i</message>
 	<message name="default_language">Langue par défaut</message>
 	<message name="default_style">Thème par défaut</message>	

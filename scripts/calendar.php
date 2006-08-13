@@ -13,7 +13,7 @@ class Calendar extends Resource {
 		if (isset($_GET['date']))
 			$template->date = strtotime($_GET['date'].'-01');
 		else
-			$template->date = time();
+			$template->date = strtotime(date('Y-m-01', time()));
 		$template->applyView('calendar');
 	}
 	
