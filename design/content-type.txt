@@ -1,0 +1,64 @@
+class XHTML {
+	
+	// This code decides whether to set an XHTML content type header
+	// Based on XHTML and HTML quality indicators, both by the browser
+	// and the server (pass as function parameters).
+	//
+	function testXHTMLMIME($xhtml_serverQ = 0.99, $html_serverQ = 1.0)
+	{
+		$xhtml_clientQ = getMediaTypeQuality('application/xhtml+xml');
+		$html_clientQ = getMediaTypeQuality('text/html');
+		if ($xhtml_clientQ == 0 && $html_clientQ == 0) {
+			header("HTTP/1.1 406 Not Acceptable");
+			header('Content-Type: application/xhtml+xml');
+			header('Content-Type: text/html', false);
+			exit;
+		}
+		$xhtml = $xhtml_clientQ*$xhtml_serverQ > $html_clientQ*$html_serverQ;
+		
+		header('Vary: Accept', false);
+		
+		if ($xhtml) {
+			header('Content-Type: application/xhtml+xml');
+		} else {
+			header('Content-Type: text/html');
+		}
+		
+		return $xhtml;
+	}
+	
+	// Returns the quality the UA specified for a media type
+	//
+	function getMediaTypeQuality($mediatype) {
+		if (!isset($_SERVER['HTTP_ACCEPT'])) {
+			return 1;
+		} else {
+			$quality = getHTTPQuality($mediatype, $_SERVER['HTTP_ACCEPT']);
+			if ($quality !== FALSE) return $quality;
+			list($mediatypenolabel) = explode(';',$mediatype);
+			$quality = getHTTPQuality($mediatypenolabel, $_SERVER['HTTP_ACCEPT']);
+			if ($quality !== FALSE) return $quality;
+			list($type) = explode('/',$mediatype);
+			$quality = getHTTPQuality($type.'/*', $_SERVER['HTTP_ACCEPT']);
+			if ($quality !== FALSE) return $quality;
+			$quality = getHTTPQuality("$type/*", $_SERVER['HTTP_ACCEPT']);
+			if ($quality !== FALSE) return $quality;
+			// IE trouble (has no qualifiers, and */* matches all)
+			$quality = getHTTPQuality('*/*', $_SERVER['HTTP_ACCEPT']);
+			if ($quality !== FALSE) return $quality;
+			return 0;
+		}
+	}
+	
+	// Determines the quality for the specified string, FALSE if not found
+	//
+	function getHTTPQuality($match, $header) {
+		$items = explode(',',str_replace(array(' ',"\t","\n","\r"),'',$header));
+		foreach($items as $item) {
+			list($item, $quality) = explode(';q=',$item);
+			if ($item == $match) return ($quality === NULL) ? 1 : floatval($quality);
+		}
+		return FALSE;
+	}
+	
+}

@@ -1,0 +1,25 @@
+Test queries (for use with Fiddler)
+============
+
+POST http://localhost:8080/item/4
+
+User-Agent: Fiddler
+Content-Type: application/x-www-form-urlencoded
+Authorization: Basic cm9vdDpyb290
+Host: localhost:8080
+Content-Length: 51
+
+title=AAAAA&content=testasdadsasd%20asd%20&type=4
+
+-----------------------------------------------------------------
+
+PUT http://localhost:8080/item/4
+
+User-Agent: Fiddler
+Content-Type: application/x-www-form-urlencoded
+Authorization: Basic cm9vdDpyb290
+Host: localhost:8080
+Content-Length: 51
+
+title=BBBBBBB&content=testasdadsasd%20asd%20
+

@@ -1,0 +1,16 @@
+THINK:
+======
+user/1
+profile --> user/1
+
+TODO:
+=====
+POST -> PUT
+make index.php part of template!
+
+View/controller separation:
+	userlist: don’t have logic inside, don’t pass $groupid but $group instead
+	profile: don’t have logic inside
+
+
+item_source does not escape, oh my!

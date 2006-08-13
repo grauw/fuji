@@ -1,0 +1,41 @@
+<ul id="treeview">
+	<li>
+		<ul>
+			<li class="opened">    <a>asdasd</a></li>
+		</ul>
+	</li>
+	<li>asdasd</li>
+</ul>
+
+Yahoo.Tree.registerTree('treeview');
+
+
+
+Box structure:
+
+<div class="box">
+	<h2>adasdasd</h2>
+	<ul>
+		<li></li>
+	</ul>
+	<div class="content">
+	</div>
+	<div class="pager">
+	</div>
+</div>
+
+
+Page structure:
+
+<body>
+	<h1>title</h1>
+	<div id="menu" class="box" />
+	<div id="forums" class="box" />
+	<div id="threads">
+		<div id="item/1">
+			<div id="threadlist" class="box" />
+			<div id="item/1_posts" class="box" />
+		</div>
+	</div>
+</body>
+
