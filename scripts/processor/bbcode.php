@@ -5,7 +5,6 @@ require_once "processor.php";
  * A simple BBCode-parser, based on the abstract Processor class.
  */
 class BBCode extends Processor {
-
     public $ats= Array();
     public $tagsStack = Array();
     public function parse() {

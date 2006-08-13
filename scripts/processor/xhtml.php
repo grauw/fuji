@@ -5,7 +5,7 @@ require_once "processor.php";
  * An XHTML parser/filter, based on the abstract Processor class.
  */
 class XHTML extends Processor {
-	public $allowed_tags = array(	'a', 'abbr', 'acronym', 'address', 'blockquote', 'cite', 'code',
+	public $allowed_tags = array(	'a', 'abbr', 'acronym', 'address', 'blockquote', 'br', 'cite', 'code',
 					'del', 'dl', 'em', 'h4', 'h5', 'h6', 'ins', 'kdb', 'li', 'ol', 'p',
 					'samp', 'strong', 'table', 'thead', 'tbody', 'tr', 'td', 'var' );
 	public $allowed_attrs = array(	'class', 'href', 'target'  );
@@ -43,15 +43,18 @@ class XHTML extends Processor {
 
 	public function parse() {
 		$input = func_get_arg(0);
+		$input = str_replace('<br>', '<br />', $input); //simple fix for <br>-tags
+		$input = preg_match('/[<.*>].*[<\/.*>]/', $input) ? $input : "<p>$input</p>"; //adds <p></p> tags if input is just text
 		ob_start();
 		$xml_parser = xml_parser_create();
-		xml_parser_set_option($xml_parser, XML_OPTION_CASE_FOLDING, true);
-		xml_set_element_handler($xml_parser, array ( &$this, 'startElement' ), array ( &$this, 'endElement' ));
-		xml_set_processing_instruction_handler($xml_parser, array ( &$this, 'piData' ));
-		xml_set_character_data_handler($xml_parser, array ( &$this, 'characterData' ));
+		xml_set_object($xml_parser, $this);
+		xml_set_element_handler($xml_parser, 'startElement', 'endElement');
+		xml_set_processing_instruction_handler($xml_parser, 'piData');
+		xml_set_character_data_handler($xml_parser, 'characterData');
 		xml_parse($xml_parser, $input, true);
 		$output = ob_get_contents();
 		ob_end_clean();
+		$output = preg_replace('/<([^>]*)><\/[^>]*>/', '<${1} />', $output); //replaces <tag></tag> by <tag />
 		return $output;
 	}
 	
@@ -79,3 +82,4 @@ class XHTML extends Processor {
 		return true;
 	}
 }
+?>

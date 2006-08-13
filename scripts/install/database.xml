@@ -9,15 +9,15 @@
 		<field name="userref" type="I"><UNSIGNED/><NOTNULL/></field>
 		<field name="title" type="C" size="255"><NOTNULL/></field>
 		<field name="content" type="XL"><NOTNULL/></field>
-		<field name="processor" type="I1"><UNSIGNED/><NOTNULL/></field>
+		<field name="processor" type="C" size="255"><NOTNULL/></field>
 		<field name="created" type="datetime"></field>
 		<field name="modified" type="datetime"></field>
 		<field name="type" type="I1"><NOTNULL/></field>
 		
 		<data>
-			<row><f name="id">1</f><f name="content"></f><f name="userref">2</f><f name="title">root</f><f name="created" value="NOW()"/><f name="modified" value="NOW()"/><f name="type">1</f></row>
-			<row><f name="id">2</f><f name="ref">1</f><f name="content"></f><f name="userref">2</f><f name="title">Fora</f><f name="created" value="NOW()"/><f name="modified" value="NOW()"/><f name="type">2</f></row>
-			<row><f name="id">3</f><f name="ref">2</f><f name="content"></f><f name="userref">2</f><f name="title">Forum 1</f><f name="created" value="NOW()"/><f name="modified" value="NOW()"/><f name="type">3</f></row>
+			<row><f name="id">1</f><f name="content"></f><f name="userref">2</f><f name="title">root</f><f name="created" value="NOW()"/><f name="modified" value="NOW()"/><f name="type">1</f><f name="processor">none</f></row>
+			<row><f name="id">2</f><f name="ref">1</f><f name="content"></f><f name="userref">2</f><f name="title">Fora</f><f name="created" value="NOW()"/><f name="modified" value="NOW()"/><f name="type">2</f><f name="processor">none</f></row>
+			<row><f name="id">3</f><f name="ref">2</f><f name="content"></f><f name="userref">2</f><f name="title">Forum 1</f><f name="created" value="NOW()"/><f name="modified" value="NOW()"/><f name="type">3</f><f name="processor">none</f></row>
 		</data>
 	</table>
 	
@@ -111,8 +111,14 @@
 	
 	<table name="processors">
 		<descr>### list of content processors</descr>
-		<field name="id" type="I"><UNSIGNED/><KEY/><AUTOINCREMENT/></field>
-		<field name="name" type="C" size="255"><NOTNULL/></field>
+		<field name="name" type="C" size="255"><KEY/><NOTNULL/></field>
+		<field name="public" type="L"><NOTNULL/></field>
+		
+		<data>
+			<row><f>none</f><f>0</f></row>
+			<row><f>bbcode</f><f>1</f></row>
+			<row><f>xhtml</f><f>1</f></row>
+		</data>
 	</table>
 	
 	<table name="styles">

@@ -28,6 +28,7 @@ class Item extends Resource {
 				$newentry = $entry->newReply();
 				$newentry->title   = $_POST['title'];
 				$newentry->type    = $_POST['type'];
+				$newentry->processor = $_POST['processor']; //TODO: check if user is allowed to use processor
 				$newentry->userref = UserManager::getUser()->id;
 				$newentry->content = $_POST['content'];
 				$newentry->save();
@@ -55,6 +56,7 @@ class Item extends Resource {
 			if (UserManager::getUser()->getRights($entry)->may_edit) {
 				$entry->content = $_POST['content'];
 				$entry->title   = $_POST['title'];
+				$entry->processor = $_POST['processor']; //TODO: check if user is allowed to use processor
 				$entry->save();
 				header('HTTP/1.1 204 No Content');
 			} else header('HTTP/1.1 401 Unauthorized');

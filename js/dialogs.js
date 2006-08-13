@@ -184,7 +184,13 @@ Fuji.Dialogs.Settings.configRightsDialog = {
 Fuji.Dialogs.Settings.createEditDialog = {
 	uri : null,
 	onSuccess : function() { Fuji.reloadItem(Fuji.Dialogs.Settings.createEditDialog.uri, 999) },
-	handleSubmit : function() {	if(Fuji.Editor.isEnabled) document.getElementById('createEditContent').value = document.getElementById('editor').contentWindow.document.body.innerHTML;
+	handleSubmit : function() {	if(Fuji.Editor.isEnabled)
+					{
+						document.getElementById('createEditContent').value = document.getElementById('editor').contentWindow.document.body.innerHTML;
+						document.getElementById('createEditProcessor').value = 'xhtml';
+					}
+					else
+						document.getElementById('createEditProcessor').value = 'bbcode';
 					this.submit();
 					document.getElementById('createEditForm').reset();
 					Fuji.Util.removeChildNodes(document.getElementById('editor').contentWindow.document.body);

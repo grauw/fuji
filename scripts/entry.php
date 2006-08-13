@@ -2,8 +2,7 @@
 require_once 'dataclass.php';
 require_once 'database.php';
 require_once 'usermanager.php';
-// Hardcoded BBCode parser, may need change.
-require_once 'processor/bbcode.php';
+require_once 'processor/processor.php';
 
 class Entry extends Dataclass {
 	
@@ -92,15 +91,8 @@ class Entry extends Dataclass {
 	 * @returns content as String
 	 */
 	function getProcessedContent() {
-		//TODO: Use the database instead of hardcoded processors
-		$processor = $this->processor;
-		if ($processor == '0') {
-			return $this->content;
-		}
-		else if ($processor == '1') {
-			$bbcode = new BBCode();
-			return $bbcode->parse($this->content);
-		}
+		$processor = Processor::getProcessor($this->processor);
+		return $processor->parse($this->content);
 	}
 	
 	/**
