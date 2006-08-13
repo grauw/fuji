@@ -53,8 +53,8 @@
 					<td><a href="../<?php echo $post->getURI() ?>"><?php echo htmlentities($post->title, ENT_NOQUOTES) ?></a></td>
 					<td><a href="../<?php echo User::getUser($post->userref)->getURI() ?>"><?php echo htmlentities(User::getUser($post->userref)->nickname, ENT_NOQUOTES) ?></a></td>
 					<td><?php echo count($post->getChildren()) ?></td>
-					<td><?php echo $post->getFormattedDate('created', $this->l10n->date_format) ?></td>
-					<td><?php echo $post->getFormattedDate('modified', $this->l10n->date_format) ?></td>
+					<td><?php echo $post->getFormattedDate('created', $this->l10n->datetime_format) ?></td>
+					<td><?php echo $post->getFormattedDate('modified', $this->l10n->datetime_format) ?></td>
 				</tr>
 		<?php } else echo $this->l10n->error_no_threads
 			// TODO: Invalid XHTML here!

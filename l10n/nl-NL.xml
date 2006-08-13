@@ -15,7 +15,7 @@
 	<message name="config_rights">Configureer rechten</message>
 	<message name="contact_administrator">Neem contact op met de serverbeheerder voor meer informatie.</message>
 	<message name="created">Aangemaakt</message>
-	<message name="date_format">%d-%m-%Y&#160;%H:%i</message>
+	<message name="datetime_format">%d-%m-%Y&#160;%H:%i</message>
 	<message name="default">Standaard</message>	
 	<message name="default_language">Standaardtaal</message>
 	<message name="default_style">Standaardstijl</message>		

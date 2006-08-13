@@ -8,7 +8,7 @@
 		<?php $num_of_children = count($this->entry->getChildren());	
 				if($num_of_children > 0)
 					foreach($this->entry->getChildren('type, created DESC', ($this->page - 1) * 5 . ', 5') as $post) { ?>
-						<a href="../../<?php echo $post->getURI() ?>/"><?php echo htmlentities($post->title, ENT_NOQUOTES) ?></a>, <?php echo htmlentities(User::getUser($post->userref)->nickname, ENT_NOQUOTES) ?>, <?php echo $post->getFormattedDate('modified', $this->l10n->date_format) ?><br />
+						<a href="../../<?php echo $post->getURI() ?>/"><?php echo htmlentities($post->title, ENT_NOQUOTES) ?></a>, <?php echo htmlentities(User::getUser($post->userref)->nickname, ENT_NOQUOTES) ?>, <?php echo $post->getFormattedDate('modified', $this->l10n->datetime_format) ?><br />
 		<?php } ?>
 		</p>
 		<p><?php if($this->page > 1) { ?><a href="../../<?php echo $this->entry->getURI() ?>/<?php echo $this->page - 1 ?>">&lt; <?php echo $this->l10n->previous ?></a>&nbsp;<?php } ?>

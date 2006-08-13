@@ -41,16 +41,16 @@
 							<td><a href="#<?php echo $entry->getURI() ?>"><?php echo htmlentities($entry->title, ENT_NOQUOTES) ?></a></td>
 							<td><a href="#<?php echo User::getUser($entry->userref)->getURI() ?>"><?php echo htmlentities(User::getUser($entry->userref)->nickname, ENT_NOQUOTES) ?></a></td>
 							<td><?php echo count($entry->getChildren()) ?></td>
-							<td><?php echo $entry->getFormattedDate('created', $this->l10n->date_format) ?></td>
-							<td><?php echo $entry->getFormattedDate('modified', $this->l10n->date_format) ?></td>
+							<td><?php echo $entry->getFormattedDate('created', $this->l10n->datetime_format) ?></td>
+							<td><?php echo $entry->getFormattedDate('modified', $this->l10n->datetime_format) ?></td>
 							<td><?php echo ($entry->score * 100) . '%' ?></td>
 						<?php } else if ($entry->type == Entry::$TYPE_POST) { ?>
 						<tr class="tableThreadEntry <?php echo $i++ % 2 ? 'even' : 'odd' ?>">				
 							<td><a href="#<?php echo $entry->getURI() ?>"><?php echo htmlentities($entry->title, ENT_NOQUOTES) ?></a></td>
 							<td><a href="#<?php echo User::getUser($entry->userref)->getURI() ?>"><?php echo htmlentities(User::getUser($entry->userref)->nickname, ENT_NOQUOTES) ?></a></td>
 							<td><?php echo count($entry->getChildren()) ?></td>
-							<td><?php echo $entry->getFormattedDate('created', $this->l10n->date_format) ?></td>
-							<td><?php echo $entry->getFormattedDate('modified', $this->l10n->date_format) ?></td>
+							<td><?php echo $entry->getFormattedDate('created', $this->l10n->datetime_format) ?></td>
+							<td><?php echo $entry->getFormattedDate('modified', $this->l10n->datetime_format) ?></td>
 							<td><?php echo ($entry->score * 100) . '%' ?></td>
 						<?php } else { ?>
 						<tr class="tableUnsupportedEntry">				

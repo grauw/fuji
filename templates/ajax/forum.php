@@ -58,16 +58,16 @@
 							<td><a href="#<?php echo $post->getURI() ?>"><?php echo htmlentities($post->title, ENT_NOQUOTES) ?></a></td>
 							<td><a href="#<?php echo User::getUser($post->userref)->getURI() ?>"><?php echo htmlentities(User::getUser($post->userref)->nickname, ENT_NOQUOTES) ?></a></td>
 							<td><?php echo count($post->getChildren()) ?></td>
-							<td><?php echo $post->getFormattedDate('created', $this->l10n->date_format) ?></td>
-							<td><?php echo $post->getFormattedDate('modified', $this->l10n->date_format) ?></td>
+							<td><?php echo $post->getFormattedDate('created', $this->l10n->datetime_format) ?></td>
+							<td><?php echo $post->getFormattedDate('modified', $this->l10n->datetime_format) ?></td>
 						
 						<?php } else if ($post->type == Entry::$TYPE_POST) { ?>
 						<tr class="tableThreadEntry <?php echo $i++ % 2 ? 'even' : 'odd' ?>">				
 							<td><a href="#<?php echo $post->getURI() ?>"><?php echo htmlentities($post->title, ENT_NOQUOTES) ?></a></td>
 							<td><a href="#<?php echo User::getUser($post->userref)->getURI() ?>"><?php echo htmlentities(User::getUser($post->userref)->nickname, ENT_NOQUOTES) ?></a></td>
 							<td><?php echo count($post->getChildren()) ?></td>
-							<td><?php echo $post->getFormattedDate('created', $this->l10n->date_format) ?></td>
-							<td><?php echo $post->getFormattedDate('modified', $this->l10n->date_format) ?></td>
+							<td><?php echo $post->getFormattedDate('created', $this->l10n->datetime_format) ?></td>
+							<td><?php echo $post->getFormattedDate('modified', $this->l10n->datetime_format) ?></td>
 						<?php } else { ?>
 						<tr class="tableUnsupportedEntry">				
 							(<?php echo $this->l10n->type_unsupported ?>)

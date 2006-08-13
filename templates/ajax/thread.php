@@ -31,7 +31,7 @@ while($contextEntry->type == 4) $contextEntry = $contextEntry->getParent();
 				<h3>
 					<div>
 					<span><?php echo $this->entry->title ?></span>
-					<span><?php echo $this->entry->getFormattedDate('modified', $this->l10n->date_format) ?></span>
+					<span><?php echo $this->entry->getFormattedDate('modified', $this->l10n->datetime_format) ?></span>
 					</div>
 					<div>
 					<span><a href="#<?php echo User::getUser($this->entry->userref)->getURI() ?>"><?php echo htmlentities(User::getUser($this->entry->userref)->nickname, ENT_NOQUOTES) ?></a></span>
@@ -59,7 +59,7 @@ while($contextEntry->type == 4) $contextEntry = $contextEntry->getParent();
 					<h3>
 						<div>
 						<span><?php echo $post->title ?></span>
-						<span><?php echo $post->getFormattedDate('modified', $this->l10n->date_format) ?></span>
+						<span><?php echo $post->getFormattedDate('modified', $this->l10n->datetime_format) ?></span>
 						</div>
 						<div>
 						<span><a href="#<?php echo User::getUser($post->userref)->getURI() ?>"><?php echo htmlentities(User::getUser($post->userref)->nickname, ENT_NOQUOTES) ?></a></span>
