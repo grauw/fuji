@@ -3,6 +3,7 @@
 	<message name="abbreviation">Abbreviation</message>
 	<message name="acronym">Acronym</message>
 	<message name="actions">Actions</message>
+	<message name="active_threads">Active threads</message>
 	<message name="address">Address</message>
 	<message name="admin">Administrator</message>
 	<message name="anonymous_user">Anonymous user</message>	
@@ -52,6 +53,7 @@
 	<message name="error_search_no_results">Your search did not return any results.</message>
 	<message name="error_server_misconfiguration">A server misconfiguration.</message>
 	<message name="error_unknown">Unknown error.</message>
+	<message name="events">Events</message>
 	<message name="field">Field</message>
 	<message name="fora">Fora</message>
 	<message name="forum">Forum</message>
@@ -87,6 +89,7 @@
 	<message name="next">Next</message>	
 	<message name="num_users">Number of users</message>
 	<message name="num_posts">Number of posts</message>
+	<message name="none">None.</message>
 	<message name="on">on</message>
 	<message name="ok">OK</message>
 	<message name="order">Order</message>

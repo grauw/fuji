@@ -10,12 +10,12 @@
 			<div class="content">
 			
 			<div class="section">
-				<h3>Events</h3>
-				<p>None.</p>
+				<h3><?php echo $this->l10n->events ?></h3>
+				<p><?php echo $this->l10n->none ?></p>
 			</div>
 			
 			<div class="section">
-				<h3>Active threads</h3>
+				<h3><?php echo $this->l10n->active_threads ?></h3>
 				
 				<?php if (count($this->entries)) { ?>
 				<ul>
@@ -24,14 +24,9 @@
 					<?php } ?>
 				</ul>
 				<?php } else { ?>
-				<p>None.</p>
+				<p><?php echo $this->l10n->none ?></p>
 				<?php } ?>
 				
-			</div>
-			
-			<div class="section">
-				<h3>Birthdays</h3>
-				<p>None.</p>
 			</div>
 			
 			</div>

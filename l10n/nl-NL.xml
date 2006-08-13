@@ -3,6 +3,7 @@
 	<message name="abbreviation">Afkorting</message>
 	<message name="acronym">Acroniem</message>	
 	<message name="actions">Acties</message>
+	<message name="active_threads">Actieve onderwerpen</message>
 	<message name="admin">Beheerder</message>
 	<message name="address">Adres</message>
 	<message name="anonymous_user">Anonieme gebruiker</message>
@@ -52,6 +53,7 @@
 	<message name="error_search_no_results">Uw zoekopdracht heeft geen resultaten opgeleverd.</message>	
 	<message name="error_server_misconfiguration">Een foutieve serverconfiguratie.</message>	
 	<message name="error_unknown">Onbekende fout.</message>	
+	<message name="events">Events</message>
 	<message name="field">Veld</message>
 	<message name="fora">Fora</message>
 	<message name="forum">Forum</message>
@@ -87,6 +89,7 @@
 	<message name="next">Volgende</message>	
 	<message name="num_users">Aantal gebruikers</message>
 	<message name="num_posts">Aantal berichten</message>
+	<message name="none">Geen.</message>
 	<message name="on">op</message>
 	<message name="ok">OK</message>
 	<message name="order">Volgorde</message>
