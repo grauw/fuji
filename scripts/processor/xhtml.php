@@ -44,6 +44,8 @@ class XHTML extends Processor {
 	public function parse() {
 		$input = func_get_arg(0);
 		$input = str_replace('<br>', '<br />', $input); //simple fix for <br>-tags
+		$input = str_replace('\\"', '"', $input);
+		$input = str_replace('\\\'', '\'', $input);
 		$input = preg_match('/[<.*>].*[<\/.*>]/', $input) ? $input : "<p>$input</p>"; //adds <p></p> tags if input is just text
 		ob_start();
 		$xml_parser = xml_parser_create();
@@ -82,4 +84,7 @@ class XHTML extends Processor {
 		return true;
 	}
 }
+
+$x = new XHTML();
+echo $x->parse('<P>en wat doet <A href=\'http://www.opera.com\'>opera</A> hiermee?</P>');
 ?>
