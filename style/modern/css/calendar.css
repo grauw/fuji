@@ -5,6 +5,7 @@ table.calendar {
 }
 table.calendar td {
 	text-align: center;
+	padding: 0;
 }
 table.calendar td.weekend {
 }
@@ -12,10 +13,16 @@ table.calendar td.event {
 }
 table.calendar td.othermonth {
 }
-table.calendar td:hover {
+table.calendar td.today {
+	font-weight: bold;
 }
 table.calendar td a {
 	display: block;
+	padding: .1em .3em;
+	color: inherit;
+	text-decoration: none;
+}
+table.calendar td a:hover {
 }
 ul.prevnext {
 	padding: 0;

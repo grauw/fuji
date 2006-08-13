@@ -108,3 +108,9 @@ RewriteRule ^search?.*$ scripts/search.php?$1 [L,QSA]
 
 # GET /calendar
 RewriteRule ^calendar$ scripts/calendar.php [L,QSA]
+
+# GET /calendar/yyyy-mm
+RewriteRule ^calendar/(\d{4}-\d{2})$ scripts/calendar.php?date=$1 [L,QSA]
+
+# GET /calendar/yyyy-mm-dd
+RewriteRule ^calendar/(\d{4}-\d{2}-\d{2})$ scripts/calendarday.php?date=$1 [L,QSA]

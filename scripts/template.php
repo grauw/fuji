@@ -11,6 +11,8 @@ class Template extends Dataclass {
 	public $entries;
 	public $page;
 	public $l10n;
+	public $date;
+	public $today;
 	
 	static function getTableName() {
 		return 'templates';

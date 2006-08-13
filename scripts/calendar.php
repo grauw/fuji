@@ -9,6 +9,11 @@ class Calendar extends Resource {
 	{
 		UserManager::authenticate();
 		$template = Template::getTemplate();
+		$template->today = time();
+		if (isset($_GET['date']))
+			$template->date = strtotime($_GET['date'].'-01');
+		else
+			$template->date = time();
 		$template->applyView('calendar');
 	}
 	

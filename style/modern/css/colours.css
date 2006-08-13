@@ -36,13 +36,15 @@ table.calendar td.weekend {
 table.calendar td.othermonth {
 	color: #694;	/* (#9f0 + #339) / 2 */
 }
+table.calendar td.today {
+}
 table.calendar td.event {
 	background-color: #8e0;
 }
 table.calendar td.event a {
 	text-decoration: none;
 }
-table.calendar td.event:hover {
+table.calendar td a:hover {
 	background-color: #7d0;
 }
 
