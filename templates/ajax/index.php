@@ -14,7 +14,8 @@
 			<div id="calendarDiv" class="calendarContainer box"/>
 		</div>
 		<div id="threadsDiv"/>
-		
+		<?php $this->plugin->getIndexExtension() ?>
+				
 		<!-- Dialogs -->
 		<div id="createEditDialog" style="display: none">
 			<div class="hd"><span id="createDialogHd"><?php echo $this->l10n->new ?></span><span id="editDialogHd"><?php echo $this->l10n->edit ?></span></div>

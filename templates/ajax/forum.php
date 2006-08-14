@@ -27,6 +27,7 @@
 					<li><a href="javascript:alert('not implemented');">Add tag</a></li>
 				</ul>
 			</li>
+			<?php $this->plugin->getMenu(Plugin::$MENU_FORUMCONTAINER) ?>
 		</ul>
 		<div class="content">
 			<div may_post="<?php echo UserManager::getUser()->getRights($this->entry)->may_post ?>" may_edit="<?php echo UserManager::getUser()->getRights($this->entry)->may_edit ?>" may_delete="<?php echo UserManager::getUser()->getRights($this->entry)->may_delete ?>">

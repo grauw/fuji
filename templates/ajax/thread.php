@@ -22,6 +22,7 @@ while($contextEntry->type == 4) $contextEntry = $contextEntry->getParent();
 			<?php } ?>
 			<li><a href="<?php echo $this->entry->getURI() ?>.rss" rel="alternate" type="application/rss+xml" class="feed">RSS</a></li>
 			<li><a href="<?php echo $this->entry->getURI() ?>.atom" rel="alternate" type="application/atom+xml" class="feed">Atom</a></li>
+			<?php $this->plugin->getMenu(Plugin::$MENU_THREADCONTAINER) ?>
 		</ul>
 		<div class="postsContainer content">
 			<div class="box odd">

@@ -28,6 +28,7 @@
 				<?php } ?>
 				<li><a href="javascript:Fuji.logout()"><?php echo $this->l10n->logout ?></a></li>
 			<?php } ?>
+			<?php $this->plugin->getMenu(Plugin::$MENU_INDEX) ?>
 		</ul>
 	</fuji:content>
 </fuji:menu>

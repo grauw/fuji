@@ -86,5 +86,4 @@ class XHTML extends Processor {
 }
 
 $x = new XHTML();
-echo $x->parse('<P>en wat doet <A href=\'http://www.opera.com\'>opera</A> hiermee?</P>');
 ?>

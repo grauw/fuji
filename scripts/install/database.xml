@@ -155,4 +155,9 @@
 		<field name="value" type="C" size="255"><NOTNULL/></field>
 	</table>
 	
+	<table name="plugins">
+		<descr>Plugins</descr>
+		<field name="name" type="C" size="255"><KEY/></field>
+		<field name="enabled" type="L"><DEFAULT value="1"/><NOTNULL/></field>
+	</table>	
 </schema>

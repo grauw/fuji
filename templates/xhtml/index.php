@@ -12,6 +12,7 @@ if(file_exists("../scripts/configuration/installer_disabled"))
 <head>
 	<title>Fuji</title>
 	<?php echo $this->getHead() ?>
+	<?php $this->plugin->getCSS() ?>
 	<link id="rsslink" rel="alternate" type="application/rss+xml" href="item.rss" />
 	<link id="atomlink" rel="alternate" type="application/atom+xml" href="item.atom" />
 	<script type="text/javascript" src="js/yui/yahoo/yahoo-min.js"></script>
@@ -28,6 +29,7 @@ if(file_exists("../scripts/configuration/installer_disabled"))
 	<script type="text/javascript">
 		Fuji.settings = { visual_effects : <?php echo UserManager::getUser()->visual_effects == '1' ? 'true' : 'false' ?> }
 	</script>
+	<?php $this->plugin->getJS() ?>
 </head>
 <body onload="Fuji.boot()" id="fujiBody">
 	<h1 class="logo"><a href="http://fuji.sourceforge.net">Fuji</a></h1>

@@ -2,6 +2,7 @@
 require_once 'dataclass.php';
 require_once 'database.php';
 require_once 'l10nmanager.php';
+require_once 'pluginmanager.php';
 
 class Template extends Dataclass {
 	
@@ -11,6 +12,7 @@ class Template extends Dataclass {
 	public $entries;
 	public $page;
 	public $l10n;
+	public $plugin;
 	public $date;
 	public $today;
 	
@@ -42,6 +44,7 @@ class Template extends Dataclass {
 	}
 	
 	function applyView($view) {
+		$this->plugin = new PluginManager();
 		$this->l10n = new L10nManager();
 		$this->startGZIP();
 		require_once($this->getTemplateView($view));
