@@ -1,7 +1,7 @@
 <?php
 require_once 'database.php';
 require_once 'plugin.php';
-class PluginManager extends Plugin{
+class PluginManager{
 	private $plugins = array();
 	function __construct() {
 		$this->loadPlugins();
@@ -25,20 +25,20 @@ class PluginManager extends Plugin{
 			if(method_exists($plugin, 'getCSS'))
 				$plugin->getCSS();
 	}	
-	function getMenu($type) {
+	function getMenu($template, $user, $type) {
 		foreach($this->plugins as $plugin)
 			if(method_exists($plugin, 'getMenu'))
-				$plugin->getMenu($type);
+				$plugin->getMenu($template, $user, $type);
 	}
 	function getJS() {
 		foreach($this->plugins as $plugin)
 			if(method_exists($plugin, 'getJS'))
 				$plugin->getJS();
 	}
-	function getIndexExtension() {
+	function getIndexExtension($template, $user, $type) {
 		foreach($this->plugins as $plugin)
 			if(method_exists($plugin, 'indexExtension'))
-				$plugin->getIndexExtension();
+				$plugin->getIndexExtension($template, $user, $type);
 	}	
 }
 ?>

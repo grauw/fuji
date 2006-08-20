@@ -1,5 +1,6 @@
 <?php 	$page_size = 20; 
 	$photo_placeholder = 'style/default/graphics/no-photo.png';
+	$userstatus = (UserManager::getUser()->nickname == 'anonymous' ? Plugin::$USER_ANONYMOUS : (UserManager::getUser()->isAdmin() ? Plugin::$USER_ADMINISTRATOR : Plugin::$USER_LOGGED_IN));
 ?>
 <?xml version="1.0" encoding="UTF-8"?>
 <?php
@@ -22,7 +23,7 @@ while($contextEntry->type == 4) $contextEntry = $contextEntry->getParent();
 			<?php } ?>
 			<li><a href="<?php echo $this->entry->getURI() ?>.rss" rel="alternate" type="application/rss+xml" class="feed">RSS</a></li>
 			<li><a href="<?php echo $this->entry->getURI() ?>.atom" rel="alternate" type="application/atom+xml" class="feed">Atom</a></li>
-			<?php $this->plugin->getMenu(Plugin::$MENU_THREADCONTAINER) ?>
+			<?php $this->plugin->getMenu(Plugin::$TEMPLATE_AJAX, $userstatus, Plugin::$MENU_THREADCONTAINER) ?>
 		</ul>
 		<div class="postsContainer content">
 			<div class="box odd">

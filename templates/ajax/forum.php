@@ -1,4 +1,5 @@
-<?php $page_size = 8; ?>
+<?php $page_size = 8;
+$userstatus = (UserManager::getUser()->nickname == 'anonymous' ? Plugin::$USER_ANONYMOUS : (UserManager::getUser()->isAdmin() ? Plugin::$USER_ADMINISTRATOR : Plugin::$USER_LOGGED_IN)); ?>
 <?xml version="1.0" encoding="UTF-8"?>
 <fuji:item xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:fuji="http://fuji.sourceforge.net/ns"
@@ -27,7 +28,7 @@
 					<li><a href="javascript:alert('not implemented');">Add tag</a></li>
 				</ul>
 			</li>
-			<?php $this->plugin->getMenu(Plugin::$MENU_FORUMCONTAINER) ?>
+			<?php $this->plugin->getMenu(Plugin::$TEMPLATE_AJAX, $userstatus, Plugin::$MENU_FORUMCONTAINER) ?>
 		</ul>
 		<div class="content">
 			<div may_post="<?php echo UserManager::getUser()->getRights($this->entry)->may_post ?>" may_edit="<?php echo UserManager::getUser()->getRights($this->entry)->may_edit ?>" may_delete="<?php echo UserManager::getUser()->getRights($this->entry)->may_delete ?>">

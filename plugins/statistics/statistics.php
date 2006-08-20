@@ -1,21 +1,15 @@
 <?php
-	require_once 'l10nmanager.php';
 	class Statistics extends Plugin{
-		public $name = 'statistics';
-		public $description = 'Statistics plugin';
-		public $author = '';
-		public $homepage = 'http://fuji.sourceforge.net';
-		public $min_version = '0.0';
-		public $max_version = '1.0';
+		public function name() { return 'statistics'; }
+		public function description() { return 'Statistics plugin'; }
+		public function author() { return ''; }
+		public function homepage() { return 'http://fuji.sourceforge.net'; }
+		public function min_version() { return '0.0'; }
+		public function max_version() { return '1.0'; }
 		
-		public function __construct()
+		public function getMenu($template, $user, $type)
 		{
-			$this->l10n = new L10nManager(NULL, $this->name);
-		}
-		
-		public function getMenu($type)
-		{
-			if($type == Plugin::$MENU_INDEX)
+			if($template == Plugin::$TEMPLATE_AJAX && $user == Plugin::$USER_LOGGED_IN && $type == Plugin::$MENU_INDEX)
 			{
 				?><li><a href="#plugins/statistics"><?php echo $this->l10n->statistics ?></a></li><?php
 			}

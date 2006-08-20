@@ -14,7 +14,8 @@
 			<div id="calendarDiv" class="calendarContainer box"/>
 		</div>
 		<div id="threadsDiv"/>
-		<?php $this->plugin->getIndexExtension(Plugin::$INDEX_PAGECONTENT) ?>
+		<?php $userstatus = (UserManager::getUser()->nickname == 'anonymous' ? Plugin::$USER_ANONYMOUS : (UserManager::getUser()->isAdmin() ? Plugin::$USER_ADMINISTRATOR : Plugin::$USER_LOGGED_IN));
+		$this->plugin->getIndexExtension(Plugin::$TEMPLATE_AJAX, $userstatus, Plugin::$INDEX_PAGECONTENT) ?>
 				
 		<!-- Dialogs -->
 		<div id="createEditDialog" style="display: none">
@@ -204,6 +205,6 @@
 				</form>
 			</div>
 		</div>
-		<?php $this->plugin->getIndexExtension(Plugin::$INDEX_DIALOGS) ?>
+		<?php $this->plugin->getIndexExtension(Plugin::$TEMPLATE_AJAX, $userstatus, Plugin::$INDEX_DIALOGS) ?>
 	</fuji:content>
 </fuji:item>
