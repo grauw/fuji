@@ -7,35 +7,38 @@
 		private $languages = array();
 		private $language_data = array();
 		
-		function __construct($initlang = FALSE)
+		function __construct($initlang = FALSE, $plugin = NULL)
 		{
 			if (!$initlang) {
 				$this->languages = self::intersectL10nLanguages();
 				$language = key($this->languages);
-				$this->loadL10n($language);
+				$this->loadL10n($language, $plugin);
 				header('Content-Language: '.$language);
 			} else {
-				$this->loadL10n($initlang);
+				$this->loadL10n($initlang, $plugin);
 				header('Content-Language: '.$initlang);
 			}
 		}
 		
-		function loadL10n($language)
+		function loadL10n($language, $plugin = NULL)
 		{
-			$l10npath = self::checkL10nPaths($language);
-			if($l10npath)
+			$l10npaths = self::checkL10nPaths($language, $plugin);
+			if(count($l10npaths) > 0)
 			{
-				$xml = new XMLReader();
-				$xml->open($l10npath);
-				while($xml->read())
+				foreach($l10npaths as $l10npath)
 				{
-					if($xml->name == 'message' && $xml->nodeType == XMLReader::ELEMENT)
+					$xml = new XMLReader();
+					$xml->open($l10npath);
+					while($xml->read())
 					{
-						$name = $xml->getAttribute('name');
-						$xml->read();
-						$value = $xml->value;
-						if ($name && $value && !isset($this->language_data[$name]))
-							$this->language_data[$name] = $value;
+						if($xml->name == 'message' && $xml->nodeType == XMLReader::ELEMENT)
+						{
+							$name = $xml->getAttribute('name');
+							$xml->read();
+							$value = $xml->value;
+							if ($name && $value && !isset($this->language_data[$name]))
+								$this->language_data[$name] = $value;
+						}
 					}
 				}
 			}
@@ -75,12 +78,18 @@
 		 * @param $lang language to find language file for
 		 * @returns FALSE if the language file could not be found
 		 */
-		static function checkL10nPaths($lang)
+		static function checkL10nPaths($lang, $plugin = NULL)
 		{
-			if (file_exists("../../l10n/$lang.xml")) return "../../l10n/$lang.xml";
-			if (file_exists("../l10n/$lang.xml"))    return "../l10n/$lang.xml";
-			if (file_exists("l10n/$lang.xml"))       return "l10n/$lang.xml";
-			return FALSE;
+			$paths = array();
+			if (file_exists("../../../l10n/$lang.xml")) array_push($paths, "../../../l10n/$lang.xml");
+			if (file_exists("../../l10n/$lang.xml"))    array_push($paths, "../../l10n/$lang.xml");
+			if (file_exists("../l10n/$lang.xml"))       array_push($paths, "../l10n/$lang.xml");
+			if (file_exists("l10n/$lang.xml"))          array_push($paths, "l10n/$lang.xml");
+			if (file_exists("../../../plugins/$plugin/l10n/$lang.xml")) array_push($paths, "../../../plugins/$plugin/l10n/$lang.xml");
+			if (file_exists("../../plugins/$plugin/l10n/$lang.xml"))    array_push($paths, "../../plugins/$plugin/l10n/$lang.xml");
+			if (file_exists("../plugins/$plugin/l10n/$lang.xml"))       array_push($paths, "../plugins/$plugin/l10n/$lang.xml");
+			if (file_exists("plugins/$plugin/l10n/$lang.xml"))          array_push($paths, "plugins/$plugin/l10n/$lang.xml");
+			return $paths;
 		}
 		
 		/**

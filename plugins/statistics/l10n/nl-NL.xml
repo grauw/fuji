@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<l10n xml:lang="nl-NL" lang="nl-NL">
+	<message name="most_active_thread">Meest actieve onderwerp</message>
+	<message name="most_active_user">Meest actieve gebruiker</message>
+	<message name="most_used_language">Meest gebruikte taal</message>
+	<message name="most_used_style">Meest gebruikte stijl</message>
+	<message name="newest_user">Nieuwste gebruiker</message>
+	<message name="num_users">Aantal gebruikers</message>
+	<message name="num_posts">Aantal berichten</message>
+	<message name="statistics">Statistieken</message>
+</l10n>

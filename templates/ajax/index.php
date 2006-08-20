@@ -14,7 +14,7 @@
 			<div id="calendarDiv" class="calendarContainer box"/>
 		</div>
 		<div id="threadsDiv"/>
-		<?php $this->plugin->getIndexExtension() ?>
+		<?php $this->plugin->getIndexExtension(Plugin::$INDEX_PAGECONTENT) ?>
 				
 		<!-- Dialogs -->
 		<div id="createEditDialog" style="display: none">
@@ -204,5 +204,6 @@
 				</form>
 			</div>
 		</div>
+		<?php $this->plugin->getIndexExtension(Plugin::$INDEX_DIALOGS) ?>
 	</fuji:content>
 </fuji:item>

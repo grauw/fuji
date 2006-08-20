@@ -77,18 +77,11 @@
 	<message name="member_of">Lid van</message>
 	<message name="menu">Menu</message>
 	<message name="message">Bericht</message>
-	<message name="modified">Laatst gewijzigd</message>
-	<message name="most_active_thread">Meest actieve onderwerp</message>
-	<message name="most_active_user">Meest actieve gebruiker</message>
-	<message name="most_used_language">Meest gebruikte taal</message>
-	<message name="most_used_style">Meest gebruikte stijl</message>	
+	<message name="modified">Laatst gewijzigd</message>	
 	<message name="name">Naam</message>
 	<message name="new">Nieuw</message>
-	<message name="newest_user">Nieuwste gebruiker</message>
 	<message name="new_group">Nieuwe groep</message>
 	<message name="next">Volgende</message>	
-	<message name="num_users">Aantal gebruikers</message>
-	<message name="num_posts">Aantal berichten</message>
 	<message name="none">Geen.</message>
 	<message name="on">op</message>
 	<message name="ok">OK</message>
@@ -121,7 +114,6 @@
 	<message name="score">Score</message>
 	<message name="search">Zoeken</message>
 	<message name="server_settings">Serverinstellingen</message>	
-	<message name="statistics">Statistieken</message>
 	<message name="strong_emphasis">Sterke nadruk</message>
 	<message name="style">Stijl</message>
 	<message name="subscribe_to_atom">Abonneer op Atom feed</message>

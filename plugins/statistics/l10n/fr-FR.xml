@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<l10n xml:lang="fr-FR" lang="fr-FR">
+	<message name="newest_user">Nouveau utilisateur</message>
+	<message name="num_users">Nombre d’utilisateurs</message>
+	<message name="num_posts">Nombre de messages</message>
+	<message name="most_active_thread">Sujet le plus actif</message>
+	<message name="most_active_user">Utilisateur le plus actif</message>
+	<message name="most_used_language">Langue la plus utilisée</message>
+	<message name="most_used_style">Thème le plus utilisé</message>
+	<message name="statistics">Statistiques</message>	
+</l10n>

@@ -52,18 +52,11 @@
 	<message name="member_of">Member of</message>
 	<message name="menu">Menu</message>
 	<message name="message">メッセージ</message>
-	<message name="modified">最終更新日時</message>
-	<message name="most_active_thread">Most active topic</message>
-	<message name="most_active_user">Most active user</message>
-	<message name="most_used_language">Most used language</message>
-	<message name="most_used_style">Most used style</message>	
+	<message name="modified">最終更新日時</message>	
 	<message name="name">なまえ</message>
 	<message name="new">新規</message>  //新規作成 = new message
-	<message name="newest_user">Newest user</message>
 	<message name="new_group">新規グループ</message>
 	<message name="next">次へ</message>
-	<message name="num_users">Number of users</message>
-	<message name="num_posts">Number of posts</message>
 	<message name="on">on</message>
 	<message name="ok">OK</message>
 	<message name="page">ページ</message>
@@ -86,8 +79,7 @@
 	<message name="reply">返信</message>
 	<message name="rights">Rights</message>
 	<message name="search">検索</message>
-	<message name="server_settings">Server settings</message>	
-	<message name="statistics">Statistics</message>
+	<message name="server_settings">Server settings</message>
 	<message name="style">スタイル</message>
 	<message name="subscribe_to_atom">Subscribe to Atom feed</message>
 	<message name="subscribe_to_rss">Subscribe to RSS feed</message>

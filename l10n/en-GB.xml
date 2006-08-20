@@ -77,18 +77,11 @@
 	<message name="member_of">Member of</message>
 	<message name="menu">Menu</message>
 	<message name="message">Message</message>
-	<message name="modified">Last modified</message>
-	<message name="most_active_thread">Most active topic</message>
-	<message name="most_active_user">Most active user</message>
-	<message name="most_used_language">Most used language</message>
-	<message name="most_used_style">Most used style</message>	
+	<message name="modified">Last modified</message>	
 	<message name="name">Name</message>
 	<message name="new">New</message>
-	<message name="newest_user">Newest user</message>
 	<message name="new_group">New group</message>
 	<message name="next">Next</message>	
-	<message name="num_users">Number of users</message>
-	<message name="num_posts">Number of posts</message>
 	<message name="none">None.</message>
 	<message name="on">on</message>
 	<message name="ok">OK</message>
@@ -121,7 +114,6 @@
 	<message name="score">Score</message>
 	<message name="search">Search</message>
 	<message name="server_settings">Server settings</message>	
-	<message name="statistics">Statistics</message>
 	<message name="strong_emphasis">Strong emphasis</message>
 	<message name="style">Style</message>
 	<message name="subscribe_to_atom">Subscribe to Atom feed</message>

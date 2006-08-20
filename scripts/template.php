@@ -36,6 +36,16 @@ class Template extends Dataclass {
 		return new $templateclass($templatedata);
 	}
 	
+	static function getPluginTemplate($plugin, $mimetype = NULL) {
+		if ($mimetype == NULL) $mimetype = self::getMimeType();
+		$data = Database::getArray("SELECT * FROM " . DbVar::$db_tprefix . "templates WHERE mimetype = '".addslashes($mimetype)."'");
+		$templatedata = $data[0];
+		if(!$templatedata) trigger_error('template not found');
+		$templateclass = require_once(realpath(dirname(__FILE__).'/../plugins/'.$plugin.'/'.$templatedata['basedir']));
+		header("Content-Type: $mimetype; charset=UTF-8");
+		return new $templateclass($templatedata);
+	}	
+	
 	function getTemplateView($view) {
 		if (!preg_match('/^\w+$/', $view)) return FALSE;
 		$file = dirname($this->basedir).'/'.$view.'.php';
@@ -43,11 +53,24 @@ class Template extends Dataclass {
 		return realpath(dirname(__FILE__).'/../'.$file);
 	}
 	
+	function getTemplatePluginView($plugin, $view) {
+		if (!preg_match('/^\w+$/', $view)) return FALSE;
+		$file = 'plugins/'.$plugin.'/'.dirname($this->basedir).'/'.$view.'.php';
+		if (!file_exists(realpath(dirname(__FILE__).'/../'.$file))) return FALSE;
+		return realpath(dirname(__FILE__).'/../'.$file);
+	}	
+	
 	function applyView($view) {
 		$this->plugin = new PluginManager();
 		$this->l10n = new L10nManager();
 		$this->startGZIP();
 		require_once($this->getTemplateView($view));
+	}
+	
+	function applyPluginView($plugin, $view) {
+		$this->l10n = new L10nManager();
+		$this->startGZIP();
+		require_once($this->getTemplatePluginView($plugin, $view));
 	}
 	
 	static function getMimeType() {

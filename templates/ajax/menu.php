@@ -12,7 +12,6 @@
 		<?php } ?>
 		<ul>
 			<li><a href="#search"><?php echo $this->l10n->search ?></a></li>
-			<li><a href="#statistics"><?php echo $this->l10n->statistics ?></a></li>
 			<?php if (UserManager::getUser()->nickname == 'anonymous') { ?>
 				<li><a href="javascript:Fuji.login()"><?php echo $this->l10n->login ?></a></li>
 				<li><a href="register"><?php echo $this->l10n->register ?></a></li>
@@ -27,8 +26,8 @@
 					<li><a href="#groups"><?php echo $this->l10n->groups ?></a></li>
 				<?php } ?>
 				<li><a href="javascript:Fuji.logout()"><?php echo $this->l10n->logout ?></a></li>
+				<?php $this->plugin->getMenu(Plugin::$MENU_INDEX) ?>
 			<?php } ?>
-			<?php $this->plugin->getMenu(Plugin::$MENU_INDEX) ?>
 		</ul>
 	</fuji:content>
 </fuji:menu>

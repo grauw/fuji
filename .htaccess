@@ -97,9 +97,6 @@ RewriteRule ^groups/(\d+)$ scripts/groups.php?id=$1 [L,QSA]
 # GET /groups/<groupid>/users
 RewriteRule ^groups/(\d+)/users$  scripts/userlist.php?groupid=$1 [L,QSA]
 
-# GET /statistics
-RewriteRule ^statistics$ scripts/statistics.php [L,QSA]
-
 # GET /search
 RewriteRule ^search(.*)$ scripts/search.php$1 [L,QSA]
 

@@ -22,20 +22,23 @@ class PluginManager extends Plugin{
 	//Plugin implementations
 	function getCSS() {
 		foreach($this->plugins as $plugin)
-			$plugin->getCSS();
+			if(method_exists($plugin, 'getCSS'))
+				$plugin->getCSS();
 	}	
 	function getMenu($type) {
 		foreach($this->plugins as $plugin)
-			$plugin->getMenu($type);
+			if(method_exists($plugin, 'getMenu'))
+				$plugin->getMenu($type);
 	}
 	function getJS() {
 		foreach($this->plugins as $plugin)
-			$plugin->getJS();
+			if(method_exists($plugin, 'getJS'))
+				$plugin->getJS();
 	}
 	function getIndexExtension() {
 		foreach($this->plugins as $plugin)
-			$plugin->getIndexExtension();
+			if(method_exists($plugin, 'indexExtension'))
+				$plugin->getIndexExtension();
 	}	
 }
-$p = new PluginManager();
 ?>
