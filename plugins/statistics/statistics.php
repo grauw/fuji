@@ -4,8 +4,9 @@
 		public function description() { return 'Statistics plugin'; }
 		public function author() { return ''; }
 		public function homepage() { return 'http://fuji.sourceforge.net'; }
-		public function min_version() { return '0.0'; }
-		public function max_version() { return '1.0'; }
+		public function version() { return '0.1'; }
+		public function min_fuji_version() { return '0.0'; }
+		public function max_fuji_version() { return '1.0'; }
 		
 		public function getMenu($template, $user, $type)
 		{

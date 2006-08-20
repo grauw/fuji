@@ -27,8 +27,8 @@
 					<li><a href="#groups"><?php echo $this->l10n->groups ?></a></li>
 					<?php $this->plugin->getMenu(Plugin::$TEMPLATE_AJAX, Plugin::$USER_ADMINISTRATOR, Plugin::$MENU_INDEX) ?>
 				<?php } ?>
-				<li><a href="javascript:Fuji.logout()"><?php echo $this->l10n->logout ?></a></li>
 				<?php $this->plugin->getMenu(Plugin::$TEMPLATE_AJAX, Plugin::$USER_LOGGED_IN, Plugin::$MENU_INDEX) ?>
+				<li><a href="javascript:Fuji.logout()"><?php echo $this->l10n->logout ?></a></li>
 			<?php } ?>
 		</ul>
 	</fuji:content>

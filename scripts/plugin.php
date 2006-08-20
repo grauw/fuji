@@ -18,8 +18,9 @@
 		abstract public function description();
 		abstract public function author();
 		abstract public function homepage();
-		abstract public function min_version();
-		abstract public function max_version();
+		abstract public function version();
+		abstract public function min_fuji_version();
+		abstract public function max_fuji_version();
 		
 		public function __construct()
 		{
