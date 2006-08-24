@@ -276,6 +276,14 @@ Fuji = {
 		var field = document.getElementById('searchField').value;
 		var order = document.getElementById('searchOrder').value;
 		location.hash = 'search' + '?field=' + field + '&query=' + query + '&order=' + order;
+	},
+	
+	reloadPlugins : function() {
+		var callback = {
+			success: function(o) {window.location.reload()},
+			failure: Fuji.newErrorDialog
+		}
+// 		YAHOO.util.Connect.asyncRequest('GET', 'pluginsettings', callback, null);
 	}
 }
 Fuji.Util = {

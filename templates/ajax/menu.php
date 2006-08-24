@@ -20,6 +20,7 @@
 				<li><a href="#profile"><?php echo $this->l10n->profile ?></a></li>
 				<?php if (UserManager::isAdmin()) { ?>
 					<li><a href="javascript:Fuji.Dialogs.newDialog('serverSettingsDialog')"><?php echo $this->l10n->server_settings ?></a></li>
+					<li><a href="javascript:Fuji.Dialogs.newDialog('pluginsDialog')"><?php echo $this->l10n->plugins ?></a></li>
 				<?php } ?>
 				<li><a href="javascript:Fuji.Dialogs.newDialog('prefDialog')"><?php echo $this->l10n->preferences ?></a></li>
 				<li><a href="#users"><?php echo $this->l10n->users ?></a></li>

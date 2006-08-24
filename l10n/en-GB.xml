@@ -33,6 +33,7 @@
 	<message name="email_address">E-Mail address</message>
 	<message name="email_empty">E-Mail address cannot be empty</message>
 	<message name="emphasis">Emphasis</message>
+	<message name="enabled">Enabled</message>
 	<message name="enter_link_url">Enter link URL:</message>
 	<message name="enter_image_url">Enter image URL:</message>
 	<message name="enter_table_size">Enter table size {Columns}x{Rows}:</message>
@@ -93,6 +94,7 @@
 	<message name="passwords_do_not_match">Passwords do not match</message>
 	<message name="possible_reasons">Possible reasons:</message>
 	<message name="please_wait">Please wait a moment…</message>
+	<message name="plugins">Plugins</message>
 	<message name="post">Post</message>
 	<message name="posted_by">Posted by</message>
 	<message name="poster">Poster</message>
@@ -107,6 +109,7 @@
 	<message name="read">Read</message>
 	<message name="reenter_your_new_password">Reenter your new password</message>
 	<message name="register">Register</message>
+	<message name="reload_plugins">Reload plugins</message>
 	<message name="replies">Replies</message>
 	<message name="reply">Reply</message>
 	<message name="rights">Rights</message>

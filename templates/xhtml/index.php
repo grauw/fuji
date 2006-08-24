@@ -1,7 +1,8 @@
 <?php
 if(file_exists("../scripts/configuration/installer_disabled"))
 {
-	require_once("../scripts/usermanager.php");	
+	require_once("../scripts/usermanager.php");
+	require_once("../scripts/pluginmanager.php");	
 	UserManager::authenticate();
 	echo $this->getPrefix();
 ?>

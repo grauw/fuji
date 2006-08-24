@@ -26,7 +26,7 @@ class ServerSettings extends Resource {
 				Database::execute("UPDATE " . Database::$db_tprefix . "defaults SET value='$new_default_style' WHERE name='style'");
 			if($new_gzip != $gzip)
 				Database::execute("UPDATE " . Database::$db_tprefix . "defaults SET value='$new_gzip' WHERE name='gzip'");					
-		}
+		} else header('HTTP/1.1 401 Unauthorized');
 	}
 	
 }

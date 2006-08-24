@@ -77,6 +77,10 @@ RewriteRule ^preferences$ scripts/preferences.php [L,QSA]
 # POST /serversettings
 RewriteRule ^serversettings$ scripts/serversettings.php [L,QSA]
 
+# GET /pluginsettings
+# POST /pluginsettings
+RewriteRule ^pluginsettings$ scripts/plugins.php [L,QSA]
+
 # POST /login
 RewriteRule ^login$ scripts/loginout.php?action=login [L,QSA]
 

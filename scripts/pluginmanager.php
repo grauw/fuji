@@ -18,6 +18,9 @@ class PluginManager{
 			array_push($this->plugins, new $name());
 		}
 	}
+	static function getPlugins() {
+		return Database::getArray("SELECT * FROM " . DbVar::$db_tprefix . "plugins");
+	}
 	
 	//Plugin implementations
 	function getCSS() {

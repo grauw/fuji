@@ -139,6 +139,11 @@ Fuji.Dialogs.Settings.serverSettingsDialog = {
 	handleSubmit : function() { this.submit(); this.hide(); },
 	handleCancel : function() { this.cancel(); this.hide(); }
 }
+Fuji.Dialogs.Settings.pluginsDialog = {
+	onSuccess : function() { location.reload(); },
+	handleSubmit : function() { this.submit(); this.hide(); },
+	handleCancel : function() { this.cancel(); this.hide(); }
+}
 Fuji.Dialogs.Settings.prefDialog = {
 	onSuccess : function() { location.reload(); },
 	handleSubmit : function() {

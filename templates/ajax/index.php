@@ -147,7 +147,27 @@
 				</form>
 			</div>
 		</div>
-		<?php } ?>			
+		<div id="pluginsDialog" style="display: none">
+			<div class="hd"><?php echo $this->l10n->plugins ?></div>
+			<div class="bd">
+				<form name="pluginsF" method="PUT" action="plugins">
+					<table>
+						<thead>
+							<tr><td><?php echo $this->l10n->name ?></td><td><?php echo $this->l10n->enabled ?></td></tr>
+						</thead>
+						<tbody>
+						<?php foreach(PluginManager::getPlugins() as $plugin) { ?>
+						<tr><td><?php echo $plugin['name'] ?></td><td><input name="<?php echo $plugin['name'] ?>" type='checkbox' <?php if($plugin['enabled']) echo 'checked="Checked" ' ?>/></td></tr>
+						<?php } ?>
+						</tbody>
+						<tfoot>
+						<tr><td><input type="button" onclick="Fuji.reloadPlugins()" value="<?php echo $this->l10n->reload_plugins ?>" /></td></tr>
+						</tfoot>
+					</table>
+				</form>
+			</div>
+		</div>
+		<?php } ?>
 		<div id="prefDialog" style="display: none">
 			<div class="hd"><?php echo $this->l10n->preferences ?></div>
 			<div class="bd">
