@@ -27,9 +27,9 @@
 	</head>
 	<body>
 <?php if(!file_exists("../configuration/installer_disabled")) { ?>	
-		<div id="mainWindow" class="window">
+		<div id="mainWindow" class="box">
 		<form action="install" method="post">
-		  <div class="windowTitle">Fuji Installer</div>
+		  <h2>Fuji Installer</h2>
 		  <div class="windowSide">
 		  	<div class="logo">Fuji</div>
 		  	<div class="windowSideContent">
@@ -42,7 +42,7 @@
 		  		</ul>
 		  	</div>
 		  </div>		  
-		  <div class="windowContent">
+		  <div class="content">
 		  	<?php if(is_string($phases[$current_phase][1]))
 		  			echo $phases[$current_phase][1];
 		  		  else
