@@ -13,6 +13,7 @@ class Template extends Dataclass {
 	public $page;
 	public $l10n;
 	public $plugin;
+	public $pluginname;
 	public $date;
 	public $today;
 	
@@ -43,34 +44,42 @@ class Template extends Dataclass {
 		if(!$templatedata) trigger_error('template not found');
 		$templateclass = require_once(realpath(dirname(__FILE__).'/../plugins/'.$plugin.'/'.$templatedata['basedir']));
 		header("Content-Type: $mimetype; charset=UTF-8");
-		return new $templateclass($templatedata);
+		$t = new $templateclass($templatedata);
+		$t->pluginname = $plugin;
+		return $t;
 	}	
 	
 	function getTemplateView($view) {
-		if (!preg_match('/^\w+$/', $view)) return FALSE;
-		$file = dirname($this->basedir).'/'.$view.'.php';
-		if (!file_exists(realpath(dirname(__FILE__).'/../'.$file))) return FALSE;
-		return realpath(dirname(__FILE__).'/../'.$file);
+		if(isset($this->pluginname))
+		{
+			if (!preg_match('/^\w+$/', $view)) return FALSE;
+			$file = 'plugins/'.$this->pluginname.'/'.dirname($this->basedir).'/'.$view.'.php';
+			if (!file_exists(realpath(dirname(__FILE__).'/../'.$file))) return FALSE;
+			return realpath(dirname(__FILE__).'/../'.$file);
+		}
+		else
+		{
+			if (!preg_match('/^\w+$/', $view)) return FALSE;
+			$file = dirname($this->basedir).'/'.$view.'.php';
+			if (!file_exists(realpath(dirname(__FILE__).'/../'.$file))) return FALSE;
+			return realpath(dirname(__FILE__).'/../'.$file);
+		}
 	}
-	
-	function getTemplatePluginView($plugin, $view) {
-		if (!preg_match('/^\w+$/', $view)) return FALSE;
-		$file = 'plugins/'.$plugin.'/'.dirname($this->basedir).'/'.$view.'.php';
-		if (!file_exists(realpath(dirname(__FILE__).'/../'.$file))) return FALSE;
-		return realpath(dirname(__FILE__).'/../'.$file);
-	}	
 	
 	function applyView($view) {
-		$this->plugin = new PluginManager();
-		$this->l10n = new L10nManager();
-		$this->startGZIP();
-		require_once($this->getTemplateView($view));
-	}
-	
-	function applyPluginView($plugin, $view) {
-		$this->l10n = new L10nManager();
-		$this->startGZIP();
-		require_once($this->getTemplatePluginView($plugin, $view));
+		if(isset($this->pluginname))
+		{
+			$this->l10n = new L10nManager();
+			$this->startGZIP();
+			require_once($this->getTemplateView($this->pluginname, $view));		
+		}
+		else
+		{
+			$this->plugin = new PluginManager();
+			$this->l10n = new L10nManager();
+			$this->startGZIP();
+			require_once($this->getTemplateView($view));
+		}
 	}
 	
 	static function getMimeType() {

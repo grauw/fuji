@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<l10n xml:lang="nl-NL" lang="nl-NL">
+	<message name="content">Inhoud</message>
+	<message name="error_search_no_results">Uw zoekopdracht heeft geen resultaten opgeleverd.</message>
+	<message name="field">Veld</message>
+	<message name="order">Volgorde</message>
+	<message name="query">Zoekopdracht</message>
+	<message name="score">Score</message>
+	<message name="search">Zoeken</message>
+</l10n>

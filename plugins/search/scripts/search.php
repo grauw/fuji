@@ -1,7 +1,7 @@
 <?php
-require_once 'entry.php';
-require_once 'usermanager.php';
-require_once 'resource.php';
+require_once '../../../scripts/entry.php';
+require_once '../../../scripts/usermanager.php';
+require_once '../../../scripts/resource.php';
 
 class Search extends Resource {
 	
@@ -13,7 +13,7 @@ class Search extends Resource {
 		$order = isset($_GET['order']) ? $_GET['order'] . ' DESC' : 'score DESC';
 		$entries = isset($_GET['query']) ? Entry::search($_GET['query'], $field, $_GET['forum'], $order) : null;
 		if (UserManager::getUser()->getRights(Entry::getRoot())->may_read) {
-			$templateobj = Template::getTemplate();
+			$templateobj = Template::getPluginTemplate('search');
 			$templateobj->entries = $entries;
 			$templateobj->page = $page;
 			$templateobj->applyView('search');

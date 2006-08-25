@@ -78,7 +78,6 @@
 	<message name="replies">Réponses</message>
 	<message name="reply">Répondre</message>
 	<message name="rights">Droits</message>
-	<message name="search">Rechercher</message>
 	<message name="server_settings">Options du serveur</message>
 	<message name="style">Thème</message>
 	<message name="subscribe_to_atom">S’inscrire sur flux Atom</message>

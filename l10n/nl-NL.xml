@@ -15,7 +15,6 @@
 	<message name="computer_code">Computercode</message>	
 	<message name="config_rights">Configureer rechten</message>
 	<message name="contact_administrator">Neem contact op met de serverbeheerder voor meer informatie.</message>
-	<message name="content">Inhoud</message>
 	<message name="created">Aangemaakt</message>
 	<message name="date_format">%d-%m-%Y</message>
 	<message name="datetime_format">%d-%m-%Y&#160;%H:%i</message>
@@ -49,12 +48,10 @@
 	<message name="error_no_users">Deze groep heeft geen gebruikers</message>
 	<message name="error_resource_cannot_be_found">De pagina kon niet gevonden worden.</message>
 	<message name="error_restricted_forum">U probeert een forum of onderwerp te bekijken met beperkte toegang.</message>
-	<message name="error_rights_revoked">Uw rechten zijn ingetrokken (verbannen).</message>
-	<message name="error_search_no_results">Uw zoekopdracht heeft geen resultaten opgeleverd.</message>	
+	<message name="error_rights_revoked">Uw rechten zijn ingetrokken (verbannen).</message>	
 	<message name="error_server_misconfiguration">Een foutieve serverconfiguratie.</message>	
 	<message name="error_unknown">Onbekende fout.</message>	
 	<message name="events">Events</message>
-	<message name="field">Veld</message>
 	<message name="fora">Fora</message>
 	<message name="forum">Forum</message>
 	<message name="group">Groep</message>
@@ -85,7 +82,6 @@
 	<message name="none">Geen.</message>
 	<message name="on">op</message>
 	<message name="ok">OK</message>
-	<message name="order">Volgorde</message>
 	<message name="page">Pagina</message>
 	<message name="paragraph">Paragraaf</message>
 	<message name="paragraph_style">Paragraafstijl</message>	
@@ -102,7 +98,6 @@
 	<message name="preformatted">Vooraf opgemaakt</message>	
 	<message name="profile">Profiel</message>
 	<message name="profile_photo">Profielfoto</message>
-	<message name="query">Zoekopdracht</message>
 	<message name="quotation">Quote</message>	
 	<message name="read">Lezen</message>
 	<message name="reenter_your_new_password">Voer uw nieuwe wachtwoord nogmaals in</message>	
@@ -110,10 +105,8 @@
 	<message name="replies">Reacties</message>
 	<message name="reply">Reageren</message>
 	<message name="rights">Rechten</message>
-	<message name="sample_output">Voorbeelduitvoer</message>	
-	<message name="score">Score</message>
-	<message name="search">Zoeken</message>
-	<message name="server_settings">Serverinstellingen</message>	
+	<message name="sample_output">Voorbeelduitvoer</message>
+	<message name="server_settings">Serverinstellingen</message>
 	<message name="strong_emphasis">Sterke nadruk</message>
 	<message name="style">Stijl</message>
 	<message name="subscribe_to_atom">Abonneer op Atom feed</message>

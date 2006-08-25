@@ -9,7 +9,7 @@ class Statistics extends Resource {
 	function httpGet()
 	{
 		$template = Template::getPluginTemplate('statistics');
-		$template->applyPluginView('statistics', 'statistics');
+		$template->applyView('statistics');
 	}
 	
 }

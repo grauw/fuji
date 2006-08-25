@@ -15,7 +15,6 @@
 	<message name="computer_code">Computer code</message>
 	<message name="config_rights">Configure rights</message>
 	<message name="contact_administrator">Contact the server administrator for more information.</message>
-	<message name="content">Content</message>
 	<message name="created">Created</message>
 	<message name="date_format">%d/%m/%Y</message>
 	<message name="datetime_format">%d/%m/%Y&#160;%H:%i</message>
@@ -51,11 +50,9 @@
 	<message name="error_resource_cannot_be_found">The resource cannot be found.</message>
 	<message name="error_restricted_forum">You are trying to access a restricted forum or thread.</message>
 	<message name="error_rights_revoked">Your rights have been revoked (banned).</message>
-	<message name="error_search_no_results">Your search did not return any results.</message>
 	<message name="error_server_misconfiguration">A server misconfiguration.</message>
 	<message name="error_unknown">Unknown error.</message>
 	<message name="events">Events</message>
-	<message name="field">Field</message>
 	<message name="fora">Fora</message>
 	<message name="forum">Forum</message>
 	<message name="group">Group</message>
@@ -86,7 +83,6 @@
 	<message name="none">None.</message>
 	<message name="on">on</message>
 	<message name="ok">OK</message>
-	<message name="order">Order</message>
 	<message name="page">Page</message>
 	<message name="paragraph">Paragraph</message>
 	<message name="paragraph_style">Paragraph style</message>
@@ -104,7 +100,6 @@
 	<message name="previous">Previous</message>
 	<message name="profile">Profile</message>
 	<message name="profile_photo">Profile photo</message>
-	<message name="query">Query</message>
 	<message name="quotation">Quotation</message>
 	<message name="read">Read</message>
 	<message name="reenter_your_new_password">Reenter your new password</message>
@@ -114,8 +109,6 @@
 	<message name="reply">Reply</message>
 	<message name="rights">Rights</message>
 	<message name="sample_output">Sample output</message>
-	<message name="score">Score</message>
-	<message name="search">Search</message>
 	<message name="server_settings">Server settings</message>	
 	<message name="strong_emphasis">Strong emphasis</message>
 	<message name="style">Style</message>

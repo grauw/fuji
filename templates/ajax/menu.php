@@ -11,7 +11,6 @@
 			<p><?php echo $this->l10n->logged_in_as . ' ' . UserManager::getUser()->nickname ?></p>
 		<?php } ?>
 		<ul>
-			<li><a href="#search"><?php echo $this->l10n->search ?></a></li>
 			<?php if (UserManager::getUser()->nickname == 'anonymous') { ?>
 				<li><a href="javascript:Fuji.login()"><?php echo $this->l10n->login ?></a></li>
 				<li><a href="register"><?php echo $this->l10n->register ?></a></li>

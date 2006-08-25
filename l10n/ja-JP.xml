@@ -78,7 +78,6 @@
 	<message name="replies">返信</message>
 	<message name="reply">返信</message>
 	<message name="rights">Rights</message>
-	<message name="search">検索</message>
 	<message name="server_settings">Server settings</message>
 	<message name="style">スタイル</message>
 	<message name="subscribe_to_atom">Subscribe to Atom feed</message>

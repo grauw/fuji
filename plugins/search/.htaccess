@@ -1,0 +1,4 @@
+RewriteEngine On
+
+# GET /
+RewriteRule ^$ scripts/search.php [L,QSA]

@@ -118,7 +118,7 @@
 							<td colspan="2">&#160;</td>
 						</tr>
 						<tr>
-							<td colspan="2"><input type="button" value="<?php echo $this->l10n->search ?>" onclick="Fuji.searchAction()" /></td>
+							<td colspan="2"><input type="button" value="<?php echo $this->l10n->search ?>" onclick="Fuji.Search.searchAction()" /></td>
 						</tr>
 					</table>
 				</form>
