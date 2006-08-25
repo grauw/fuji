@@ -153,15 +153,31 @@
 				<form name="pluginsF" method="PUT" action="plugins">
 					<table>
 						<thead>
-							<tr><td><?php echo $this->l10n->name ?></td><td><?php echo $this->l10n->enabled ?></td></tr>
+							<tr><td><?php echo $this->l10n->name ?></td><td><?php echo $this->l10n->enabled ?></td><td></td></tr>
 						</thead>
 						<tbody>
 						<?php foreach(PluginManager::getPlugins() as $plugin) { ?>
-						<tr><td><?php echo $plugin['name'] ?></td><td><input name="<?php echo $plugin['name'] ?>" type='checkbox' <?php if($plugin['enabled']) echo 'checked="Checked" ' ?>/></td></tr>
+						<tr>
+							<td>
+								<div><h3><a href="<?php echo htmlentities($plugin['homepage']) ?>" target="_blank"><?php echo htmlentities($plugin['name'] . ' ' . $plugin['version'], ENT_NOQUOTES) ?></a></h3></div>
+								<div><small><?php echo htmlentities($plugin['description']) ?></small></div>
+							</td>
+							<td>
+								<input name="<?php echo htmlentities($plugin['name']) ?>" type='checkbox' <?php if($plugin['enabled']) echo 'checked="Checked" ' ?>/>
+							</td>
+							<td>
+								<a href="javascript:Fuji.deletePlugin('<?php echo htmlentities($plugin['name']) ?>')"><?php echo $this->l10n->delete ?></a>
+							</td>
+						</tr>
 						<?php } ?>
 						</tbody>
 						<tfoot>
-						<tr><td><input type="button" onclick="Fuji.reloadPlugins()" value="<?php echo $this->l10n->reload_plugins ?>" /></td></tr>
+						<tr>
+							<td>
+								<input type="button" onclick="Fuji.installPlugin()" value="<?php echo $this->l10n->install_plugin ?>" />
+								<input type="button" onclick="Fuji.reloadPlugins()" value="<?php echo $this->l10n->reload_plugins ?>" />
+							</td>
+						</tr>
 						</tfoot>
 					</table>
 				</form>

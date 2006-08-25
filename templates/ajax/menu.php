@@ -14,7 +14,6 @@
 			<?php if (UserManager::getUser()->nickname == 'anonymous') { ?>
 				<li><a href="javascript:Fuji.login()"><?php echo $this->l10n->login ?></a></li>
 				<li><a href="register"><?php echo $this->l10n->register ?></a></li>
-				<?php $this->plugin->getMenu(Plugin::$TEMPLATE_AJAX, Plugin::$USER_ANONYMOUS, Plugin::$MENU_INDEX) ?>
 			<?php } else { ?>
 				<li><a href="#profile"><?php echo $this->l10n->profile ?></a></li>
 				<?php if (UserManager::isAdmin()) { ?>
@@ -25,9 +24,9 @@
 				<li><a href="#users"><?php echo $this->l10n->users ?></a></li>
 				<?php if (UserManager::isAdmin()) { ?>
 					<li><a href="#groups"><?php echo $this->l10n->groups ?></a></li>
-					<?php $this->plugin->getMenu(Plugin::$TEMPLATE_AJAX, Plugin::$USER_ADMINISTRATOR, Plugin::$MENU_INDEX) ?>
 				<?php } ?>
-				<?php $this->plugin->getMenu(Plugin::$TEMPLATE_AJAX, Plugin::$USER_LOGGED_IN, Plugin::$MENU_INDEX) ?>
+				<?php $userstatus = (UserManager::getUser()->nickname == 'anonymous' ? Plugin::$USER_ANONYMOUS : (UserManager::getUser()->isAdmin() ? Plugin::$USER_ADMINISTRATOR : Plugin::$USER_LOGGED_IN));
+				$this->plugin->getMenu(Plugin::$TEMPLATE_AJAX, Plugin::$USER_LOGGED_IN, Plugin::$MENU_INDEX) ?>
 				<li><a href="javascript:Fuji.logout()"><?php echo $this->l10n->logout ?></a></li>
 			<?php } ?>
 		</ul>

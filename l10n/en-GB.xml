@@ -62,6 +62,7 @@
 	<message name="heading2">Heading 2</message>
 	<message name="heading3">Heading 3</message>
 	<message name="inserted">Inserted</message>
+	<message name="install_plugin">Install plugin</message>
 	<message name="invalid_url">Invalid URL</message>
 	<message name="keyboard">Keyboard</message>
 	<message name="lang">Language</message>

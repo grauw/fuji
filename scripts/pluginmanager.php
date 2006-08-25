@@ -21,6 +21,28 @@ class PluginManager{
 	static function getPlugins() {
 		return Database::getArray("SELECT * FROM " . DbVar::$db_tprefix . "plugins");
 	}
+	static function reloadPlugins() {
+		Database::execute('DELETE FROM plugins');
+		$dirs = scandir('../plugins');
+		$plugins = array();
+		foreach($dirs as $dir)
+		{
+			if(file_exists("../plugins/$dir/$dir.php"))
+			{
+				include_once("../plugins/$dir/$dir.php");
+				$plugin = new $dir();
+				$name = $dir;
+				$description = $plugin->description();
+				$author = $plugin->author();
+				$homepage = $plugin->homepage();
+				$version = $plugin->version();
+				//TODO: Check if Fuji version is okay
+				$min_fuji_version = $plugin->min_fuji_version();
+				$max_fuji_version = $plugin->max_fuji_version();
+				Database::execute("INSERT INTO plugins (name,description,author,homepage,version,min_fuji_version,max_fuji_version) VALUES ('$name','$description','$author','$homepage','$version','$min_fuji_version','$max_fuji_version')");
+			}
+		}	
+	}
 	
 	//Plugin implementations
 	function getCSS() {
