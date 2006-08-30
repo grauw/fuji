@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<l10n xml:lang="jp-JP" lang="jp-JP">
+<l10n xml:lang="jp-JP">
 	<message name="actions">Actions</message>
 	<message name="admin">アドミニストレータ</message>
 	<message name="anonymous_user">Anonymous user</message>	

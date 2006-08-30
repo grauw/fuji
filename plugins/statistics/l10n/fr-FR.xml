@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<l10n xml:lang="fr-FR" lang="fr-FR">
+<l10n xml:lang="fr-FR">
 	<message name="newest_user">Nouveau utilisateur</message>
 	<message name="num_users">Nombre d’utilisateurs</message>
 	<message name="num_posts">Nombre de messages</message>

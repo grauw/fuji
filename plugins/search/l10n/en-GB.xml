@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<l10n xml:lang="en-GB" lang="en-GB">
+<l10n xml:lang="en-GB">
 	<message name="content">Content</message>
 	<message name="error_search_no_results">Your search did not return any results.</message>
 	<message name="field">Field</message>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<l10n xml:lang="en-GB" lang="en-GB">
+<l10n xml:lang="en-GB">
 	<message name="most_active_thread">Most active topic</message>
 	<message name="most_active_user">Most active user</message>
 	<message name="most_used_language">Most used language</message>

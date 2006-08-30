@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<l10n xml:lang="nl-NL" lang="nl-NL">
+<l10n xml:lang="nl-NL">
 	<message name="abbreviation">Afkorting</message>
 	<message name="acronym">Acroniem</message>	
 	<message name="actions">Acties</message>

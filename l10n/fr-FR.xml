@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<l10n xml:lang="fr-FR" lang="fr-FR">
+<l10n xml:lang="fr-FR">
 	<message name="actions">Actions</message>
 	<message name="admin">Administrateur</message>
 	<message name="anonymous_user">Utilisateur anonyme</message>	
