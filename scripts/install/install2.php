@@ -14,6 +14,7 @@ class Install2 {
 				if($_POST['pw'] === $_POST['pw2'])
 				{
 					$idb = new InstallDb();
+					$idb->addAnonymousUser();
 					$idb->addRootUser($_POST['admin'], $_POST['pw'], $_POST['e-mail']);
 					$this->showSuccess();
 				}

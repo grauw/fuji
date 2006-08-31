@@ -58,16 +58,6 @@
 		<field name="visual_effects" type="L"><NOTNULL/><DEFAULT value="1"/></field>
 		<field name="templateref" type="I1"><UNSIGNED/><NOTNULL/><DEFAULT value="2"/></field>
 		<field name="inputmethod" type="I"><UNSIGNED/><NOTNULL/><DEFAULT value="2"/></field>
-		
-		<data>
-			<row>
-				<f name="nickname">anonymous</f>
-				<f name="email">anonymous@localhost</f>
-				<f name="password">da39a3ee5e6b4b0d3255bfef95601890afd80709</f>
-				<f name="templateref">1</f>
-				<f name="inputmethod">1</f>
-			</row>
-		</data>
 	</table>
 	
 	<table name="groups">

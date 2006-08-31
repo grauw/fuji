@@ -4,6 +4,7 @@ require_once "database.php";
 require_once "group.php";
 require_once "entry.php";
 require_once "rights.php";
+require_once "usermanager.php";
 
 class User extends Dataclass {
 	
@@ -36,10 +37,7 @@ class User extends Dataclass {
 		{
 			if(count($data) > 0)
 			{
-				
-				
-				if($data['password']) $data['password'] = sha1($data['password']);
-				
+				if($data['password']) $data['password'] = md5($data['nickname'] . ':' . UserManager::$realm . ':' . $data['password']);
 				$keys = implode(',', array_keys($data));
 				$values = implode('\',\'',$data);
 				Database::execute("INSERT INTO " . Database::$db_tprefix . "users ($keys) VALUES ('$values')");
@@ -76,17 +74,7 @@ class User extends Dataclass {
 		$data = Database::getArray("SELECT * FROM " . Database::$db_tprefix . "users WHERE nickname = '$nickname'");
 		$userdata = $data[0];
 		if($userdata)
-			return new User($userdata);				
-	}
-	
-	/**
-	 * Check if the user used the right password
-	 * @param {String} $password the password the user used
-	 * @returns true if password is right, false otherwise
-	 */
-	function checkPassword($password)
-	{
-		return sha1($password) == $this->password;
+			return new User($userdata);
 	}
 	
 	/**
@@ -95,7 +83,7 @@ class User extends Dataclass {
 	 */
 	function setPassword($password)
 	{
-		$this->password = sha1($password);
+		$this->password = md5($this->nickname . ':' . UserManager::$realm . ':' . $password);
 	}
 	
 	/**

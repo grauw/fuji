@@ -1,6 +1,6 @@
 <?php
-
 require_once "../database.php";
+require_once "../usermanager.php";
 
 class InstallDb
 {
@@ -38,8 +38,13 @@ class InstallDb
 	
 	function addRootUser($user, $pwd, $email)
 	{
-		Database::execute("INSERT INTO " . Database::$db_tprefix . "users (nickname, email, password, templateref, inputmethod) VALUES ('$user', '$email', '" . sha1($pwd) . "', '1', '1')");
-	}	
+		Database::execute("INSERT INTO " . Database::$db_tprefix . "users (nickname, email, password, templateref, inputmethod) VALUES ('$user', '$email', '" . md5($user . ':' . UserManager::$realm . ':' . $pwd) . "', '1', '1')");
+	}
+	
+	function addAnonymousUser()
+	{
+		Database::execute("INSERT INTO " . Database::$db_tprefix . "users (nickname, email, password, templateref, inputmethod) VALUES ('anonymous', 'anonymous@localhost', '" . md5('anonymous:' . UserManager::$realm . ':') . "', '1', '1')");
+	}
 	
 	function addWelcomeMessage($title, $message)
 	{

@@ -1,96 +1,115 @@
 <?php
 	require_once "database.php";
-	//require_once "sessionmanager.php";
 	require_once "user.php";
 		
 	class UserManager {
 		static $user = null;
+		static $realm = 'Forum';
+		static $request_timeout = 30;
 		
-		static function logIn($nickname, $pwd)
+		static function logIn()
 		{
-			if(!$_SESSION['user'])
+			Database::connect();
+			$response_data = self::getDigestHeader();
+			$response = $response_data['response'];
+			$user = User::getUserByName($response_data['username']);
+			if($user)
 			{
-				Database::connect();
-				$user = User::getUserByName($nickname);
-				if($user && $user->checkPassword($pwd))
+				$request_time_data = explode(' ', base64_decode($response_data['nonce']));
+				$request_time = $request_time_data[0];
+				if(isset($request_time) && time() - intval($request_time) < self::$request_timeout)
 				{
-					return true;
+					$A1 = $user->password;
+					$A2 = md5($_SERVER['REQUEST_METHOD'].':'.$response_data['uri']);
+					$valid_response = md5($A1.':'.$response_data['nonce'].':'.$response_data['nc'].':'.$response_data['cnonce'].':'.$response_data['qop'].':'.$A2);
+					if($response == $valid_response)
+					{
+						self::$user = $user;
+						return true;
+					}
+					else
+						return false;
 				}
 				else
-					return false;
+					header('408 Request Timeout');
 			}
-			return true;
+			else
+				return false;
 		}
 		static function logOut()
 		{
-			unset($_SESSION['user']);
+			unset(self::$user);
+		}
+		static function sendDigestHeader()
+		{
+			$nonce = base64_encode(time() . ' ' . md5(uniqid(rand(), true)));
+			header('WWW-Authenticate: Digest realm="'.self::$realm.'",qop="auth",nonce="'.$nonce.'",opaque="'.md5(self::$realm).'"');
+			header('HTTP/1.1 401 Unauthorized');
 		}
 		static function authenticate($force=false)
 		{
-			if($force)
-			{		
-				//self::forceAuthenticate();
-				if (!isset($_SERVER['PHP_AUTH_USER'])) {
-					header('WWW-Authenticate: Basic realm="Forum"');
-					header('HTTP/1.1 401 Unauthorized');
-					//$_SERVER['PHP_AUTH_USER'] = 'anonymous';
-					//$_SERVER['PHP_AUTH_PW'] = 'da39a3ee5e6b4b0d3255bfef95601890afd80709';
-					// 2times sha1 is not a good idea!
-					//$_SERVER['PHP_AUTH_PW'] = '';
-	
-				} else {
-					if(UserManager::logIn($_SERVER['PHP_AUTH_USER'], $_SERVER['PHP_AUTH_PW'])) {
+			if($force || !empty($_SERVER['PHP_AUTH_DIGEST']))
+			{
+				if(empty($_SERVER['PHP_AUTH_DIGEST'])) {
+					self::sendDigestHeader();
+				}
+				else {
+					$header_data = self::getDigestHeader();
+					if($header_data)
+					{
+						if(self::logIn()) {
+						}
+						else {
+							self::sendDigestHeader();
+						}
 					}
-					else {
-						header('WWW-Authenticate: Basic realm="Forum"');
-						header('HTTP/1.1 401 Unauthorized');
-						//$_SERVER['PHP_AUTH_USER'] = 'anonymous';
-						//$_SERVER['PHP_AUTH_PW'] = 'da39a3ee5e6b4b0d3255bfef95601890afd80709';
-						//$_SERVER['PHP_AUTH_PW'] = '';
-	
-						//self::forceAuthenticate();
-					}
+					else
+						header('HTTP/1.1 400 Bad Request');
 				}
 			}
 			else
 			{
-				UserManager::LogIn('anonymous', '');
 			}
 		}
 		
 		static function forceAuthenticate()
 		{
-			//unset($_SERVER['PHP_AUTH_USER']);
-			//unset($_SERVER['PHP_AUTH_PW']);
-			
-			header('WWW-Authenticate: Basic realm="Forum"');
-			header('HTTP/1.1 401 Unauthorized');
-			if(UserManager::logIn($_SERVER['PHP_AUTH_USER'], $_SERVER['PHP_AUTH_PW']))
+			self::sendDigestHeader();
+			$header_data = self::getDigestHeader();
+			if($header_data)
 			{
-				
+				if(UserManager::logIn($header_data)) {
+				}
 			}
-			//$_SERVER['PHP_AUTH_USER'] = 'anonymous';
-			//$_SERVER['PHP_AUTH_PW'] = 'da39a3ee5e6b4b0d3255bfef95601890afd80709';
 		}
 		
 		static function getUser()
 		{
-			if(!isset(self::$user))
-				if(isset($_SERVER['PHP_AUTH_USER']))
-					self::$user = User::getUserByName($_SERVER['PHP_AUTH_USER']);
-				else
-					self::$user = User::getUserByName('anonymous');
-			return self::$user;
+			return isset(self::$user) ? self::$user : User::getUserByName('anonymous');
+		}
+		
+		static function isUser()
+		{
+			return isset(self::$user);
 		}
 		
 		static function isAdmin()
 		{
-			if(!isset(self::$user))
-				if(isset($_SERVER['PHP_AUTH_USER']))
-					self::$user = User::getUserByName($_SERVER['PHP_AUTH_USER']);
-				else
-					self::$user = User::getUserByName('anonymous');
-			return self::$user->isAdmin();
+			return self::getUser()->isAdmin();
 		}
-	}	
+		
+		static function getDigestHeader()
+		{
+			$header = $_SERVER['PHP_AUTH_DIGEST'];
+			if(!$header) return false;
+			$needed_parts = array('nonce'=>1, 'nc'=>1, 'cnonce'=>1, 'qop'=>1, 'username'=>1, 'uri'=>1, 'response'=>1);
+			$data = array();
+			preg_match_all('@(\w+)=([\'"]?)([a-zA-Z0-9=./\_-]+)\2@', $header, $matches, PREG_SET_ORDER);
+			foreach ($matches as $m) {
+				$data[$m[1]] = $m[3];
+				unset($needed_parts[$m[1]]);
+			}
+			return $needed_parts ? false : $data;
+		}
+	}
 ?>
