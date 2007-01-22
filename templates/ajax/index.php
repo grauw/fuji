@@ -7,7 +7,7 @@
 	<fuji:content>
 		
 		<!-- Page content -->
-		<h1 class="logo"><a href="http://fuji.sourceforge.net">Fuji</a></h1>
+		<h1 class="logo"><a href="<?php echo $this->l10n->forum_link ?>"><?php echo $this->l10n->forum_name ?></a></h1>
 		<div id="menuDiv" class="menuContainer box"/>
 		<div class="sideContainer">
 			<div id="foraDiv" class="forumListContainer box"/>

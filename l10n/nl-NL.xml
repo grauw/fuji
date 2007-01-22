@@ -54,6 +54,8 @@
 	<message name="events">Events</message>
 	<message name="fora">Fora</message>
 	<message name="forum">Forum</message>
+	<message name="forum_name">Fuji</message>
+	<message name="forum_link">http://fuji.sourceforge.net/</message>
 	<message name="group">Groep</message>
 	<message name="groups">Groepen</message>
 	<message name="gzip_compression">GZIP-compressie</message>	

@@ -37,6 +37,8 @@
 	<message name="error_server_misconfiguration">A server misconfiguration.</message>
 	<message name="error_unknown">Unknown error.</message>
 	<message name="fora">フォーラム</message>
+	<message name="forum_name">Fuji</message>
+	<message name="forum_link">http://fuji.sourceforge.net/</message>
 	<message name="group">グループ</message>
 	<message name="groups">グループ</message>
 	<message name="gzip_compression">GZIP圧縮</message>

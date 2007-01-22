@@ -7,7 +7,7 @@
 	<author><name><?php echo htmlentities(User::getUser($this->entry->userref)->nickname, ENT_NOQUOTES) ?></name></author>
 	<updated><?php echo $this->entry->getFormattedDate('modified', '%Y-%m-%dT%H:%i:%sZ') ?></updated>
 	<published><?php echo $this->entry->getFormattedDate('created', '%Y-%m-%dT%H:%i:%sZ') ?></published>
-	<generator uri="http://fuji.sourceforge.net" version="0.1">Fuji</generator>
+	<generator uri="http://fuji.sourceforge.net/" version="0.1">Fuji</generator>
 	<?php 	if(count($this->entry) > 0)
 			foreach($this->entry->getChildren('created DESC', 10) as $post) { ?>
 	<entry>

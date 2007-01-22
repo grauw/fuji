@@ -34,7 +34,7 @@ if(file_exists("../scripts/configuration/installer_disabled"))
 	<?php $this->plugin->getJS() ?>
 </head>
 <body onload="Fuji.boot()" id="fujiBody">
-	<h1 class="logo"><a href="http://fuji.sourceforge.net">Fuji</a></h1>
+	<h1 class="logo"><a href="<?php echo $this->l10n->forum_link ?>"><?php echo $this->l10n->forum_name ?></a></h1>
 	<div id="XHTML_menuDiv" class="menuContainer box">
 	<h2><?php echo $this->l10n->menu ?></h2>
 	<?php if(UserManager::getUser()->nickname == 'anonymous') { ?>
