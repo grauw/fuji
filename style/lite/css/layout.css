@@ -25,14 +25,14 @@ body {
 	width: 14em;
 }
 
-#menuDiv {
+.menuContainer {
 	padding: 0.2em;
 	padding-right: 1em;
 	height: 6em;
 	margin-bottom: 0.5em;
 }
 
-* html #menuDiv { /* IE hack (TODO: check if it still works/needed)*/
+* html .menuContainer { /* IE hack (TODO: check if it still works/needed)*/
 	padding-top: 10px;
 	height: 70px;
 }

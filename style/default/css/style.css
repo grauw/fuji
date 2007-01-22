@@ -54,7 +54,7 @@ table td{
 	width: 100%;
 }
 
-#menuDiv div ul {
+.menuContainer div ul {
 	list-style-type: none;
 	padding: 0;
 	margin: 0;

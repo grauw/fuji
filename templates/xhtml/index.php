@@ -35,7 +35,7 @@ if(file_exists("../scripts/configuration/installer_disabled"))
 </head>
 <body onload="Fuji.boot()" id="fujiBody">
 	<h1 class="logo"><a href="<?php echo $this->l10n->forum_link ?>"><?php echo $this->l10n->forum_name ?></a></h1>
-	<div id="menuDiv" class="menuContainer box">
+	<div class="menuContainer box">
 	<h2><?php echo $this->l10n->menu ?></h2>
 	<?php if(UserManager::getUser()->nickname == 'anonymous') { ?>
 		<p><?php echo $this->l10n->anonymous_user ?></p>

@@ -10,7 +10,7 @@ body {
 	margin: 0;
 }
 
-#menuDiv {
+.menuContainer {
 	padding: 1em;
 	padding-left: 18em;
 	margin: 0;

@@ -36,11 +36,11 @@ html {
 	background-color: #fafaf9;
 }
 
-#menuDiv {
+.menuContainer {
 	background-color: #e2e2e1;
 }
 
-#menuDiv h2 {
+.menuContainer h2 {
 	background-image: none;
 	background-color: transparent;
 }

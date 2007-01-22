@@ -24,17 +24,17 @@ table td {
 
 /* Menu */
 
-#menuDiv h2 {
+.menuContainer h2 {
 	display: none;
 }
-#menuDiv * {
+.menuContainer * {
 	margin-top: 0;
 }
-#menuDiv ul {
+.menuContainer ul {
 	margin: 0;
 	padding: 0;
 }
-#menuDiv li {
+.menuContainer li {
 	display: inline;
 	list-style-type: none;
 }
