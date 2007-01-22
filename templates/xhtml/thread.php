@@ -6,6 +6,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<?php echo $this->l10n->language ?>">
 <head>
 	<title><?php echo $this->entry->title ?></title>
+	<meta http-equiv="Content-Type" content="<?php echo $this->acceptsXHTML() ? 'application/xhtml+xml' : 'text/html' ?>; charset=utf-8" />
 	<link rel="alternate" type="application/atom+xml" title="Atom" href="/blog/atom.php" />
 	<link rel="alternate" type="application/rss+xml" title="RSS" href="/blog/rss.php" />
 	<link rel="meta" type="application/rdf+xml" title="FOAF" href="foaf.rdf" />
@@ -22,7 +23,7 @@
 		<p><?php echo $this->l10n->logged_in_as . ' ' . UserManager::getUser()->nickname ?></p>
 	<?php } ?>
 	<ul>
-		<li><a href="../<?php echo $this->entry->getParent()->getURI() ?>"><?php echo $this->l10n->back ?></a></li>
+		<li><a href="<?php echo $this->entry->getParent()->getRootedURI() ?>"><?php echo $this->l10n->back ?></a></li>
 	</ul>
 	</div>	
 	<div class="box">
@@ -39,7 +40,7 @@
 					<span><?php echo $this->entry->getFormattedDate('modified', $this->l10n->datetime_format) ?></span>
 					</div>
 					<div>
-					<span><a href="../<?php echo User::getUser($this->entry->userref)->getURI() ?>"><?php echo htmlentities(User::getUser($this->entry->userref)->nickname, ENT_NOQUOTES) ?></a></span>
+					<span><a href="<?php echo User::getUser($this->entry->userref)->getRootedURI() ?>"><?php echo htmlentities(User::getUser($this->entry->userref)->nickname, ENT_NOQUOTES) ?></a></span>
 					<span>(<?php $output = ""; $groups = User::getUser($this->entry->userref)->getGroups(); foreach($groups as $group) { $output .= ($output ? ', ' : '') . htmlentities($group->name, ENT_NOQUOTES); } echo $output ?>)</span>
 					</div>
 				</h3>
@@ -67,7 +68,7 @@
 						<span><?php echo $post->getFormattedDate('modified', $this->l10n->datetime_format) ?></span>
 						</div>
 						<div>
-						<span><a href="../<?php echo User::getUser($post->userref)->getURI() ?>"><?php echo htmlentities(User::getUser($post->userref)->nickname, ENT_NOQUOTES) ?></a></span>
+						<span><a href="<?php echo User::getUser($post->userref)->getRootedURI() ?>"><?php echo htmlentities(User::getUser($post->userref)->nickname, ENT_NOQUOTES) ?></a></span>
 						<span>(<?php $output = ""; $groups = User::getUser($post->userref)->getGroups(); foreach($groups as $group) { $output .= ($output ? ', ' : '') . htmlentities($group->name, ENT_NOQUOTES); } echo $output ?>)</span>
 						</div>
 					</h3>

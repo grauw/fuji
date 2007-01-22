@@ -4,7 +4,8 @@
 	"http://www.w3.org/Math/DTD/mathml2/xhtml-math11-f.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-GB">
 <head>
-<title><?php echo $this->entry->title ?> source</title>
+	<title><?php echo $this->entry->title ?> source</title>
+	<meta http-equiv="Content-Type" content="<?php echo $this->acceptsXHTML() ? 'application/xhtml+xml' : 'text/html' ?>; charset=utf-8" />
 </head>
 <body>
 <?php 		$entry_data_keys = array_keys($this->entry->getData());

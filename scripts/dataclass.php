@@ -250,10 +250,16 @@ require_once 'database.php';
 			return sprintf($this->getResourceUriFormat(), $this->getAttribute($this->getPrimaryKeyName()));
 		}
 		/**
+		 * Gets the root-based URI of this resource
+		 */
+		function getRootedURI() {
+			return $this->getForumRoot().$this->getURI();
+		}
+		/**
 		 * Gets the absolute URI of this resource
 		 */
 		function getAbsoluteURI() {
-			return ($_SERVER['HTTPS']?'https://':'http://').$_SERVER['HTTP_HOST'].$this->getForumRoot().$this->getURI();
+			return ($_SERVER['HTTPS']?'https://':'http://').$_SERVER['HTTP_HOST'].$this->getRootedURI();
 		}
 		
 		/* ================== Utility functions ================== */

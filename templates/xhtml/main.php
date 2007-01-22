@@ -5,6 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<?php echo $this->l10n->language ?>">
 <head>
 	<title><?php echo $this->entry->title ?></title>
+	<meta http-equiv="Content-Type" content="<?php echo $this->acceptsXHTML() ? 'application/xhtml+xml' : 'text/html' ?>; charset=utf-8" />
 	<link rel="alternate" type="application/atom+xml" title="Atom" href="/blog/atom.php" />
 	<link rel="alternate" type="application/rss+xml" title="RSS" href="/blog/rss.php" />
 	<link rel="meta" type="application/rdf+xml" title="FOAF" href="foaf.rdf" />
@@ -50,8 +51,8 @@
 				if($num_of_children > 0)
 				foreach($this->entry->getChildren() as $post) { ?>
 				<tr class="<?php echo $i++ % 2 ? 'even' : 'odd' ?>">
-					<td><a href="../<?php echo $post->getURI() ?>"><?php echo htmlentities($post->title, ENT_NOQUOTES) ?></a></td>
-					<td><a href="../<?php echo User::getUser($post->userref)->getURI() ?>"><?php echo htmlentities(User::getUser($post->userref)->nickname, ENT_NOQUOTES) ?></a></td>
+					<td><a href="<?php echo $post->getRootedURI() ?>"><?php echo htmlentities($post->title, ENT_NOQUOTES) ?></a></td>
+					<td><a href="<?php echo User::getUser($post->userref)->getRootedURI() ?>"><?php echo htmlentities(User::getUser($post->userref)->nickname, ENT_NOQUOTES) ?></a></td>
 					<td><?php echo count($post->getChildren()) ?></td>
 					<td><?php echo $post->getFormattedDate('created', $this->l10n->datetime_format) ?></td>
 					<td><?php echo $post->getFormattedDate('modified', $this->l10n->datetime_format) ?></td>

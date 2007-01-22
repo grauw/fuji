@@ -12,6 +12,7 @@ if(file_exists("../scripts/configuration/installer_disabled"))
 <html xmlns="http://www.w3.org/1999/xhtml" lang="<?php echo $this->l10n->language ?>" xml:lang="<?php echo $this->l10n->language ?>">
 <head>
 	<title>Fuji</title>
+	<meta http-equiv="Content-Type" content="<?php echo $this->acceptsXHTML() ? 'application/xhtml+xml' : 'text/html' ?>; charset=utf-8" />
 	<?php echo $this->getHead() ?>
 	<?php $this->plugin->getCSS() ?>
 	<link id="rsslink" rel="alternate" type="application/rss+xml" href="item.rss" />
@@ -47,7 +48,7 @@ if(file_exists("../scripts/configuration/installer_disabled"))
 	
 	<p>Your browser is not compatible with the AJAX version of Fuji. The HTML version has limited functionality.</p>
 	
-	<p><a href="item/2">Browse the forum</a></p>
+	<p><a href="<?php echo $this->getForumRoot() ?>item/2">Browse the forum</a></p>
 	</div>
 </body>
 </html>
@@ -59,7 +60,7 @@ if(file_exists("../scripts/configuration/installer_disabled"))
 </head>
 <body>
 	<p>Your Fuji Forum has to be configured before you can start using it.</p>
-	<p>Please run the <a href="install">installer</a> first.</p>
+	<p>Please run the <a href="<?php echo $this->getForumRoot() ?>install">installer</a> first.</p>
 </body>
 </html>
 <?php } ?>
