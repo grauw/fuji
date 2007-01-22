@@ -35,7 +35,7 @@ if(file_exists("../scripts/configuration/installer_disabled"))
 </head>
 <body onload="Fuji.boot()" id="fujiBody">
 	<h1 class="logo"><a href="<?php echo $this->l10n->forum_link ?>"><?php echo $this->l10n->forum_name ?></a></h1>
-	<div id="XHTML_menuDiv" class="menuContainer box">
+	<div id="menuDiv" class="menuContainer box">
 	<h2><?php echo $this->l10n->menu ?></h2>
 	<?php if(UserManager::getUser()->nickname == 'anonymous') { ?>
 		<p><?php echo $this->l10n->anonymous_user ?></p>
@@ -44,11 +44,12 @@ if(file_exists("../scripts/configuration/installer_disabled"))
 	<?php } ?>
 	</div>
 	<div class="box">
-	<h2>HTML version</h2>
-	
-	<p>Your browser is not compatible with the AJAX version of Fuji. The HTML version has limited functionality.</p>
-	
-	<p><a href="<?php echo $this->getForumRoot() ?>item/2">Browse the forum</a></p>
+		<h2>HTML version</h2>
+		<div class="content">
+			<p>Your browser is not compatible with the AJAX version of Fuji. The HTML version has limited functionality.</p>
+			
+			<p><a href="<?php echo $this->getForumRoot() ?>item/2">Browse the forum</a></p>
+		</div>
 	</div>
 </body>
 </html>
