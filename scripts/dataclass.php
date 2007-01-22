@@ -124,7 +124,7 @@ require_once 'database.php';
 				if (count($data) == 0) trigger_error("Resource not available in database");
 				$this->datacache = $data[0];
 			}
-			if (isset($this->datacache[$name])) {
+			if (array_key_exists($name, $this->datacache)) {
 				return $this->datacache[$name];
 			} else {
 				trigger_error("Undefined variable $name requested");
