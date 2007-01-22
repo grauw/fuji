@@ -31,7 +31,7 @@ class Template extends Dataclass {
 		if ($mimetype == NULL) $mimetype = self::getMimeType();
 		$data = Database::getArray("SELECT * FROM " . DbVar::$db_tprefix . "templates WHERE mimetype = '".addslashes($mimetype)."'");
 		$templatedata = $data[0];
-		if(!$templatedata) trigger_error('template not found');
+		if(!$templatedata) trigger_error('template not found for MIME type '.$mimetype);
 		$templateclass = require_once(realpath(dirname(__FILE__).'/../'.$templatedata['basedir']));
 		header("Content-Type: $mimetype; charset=UTF-8");
 		return new $templateclass($templatedata);
@@ -41,7 +41,7 @@ class Template extends Dataclass {
 		if ($mimetype == NULL) $mimetype = self::getMimeType();
 		$data = Database::getArray("SELECT * FROM " . DbVar::$db_tprefix . "templates WHERE mimetype = '".addslashes($mimetype)."'");
 		$templatedata = $data[0];
-		if(!$templatedata) trigger_error('template not found');
+		if(!$templatedata) trigger_error('template not found for MIME type '.$mimetype);
 		$templateclass = require_once(realpath(dirname(__FILE__).'/../plugins/'.$plugin.'/'.$templatedata['basedir']));
 		header("Content-Type: $mimetype; charset=UTF-8");
 		$t = new $templateclass($templatedata);
