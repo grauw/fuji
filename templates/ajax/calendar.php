@@ -10,7 +10,7 @@
 	$lastmonthiso = date('Y-m', strtotime('last month', $this->date));
 	$nextmonthiso = date('Y-m', strtotime('next month', $this->date));
 ?>
-<?xml version="1.0" encoding="UTF-8"?>
+<?php echo $this->getPrefix() ?>
 <fuji:menu xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:fuji="http://fuji.sourceforge.net/ns"
 	xml:lang="<?php echo $this->l10n->language ?>"

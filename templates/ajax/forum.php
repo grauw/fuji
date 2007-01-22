@@ -1,6 +1,6 @@
 <?php $page_size = 8;
 $userstatus = (UserManager::getUser()->nickname == 'anonymous' ? Plugin::$USER_ANONYMOUS : (UserManager::getUser()->isAdmin() ? Plugin::$USER_ADMINISTRATOR : Plugin::$USER_LOGGED_IN)); ?>
-<?xml version="1.0" encoding="UTF-8"?>
+<?php echo $this->getPrefix() ?>
 <fuji:item xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:fuji="http://fuji.sourceforge.net/ns"
 	xml:lang="<?php echo $this->l10n->language ?>"

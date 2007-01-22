@@ -8,6 +8,7 @@ class RSS_Template extends Template {
 		if (!$this->acceptsRSS()) {
 			header('Content-Type: text/xml');
 		}
+		return '<?xml version="1.0" encoding="UTF-8"?'.">\n";
 	}
 	
 	public function getHead()

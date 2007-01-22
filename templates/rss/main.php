@@ -1,5 +1,4 @@
-<?php $this->getPrefix() ?>
-<?xml version="1.0" encoding="UTF-8"?>
+<?php echo $this->getPrefix() ?>
 <rss version="2.0">
 	<channel>
 		<title><?php echo htmlentities($this->entry->title, ENT_NOQUOTES) ?></title>

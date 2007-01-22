@@ -8,6 +8,7 @@ class Atom_Template extends Template {
 		if (!$this->acceptsAtom()) {
 			header('Content-Type: text/xml');
 		}
+		return '<?xml version="1.0" encoding="UTF-8"?'.">\n";
 	}
 	
 	public function getHead()

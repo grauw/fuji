@@ -1,5 +1,4 @@
-<?php $this->getPrefix() ?>
-<?xml version="1.0" encoding="UTF-8"?>
+<?php echo $this->getPrefix() ?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 	<title><?php echo $this->entry->title ?></title>
 	<link href="../" />

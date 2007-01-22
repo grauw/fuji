@@ -2,7 +2,7 @@
 	$photo_placeholder = 'style/default/graphics/no-photo.png';
 	$userstatus = (UserManager::getUser()->nickname == 'anonymous' ? Plugin::$USER_ANONYMOUS : (UserManager::getUser()->isAdmin() ? Plugin::$USER_ADMINISTRATOR : Plugin::$USER_LOGGED_IN));
 ?>
-<?xml version="1.0" encoding="UTF-8"?>
+<?php echo $this->getPrefix() ?>
 <?php
 $contextEntry = $this->entry;
 while($contextEntry->type == 4) $contextEntry = $contextEntry->getParent();
