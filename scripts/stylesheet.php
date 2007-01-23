@@ -52,40 +52,34 @@ class Stylesheet extends Dataclass {
 		return new Stylesheet(array('id' => $id));
 	}
 	
-	static function getStylesheetsHTML($depth=0)
+	static function getStylesheetsHTML()
 	{
 		$stylesheetsarr = Stylesheet::getStylesheets();
 		$stylesheets = '';
 		foreach ($stylesheetsarr as $value) {
-			$stylesheets .= $value->getStylesheetHTML($depth);
+			$stylesheets .= $value->getStylesheetHTML();
 		}
 		return $stylesheets;
 	}
 	
-	static function getStylesheetsXML($depth=0)
+	static function getStylesheetsXML()
 	{
 		$stylesheetsarr = Stylesheet::getStylesheets();
 		$stylesheets = '';
 		foreach ($stylesheetsarr as $value) {
-			$stylesheets .= $value->getStylesheetXML($depth);
+			$stylesheets .= $value->getStylesheetXML();
 		}
 		return $stylesheets;
 	}
 	
-	function getStylesheetHTML($depth=0)
+	function getStylesheetHTML()
 	{
-		$rel_depth = '';
-		for($n = 0; $n < $depth; $n++)
-			$rel_depth .= '../';
-		return '<link rel="'.($this->default ? '' : 'alternate ').'stylesheet" type="text/css" href="'.$rel_depth.$this->file.'" title="'.$this->name.'" />'."\n"; 
+		return '<link rel="'.($this->default ? '' : 'alternate ').'stylesheet" type="text/css" href="'.$this->getForumRoot() . $this->file.'" title="'.$this->name.'" />'."\n"; 
 	}
 	
-	function getStylesheetXML($depth=0)
+	function getStylesheetXML()
 	{
-		$rel_depth = '';
-		for($n = 0; $n < $depth; $n++)
-			$rel_depth .= '../';		
-		return '<?xml-stylesheet href="'.$rel_depth.$this->file.'" title="'.$this->name.'"'.($this->default ? '' : ' alternate="yes"').' type="text/css" ?'.">\n";
+		return '<?xml-stylesheet href="'.$this->getForumRoot() . $this->file.'" title="'.$this->name.'"'.($this->default ? '' : ' alternate="yes"').' type="text/css" ?'.">\n";
 	}
 }
 

@@ -12,10 +12,10 @@ class XHTML_Template extends Template {
 		}
 	}
 	
-	public function getHead($depth=0)
+	public function getHead()
 	{
-		if ($this->acceptsXHTML()) {
-			return Stylesheet::getStyleSheetsHTML($depth);
+		if (!$this->acceptsXHTML()) {
+			return Stylesheet::getStyleSheetsHTML();
 		}
 	}
 	

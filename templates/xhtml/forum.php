@@ -10,7 +10,7 @@
 	<link rel="alternate" type="application/rss+xml" title="RSS" href="/blog/rss.php" />
 	<link rel="meta" type="application/rdf+xml" title="FOAF" href="foaf.rdf" />
 	<link rel="icon" type="image/png" href="<?php echo $this->getForumRoot() ?>images/siteicon.png" />
-	<?php echo $this->getHead(1) ?>
+	<?php echo $this->getHead() ?>
 </head>
 <body>
 	<h1 class="logo"><a href="<?php echo $this->l10n->forum_link ?>"><?php echo $this->l10n->forum_name ?></a></h1>
