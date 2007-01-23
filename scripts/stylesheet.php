@@ -29,18 +29,38 @@ class Stylesheet extends Dataclass {
 	 */
 	static function getStylesheets($user=true)
 	{
-		if ($user && isset(UserManager::getUser()->style)) {
-			$primarystyle = UserManager::getUser()->style;
-		} else {
-			$default = Database::getArray("SELECT value FROM " . Database::$db_tprefix . "defaults WHERE name = 'style'");
-			$primarystyle = $default[0][0];
-		}
+		$primarystyle = self::getDefaultStylesheetName($user);
 		$stylesheets = array();
 		$data = Database::getArray("SELECT * FROM " . DbVar::$db_tprefix . "styles");
 		foreach ($data as $value) {
 			array_push($stylesheets, new Stylesheet($value, $value['name']==$primarystyle));
 		}
 		return $stylesheets;
+	}
+	
+	/**
+	 * returns the default stylesheet
+	 * @returns Stylesheet
+	 */
+	static function getDefaultStylesheet($user=true)
+	{
+		$primarystyle = self::getDefaultStylesheetName($user);
+		$data = Database::getArray('SELECT * FROM ' . DbVar::$db_tprefix . 'styles WHERE name="' . $primarystyle . '"');
+		return new Stylesheet($data[0], true);
+	}
+	
+	/**
+	 * returns the name of the default stylesheet
+	 * @returns string
+	 */
+	static function getDefaultStylesheetName($user=true)
+	{
+		if ($user && isset(UserManager::getUser()->style)) {
+			return UserManager::getUser()->style;
+		} else {
+			$default = Database::getArray("SELECT value FROM " . Database::$db_tprefix . "defaults WHERE name = 'style'");
+			return $default[0][0];
+		}
 	}
 	
 	/**
@@ -54,6 +74,9 @@ class Stylesheet extends Dataclass {
 	
 	static function getStylesheetsHTML()
 	{
+		// save a lot of requests
+//		return Stylesheet::getDefaultStylesheet()->getStylesheetHTML();
+		
 		$stylesheetsarr = Stylesheet::getStylesheets();
 		$stylesheets = '';
 		foreach ($stylesheetsarr as $value) {
@@ -64,6 +87,9 @@ class Stylesheet extends Dataclass {
 	
 	static function getStylesheetsXML()
 	{
+		// save a lot of requests
+//		return Stylesheet::getDefaultStylesheet()->getStylesheetXML();
+		
 		$stylesheetsarr = Stylesheet::getStylesheets();
 		$stylesheets = '';
 		foreach ($stylesheetsarr as $value) {
