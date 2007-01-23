@@ -7,6 +7,11 @@ class Logout extends Resource {
 	
 	function httpGet()
 	{
+		httpPost();
+	}
+	
+	function httpPost()
+	{
 		UserManager::authenticate();
 		if (UserManager::isUser())
 			UserManager::forceAuthenticate();

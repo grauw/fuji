@@ -7,6 +7,11 @@ class Login extends Resource {
 	
 	function httpGet()
 	{
+		httpPost();
+	}
+	
+	function httpPost()
+	{
 		UserManager::authenticate(true);
 		$template = Template::getTemplate();
 		$template->applyView('login');
