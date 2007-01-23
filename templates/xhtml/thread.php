@@ -1,5 +1,7 @@
-<?php echo $this->getPrefix();
-	$photo_placeholder = '../style/default/graphics/no-photo.png'; ?>
+<?php	$page_size = 20; 
+	$photo_placeholder = '../style/default/graphics/no-photo.png';
+	echo $this->getPrefix();
+?>
 <!DOCTYPE html
 	PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0//EN"
 	"http://www.w3.org/Math/DTD/mathml2/xhtml-math11-f.dtd">
@@ -23,6 +25,11 @@
 		<p><?php echo $this->l10n->logged_in_as . ' ' . UserManager::getUser()->nickname ?></p>
 	<?php } ?>
 	<ul>
+		<?php if(UserManager::getUser()->nickname == 'anonymous') { ?>
+			<li><a href="<?php echo $this->getForumRoot() ?>login"><?php echo $this->l10n->login ?></a></li>
+		<?php } else { ?>
+			<li><a href="<?php echo $this->getForumRoot() ?>logout"><?php echo $this->l10n->logout ?></a></li>
+		<?php } ?>
 		<li><a href="<?php echo $this->entry->getParent()->getRootedURI() ?>"><?php echo $this->l10n->back ?></a></li>
 	</ul>
 	</div>	
@@ -88,6 +95,23 @@
 					(<?php echo $this->l10n->type_unsupported ?>)
 				
 				<?php } ?>
+			</div>
+			<?php } ?>
+			
+			<?php if (UserManager::getUser()->getRights($this->entry)->may_post) { ?>
+			<div class="box <?php echo $i++ % 2 ? 'even' : 'odd' ?>">
+				<h3><span><?php echo $this->l10n->reply ?></span><span>some cute text here</span></h3>
+				<form action="" method="POST" class="content">
+					<input type="hidden" name="type" value="4" />
+					<input type="hidden" name="processor" value="xhtml" />
+					<label><?php echo $this->l10n->title ?>:
+						<input name="title" style="width:30em;" />
+					</label>
+					<label style="display:block;"><?php echo $this->l10n->message ?>:
+						<textarea name="content" style="display:block;width:40em;"></textarea>
+					</label>
+					<button>xxx<?php echo $this->l10n->submit ?></button>
+				</form>
 			</div>
 			<?php } ?>
 		</div>

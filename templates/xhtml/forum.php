@@ -22,6 +22,11 @@
 		<p><?php echo $this->l10n->logged_in_as . ' ' . UserManager::getUser()->nickname ?></p>
 	<?php } ?>
 	<ul>
+		<?php if(UserManager::getUser()->nickname == 'anonymous') { ?>
+			<li><a href="<?php echo $this->getForumRoot() ?>login"><?php echo $this->l10n->login ?></a></li>
+		<?php } else { ?>
+			<li><a href="<?php echo $this->getForumRoot() ?>logout"><?php echo $this->l10n->logout ?></a></li>
+		<?php } ?>
 		<li><a href="<?php echo $this->entry->getParent()->getRootedURI() ?>"><?php echo $this->l10n->back ?></a></li>
 	</ul>
 	</div>
@@ -80,6 +85,23 @@
 		</tbody>
 	</table>
 	</div>
+			
+	<?php if (UserManager::getUser()->getRights($this->entry)->may_post) { ?>
+	<div class="box">
+		<h3><span><?php echo $this->l10n->new ?></span><span>some cute text here</span></h3>
+		<form action="" method="POST" class="content">
+			<input type="hidden" name="type" value="4" />
+			<input type="hidden" name="processor" value="xhtml" />
+			<label><?php echo $this->l10n->title ?>:
+				<input name="title" style="width:30em;" />
+			</label>
+			<label style="display:block;"><?php echo $this->l10n->message ?>:
+				<textarea name="content" style="display:block;width:40em;"></textarea>
+			</label>
+			<button>xxx<?php echo $this->l10n->submit ?></button>
+		</form>
+	</div>
+	<?php } ?>
 	</div>
 </body>
 </html>
