@@ -70,10 +70,10 @@ RewriteRule ^serversettings$ scripts/serversettings.php [L,QSA]
 RewriteRule ^pluginsettings$ scripts/plugins.php [L,QSA]
 
 # POST /login
-RewriteRule ^login$ scripts/loginout.php?action=login [L,QSA]
+RewriteRule ^login$ scripts/login.php [L,QSA]
 
 # POST /logout
-RewriteRule ^logout$ scripts/loginout.php?action=logout [L,QSA]
+RewriteRule ^logout$ scripts/logout.php [L,QSA]
 
 # GET /users
 RewriteRule ^users$ scripts/users.php [L,QSA]
