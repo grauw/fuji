@@ -265,11 +265,9 @@ require_once 'database.php';
 		/* ================== Utility functions ================== */
 		/**
 		 * Gets the root path of the forum
-		 * TODO: bit flaky, must be in scripts/ path and must have not parent dir named similarly.
-		 * Better way to determine?
 		 */
 		function getForumRoot() {
-			return substr($_SERVER['PHP_SELF'], 0, strpos($_SERVER['PHP_SELF'], '/scripts/') + 1);
+			return substr($_SERVER['PHP_SELF'], 0, strrpos($_SERVER['PHP_SELF'], '/scripts/') + 1);
 		}
 		
 	}
