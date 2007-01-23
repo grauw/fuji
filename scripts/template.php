@@ -33,7 +33,6 @@ class Template extends Dataclass {
 		$templatedata = $data[0];
 		if(!$templatedata) trigger_error('template not found for MIME type '.$mimetype);
 		$templateclass = require_once(realpath(dirname(__FILE__).'/../'.$templatedata['basedir']));
-		header("Content-Type: $mimetype; charset=UTF-8");
 		return new $templateclass($templatedata);
 	}
 	
@@ -43,7 +42,6 @@ class Template extends Dataclass {
 		$templatedata = $data[0];
 		if(!$templatedata) trigger_error('template not found for MIME type '.$mimetype);
 		$templateclass = require_once(realpath(dirname(__FILE__).'/../plugins/'.$plugin.'/'.$templatedata['basedir']));
-		header("Content-Type: $mimetype; charset=UTF-8");
 		$t = new $templateclass($templatedata);
 		$t->pluginname = $plugin;
 		return $t;
@@ -67,19 +65,17 @@ class Template extends Dataclass {
 	}
 	
 	function applyView($view) {
-		if(isset($this->pluginname))
-		{
-			$this->l10n = new L10nManager();
-			$this->startGZIP();
-			require_once($this->getTemplateView($this->pluginname, $view));		
-		}
-		else
-		{
+		if (isset($this->pluginname)) {
+			$templatepath = $this->getTemplateView($this->pluginname, $view);
+		} else {
+			$templatepath = $this->getTemplateView($view);
 			$this->plugin = new PluginManager();
-			$this->l10n = new L10nManager();
-			$this->startGZIP();
-			require_once($this->getTemplateView($view));
 		}
+		if ($templatepath === FALSE) return;
+		$this->l10n = new L10nManager();
+		$this->startGZIP();
+		header("Content-Type: $this->mimetype; charset=UTF-8");
+		require_once($templatepath);
 	}
 	
 	static function getMimeType() {
