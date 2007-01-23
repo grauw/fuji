@@ -53,18 +53,6 @@ RewriteRule ^menu$ scripts/menu.php [L,QSA]
 # GET /menu/<action>
 RewriteRule ^menu/(\w+)$ scripts/menu.php?action=$1 [L,QSA]
 
-# GET /profile/<id>
-RewriteRule ^profile/(\d+)$ scripts/profile.php?id=$1 [L,QSA]
-
-# GET /profile
-RewriteRule ^profile$ scripts/profile.php [L,QSA]
-
-# POST /profile/<id>/updated (TODO: this should be PUT /profile/<id>/groups)
-RewriteRule ^profile/(\d+)/updated$ scripts/profile.php?updated=true [L,QSA]
-
-# GET /profile/<id>/edit
-RewriteRule ^profile/(\d+)/edit$ scripts/profile.php?id=$1&edit=true [L,QSA]
-
 # GET /install
 RewriteRule ^install$ scripts/install/index.php [L,QSA]
 
@@ -88,7 +76,16 @@ RewriteRule ^login$ scripts/loginout.php?action=login [L,QSA]
 RewriteRule ^logout$ scripts/loginout.php?action=logout [L,QSA]
 
 # GET /users
-RewriteRule ^users$ scripts/userlist.php [L,QSA]
+RewriteRule ^users$ scripts/users.php [L,QSA]
+
+# GET /users/<id>
+# POST /users/<id>
+# DELETE /users/<id>
+# PUT /users/<id>
+RewriteRule ^users/(\d+)/?$ scripts/users.php?id=$1 [L,QSA]
+
+# GET /users/<id>/profile
+RewriteRule ^users/(\d+)/profile$ scripts/profile.php?id=$1 [L,QSA]
 
 # GET /groups
 # POST /groups

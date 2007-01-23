@@ -15,7 +15,7 @@ class User extends Dataclass {
 		return 'id';
 	}
 	static function getResourceUriFormat() {
-		return 'profile/%s';
+		return 'users/%s/profile';
 	}
 	
 	/**

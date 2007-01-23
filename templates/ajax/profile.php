@@ -40,35 +40,16 @@
 					<tr>
 						<td><?php echo $this->l10n->member_of ?>:</td>
 						<td>
+							<ul>
 							<?php
-								if (!$_GET['edit']) {
-								/* If editing */
-									$groups = $user->getGroups();
-									foreach($groups as $group) echo htmlentities($group->name, ENT_NOQUOTES) . '<br />';
-								} else if (UserManager::isAdmin()) {
-								/* If not editing */
-							?>
-							<form name="updateGroup" action="<?php echo $user->getURI() ?>" method="post">
-								<?php
-									$groups = Database::getArray("SELECT name FROM " . DbVar::$db_tprefix . "groups");
-									foreach ($groups as $group) {
-								?>
-									<label><input type="checkbox" name="<?php echo $group['name'] ?>"<?php if($user->IsInGroup($group['name'])) { ?> checked="checked"<?php } ?> />
-											<?php echo $group['name']?></label><br />
-								<?php } ?>
-								<input type="hidden" name="updated" value="true" />
-							</form>
+							$groups = $user->getGroups();
+							foreach($groups as $group) { ?>
+								<li><?php echo htmlentities($group->name, ENT_NOQUOTES) ?></li>
 							<?php } ?>
+							</ul>
 						</td>
 					</tr>
 				</table>
-				<?php if (UserManager::isAdmin() && !$_GET['edit']) {?>
-				<form action="#<?php echo $user->getURI() ?>/edit" method="post">
-					<button type="submit"><?php echo $this->l10n->edit ?></button>
-				</form>
-				<?php } else if (UserManager::isAdmin()) { ?>
-				<button type="submit" onClick="document.updateGroup.submit()"><?php echo $this->l10n->edit ?></button>
-				<?php } ?>
 			</div>
 		</div>
 	</fuji:content>

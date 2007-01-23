@@ -112,4 +112,7 @@
 			return $needed_parts ? false : $data;
 		}
 	}
+	
+	//TODO: Repair authentication via login link and remove the line below
+	UserManager::authenticate(true);
 ?>
