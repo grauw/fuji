@@ -1,5 +1,7 @@
-<?php $page_size = 8;
-$userstatus = (UserManager::getUser()->nickname == 'anonymous' ? Plugin::$USER_ANONYMOUS : (UserManager::getUser()->isAdmin() ? Plugin::$USER_ADMINISTRATOR : Plugin::$USER_LOGGED_IN)); ?>
+<?php
+	$page_size = 8;
+	$userstatus = (UserManager::getUser()->nickname == 'anonymous' ? Plugin::$USER_ANONYMOUS : (UserManager::getUser()->isAdmin() ? Plugin::$USER_ADMINISTRATOR : Plugin::$USER_LOGGED_IN));
+?>
 <?php echo $this->getPrefix() ?>
 <fuji:item xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:fuji="http://fuji.sourceforge.net/ns"

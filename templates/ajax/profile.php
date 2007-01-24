@@ -1,4 +1,5 @@
-<?php	//TODO: Really needs some more cleanup/fixes (group memberships administration shouldn't be here)
+<?php
+	//TODO: Really needs some more cleanup/fixes (group memberships administration shouldn't be here)
 	require_once "../scripts/usermanager.php";
 	require_once "../scripts/group.php";
 	
@@ -12,8 +13,6 @@
 			else Group::getGroupByName($name)->removeUser($user);
 		}
 	}
-
-
 ?>
 <?php echo $this->getPrefix() ?>
 <fuji:item xmlns="http://www.w3.org/1999/xhtml"

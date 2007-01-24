@@ -1,4 +1,5 @@
-<?php 	$page_size = 20; 
+<?php
+	$page_size = 20; 
 	$photo_placeholder = 'style/default/graphics/no-photo.png';
 	$userstatus = (UserManager::getUser()->nickname == 'anonymous' ? Plugin::$USER_ANONYMOUS : (UserManager::getUser()->isAdmin() ? Plugin::$USER_ADMINISTRATOR : Plugin::$USER_LOGGED_IN));
 ?>
