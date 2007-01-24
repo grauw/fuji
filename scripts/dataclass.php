@@ -267,7 +267,8 @@ require_once 'database.php';
 		 * Gets the root path of the forum
 		 */
 		function getForumRoot() {
-			return substr($_SERVER['PHP_SELF'], 0, strrpos($_SERVER['PHP_SELF'], '/scripts/') + 1);
+			// translate \'s to /'s in case you're on a Windows server
+			return substr(strtr(dirname(dirname(__FILE__)), '\\', '/'), strlen($_SERVER['DOCUMENT_ROOT'])) . '/';
 		}
 		
 	}
