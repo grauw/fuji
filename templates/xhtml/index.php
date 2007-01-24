@@ -1,10 +1,3 @@
-<?php
-	if (!file_exists("configuration/installer_disabled")) {
-		header('Location: ' . $this->getAbsoluteForumRoot() . 'install');
-		header('HTTP/1.1 303 See Other');
-		exit;
-	}
-?>
 <?php echo $this->getPrefix() ?>
 <!DOCTYPE html 
      PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
