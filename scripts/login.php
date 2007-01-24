@@ -7,7 +7,7 @@ class Login extends Resource {
 	
 	function httpGet()
 	{
-		httpPost();
+		$this->httpPost();
 	}
 	
 	function httpPost()
