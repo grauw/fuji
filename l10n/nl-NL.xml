@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <l10n xml:lang="nl-NL">
 	<message name="abbreviation">Afkorting</message>
+	<message name="account">Account</message>	
 	<message name="acronym">Acroniem</message>	
 	<message name="actions">Acties</message>
 	<message name="active_threads">Actieve onderwerpen</message>
@@ -74,6 +75,7 @@
 	<message name="login">Inloggen</message>
 	<message name="logout">Uitloggen</message>
 	<message name="member_of">Lid van</message>
+	<message name="members">Leden</message>
 	<message name="menu">Menu</message>
 	<message name="message">Bericht</message>
 	<message name="modified">Laatst gewijzigd</message>	
@@ -119,6 +121,7 @@
 	<message name="title">Titel</message>
 	<message name="topic">Onderwerp</message>
 	<message name="type_unsupported">Berichttype wordt hier niet ondersteund</message>
+	<message name="user">Gebruiker</message>
 	<message name="users">Gebruikers</message>
 	<message name="variable">Variabele</message>	
 	<message name="visible_in_profile">Zichtbaar in profiel</message>

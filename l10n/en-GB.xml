@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <l10n xml:lang="en-GB">
 	<message name="abbreviation">Abbreviation</message>
+	<message name="account">Account</message>
 	<message name="acronym">Acronym</message>
 	<message name="actions">Actions</message>
 	<message name="active_threads">Active threads</message>
@@ -75,6 +76,7 @@
 	<message name="logged_in_as">Logged in as</message>
 	<message name="login">Login</message>
 	<message name="logout">Logout</message>
+	<message name="members">Members</message>
 	<message name="member_of">Member of</message>
 	<message name="menu">Menu</message>
 	<message name="message">Message</message>
@@ -126,6 +128,7 @@
 	<message name="title">Title</message>
 	<message name="topic">Topic</message>
 	<message name="type_unsupported">Post type not supported here</message>
+	<message name="user">User</message>
 	<message name="users">Users</message>
 	<message name="variable">Variable</message>
 	<message name="visible_in_profile">Visible in profile</message>

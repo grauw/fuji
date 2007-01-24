@@ -76,10 +76,10 @@ RewriteRule ^login/?$ scripts/login.php [L,QSA]
 RewriteRule ^logout/?$ scripts/logout.php [L,QSA]
 
 # GET /users
+# POST /users
 RewriteRule ^users/?$ scripts/users.php [L,QSA]
 
 # GET /users/<id>
-# POST /users/<id>
 # DELETE /users/<id>
 # PUT /users/<id>
 RewriteRule ^users/(\d+)/?$ scripts/users.php?id=$1 [L,QSA]
@@ -91,12 +91,12 @@ RewriteRule ^users/(\d+)/profile/?$ scripts/profile.php?id=$1 [L,QSA]
 # POST /groups
 RewriteRule ^groups/?$ scripts/groups.php [L,QSA]
 
-# POST /groups/<groupid>
+# PUT /groups/<groupid>
 # DELETE /groups/<groupid>
 RewriteRule ^groups/(\d+)/?$ scripts/groups.php?id=$1 [L,QSA]
 
 # GET /groups/<groupid>/users
-RewriteRule ^groups/(\d+)/users/?$  scripts/userlist.php?groupid=$1 [L,QSA]
+RewriteRule ^groups/(\d+)/users/?$  scripts/users.php?groupid=$1 [L,QSA]
 
 # GET /calendar
 RewriteRule ^calendar/?$ scripts/calendar.php [L,QSA]

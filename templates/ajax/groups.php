@@ -7,15 +7,16 @@
 		<div class="box">
 			<h2><?php echo $this->l10n->groups; ?></h2>
 			<ul class="menu">
-				<li><a href="javascript:Fuji.Dialogs.newDialog('newGroupDialog')"><?php echo $this->l10n->new_group ?></a></li>
+			<?php if(UserManager::isAdmin()) { ?>
+				<li><a href="javascript:Fuji.Dialogs.newCreateGroupDialog()"><?php echo $this->l10n->new ?></a></li>
+			<?php } ?>
 			</ul>
 			<div class="content">
 				<table>
 					<thead>
 						<tr>
 							<th><?php echo $this->l10n->name ?></th>
-							<th><?php echo $this->l10n->rights ?></th>
-							<th><?php echo $this->l10n->num_users ?></th>
+							<th><?php echo $this->l10n->users ?></th>
 							<th><?php echo $this->l10n->actions ?></th>
 						</tr>
 					</thead>
@@ -29,15 +30,35 @@
 							foreach($groups as $group) { $grouprights = $group->getRights(Entry::getRoot());?>
 						<tr>
 							<td><a href="#<?php echo $group->getURI() ?>/users"><?php echo htmlentities($group->name, ENT_NOQUOTES) ?></a></td>
-							<td><?php echo $grouprights->toString() ?></td>
 							<td><?php echo $group->getNumMembers() ?></td>
-							<td><a href="javascript:Fuji.Dialogs.editGroup('<?php echo $group->getURI() ?>',<?php echo $grouprights->may_read ?>,<?php echo $grouprights->may_post ?>,<?php echo $grouprights->may_edit ?>,<?php echo $grouprights->may_delete ?>)"><?php echo $this->l10n->edit ?></a>,
-								<a href="javascript:Fuji.Dialogs.newDeleteGroupDialog('<?php echo $group->getURI() ?>')"><?php echo $this->l10n->delete ?></a></td>
+							<td><a href="javascript:Fuji.Dialogs.newEditGroupDialog('<?php echo $group->getURI() ?>')"><?php echo $this->l10n->edit ?></a>
+								<a href="javascript:Fuji.Dialogs.newDeleteDialog('<?php echo $group->getURI() ?>','groups')"><?php echo $this->l10n->delete ?></a></td>
 						</tr>
 						<?php } ?>
 					<?php } else echo $this->l10n->error_no_groups ?>
 					</tbody>
 				</table>
+			</div>
+			<div id="groupDialog" style="display: none">
+				<div id="groupDialogHead" class="hd"><?php echo $this->l10n->group ?></div>
+				<div id="groupDialogBody" class="bd">
+					<form id="groupDialogForm" name="groupDialogForm" class="groupDialogForm" method="POST" action="groups">
+						<fieldset>
+							<legend><?php echo $this->l10n->group ?></legend>
+							<p><?php echo $this->l10n->name ?><br />
+								<input id='groupName' name='name' type='text' value='' />
+							</p>
+						</fieldset>
+						<fieldset>
+							<legend><?php echo $this->l10n->members ?></legend>
+							<!-- TODO: Member selector -->
+						</fieldset>
+						<fieldset>
+							<legend><?php echo $this->l10n->rights ?></legend>
+							<!-- TODO: Rights tree -->
+						</fieldset>
+					</form>
+				</div>
 			</div>
 		</div>
 	</fuji:content>

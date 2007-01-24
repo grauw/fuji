@@ -9,8 +9,11 @@ class Groups extends Resource {
 	
 	function httpGet()
 	{
-		if (UserManager::isAdmin()) {
+		UserManager::authenticate();
+		$entry = Entry::getRoot();
+		if (UserManager::getUser()->getRights($entry)->may_read) {
 			$template = Template::getTemplate();
+			if(isset($_GET['userid'])) $template->userid = $_GET['userid'];
 			$template->applyView('groups');
 		}
 		else header('HTTP/1.1 401 Unauthorized');
@@ -19,27 +22,18 @@ class Groups extends Resource {
 	function httpPost()
 	{
 		UserManager::authenticate();
-		if($_POST['groupName']){
-			$data['name'] = $_POST['groupName'];
-			$group = Group::addGroup($data);
-			if($_POST['newGroupRead']) $array['may_read'] = 1; else $array['may_read'] = 0;
-			if($_POST['newGroupPost']) $array['may_post'] = 1; else $array['may_post'] = 0;
-			if($_POST['newGroupEdit']) $array['may_edit'] = 1; else $array['may_edit'] = 0;
-			if($_POST['newGroupDelete']) $array['may_delete'] = 1; else $array['may_delete'] = 0;
-			$group->updateRights($array);
-		}
-	}
-	
-	function httpPut()
-	{
-		UserManager::authenticate();
-		$array = array();
-		$group = Group::getGroup($_GET['id']);
-		if($_POST['editGroupRead']) $array['may_read'] = 1; else $array['may_read'] = 0;
-		if($_POST['editGroupPost']) $array['may_post'] = 1; else $array['may_post'] = 0;
-		if($_POST['editGroupEdit']) $array['may_edit'] = 1; else $array['may_edit'] = 0;
-		if($_POST['editGroupDelete']) $array['may_delete'] = 1; else $array['may_delete'] = 0;
-		$group->updateRights($array);
+		if (strlen($_POST['name']) > 1 && preg_match('/[a-zA-Z0-9_-]$/', $_POST['name'])) {
+			if (!Group::isGroup($_POST['name'])) {
+				if (UserManager::isAdmin()) {
+					$newgroupdata = array ( 
+							'name' => $_POST['name'],
+							);
+					$newgroup = Group::addUser($newuserdata);
+					header('Location: '.$newgroup->getAbsoluteURI());
+					header('HTTP/1.1 201 Created');
+				} else header('HTTP/1.1 401 Unauthorized');
+			}
+		} else header('HTTP/1.1 404 Not Found'); //incorrect error
 	}
 	
 	function httpDelete()

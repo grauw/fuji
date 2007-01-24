@@ -48,6 +48,16 @@ class Group extends Dataclass {
 	}
 	
 	/**
+	 * Checks if a group exists
+	 * @param {String} $name the name from the group you want to check
+	 * @returns True if group exists, false otherwise
+	 */
+	static function isUser($nickname){
+		if(count(Database::getArray("SELECT * FROM " . Database::$db_tprefix . "groups WHERE name = '". $name ."'")) == 0) return false;
+		else return true;
+	}
+	
+	/**
 	 * Get all group names
 	 * @returns String array with group names
 	 */

@@ -45,15 +45,6 @@ Fuji.Dialogs = {
 	},
 	
 	/**
-	 * Creates a new delete group dialog (if it doesn't exist), and shows the dialog
-	 * @param {String} sURI The uri of the group to be deleted
-	 */	
-	newDeleteGroupDialog : function(sURI) {
-		Fuji.Dialogs.Settings.deleteDialog.uri = sURI;
-		Fuji.Dialogs.newSimpleDialog('deleteGroupDialog');
-	},
-	
-	/**
 	 * Creates an error message dialog
 	 * @param oResponse The XMLHTTPRequest response-object
 	 */
@@ -122,6 +113,62 @@ Fuji.Dialogs = {
 	},
 	
 	/**
+	 * Creates a new user create dialog (if it doesn't exist), and shows the dialog
+	 */
+	newCreateUserDialog : function() {
+		if(!Fuji.Dialogs.Instances.userDialog || document.getElementById('userDialog_c').style.visibility == 'hidden')
+		{
+			document.getElementById('userDialog').style.display = 'none';
+			document.getElementById('userDialogHead').style.display = 'block';
+			document.getElementById('userDialogForm').action = 'users';
+			document.getElementById('userDialogForm').method = 'POST';
+			Fuji.Dialogs.newDialog('userDialog');
+		}
+	},
+	
+	/**
+	 * Creates a new user edit dialog (if it doesn't exist), and shows the dialog
+	 */
+	newEditUserDialog : function(sURI) {
+		if(!Fuji.Dialogs.Instances.userDialog || document.getElementById('userDialog_c').style.visibility == 'hidden')
+		{
+			document.getElementById('userDialog').style.display = 'none';
+			document.getElementById('userDialogHead').style.display = 'block';
+			document.getElementById('userDialogForm').action = sURI;
+			document.getElementById('userDialogForm').method = 'PUT';
+			Fuji.Dialogs.newDialog('userDialog');
+		}
+	},
+	
+	/**
+	 * Creates a new group create dialog (if it doesn't exist), and shows the dialog
+	 */
+	newCreateGroupDialog : function() {
+		if(!Fuji.Dialogs.Instances.groupDialog || document.getElementById('groupDialog_c').style.visibility == 'hidden')
+		{
+			document.getElementById('groupDialog').style.display = 'none';
+			document.getElementById('groupDialogHead').style.display = 'block';
+			document.getElementById('groupDialogForm').action = 'groups';
+			document.getElementById('groupDialogForm').method = 'POST';
+			Fuji.Dialogs.newDialog('groupDialog');
+		}
+	},
+	
+	/**
+	 * Creates a new group edit dialog (if it doesn't exist), and shows the dialog
+	 */
+	newEditGroupDialog : function(sURI) {
+		if(!Fuji.Dialogs.Instances.groupDialog || document.getElementById('groupDialog_c').style.visibility == 'hidden')
+		{
+			document.getElementById('groupDialog').style.display = 'none';
+			document.getElementById('groupDialogHead').style.display = 'block';
+			document.getElementById('groupDialogForm').action = sURI;
+			document.getElementById('groupDialogForm').method = 'PUT';
+			Fuji.Dialogs.newDialog('groupDialog');
+		}
+	},
+	
+	/**
 	 * Creates a new delete item dialog (if it doesn't exist), and shows the dialog
 	 * @param {String} sURI The uri of the item to be deleted
 	 * @param {String} sParentURI The uri of the item's parent
@@ -171,16 +218,6 @@ Fuji.Dialogs.Settings.prefDialog = {
 	},
 	handleCancel : function() { this.cancel(); this.hide(); }
 }
-Fuji.Dialogs.Settings.newGroupDialog = {
-	onSuccess : function() { Fuji.reloadItem("groups/"); },
-	handleSubmit : function() { this.submit(); document.getElementById('newGroupF').reset(); this.hide(); },
-	handleCancel : function() { this.cancel(); document.getElementById('newGroupF').reset(); this.hide(); }
-}
-Fuji.Dialogs.Settings.editGroupDialog = {
-	onSuccess : function() { Fuji.reloadItem("groups/"); },
-	handleSubmit : function() { this.submit(); document.getElementById('editGroupF').reset(); this.hide(); },
-	handleCancel : function() { this.cancel(); document.getElementById('editGroupF').reset(); this.hide(); }
-}
 Fuji.Dialogs.Settings.configRightsDialog = {
 	onSuccess : function() { },
 	handleSubmit : function() { this.submit(); document.getElementById('configRightsF').reset(); this.hide(); },
@@ -203,6 +240,27 @@ Fuji.Dialogs.Settings.createEditDialog = {
 	handleCancel : function() {	this.cancel();
 					document.getElementById('createEditForm').reset();
 					Fuji.Util.removeChildNodes(document.getElementById('editor').contentWindow.document.body);
+					this.hide(); }
+}
+Fuji.Dialogs.Settings.userDialog = {
+	uri : null,
+	onSuccess : function() { Fuji.reloadItem('users'); },
+	handleSubmit : function() {	this.submit();
+					document.getElementById('userDialogForm').reset();
+					this.hide(); },
+	handleCancel : function() {	this.cancel();
+					document.getElementById('userDialogForm').reset();
+					this.hide(); }
+}
+Fuji.Dialogs.Settings.groupDialog = {
+	uri : null,
+	onSuccess : function() { Fuji.reloadItem('groups'); },
+	handleSubmit : function() {	this.submit();
+					document.getElementById('groupDialogForm').reset();
+					this.hide();
+					Fuji.reloadItem('groups'); },
+	handleCancel : function() {	this.cancel();
+					document.getElementById('groupDialogForm').reset();
 					this.hide(); }
 }
 Fuji.Dialogs.Settings.deleteDialog = {

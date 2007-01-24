@@ -45,6 +45,31 @@
 					</tbody>
 				</table>
 			</div>
+			<div id="userDialog" style="display: none">
+				<div id="userDialogHead" class="hd"><?php echo $this->l10n->user ?></div>
+				<div id="userDialogBody" class="bd">
+					<form id="userDialogForm" name="userDialogForm" class="userDialogForm" method="POST" action="users">
+						<fieldset>
+							<legend><?php echo $this->l10n->account ?></legend>
+							<p><?php echo $this->l10n->name ?><br />
+								<input id='userName' name='nickname' type='text' value='' />
+							</p>
+							<p><?php echo $this->l10n->enter_your_new_password ?><br />
+								<input id='userPass' name='password' type='text' value='' />
+							</p>
+						</fieldset>
+						<fieldset>
+							<legend><?php echo $this->l10n->profile ?></legend>
+							<p><?php echo $this->l10n->email_address ?><br />
+								<input id='userEmail' name='email' type='text' value='' />
+							</p>
+							<p><?php echo $this->l10n->profile_photo ?><br />
+								<input id='userPhoto' name='picture' type='text' value='<?php if(isset(UserManager::getUser()->picture)) echo UserManager::getUser()->picture ?>' />
+							</p>
+						</fieldset>
+					</form>
+				</div>
+			</div>
 		</div>
 	</fuji:content>
 </fuji:item>

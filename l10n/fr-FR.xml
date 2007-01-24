@@ -90,6 +90,7 @@
 	<message name="title">Titre</message>
 	<message name="topic">Sujet</message>
 	<message name="type_unsupported">Genre de message n’est pas supporté ici</message>
+	<message name="user">Utilisateur</message>
 	<message name="users">Utilisateurs</message>
 	<message name="visible_in_profile">Visible en profil</message>
 	<message name="visual_effects">Effets visuels</message>	

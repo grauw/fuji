@@ -77,29 +77,6 @@
 				</form>
 			</div>
 		</div>
-		<div id="newGroupDialog" style="display: none">
-			<div id="newGroupTitle" class="hd"><?php echo $this->l10n->new_group ?></div>
-			<div id="newGroupForm" class="bd">
-				<form id="newGroupF" name="newGroupF" class="createEditF" method="POST" action="groups/">
-					<label><?php echo $this->l10n->name ?><input id="newGroupName" name='groupName' type="text" value='' /></label><br />
-					<label><input type="checkbox" name="newGroupRead" id="newGroupRead" /><?php echo $this->l10n->read ?></label><br />
-					<label><input type="checkbox" name="newGroupPost" id="newGroupPost" /><?php echo $this->l10n->post ?></label><br />
-					<label><input type="checkbox" name="newGroupEdit" id="newGroupEdit" /><?php echo $this->l10n->edit ?></label><br />
-					<label><input type="checkbox" name="newGroupDelete" id="newGroupDelete" /><?php echo $this->l10n->delete ?></label><br />
-				</form>
-			</div>
-		</div>
-		<div id="editGroupDialog" style="display: none">
-			<div id="editGroupTitle" class="hd"><?php echo $this->l10n->edit_group ?></div>
-			<div id="editGroupForm" class="bd">
-				<form id="editGroupF" name="editGroupF" class="createEditF" method="PUT" action="groups/*">
-					<label><input type="checkbox" name="editGroupRead" id="editGroupRead" /><?php echo $this->l10n->read ?></label><br />
-					<label><input type="checkbox" name="editGroupPost" id="editGroupPost" /><?php echo $this->l10n->post ?></label><br />
-					<label><input type="checkbox" name="editGroupEdit" id="editGroupEdit" /><?php echo $this->l10n->edit ?></label><br />
-					<label><input type="checkbox" name="editGroupDelete" id="editGroupDelete" /><?php echo $this->l10n->delete ?></label><br />
-				</form>
-			</div>
-		</div>
 		<div id="configRightsDialog" style="display: none">
 		</div>
 		<?php if(UserManager::getUser()->isAdmin()) { ?>

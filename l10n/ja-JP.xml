@@ -90,6 +90,7 @@
 	<message name="title">題名</message>
 	<message name="topic">話題</message>
 	<message name="type_unsupported">Post type not supported here</message>
+	<message name="user">User</message>
 	<message name="users">ユーザー</message>
 	<message name="visible_in_profile">Visible in profile</message>
 	<message name="visual_effects">Visual effects</message>
