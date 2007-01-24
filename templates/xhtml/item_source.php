@@ -5,7 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-GB">
 <head>
 	<title><?php echo $this->entry->title ?> source</title>
-	<meta http-equiv="Content-Type" content="<?php echo $this->acceptsXHTML() ? 'application/xhtml+xml' : 'text/html' ?>; charset=utf-8" />
+	<?php echo $this->getHead() ?>
 </head>
 <body>
 <?php 		$entry_data_keys = array_keys($this->entry->getData());

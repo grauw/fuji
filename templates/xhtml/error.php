@@ -5,11 +5,6 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<?php echo $this->l10n->language ?>">
 <head>
 	<title><?php echo $entry->title ?></title>
-	<meta http-equiv="Content-Type" content="<?php echo $this->acceptsXHTML() ? 'application/xhtml+xml' : 'text/html' ?>; charset=utf-8" />
-	<link rel="alternate" type="application/atom+xml" title="Atom" href="/blog/atom.php" />
-	<link rel="alternate" type="application/rss+xml" title="RSS" href="/blog/rss.php" />
-	<link rel="meta" type="application/rdf+xml" title="FOAF" href="foaf.rdf" />
-	<link rel="icon" type="image/png" href="/images/siteicon.png" />
 	<?php echo $this->getHead() ?>
 </head>
 <body>

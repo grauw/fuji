@@ -14,9 +14,13 @@ class XHTML_Template extends Template {
 	
 	public function getHead()
 	{
+		$head = '<meta http-equiv="Content-Type" content="' . $this->acceptsXHTML() ?
+			'application/xhtml+xml' : 'text/html' . '; charset=utf-8" />';
+		$head .= '<link rel="icon" type="image/png" href="' . $this->getForumRoot() . 'images/siteicon.png" />';
 		if (!$this->acceptsXHTML()) {
-			return Stylesheet::getStyleSheetsHTML();
+			$head .= Stylesheet::getStyleSheetsHTML();
 		}
+		return $head;
 	}
 	
 	public function getHeader()
