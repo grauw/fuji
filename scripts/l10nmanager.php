@@ -81,14 +81,9 @@
 		static function checkL10nPaths($lang, $plugin = NULL)
 		{
 			$paths = array();
-			if (file_exists("../../../l10n/$lang.xml")) array_push($paths, "../../../l10n/$lang.xml");
-			if (file_exists("../../l10n/$lang.xml"))    array_push($paths, "../../l10n/$lang.xml");
-			if (file_exists("../l10n/$lang.xml"))       array_push($paths, "../l10n/$lang.xml");
-			if (file_exists("l10n/$lang.xml"))          array_push($paths, "l10n/$lang.xml");
-			if (file_exists("../../../plugins/$plugin/l10n/$lang.xml")) array_push($paths, "../../../plugins/$plugin/l10n/$lang.xml");
-			if (file_exists("../../plugins/$plugin/l10n/$lang.xml"))    array_push($paths, "../../plugins/$plugin/l10n/$lang.xml");
-			if (file_exists("../plugins/$plugin/l10n/$lang.xml"))       array_push($paths, "../plugins/$plugin/l10n/$lang.xml");
-			if (file_exists("plugins/$plugin/l10n/$lang.xml"))          array_push($paths, "plugins/$plugin/l10n/$lang.xml");
+			$basepath = substr($_SERVER['SCRIPT_FILENAME'], 0, -strlen($_SERVER['SCRIPT_NAME']));
+			if (file_exists("$basepath/l10n/$lang.xml")) array_push($paths, "$basepath/l10n/$lang.xml");
+			if (file_exists("$basepath/plugins/$plugin/l10n/$lang.xml")) array_push($paths, "$basepath/plugins/$plugin/l10n/$lang.xml");
 			return $paths;
 		}
 		
