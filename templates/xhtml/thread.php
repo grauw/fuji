@@ -1,4 +1,5 @@
-<?php	$page_size = 20; 
+<?php
+	$page_size = 20; 
 	$photo_placeholder = '../style/default/graphics/no-photo.png';
 	echo $this->getPrefix();
 ?>
