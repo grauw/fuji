@@ -128,16 +128,18 @@
 		static function getAcceptLanguage() {
 			Resource::addVary('Accept-Language');
 			$languages = array();
-			$accept_lang = str_replace(' ', '', $_SERVER['HTTP_ACCEPT_LANGUAGE']);
-			if ($accept_lang) {
-				$acceptlangs = explode(',', $accept_lang);
-				foreach ($acceptlangs as $acceptlang) {
-					list($lang, $q) = explode(';q=', $acceptlang);
-					$q = isset($q) ? floatval($q) : 1.0;
-					$languages[$lang] = $q;
+			if (isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
+				$accept_lang = str_replace(' ', '', $_SERVER['HTTP_ACCEPT_LANGUAGE']);
+				if ($accept_lang) {
+					$acceptlangs = explode(',', $accept_lang);
+					foreach ($acceptlangs as $acceptlang) {
+						list($lang, $q) = explode(';q=', $acceptlang);
+						$q = isset($q) ? floatval($q) : 1.0;
+						$languages[$lang] = $q;
+					}
+				} else {
+					$languages['*'] = 1.0;
 				}
-			} else {
-				$languages['*'] = 1.0;
 			}
 			return $languages;
 		}
