@@ -110,7 +110,7 @@
 					<label style="display:block;"><?php echo $this->l10n->message ?>:
 						<textarea name="content" style="display:block;width:40em;"></textarea>
 					</label>
-					<button>xxx<?php echo $this->l10n->submit ?></button>
+					<button><?php echo $this->l10n->submit ?></button>
 				</form>
 			</div>
 			<?php } ?>

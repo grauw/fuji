@@ -57,7 +57,7 @@ RewriteRule ^menu/(\w+)/?$ scripts/menu.php?action=$1 [L,QSA]
 RewriteRule ^install/?$ scripts/install/index.php [L,QSA]
 
 # GET /register
-RewriteRule ^register/?$ scripts/register/index.php [L,QSA]
+RewriteRule ^register/?$ scripts/register.php [L,QSA]
 
 # POST /preferences
 RewriteRule ^preferences/?$ scripts/preferences.php [L,QSA]

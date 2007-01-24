@@ -11,8 +11,10 @@ Fuji = {
 		} else {
 			Fuji.reloadItem(uri);
 		}
-		document.getElementById('rsslink').href = 'rss/' + uri;
-		document.getElementById('atomlink').href = 'atom/' + uri;
+// TODO: This is not for all pages, ne?
+//       And why only for loadItem, not in reloadItem?
+//		document.getElementById('rsslink').href = uri + '.rss';
+//		document.getElementById('atomlink').href = uri + '.atom';
 	},
 	
 	/**
@@ -57,20 +59,38 @@ Fuji = {
 	},
 	
 	/**
+	 * Submits the form that is passed, and loads the result
+	 * @param {String} uri The URI to the item
+	 */
+	submitItem : function(form) {
+		Fuji.Dialogs.newSimpleDialog('loadingDialog');
+		var callback =
+		{
+			success: Fuji.loadSuccess,
+			failure: Fuji.loadFailure,
+			argument: { uri: form.action, oDocument: undefined, sURI: undefined }
+		}
+		YAHOO.util.Connect.setForm(form);
+		YAHOO.util.Connect.initHeader('Accept', 'application/x-fuji+xhtml+xml');
+		YAHOO.util.Connect.asyncRequest(form.method.toUpperCase(), form.action, callback, null);
+	},
+	
+	/**
 	 * Handles the response of the loadItem/reloadItem request
 	 * @param {Object} oXMLHttpObject The response object
 	 */		
 	loadSuccess : function(oXMLHttpObject) {
-		if(!oXMLHttpObject.responseXML) return; //To prevent loops when you have insufficient rights
-		var oDocument = oXMLHttpObject.responseXML;
-		if(!oDocument.documentElement) //Internet Explorer-hack
-		{
-			oDocument = new ActiveXObject("Microsoft.XMLDOM");
-			oDocument.loadXML(oXMLHttpObject.responseText);
-		}
-		Fuji.loadDocument(oDocument, oXMLHttpObject.argument.uri);
-		if (oXMLHttpObject.argument.oDocument) {
-			Fuji.loadDocument(oXMLHttpObject.argument.oDocument, oXMLHttpObject.argument.sURI);
+		if (oXMLHttpObject.responseText) {
+			var oDocument = oXMLHttpObject.responseXML;
+			if (!oDocument.documentElement) //Internet Explorer-hack
+			{
+				oDocument = new ActiveXObject("Microsoft.XMLDOM");
+				oDocument.loadXML(oXMLHttpObject.responseText);
+			}
+			Fuji.loadDocument(oDocument, oXMLHttpObject.argument.uri);
+			if (oXMLHttpObject.argument.oDocument) {
+				Fuji.loadDocument(oXMLHttpObject.argument.oDocument, oXMLHttpObject.argument.sURI);
+			}
 		}
 		Fuji.Dialogs.Instances.loadingDialog.hide();
 	},

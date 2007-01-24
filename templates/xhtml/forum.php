@@ -88,7 +88,8 @@
 			
 	<?php if (UserManager::getUser()->getRights($this->entry)->may_post) { ?>
 	<div class="box">
-		<h3><span><?php echo $this->l10n->new ?></span><span>some cute text here</span></h3>
+		<!-- TODO: put style in CSS -->
+		<h3><span><?php echo $this->l10n->new ?></span><span>xxx some cute text here</span></h3>
 		<form action="" method="POST" class="content">
 			<input type="hidden" name="type" value="4" />
 			<input type="hidden" name="processor" value="xhtml" />
@@ -98,7 +99,7 @@
 			<label style="display:block;"><?php echo $this->l10n->message ?>:
 				<textarea name="content" style="display:block;width:40em;"></textarea>
 			</label>
-			<button>xxx<?php echo $this->l10n->submit ?></button>
+			<button><?php echo $this->l10n->submit ?></button>
 		</form>
 	</div>
 	<?php } ?>

@@ -12,6 +12,7 @@ class Template extends Dataclass {
 	public $entries;
 	public $page;
 	public $l10n;
+	public $message;
 	public $plugin;
 	public $pluginname;
 	public $date;
@@ -31,7 +32,7 @@ class Template extends Dataclass {
 		if ($mimetype == NULL) $mimetype = self::getMimeType();
 		$data = Database::getArray("SELECT * FROM " . DbVar::$db_tprefix . "templates WHERE mimetype = '".addslashes($mimetype)."'");
 		$templatedata = $data[0];
-		if(!$templatedata) trigger_error('template not found for MIME type '.$mimetype);
+		if (!$templatedata) trigger_error('template not found for MIME type '.$mimetype);
 		$templateclass = require_once(realpath(dirname(__FILE__).'/../'.$templatedata['basedir']));
 		return new $templateclass($templatedata);
 	}
@@ -40,7 +41,7 @@ class Template extends Dataclass {
 		if ($mimetype == NULL) $mimetype = self::getMimeType();
 		$data = Database::getArray("SELECT * FROM " . DbVar::$db_tprefix . "templates WHERE mimetype = '".addslashes($mimetype)."'");
 		$templatedata = $data[0];
-		if(!$templatedata) trigger_error('template not found for MIME type '.$mimetype);
+		if (!$templatedata) trigger_error('template not found for MIME type '.$mimetype);
 		$templateclass = require_once(realpath(dirname(__FILE__).'/../plugins/'.$plugin.'/'.$templatedata['basedir']));
 		$t = new $templateclass($templatedata);
 		$t->pluginname = $plugin;
@@ -48,16 +49,14 @@ class Template extends Dataclass {
 	}	
 	
 	function getTemplateView($view) {
-		if(isset($this->pluginname))
+		if (isset($this->pluginname))
 		{
-			if (!preg_match('/^\w+$/', $view)) return FALSE;
 			$file = 'plugins/'.$this->pluginname.'/'.dirname($this->basedir).'/'.$view.'.php';
 			if (!file_exists(realpath(dirname(__FILE__).'/../'.$file))) return FALSE;
 			return realpath(dirname(__FILE__).'/../'.$file);
 		}
 		else
 		{
-			if (!preg_match('/^\w+$/', $view)) return FALSE;
 			$file = dirname($this->basedir).'/'.$view.'.php';
 			if (!file_exists(realpath(dirname(__FILE__).'/../'.$file))) return FALSE;
 			return realpath(dirname(__FILE__).'/../'.$file);

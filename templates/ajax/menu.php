@@ -13,7 +13,7 @@
 		<ul>
 			<?php if (UserManager::getUser()->nickname == 'anonymous') { ?>
 				<li><a href="javascript:Fuji.login()"><?php echo $this->l10n->login ?></a></li>
-				<li><a href="register"><?php echo $this->l10n->register ?></a></li>
+				<li><a href="#register"><?php echo $this->l10n->register ?></a></li>
 			<?php } else { ?>
 				<li><a href="#<?php echo UserManager::getUser()->getURI() ?>"><?php echo $this->l10n->profile ?></a></li>
 				<?php if (UserManager::isAdmin()) { ?>
