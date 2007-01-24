@@ -4,9 +4,6 @@
 		header('HTTP/1.1 303 See Other');
 		exit;
 	}
-	require_once("../scripts/usermanager.php");
-	require_once("../scripts/pluginmanager.php");	
-	UserManager::authenticate();
 ?>
 <?php echo $this->getPrefix() ?>
 <!DOCTYPE html 

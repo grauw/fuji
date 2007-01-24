@@ -3,11 +3,13 @@ require_once 'entry.php';
 require_once 'usermanager.php';
 require_once 'template.php';
 require_once 'resource.php';
+require_once 'pluginmanager.php';
 
 class Index extends Resource {
 	
 	function httpGet()
-	{	//TODO: Make sure this works too when there's no filled database, link to installer
+	{
+		UserManager::authenticate();
 		$template = Template::getTemplate();
 		$template->applyView('index');
 	}
