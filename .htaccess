@@ -39,44 +39,44 @@ RewriteRule ^$ scripts/index.php [L,QSA]
 RewriteRule ^item/(\d+)/?$ scripts/item.php?id=$1 [L,QSA]
 
 # GET /item/<id>/source
-RewriteRule ^item/(\d+)/source$ scripts/itemsource.php?id=$1 [L,QSA]
+RewriteRule ^item/(\d+)/source/?$ scripts/itemsource.php?id=$1 [L,QSA]
 
 # POST /item/<id>/rights
-RewriteRule ^item/(\d+)/rights$ scripts/config_rights.php?id=$1 [L,QSA]
+RewriteRule ^item/(\d+)/rights/?$ scripts/config_rights.php?id=$1 [L,QSA]
 
 # GET /item/<id>/<page>
-RewriteRule ^item/(\d+)/(\d+)$ scripts/item.php?id=$1&page=$2 [L,QSA]
+RewriteRule ^item/(\d+)/(\d+)/?$ scripts/item.php?id=$1&page=$2 [L,QSA]
 
 # GET /menu
-RewriteRule ^menu$ scripts/menu.php [L,QSA]
+RewriteRule ^menu/?$ scripts/menu.php [L,QSA]
 
 # GET /menu/<action>
-RewriteRule ^menu/(\w+)$ scripts/menu.php?action=$1 [L,QSA]
+RewriteRule ^menu/(\w+)/?$ scripts/menu.php?action=$1 [L,QSA]
 
 # GET /install
-RewriteRule ^install$ scripts/install/index.php [L,QSA]
+RewriteRule ^install/?$ scripts/install/index.php [L,QSA]
 
 # GET /register
-RewriteRule ^register$ scripts/register/index.php [L,QSA]
+RewriteRule ^register/?$ scripts/register/index.php [L,QSA]
 
 # POST /preferences
-RewriteRule ^preferences$ scripts/preferences.php [L,QSA]
+RewriteRule ^preferences/?$ scripts/preferences.php [L,QSA]
 
 # POST /serversettings
-RewriteRule ^serversettings$ scripts/serversettings.php [L,QSA]
+RewriteRule ^serversettings/?$ scripts/serversettings.php [L,QSA]
 
 # GET /pluginsettings
 # POST /pluginsettings
-RewriteRule ^pluginsettings$ scripts/plugins.php [L,QSA]
+RewriteRule ^pluginsettings/?$ scripts/plugins.php [L,QSA]
 
 # POST /login
-RewriteRule ^login$ scripts/login.php [L,QSA]
+RewriteRule ^login/?$ scripts/login.php [L,QSA]
 
 # POST /logout
-RewriteRule ^logout$ scripts/logout.php [L,QSA]
+RewriteRule ^logout/?$ scripts/logout.php [L,QSA]
 
 # GET /users
-RewriteRule ^users$ scripts/users.php [L,QSA]
+RewriteRule ^users/?$ scripts/users.php [L,QSA]
 
 # GET /users/<id>
 # POST /users/<id>
@@ -85,24 +85,24 @@ RewriteRule ^users$ scripts/users.php [L,QSA]
 RewriteRule ^users/(\d+)/?$ scripts/users.php?id=$1 [L,QSA]
 
 # GET /users/<id>/profile
-RewriteRule ^users/(\d+)/profile$ scripts/profile.php?id=$1 [L,QSA]
+RewriteRule ^users/(\d+)/profile/?$ scripts/profile.php?id=$1 [L,QSA]
 
 # GET /groups
 # POST /groups
-RewriteRule ^groups$ scripts/groups.php [L,QSA]
+RewriteRule ^groups/?$ scripts/groups.php [L,QSA]
 
 # POST /groups/<groupid>
 # DELETE /groups/<groupid>
-RewriteRule ^groups/(\d+)$ scripts/groups.php?id=$1 [L,QSA]
+RewriteRule ^groups/(\d+)/?$ scripts/groups.php?id=$1 [L,QSA]
 
 # GET /groups/<groupid>/users
-RewriteRule ^groups/(\d+)/users$  scripts/userlist.php?groupid=$1 [L,QSA]
+RewriteRule ^groups/(\d+)/users/?$  scripts/userlist.php?groupid=$1 [L,QSA]
 
 # GET /calendar
-RewriteRule ^calendar$ scripts/calendar.php [L,QSA]
+RewriteRule ^calendar/?$ scripts/calendar.php [L,QSA]
 
 # GET /calendar/yyyy-mm
-RewriteRule ^calendar/(\d{4}-\d{2})$ scripts/calendar.php?date=$1 [L,QSA]
+RewriteRule ^calendar/(\d{4}-\d{2})/?$ scripts/calendar.php?date=$1 [L,QSA]
 
 # GET /calendar/yyyy-mm-dd
-RewriteRule ^calendar/(\d{4}-\d{2}-\d{2})$ scripts/calendarday.php?date=$1 [L,QSA]
+RewriteRule ^calendar/(\d{4}-\d{2}-\d{2})/?$ scripts/calendarday.php?date=$1 [L,QSA]
