@@ -259,7 +259,7 @@ require_once 'database.php';
 		 * Gets the absolute URI of this resource
 		 */
 		function getAbsoluteURI() {
-			return ($_SERVER['HTTPS']?'https://':'http://').$_SERVER['HTTP_HOST'].$this->getRootedURI();
+			return $this->getAbsoluteForumRoot().$this->getURI();
 		}
 		
 		/* ================== Utility functions ================== */
@@ -268,6 +268,13 @@ require_once 'database.php';
 		 */
 		function getForumRoot() {
 			return substr($_SERVER['PHP_SELF'], 0, strrpos($_SERVER['PHP_SELF'], '/scripts/') + 1);
+		}
+		
+		/**
+		 * Gets the absolute root path of the forum
+		 */
+		function getAbsoluteForumRoot() {
+			return ($_SERVER['HTTPS']?'https://':'http://').$_SERVER['HTTP_HOST'].$this->getForumRoot();
 		}
 		
 	}

@@ -1,11 +1,14 @@
 <?php
-if(file_exists("../scripts/configuration/installer_disabled"))
-{
+	if (!file_exists("configuration/installer_disabled")) {
+		header('Location: ' . $this->getAbsoluteForumRoot() . 'install');
+		header('HTTP/1.1 303 See Other');
+		exit;
+	}
 	require_once("../scripts/usermanager.php");
 	require_once("../scripts/pluginmanager.php");	
 	UserManager::authenticate();
-	echo $this->getPrefix();
 ?>
+<?php echo $this->getPrefix() ?>
 <!DOCTYPE html 
      PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
@@ -53,15 +56,3 @@ if(file_exists("../scripts/configuration/installer_disabled"))
 	</div>
 </body>
 </html>
-<?php } else { ?>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en:GB" xml:lang="en:GB">
-<head>
-	<title>Fuji</title>
-	<?php echo $this->getHead() ?>
-</head>
-<body>
-	<p>Your Fuji Forum has to be configured before you can start using it.</p>
-	<p>Please run the <a href="<?php echo $this->getForumRoot() ?>install">installer</a> first.</p>
-</body>
-</html>
-<?php } ?>
