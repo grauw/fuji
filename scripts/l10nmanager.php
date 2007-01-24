@@ -81,7 +81,7 @@
 		static function checkL10nPaths($lang, $plugin = NULL)
 		{
 			$paths = array();
-			$basepath = substr($_SERVER['SCRIPT_FILENAME'], 0, -strlen($_SERVER['SCRIPT_NAME']));
+			$basepath = dirname(dirname(__FILE__));	// take dirname, then go up 1 dir
 			if (file_exists("$basepath/l10n/$lang.xml")) array_push($paths, "$basepath/l10n/$lang.xml");
 			if (file_exists("$basepath/plugins/$plugin/l10n/$lang.xml")) array_push($paths, "$basepath/plugins/$plugin/l10n/$lang.xml");
 			return $paths;
