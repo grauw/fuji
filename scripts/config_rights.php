@@ -11,15 +11,24 @@ class ItemRights extends Resource {
 	function httpGet()
 	{
 		UserManager::authenticate();
-		$id = isset($_GET['id']) ? intval($_GET['id']) : 1;
-		$groups = Group::getAllGroups();
-		$entry = Entry::getEntry($id);
-		if ($entry) {
-			$template = Template::getTemplate();
-			$template->entry = $entry;
-			$template->groups = $groups;
-			$template->applyView('rights');
-		} else header('HTTP/1.1 404 Not Found');			
+		if(UserManager::isAdmin()) {
+			if(isset($_GET['id'])) {
+				$id = intval($_GET['id']);
+				if (Entry::isEntryId($_GET['id'])) {
+					$template = Template::getTemplate();
+					$template->entryid = $_GET['id'];
+					$template->applyView('rights');
+				} else header('HTTP/1.1 404 Not Found');
+			} else {
+				if(isset($_GET['groupid'])) {
+					if (Group::isGroupId($_GET['groupid'])) {
+						$template = Template::getTemplate();
+						$template->groupid = $_GET['groupid'];
+						$template->applyView('rights');
+					}
+				} else header('HTTP/1.1 404 Not Found');
+			}
+		} else header('HTTP/1.1 401 Unauthorized');
 	}
 	
 	function httpPost()

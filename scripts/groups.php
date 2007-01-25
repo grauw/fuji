@@ -14,6 +14,7 @@ class Groups extends Resource {
 		if (UserManager::getUser()->getRights($entry)->may_read) {
 			$template = Template::getTemplate();
 			if(isset($_GET['userid'])) $template->userid = $_GET['userid'];
+			if(isset($_GET['groupid'])) $template->userid = $_GET['groupid'];
 			$template->applyView('groups');
 		}
 		else header('HTTP/1.1 401 Unauthorized');
@@ -23,7 +24,7 @@ class Groups extends Resource {
 	{
 		UserManager::authenticate();
 		if (strlen($_POST['name']) > 1 && preg_match('/[a-zA-Z0-9_-]$/', $_POST['name'])) {
-			if (!Group::isGroup($_POST['name'])) {
+			if (!Group::isGroupName($_POST['name'])) {
 				if (UserManager::isAdmin()) {
 					$newgroupdata = array ( 
 							'name' => $_POST['name'],

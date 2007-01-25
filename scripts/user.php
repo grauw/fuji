@@ -54,13 +54,28 @@ class User extends Dataclass {
 		else return false;
 	}
 	
+	static function isUser($nickname){
+		//DEPRECATED
+		self::isUserName($nickname);
+	}
+	
 	/**
 	 * Checks if a user exists
-	 * @param {String} $nickname the nickname from the user you want to check
+	 * @param String $nickname the nickname of the user you want to check
 	 * @returns True if user exists, false otherwise
 	 */
-	static function isUser($nickname){
+	static function isUserName($nickname){
 		if(count(Database::getArray("SELECT * FROM " . Database::$db_tprefix . "users WHERE nickname = '". $nickname ."'")) == 0) return false;
+		else return true;
+	}
+	
+	/**
+	 * Checks if a user exists
+	 * @param Number $id the id of the user you want to check
+	 * @returns True if user exists, false otherwise
+	 */
+	static function isUserId($id){
+		if(count(Database::getArray("SELECT * FROM " . Database::$db_tprefix . "users WHERE id = '". $id ."'")) == 0) return false;
 		else return true;
 	}
 	
@@ -128,7 +143,7 @@ class User extends Dataclass {
 	
 	/**
 	 * Get the rights this user has at a specified entry
-	 * @param {Entry} $enty the entry to be checked
+	 * @param {Entry} $entry the entry to be checked
 	 * @returns Rights about the entry/user
 	 */
 	function getRights($entry)

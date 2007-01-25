@@ -39,6 +39,26 @@ class Entry extends Dataclass {
 		return self::getEntry($this->ref);
 	}
 	
+	/**
+	 * Checks if an entry exists
+	 * @param Number $id the id of the entry you want to check
+	 * @returns True if entry exists, false otherwise
+	 */
+	static function isEntryId($id){
+		if(count(Database::getArray("SELECT * FROM " . Database::$db_tprefix . "entries WHERE id = '". $id ."'")) == 0) return false;
+		else return true;
+	}
+	
+	/**
+	 * Checks if an entry exists
+	 * @param String $title the title of the entry you want to check
+	 * @returns True if entry exists, false otherwise
+	 */
+	static function isEntryTitle($title){
+		if(count(Database::getArray("SELECT * FROM " . Database::$db_tprefix . "entries WHERE title = '". $title ."'")) == 0) return false;
+		else return true;
+	}
+	
 	static function search($query, $field, $forumid = null, $orderby = null, $limit = null) {
 		$childrenids_string = "";
 		if(isset($forumid))
@@ -112,6 +132,14 @@ class Entry extends Dataclass {
 		$entry = new Entry();
 		$entry->ref = $this->id;
 		return $entry;
+	}
+	
+	/**
+	 * Checks if this entry is the root entry
+	 * @returns True if this entry is the root entry, False otherwise
+	 */
+	function isRoot() {
+		return !isset($this->ref);
 	}
 	
 	/**

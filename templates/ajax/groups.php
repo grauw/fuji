@@ -55,7 +55,18 @@
 						</fieldset>
 						<fieldset>
 							<legend><?php echo $this->l10n->rights ?></legend>
-							<!-- TODO: Rights tree -->
+							<table>
+								<thead>
+									<th><?php echo $this->l10n->item ?></th>
+									<th><?php echo $this->l10n->read ?></th>
+									<th><?php echo $this->l10n->post ?></th>
+									<th><?php echo $this->l10n->edit ?></th>
+									<th><?php echo $this->l10n->delete ?></th>
+									<th><?php echo $this->l10n->actions ?></th>
+								</thead>
+								<tbody>
+								</tbody>
+							</table>
 						</fieldset>
 					</form>
 				</div>

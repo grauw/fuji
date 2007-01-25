@@ -49,11 +49,21 @@ class Group extends Dataclass {
 	
 	/**
 	 * Checks if a group exists
-	 * @param {String} $name the name from the group you want to check
+	 * @param {String} $name the name of the group you want to check
 	 * @returns True if group exists, false otherwise
 	 */
-	static function isUser($nickname){
+	static function isGroupName($name){
 		if(count(Database::getArray("SELECT * FROM " . Database::$db_tprefix . "groups WHERE name = '". $name ."'")) == 0) return false;
+		else return true;
+	}
+	
+	/**
+	 * Checks if a group exists
+	 * @param Number $id the id of the group you want to check
+	 * @returns True if group exists, false otherwise
+	 */
+	static function isGroupId($name){
+		if(count(Database::getArray("SELECT * FROM " . Database::$db_tprefix . "groups WHERE id = '". $id ."'")) == 0) return false;
 		else return true;
 	}
 	
@@ -115,6 +125,22 @@ class Group extends Dataclass {
 		else
 			return new Rights(array());
 	}
+	
+	/**
+	 * Get group rights
+	 * @param {Entry} $entry the entry from which you want the rights
+	 * @returns hash/assoc. array with rights this group has on this entry
+	 */
+	/* Work in progress
+	function getRights($entry) {
+		$rights = Rights::getRights($entry->id, $this->id);
+		if($rights) return $rights;
+		elseif(!$entry->isRoot())
+			return $this->getRights($entry->getParent());
+		else
+			return new Rights(Rights::$no_rights);
+	}
+	*/
 	
 	/**
 	 * Get group member count

@@ -93,10 +93,13 @@ RewriteRule ^groups/?$ scripts/groups.php [L,QSA]
 
 # PUT /groups/<groupid>
 # DELETE /groups/<groupid>
-RewriteRule ^groups/(\d+)/?$ scripts/groups.php?id=$1 [L,QSA]
+RewriteRule ^groups/(\d+)/?$ scripts/groups.php?groupid=$1 [L,QSA]
 
 # GET /groups/<groupid>/users
 RewriteRule ^groups/(\d+)/users/?$  scripts/users.php?groupid=$1 [L,QSA]
+
+# GET /groups/<groupid>/rights
+RewriteRule ^item/(\d+)/rights/?$ scripts/config_rights.php?groupid=$1 [L,QSA]
 
 # GET /calendar
 RewriteRule ^calendar/?$ scripts/calendar.php [L,QSA]
