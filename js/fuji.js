@@ -114,6 +114,7 @@ Fuji = {
 		var oTargetDiv = document.createElement('div');
 		oTargetDiv.id = sURI;
 		for (var i=0; i < oContent.childNodes.length; i++) {
+			var test = Fuji.Util.importNode(oContent.childNodes.item(i), true);
 			oTargetDiv.appendChild(Fuji.Util.importNode(oContent.childNodes.item(i), true));
 		}
 		var oTargetId = oDocument.documentElement.getAttribute('loadcontext');
@@ -249,14 +250,18 @@ Fuji = {
 	},
 	
 	/**
-	 * Hides the HTML page while loading
+	 * Hides the HTML page while loading. Invoked at the end of this script.
 	 */
 	preBoot : function() {
 		// do browser test!
-		var style = document.createElement('style');
-		style.type = 'text/css';
-		style.appendChild(document.createTextNode('.loading body { display: none }'));
-		document.documentElement.appendChild(style);
+		if (!Fuji.Util.Browser.ie) {
+			var style = document.createElement('style');
+			style.type = 'text/css';
+			style.appendChild(document.createTextNode('.loading body { display: none }'));
+			document.documentElement.appendChild(style);
+		} else {
+			document.write('<style type="text/css">.loading body { display: none }</style>');
+		}
 		YAHOO.util.Dom.addClass(document.documentElement, 'loading');
 	},
 	
@@ -363,9 +368,26 @@ Fuji.Util = {
 					} else {
 						sNodeName = oNode.nodeName;
 					}
-					oNew = document.createElement(sNodeName);
-					for(var i = 0; i < oNode.attributes.length; i++){
-						oNew.setAttribute(oNode.attributes[i].name, oNode.attributes[i].value);
+					// On certain elements, attributes need to be created in one go using IE-specific syntax.
+					switch (sNodeName) {
+						case 'input':
+							oNew = document.createElement('<input type="'+oNode.getAttribute('type')+'">');
+							oNode.removeAttribute('type');
+						case 'textarea':
+							oNew = document.createElement('<textarea type="'+oNode.getAttribute('type')+'">');
+							oNode.removeAttribute('type');
+						default:
+							oNew = document.createElement(sNodeName);
+					}
+					try {
+						for (var i = 0; i < oNode.attributes.length; i++) {
+							oNew.setAttribute(oNode.attributes[i].name, oNode.attributes[i].value);
+						}
+					} catch (e) {
+						// If you get an exception here, add the element and attribute to the switch above.
+						alert("Error adding attribute to element <" + oNode.nodeName +
+							">, attribute: " + oNode.attributes[i].name +
+							", value: " + oNode.attributes[i].value);
 					}
 					if (oNode.style) oNew.style.cssText = oNode.style.cssText;
 					if (oNode.getAttribute('style') != null) oNew.style.cssText = oNode.getAttribute('style');
@@ -381,6 +403,12 @@ Fuji.Util = {
 				case Fuji.Util.TEXT_NODE:
 					oNew = document.createTextNode(oNode.nodeValue);
 					break;
+				case Fuji.Util.COMMENT_NODE:
+					oNew = document.createComment(oNode.data);
+					break;
+				default:
+					alert('Node type not supported on importNode: '+oNode.nodeType);
+					oNew = document.createComment('Nodetype not supported: '+oNode.nodeType);
 			}
 			return oNew;
 		}
@@ -435,6 +463,19 @@ Fuji.Util = {
 	removeChildNodes : function (oNode) {
 		while(oNode.hasChildNodes())
 			oNode.removeChild(oNode.firstChild);
+	},
+	
+	Browser : {
+		//Internet Explorer
+		ie: 	(document.all && !navigator.userAgent.match(/opera/i) && !navigator.appVersion.match(/mac/i)),
+		//Gecko engine newer then 2003-10-01
+		gecko:	(window.controllers && parseInt(navigator.productSub) > 20031001),
+		//Support for Opera 9
+		opera: 	(navigator.userAgent.match(/opera[ \/][9]\./i)),
+		//Support for Safari Webkit 420+ (so Nightly / TOT)
+		safari:	(parseInt(navigator.userAgent.substr(navigator.userAgent.search(/applewebkit\//i)+12,3))>=420),
+		//Check for quirksmode
+		quirks:	(document.compatMode)? document.compatMode.indexOf('CSS1Compat') < 0 : true
 	}
 }
 
