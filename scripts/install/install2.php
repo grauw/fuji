@@ -4,7 +4,6 @@ class Install2 {
 
 	function execute()
 	{
-		require_once('../security.php');
 		require_once('../database.php');
 		require_once('database.php');
 		if(isset($_POST['admin']) && strlen($_POST['e-mail']) > 0)
