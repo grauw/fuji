@@ -24,6 +24,12 @@
 			return self::$db->GetArray($query);
 		}
 		
+		static function getAll($query)
+		{
+			self::connect();
+			return self::$db->GetAll($query);
+		}
+		
 		static function execute($query)
 		{
 			self::connect();

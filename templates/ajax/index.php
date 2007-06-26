@@ -77,8 +77,6 @@
 				</form>
 			</div>
 		</div>
-		<div id="configRightsDialog" style="display: none">
-		</div>
 		<?php if(UserManager::getUser()->isAdmin()) { ?>
 		<div id="serverSettingsDialog" style="display: none">
 			<div class="hd"><?php echo $this->l10n->preferences ?></div>
@@ -215,6 +213,26 @@
 							<input id='prefPhoto' name='picture' type='text' value='<?php if(isset(UserManager::getUser()->picture)) echo UserManager::getUser()->picture ?>' />
 						</p>
 					</fieldset>
+				</form>
+			</div>
+		</div>
+		<div id="rightsDialog" style="display: none">
+			<div class="hd"><?php echo $this->l10n->rights ?></div>
+			<div class="bd">
+				<form name="rightsF" id="rightsDialogForm" method="PUT" action="">
+					<table>
+						<thead>
+							<tr><td><?php echo $this->l10n->group ?></td><td><?php echo $this->l10n->read ?></td><td><?php echo $this->l10n->post ?></td><td><?php echo $this->l10n->edit ?></td><td><?php echo $this->l10n->delete ?></td></tr>
+						</thead>
+						<tbody>
+						</tbody>
+						<tfoot>
+						<tr>
+							<td>
+							</td>
+						</tr>
+						</tfoot>
+					</table>
 				</form>
 			</div>
 		</div>

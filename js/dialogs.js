@@ -167,6 +167,19 @@ Fuji.Dialogs = {
 			Fuji.Dialogs.newDialog('groupDialog');
 		}
 	},
+
+	/**
+	 * Creates a new rights dialog (if it doesn't exist), and shows the dialog
+	 */
+	newRightsDialog : function(sURI) {
+		if(!Fuji.Dialogs.Instances.rightsDialog || document.getElementById('rightsDialog_c').style.visibility == 'hidden')
+		{
+			document.getElementById('rightsDialog').style.display = 'block';
+			document.getElementById('rightsDialogForm').action = sURI + '/rights';
+			document.getElementById('rightsDialogForm').method = 'PUT';
+			Fuji.Dialogs.newDialog('rightsDialog');
+		}
+	},
 	
 	/**
 	 * Creates a new delete item dialog (if it doesn't exist), and shows the dialog
@@ -218,10 +231,10 @@ Fuji.Dialogs.Settings.prefDialog = {
 	},
 	handleCancel : function() { this.cancel(); this.hide(); }
 }
-Fuji.Dialogs.Settings.configRightsDialog = {
+Fuji.Dialogs.Settings.rightsDialog = {
 	onSuccess : function() { },
-	handleSubmit : function() { this.submit(); document.getElementById('configRightsF').reset(); this.hide(); },
-	handleCancel : function() { this.cancel(); document.getElementById('configRightsF').reset(); this.hide(); }
+	handleSubmit : function() { },
+	handleCancel : function() { this.cancel(); this.hide(); }
 }
 Fuji.Dialogs.Settings.createEditDialog = {
 	uri : null,

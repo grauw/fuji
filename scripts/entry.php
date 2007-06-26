@@ -249,7 +249,41 @@ class Entry extends Dataclass {
 			case 4: return 'thread';
 		}
 	}
+
+	/**
+	 * Get group rights
+	 * @param {Group} $group the group from which you want the rights
+	 * @returns hash/assoc. array with rights this group has on this entry
+	 */
+	function getRights($group) {
+		$data = Database::getArray("SELECT * FROM " . Database::$db_tprefix . "grouprights WHERE entryid = '$this->id' AND groupid = '$group->id'");
+		$rightsdata = $data[0];
+		if($rightsdata)
+			return new Rights($rightsdata);
+		elseif($this->ref)
+			return $this->getParent()->getRights($group);
+		else
+			return new Rights(array());
+	}
 	
+	/**
+	 * Get all group rights
+	 * @returns hash/assoc. array with rights groups have on this entry
+	 */
+	function getAllRights() {
+		$data = Database::getAll("SELECT * FROM " . Database::$db_tprefix . "grouprights WHERE entryid = '$this->id'");
+		$rights = array();
+		foreach($data as $dataitem)
+		{
+    		if($dataitem)
+    			$rights[$dataitem['groupid']] = new Rights($dataitem);
+    		elseif($this->ref)
+    			$rights[$dataitem['groupid']] = $this->getParent()->getAllRights();
+    		else
+    			$rights[$dataitem['groupid']] = new Rights(array());
+    	}
+    	return $rights;
+	}
 	
 	/**
 	 *******************************

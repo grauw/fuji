@@ -14,10 +14,11 @@ class ItemRights extends Resource {
 		if(UserManager::isAdmin()) {
 			if(isset($_GET['id'])) {
 				$id = intval($_GET['id']);
-				if (Entry::isEntryId($_GET['id'])) {
+            	if($entry = Entry::getEntry($_GET['id'])) {
 					$template = Template::getTemplate();
-					$template->entryid = $_GET['id'];
+					$template->entry = $entry;
 					$template->applyView('rights');
+					header('HTTP/1.1 200 OK');
 				} else header('HTTP/1.1 404 Not Found');
 			} else {
 				if(isset($_GET['groupid'])) {
@@ -25,6 +26,7 @@ class ItemRights extends Resource {
 						$template = Template::getTemplate();
 						$template->groupid = $_GET['groupid'];
 						$template->applyView('rights');
+        				header('HTTP/1.1 200 OK');
 					}
 				} else header('HTTP/1.1 404 Not Found');
 			}

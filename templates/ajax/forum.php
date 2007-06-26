@@ -19,7 +19,7 @@
 			<?php } if (UserManager::getUser()->getRights($this->entry)->may_delete) { ?>
 				<li><a href="javascript:Fuji.Dialogs.newDeleteDialog('<?php echo $this->entry->getURI() ?>', '<?php echo $this->entry->getParent()->getURI() ?>')"><?php echo $this->l10n->delete ?></a></li>
 			<?php } if (UserManager::isAdmin()) { ?>
-				<li><a href="javascript:Fuji.loadItem('<?php echo $this->entry->getURI() ?>/rights')"><?php echo $this->l10n->config_rights ?></a></li>
+				<li><a href="javascript:Fuji.Dialogs.newRightsDialog('<?php echo $this->entry->getURI() ?>')"><?php echo $this->l10n->config_rights ?></a></li>
 			<?php } ?>
 			<li><a href="<?php echo $this->entry->getURI() ?>.rss" rel="alternate" type="application/rss+xml" class="feed">RSS</a></li>
 			<li><a href="<?php echo $this->entry->getURI() ?>.atom" rel="alternate" type="application/atom+xml" class="feed">Atom</a></li>
