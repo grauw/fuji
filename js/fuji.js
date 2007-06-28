@@ -302,6 +302,57 @@ Fuji = {
 			failure: Fuji.newErrorDialog
 		}
 // 		YAHOO.util.Connect.asyncRequest('GET', 'pluginsettings', callback, null);
+	},
+	
+	getRights : function(sURI) {
+		var callback = {
+			success: function(o)
+			{
+			    var oDocument = o.responseXML.documentElement;
+			    var oTBody = document.getElementById('rightsDialogTb');
+			    var oGroups = Fuji.Util.getElementsByTagNameNS(oDocument, Fuji.NS, 'group');
+			    for(var i=0; i<oGroups.length; i++)
+			    {
+			        var oGroup = oGroups.item(i);
+			        var sGroupName = oGroup.getAttributeNS(Fuji.NS, 'groupname');
+			        var oTr = document.createElement('tr');
+			        var oTdName = document.createElement('td');
+			        oTdName.appendChild(document.createTextNode(sGroupName));
+			        oTr.appendChild(oTdName);
+			        var oTdRead = document.createElement('td');
+			        var oInputRead = document.createElement('input');
+			        oInputRead.setAttribute('type', 'checkbox');
+			        oInputRead.setAttribute('name', 'read_' + sGroupName);
+			        if(Fuji.Util.getElementsByTagNameNS(oGroup, Fuji.NS, 'read').item(0).getAttributeNS(Fuji.NS, 'allowed') == '1') oInputRead.setAttribute('checked', 'Checked');
+			        oTdRead.appendChild(oInputRead);
+			        oTr.appendChild(oTdRead);
+			        var oTdPost = document.createElement('td');
+			        var oInputPost = document.createElement('input');
+			        oInputPost.setAttribute('type', 'checkbox');
+			        oInputPost.setAttribute('name', 'post_' + sGroupName);
+			        if(Fuji.Util.getElementsByTagNameNS(oGroup, Fuji.NS, 'post').item(0).getAttributeNS(Fuji.NS, 'allowed') == '1') oInputPost.setAttribute('checked', 'Checked');
+			        oTdPost.appendChild(oInputPost);
+			        oTr.appendChild(oTdPost);
+  			        var oTdEdit = document.createElement('td');
+			        var oInputEdit = document.createElement('input');
+			        oInputEdit.setAttribute('type', 'checkbox');
+			        oInputEdit.setAttribute('name', 'edit_' + sGroupName);
+			        if(Fuji.Util.getElementsByTagNameNS(oGroup, Fuji.NS, 'edit').item(0).getAttributeNS(Fuji.NS, 'allowed') == '1') oInputEdit.setAttribute('checked', 'Checked');
+			        oTdEdit.appendChild(oInputEdit);
+			        oTr.appendChild(oTdEdit);
+			        var oTdDelete = document.createElement('td');
+			        var oInputDelete = document.createElement('input');
+			        oInputDelete.setAttribute('type', 'checkbox');
+			        oInputDelete.setAttribute('name', 'delete_' + sGroupName);
+			        if(Fuji.Util.getElementsByTagNameNS(oGroup, Fuji.NS, 'delete').item(0).getAttributeNS(Fuji.NS, 'allowed') == '1') oInputDelete.setAttribute('checked', 'Checked');
+			        oTdDelete.appendChild(oInputDelete);
+			        oTr.appendChild(oTdDelete);
+			        oTBody.appendChild(oTr);
+			    }
+			},
+			failure: Fuji.newErrorDialog
+		}
+ 		YAHOO.util.Connect.asyncRequest('GET', sURI + '/rights', callback, null);
 	}
 }
 Fuji.Util = {

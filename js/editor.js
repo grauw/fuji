@@ -6,8 +6,12 @@ Fuji.Editor = {
 		{
 			document.getElementById('textEditorContainer').style.display = 'none';
 			document.getElementById('richTextEditorContainer').style.display = 'block';
-			document.getElementById('editor').contentWindow.document.designMode="on";
-			//document.getElementById('editor').contentWindow.document.execCommand('formatblock', false, 'p');
+			try {
+			    document.getElementById('editor').contentWindow.document.designMode = 'on';
+			}
+			catch(e) {
+			    //this seems to get rid of the NS_ERROR_NOT_AVAILABLE is FF, and the editor still works :)
+			}
 		}
 	},
 	disable: function()
@@ -16,7 +20,7 @@ Fuji.Editor = {
 		{
 			document.getElementById('richTextEditorContainer').style.display = 'none';
 			document.getElementById('textEditorContainer').style.display = 'block';
-			document.getElementById('editor').contentWindow.document.designMode="off";
+			document.getElementById('editor').contentWindow.document.designMode= 'off';
 		}		
 	},
 	isEnabled: function()

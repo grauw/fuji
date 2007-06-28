@@ -179,6 +179,7 @@ Fuji.Dialogs = {
 			document.getElementById('rightsDialogForm').method = 'PUT';
 			Fuji.Dialogs.newDialog('rightsDialog');
 		}
+		Fuji.getRights(sURI);
 	},
 	
 	/**

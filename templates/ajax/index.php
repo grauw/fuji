@@ -222,13 +222,14 @@
 				<form name="rightsF" id="rightsDialogForm" method="PUT" action="">
 					<table>
 						<thead>
-							<tr><td><?php echo $this->l10n->group ?></td><td><?php echo $this->l10n->read ?></td><td><?php echo $this->l10n->post ?></td><td><?php echo $this->l10n->edit ?></td><td><?php echo $this->l10n->delete ?></td></tr>
+							<tr><td><?php echo $this->l10n->group ?></td><td><?php echo $this->l10n->read ?></td><td><?php echo $this->l10n->post ?></td><td><?php echo $this->l10n->edit ?></td><td><?php echo $this->l10n->delete ?></td><td><?php echo $this->l10n->options ?></td></tr>
 						</thead>
-						<tbody>
+						<tbody id="rightsDialogTb">
 						</tbody>
 						<tfoot>
 						<tr>
 							<td>
+							    <button onclick=""><?php echo $this->l10n->new ?></button>
 							</td>
 						</tr>
 						</tfoot>
