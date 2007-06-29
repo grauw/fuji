@@ -17,8 +17,10 @@ class XHTML_Template extends Template {
 		$head = '<meta http-equiv="Content-Type" content="' .
 			($this->acceptsXHTML() ? 'application/xhtml+xml' : 'text/html') . '; charset=utf-8" />';
 		$head .= '<link rel="icon" type="image/png" href="' . $this->getForumRoot() . 'images/siteicon.png" />';
-		if (!$this->acceptsXHTML()) {
+		if (!$this->acceptsXHTML() && !$this->isEVEIngameBrowser()) {
 			$head .= Stylesheet::getStyleSheetsHTML();
+		} else if ($this->isEVEIngameBrowser()) {
+			$head .= '<link rel="stylesheet" href="'.$this->getForumRoot().'style/eve-igb/css/eve-igb.css" type="text/css" />';
 		}
 		return $head;
 	}
@@ -34,6 +36,11 @@ class XHTML_Template extends Template {
 	public function acceptsXHTML()
 	{
 		return strpos($_SERVER['HTTP_ACCEPT'],'application/xhtml+xml') ? true : false;
+	}
+	
+	public function isEVEIngameBrowser()
+	{
+		return isset($_SERVER['HTTP_EVE_TRUSTED']);
 	}
 	
 	public function getBreadcrumb()

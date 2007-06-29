@@ -94,7 +94,7 @@
 			<?php if (UserManager::getUser()->getRights($this->entry)->may_post) { ?>
 			<div class="box <?php echo $i++ % 2 ? 'even' : 'odd' ?> postreply">
 				<h3><?php echo $this->l10n->reply ?></h3>
-				<form action="" method="POST" class="content">
+				<form action="<?php echo $this->entry->getRootedURI() ?>" method="POST" class="content">
 					<input type="hidden" name="type" value="4" />
 					<input type="hidden" name="processor" value="xhtml" />
 					<label><?php echo $this->l10n->title ?>:
@@ -103,7 +103,7 @@
 					<label><?php echo $this->l10n->message ?>:<br />
 						<textarea name="content" style="width:40em;"></textarea>
 					</label><br />
-					<button><?php echo $this->l10n->submit ?></button>
+					<input type="submit" value="<?php echo $this->l10n->submit ?>" />
 				</form>
 			</div>
 			<?php } ?>

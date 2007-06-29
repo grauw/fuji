@@ -85,7 +85,7 @@
 	<div class="box postreply">
 		<!-- TODO: put style in CSS -->
 		<h3><?php echo $this->l10n->new ?></h3>
-		<form action="" method="POST" class="content">
+		<form action="<?php echo $this->entry->getRootedURI() ?>" method="POST" class="content">
 			<input type="hidden" name="type" value="<?php echo $this->entry->type == Entry::$TYPE_FORUM ? Entry::$TYPE_POST : Entry::$TYPE_FORUM ?>" />
 			<input type="hidden" name="processor" value="xhtml" />
 			<label><?php echo $this->l10n->title ?>:
@@ -94,7 +94,7 @@
 			<label><?php echo $this->l10n->message ?>:<br />
 				<textarea name="content" style="width:40em;"></textarea>
 			</label><br />
-			<button><?php echo $this->l10n->submit ?></button>
+			<input type="submit" value="<?php echo $this->l10n->submit ?>" />
 		</form>
 	</div>
 	<?php } ?>

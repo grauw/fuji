@@ -1,0 +1,14 @@
+h2 {
+	color:blue;
+}
+
+.postsContainer .odd {
+	background: #222;
+}
+.postsContainer .even {
+	background: #333;
+}
+
+.postreply {
+	padding-top: 15px;
+}
