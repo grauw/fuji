@@ -14,8 +14,8 @@ class Item extends Resource {
 				$template = Template::getTemplate();
 				$template->entry = $entry;
 				$template->page = $page;
-				$template->applyView($entry->getView());
 				header('HTTP/1.1 200 OK');
+				$template->applyView($entry->getView());
 			} else header('HTTP/1.1 401 Unauthorized');
 		} else header('HTTP/1.1 404 Not Found');
 	}
@@ -32,8 +32,17 @@ class Item extends Resource {
 				$newentry->userref = UserManager::getUser()->id;
 				$newentry->content = $_POST['content'];
 				$newentry->save();
-				header('Location: '.$newentry->getAbsoluteURI());
-				header('HTTP/1.1 201 Created');
+				$location = $entry->type != Entry::$TYPE_POST ? $newentry->getAbsoluteURI() : $entry->getAbsoluteURI() . '#i' . $newentry->id;
+				$template = Template::getTemplate();
+				if ($template->mimetype == 'text/html') {
+					header('Location: '.$location);
+					header('HTTP/1.1 200 OK');
+					$template->redirecturl = $location;
+					$template->applyView('item_posted');
+				} else {
+					header('Location: '.$location);
+					header('HTTP/1.1 201 Created');
+				}
 			} else header('HTTP/1.1 401 Unauthorized');
 		} else header('HTTP/1.1 404 Not Found');
 	}

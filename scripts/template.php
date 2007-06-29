@@ -17,6 +17,7 @@ class Template extends Dataclass {
 	public $pluginname;
 	public $date;
 	public $today;
+	public $redirecturl;
 	
 	static function getTableName() {
 		return 'templates';
