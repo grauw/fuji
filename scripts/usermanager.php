@@ -13,8 +13,12 @@
 		 */
 		static function authenticate($force=false)
 		{
-			if ($force || self::hasDigestHeader()) {
-				if (!self::hasDigestHeader()) {
+			if ($force || self::hasDigestHeader() || self::hasLoginCookie()) {
+				if (self::hasLoginCookie()) {
+					if (!self::logInCookies()) {
+						self::logOut();
+					}
+				} else if (!self::hasDigestHeader()) {
 					self::sendDigestHeader();
 				} else {
 					$header_data = self::getDigestHeader();
@@ -64,6 +68,23 @@
 					self::$user = $user;
 					return true;
 				}
+			}
+			return false;
+		}
+		
+		/**
+		 * Logs in the user based on authentication cookies
+		 * @returns boolean false if login failed
+		 */
+		static private function logInCookies()
+		{
+			Database::connect();
+			$username = $_COOKIE['username'];
+			$userkey = $_COOKIE['userkey'];
+			$user = User::getUserByName($username);
+			if ($user && $user->password == $userkey) {
+				self::$user = $user;
+				return true;
 			}
 			return false;
 		}
@@ -134,5 +155,21 @@
 			}
 			return $needed_parts ? false : $data;
 		}
+		
+		/**
+		 * Determines whether the client has sent login details using cookies
+		 */
+		static private function hasLoginCookie() {
+			return !empty($_COOKIE['username']) && !empty($_COOKIE['userkey']);
+		}
+		
+		/**
+		 * Creates a user key based on username, realm and password.
+		 * This is H(A1) in the HTTP Digest spec.
+		 */
+		static public function createUserKey($username, $password) {
+			return md5($username.':'.self::$realm.':'.$password);
+		}
+		
 	}
 ?>

@@ -37,7 +37,7 @@ class User extends Dataclass {
 		{
 			if(count($data) > 0)
 			{
-				if($data['password']) $data['password'] = md5($data['nickname'] . ':' . UserManager::$realm . ':' . $data['password']);
+				if($data['password']) $data['password'] = UserManager::createUserKey($data['nickname'], $data['password']);
 				$keys = implode(',', array_keys($data));
 				$values = implode('\',\'',$data);
 				Database::execute("INSERT INTO " . Database::$db_tprefix . "users ($keys) VALUES ('$values')");
