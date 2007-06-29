@@ -75,6 +75,13 @@ RewriteRule ^login/?$ scripts/login.php [L,QSA]
 # POST /logout
 RewriteRule ^logout/?$ scripts/logout.php [L,QSA]
 
+# GET /session-login
+# POST /session-login
+RewriteRule ^session-login/?$ scripts/session_login.php [L,QSA]
+
+# POST /session-logout
+RewriteRule ^session-logout/?$ scripts/session_logout.php [L,QSA]
+
 # GET /users
 # POST /users
 RewriteRule ^users/?$ scripts/users.php [L,QSA]

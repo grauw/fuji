@@ -22,9 +22,9 @@
 	<?php } ?>
 	<ul>
 		<?php if(UserManager::getUser()->nickname == 'anonymous') { ?>
-			<li><a href="<?php echo $this->getForumRoot() ?>login"><?php echo $this->l10n->login ?></a></li>
+			<li><a href="<?php echo $this->getForumRoot() ?>session-login"><?php echo $this->l10n->login ?></a></li>
 		<?php } else { ?>
-			<li><a href="<?php echo $this->getForumRoot() ?>logout"><?php echo $this->l10n->logout ?></a></li>
+			<li><a href="<?php echo $this->getForumRoot() ?>session-logout"><?php echo $this->l10n->logout ?></a></li>
 		<?php } ?>
 		<li><a href="<?php echo $this->entry->getParent()->getRootedURI() ?>"><?php echo $this->l10n->back ?></a></li>
 	</ul>
