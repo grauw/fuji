@@ -14,8 +14,8 @@ class XHTML_Template extends Template {
 	
 	public function getHead()
 	{
-		$head = '<meta http-equiv="Content-Type" content="' . $this->acceptsXHTML() ?
-			'application/xhtml+xml' : 'text/html' . '; charset=utf-8" />';
+		$head = '<meta http-equiv="Content-Type" content="' .
+			($this->acceptsXHTML() ? 'application/xhtml+xml' : 'text/html') . '; charset=utf-8" />';
 		$head .= '<link rel="icon" type="image/png" href="' . $this->getForumRoot() . 'images/siteicon.png" />';
 		if (!$this->acceptsXHTML()) {
 			$head .= Stylesheet::getStyleSheetsHTML();
@@ -34,6 +34,17 @@ class XHTML_Template extends Template {
 	public function acceptsXHTML()
 	{
 		return strpos($_SERVER['HTTP_ACCEPT'],'application/xhtml+xml') ? true : false;
+	}
+	
+	public function getBreadcrumb()
+	{
+		$breadcrumb = array();
+		$curentry = $this->entry;
+		while ($curentry->type != Entry::$TYPE_SYSTEM) {
+			$breadcrumb[] = '<a href="'.htmlentities($curentry->getRootedURI()).'">'.htmlentities($curentry->title, ENT_NOQUOTES).'</a>';
+			$curentry = $curentry->getParent();
+		}
+		return implode(' &gt; ', array_reverse($breadcrumb));
 	}
 	
 }

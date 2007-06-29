@@ -4,26 +4,26 @@
 	"http://www.w3.org/Math/DTD/mathml2/xhtml-math11-f.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<?php echo $this->l10n->language ?>">
 <head>
-	<title><?php echo $this->entry->title ?></title>
+	<title><?php echo htmlentities($this->entry->title, ENT_NOQUOTES) ?></title>
 	<?php echo $this->getHead() ?>
 </head>
 <body>
 	<h1 class="logo"><a href="<?php echo $this->l10n->forum_link ?>"><?php echo $this->l10n->forum_name ?></a></h1>
 	<div id="menuDiv" class="menuContainer box">
 	<h2><?php echo $this->l10n->menu ?></h2>
-	<?php if(UserManager::getUser()->nickname == 'anonymous') { ?>
-		<p><?php echo $this->l10n->anonymous_user ?></p>
-	<?php } else { ?>
-		<p><?php echo $this->l10n->logged_in_as . ' ' . UserManager::getUser()->nickname ?></p>
-	<?php } ?>
-	<ul>
+	<p>
 		<?php if(UserManager::getUser()->nickname == 'anonymous') { ?>
-			<li><a href="<?php echo $this->getForumRoot() ?>session-login"><?php echo $this->l10n->login ?></a></li>
+			<?php echo $this->l10n->anonymous_user ?>
 		<?php } else { ?>
-			<li><a href="<?php echo $this->getForumRoot() ?>session-logout"><?php echo $this->l10n->logout ?></a></li>
+			<?php echo $this->l10n->logged_in_as . ' ' . UserManager::getUser()->nickname ?>
 		<?php } ?>
-		<li><a href="<?php echo $this->entry->getParent()->getRootedURI() ?>"><?php echo $this->l10n->back ?></a></li>
-	</ul>
+		<?php if(UserManager::getUser()->nickname == 'anonymous') { ?>
+			(<a href="<?php echo $this->getForumRoot() ?>session-login"><?php echo $this->l10n->login ?></a>)
+		<?php } else { ?>
+			(<a href="<?php echo $this->getForumRoot() ?>session-logout"><?php echo $this->l10n->logout ?></a>)
+		<?php } ?>
+	</p>
+	<p><?php echo $this->l10n->location ?>: <?php echo $this->getBreadcrumb() ?></p>
 	</div>
 	<div class="forumContainer box">
 	<h2><?php echo $this->l10n->threads ?> – <?php echo htmlentities($this->entry->title, ENT_NOQUOTES) ?></h2>
@@ -82,18 +82,18 @@
 	</div>
 			
 	<?php if (UserManager::getUser()->getRights($this->entry)->may_post) { ?>
-	<div class="box">
+	<div class="box postreply">
 		<!-- TODO: put style in CSS -->
-		<h3><span><?php echo $this->l10n->new ?></span><span>xxx some cute text here</span></h3>
+		<h3><?php echo $this->l10n->new ?></h3>
 		<form action="" method="POST" class="content">
-			<input type="hidden" name="type" value="4" />
+			<input type="hidden" name="type" value="<?php echo $this->entry->type == Entry::$TYPE_FORUM ? Entry::$TYPE_POST : Entry::$TYPE_FORUM ?>" />
 			<input type="hidden" name="processor" value="xhtml" />
 			<label><?php echo $this->l10n->title ?>:
 				<input name="title" style="width:30em;" />
-			</label>
-			<label style="display:block;"><?php echo $this->l10n->message ?>:
-				<textarea name="content" style="display:block;width:40em;"></textarea>
-			</label>
+			</label><br />
+			<label><?php echo $this->l10n->message ?>:<br />
+				<textarea name="content" style="width:40em;"></textarea>
+			</label><br />
 			<button><?php echo $this->l10n->submit ?></button>
 		</form>
 	</div>

@@ -20,6 +20,7 @@
 	<message name="email">電子メール</message>
 	<message name="email_address">メールアドレス</message>
 	<message name="email_empty">E-Mail address cannot be empty</message>
+	<message name="enter_login_details">Please enter your login details below.</message>
 	<message name="enter_your_new_password">Enter your new password</message>
 	<message name="error">Error</message>
 	<message name="error_anonymous">You are trying to log in anonymously, but anonymous access has been restricted.</message>
@@ -48,7 +49,10 @@
 	<message name="least_cpu_load">Least cpu-load</message>
 	<message name="least_network_traffic">Least network-traffic</message>
 	<message name="loading">Loading</message>
+	<message name="location">位置</message>
 	<message name="logged_in_as">Logged in as</message>
+	<message name="logged_in_redirect">You are now logged in. You will be redirected to the forum’s %sstart page%s in 5 seconds.</message>
+	<message name="logged_out_redirect">You are now logged out. You will be redirected to the forum’s %sstart page%s in 5 seconds.</message>
 	<message name="login">ログイン</message>
 	<message name="logout">ログアウト</message>
 	<message name="member_of">Member of</message>
@@ -68,6 +72,7 @@
 	<message name="please_wait">Please wait a moment…</message>
 	<message name="post">Post</message>
 	<message name="posted_by">Posted by</message>
+	<message name="posted_by_at">Posted by %s at %s.</message>
 	<message name="poster">投稿者</message>
 	<message name="posts">Posts</message>
 	<message name="preferences">設定</message>

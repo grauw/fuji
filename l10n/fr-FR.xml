@@ -20,6 +20,7 @@
 	<message name="email">E-mail</message>
 	<message name="email_address">Adresse E-mail</message>
 	<message name="email_empty">Vous devez entrer une adresse E-Mail</message>
+	<message name="enter_login_details">Please enter your login details below.</message>
 	<message name="enter_your_new_password">Entrez votre nouveau mot de passe</message>
 	<message name="error">Erreur</message>
 	<message name="error_anonymous">Vous essayez de connecter anonyme, mais accès anonyme n’est pas permis.</message>
@@ -48,7 +49,10 @@
 	<message name="least_cpu_load">La moins charge du processeur</message>
 	<message name="least_network_traffic">Le moins traffic du réseau</message>	
 	<message name="loading">Charger</message>
+	<message name="location">Localisation</message>
 	<message name="logged_in_as">Connecté comme</message>
+	<message name="logged_in_redirect">You are now logged in. You will be redirected to the forum’s %sstart page%s in 5 seconds.</message>
+	<message name="logged_out_redirect">You are now logged out. You will be redirected to the forum’s %sstart page%s in 5 seconds.</message>
 	<message name="login">Connexion</message>
 	<message name="logout">Déconnexion</message>
 	<message name="member_of">Membre de</message>
@@ -68,6 +72,7 @@
 	<message name="please_wait">Attendez un moment, s’il-vous plaît…</message>
 	<message name="post">Poster</message>
 	<message name="posted_by">Posté par</message>
+	<message name="posted_by_at">Posté par %s à %s.</message>
 	<message name="poster">Posters</message>
 	<message name="posts">Messages</message>
 	<message name="preferences">Préférences</message>

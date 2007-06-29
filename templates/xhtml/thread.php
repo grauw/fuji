@@ -8,45 +8,44 @@
 	"http://www.w3.org/Math/DTD/mathml2/xhtml-math11-f.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<?php echo $this->l10n->language ?>">
 <head>
-	<title><?php echo $this->entry->title ?></title>
+	<title><?php echo htmlentities($this->entry->title, ENT_NOQUOTES) ?></title>
 	<?php echo $this->getHead() ?>
 </head>
 <body>
 	<h1 class="logo"><a href="<?php echo $this->l10n->forum_link ?>"><?php echo $this->l10n->forum_name ?></a></h1>
 	<div id="menuDiv" class="menuContainer box">
-	<h2><?php echo $this->l10n->menu ?></h2>
-	<?php if(UserManager::getUser()->nickname == 'anonymous') { ?>
-		<p><?php echo $this->l10n->anonymous_user ?></p>
-	<?php } else { ?>
-		<p><?php echo $this->l10n->logged_in_as . ' ' . UserManager::getUser()->nickname ?></p>
-	<?php } ?>
-	<ul>
+	<!--<h2><?php echo $this->l10n->menu ?></h2>-->
+	<p>
 		<?php if(UserManager::getUser()->nickname == 'anonymous') { ?>
-			<li><a href="<?php echo $this->getForumRoot() ?>session-login"><?php echo $this->l10n->login ?></a></li>
+			<?php echo $this->l10n->anonymous_user ?>
 		<?php } else { ?>
-			<li><a href="<?php echo $this->getForumRoot() ?>session-logout"><?php echo $this->l10n->logout ?></a></li>
+			<?php echo $this->l10n->logged_in_as . ' ' . UserManager::getUser()->nickname ?>
 		<?php } ?>
-		<li><a href="<?php echo $this->entry->getParent()->getRootedURI() ?>"><?php echo $this->l10n->back ?></a></li>
-	</ul>
-	</div>	
+		<?php if(UserManager::getUser()->nickname == 'anonymous') { ?>
+			(<a href="<?php echo $this->getForumRoot() ?>session-login"><?php echo $this->l10n->login ?></a>)
+		<?php } else { ?>
+			(<a href="<?php echo $this->getForumRoot() ?>session-logout"><?php echo $this->l10n->logout ?></a>)
+		<?php } ?>
+	</p>
+	<p><?php echo $this->l10n->location ?>: <?php echo $this->getBreadcrumb() ?></p>
+	</div>
 	<div class="box">
-	<h2><?php echo $this->l10n->posts ?> – <?php echo htmlentities($this->entry->title, ENT_NOQUOTES) ?></h2>
+	<h2><?php echo htmlentities($this->entry->title, ENT_NOQUOTES) ?></h2>
 	
 	<div class="postsContainer content">
+	
 			<div class="box odd">
-				<div class="userinfo">
+				<h3><?php echo htmlentities($this->entry->title, ENT_NOQUOTES) ?></h3>
+<!--				<div class="userinfo">
 					<img src="<?php echo (isset(User::getUser($this->entry->userref)->picture) && User::getUser($this->entry->userref)->picture ? htmlentities(User::getUser($this->entry->userref)->picture) : $photo_placeholder) ?>" alt="profilephoto" class="profilePhoto" />
 				</div>
-				<h3>
-					<div>
-					<span><?php echo $this->entry->title ?></span>
-					<span><?php echo $this->entry->getFormattedDate('modified', $this->l10n->datetime_format) ?></span>
-					</div>
-					<div>
-					<span><a href="<?php echo User::getUser($this->entry->userref)->getRootedURI() ?>"><?php echo htmlentities(User::getUser($this->entry->userref)->nickname, ENT_NOQUOTES) ?></a></span>
-					<span>(<?php $output = ""; $groups = User::getUser($this->entry->userref)->getGroups(); foreach($groups as $group) { $output .= ($output ? ', ' : '') . htmlentities($group->name, ENT_NOQUOTES); } echo $output ?>)</span>
-					</div>
-				</h3>
+-->				<p>
+					<?php
+						printf($this->l10n->posted_by_at,
+							'<a href="' . User::getUser($this->entry->userref)->getRootedURI() . '">' . htmlentities(User::getUser($this->entry->userref)->nickname, ENT_NOQUOTES) . '</a>', 
+							$this->entry->getFormattedDate('created', $this->l10n->datetime_format));
+					?>
+				</p>
 				<?php if (UserManager::getUser()->getRights($this->entry)->may_edit) { ?>
 				<ul class="menu">
 					<?php if (UserManager::getUser()->getRights($this->entry)->may_edit) { ?>
@@ -62,19 +61,17 @@
 					foreach($this->entry->getChildren('created', ($this->page - 1) * $page_size . ', ' . $page_size) as $post) { ?>
 			<div class="box <?php echo $i++ % 2 ? 'even' : 'odd' ?>">
 				<?php if ($post->type == Entry::$TYPE_POST) { ?>
-					<div class="userinfo">
+<!--					<div class="userinfo">
 						<img src="<?php echo (isset(User::getUser($post->userref)->picture) && User::getUser($post->userref)->picture ? htmlentities(User::getUser($post->userref)->picture) : $photo_placeholder) ?>" alt="profilephoto" />
 					</div>
-					<h3>
-						<div>
-						<span><?php echo $post->title ?></span>
-						<span><?php echo $post->getFormattedDate('modified', $this->l10n->datetime_format) ?></span>
-						</div>
-						<div>
-						<span><a href="<?php echo User::getUser($post->userref)->getRootedURI() ?>"><?php echo htmlentities(User::getUser($post->userref)->nickname, ENT_NOQUOTES) ?></a></span>
-						<span>(<?php $output = ""; $groups = User::getUser($post->userref)->getGroups(); foreach($groups as $group) { $output .= ($output ? ', ' : '') . htmlentities($group->name, ENT_NOQUOTES); } echo $output ?>)</span>
-						</div>
-					</h3>
+-->					<h3><?php echo $post->title ?></h3>
+					<p>
+						<?php
+							printf($this->l10n->posted_by_at,
+								'<a href="' . User::getUser($post->userref)->getRootedURI() . '">' . htmlentities(User::getUser($post->userref)->nickname, ENT_NOQUOTES) . '</a>', 
+								$post->getFormattedDate('created', $this->l10n->datetime_format));
+						?>
+					</p>
 					<?php if (UserManager::getUser()->getRights($post)->may_edit || UserManager::getUser()->getRights($post)->may_delete) { ?>
 					<ul class="menu">
 						<?php if (UserManager::getUser()->getRights($post)->may_edit) { ?>
@@ -95,17 +92,17 @@
 			<?php } ?>
 			
 			<?php if (UserManager::getUser()->getRights($this->entry)->may_post) { ?>
-			<div class="box <?php echo $i++ % 2 ? 'even' : 'odd' ?>">
-				<h3><span><?php echo $this->l10n->reply ?></span><span>some cute text here</span></h3>
+			<div class="box <?php echo $i++ % 2 ? 'even' : 'odd' ?> postreply">
+				<h3><?php echo $this->l10n->reply ?></h3>
 				<form action="" method="POST" class="content">
 					<input type="hidden" name="type" value="4" />
 					<input type="hidden" name="processor" value="xhtml" />
 					<label><?php echo $this->l10n->title ?>:
 						<input name="title" style="width:30em;" />
-					</label>
-					<label style="display:block;"><?php echo $this->l10n->message ?>:
-						<textarea name="content" style="display:block;width:40em;"></textarea>
-					</label>
+					</label><br />
+					<label><?php echo $this->l10n->message ?>:<br />
+						<textarea name="content" style="width:40em;"></textarea>
+					</label><br />
 					<button><?php echo $this->l10n->submit ?></button>
 				</form>
 			</div>
