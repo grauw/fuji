@@ -9,6 +9,9 @@ require_once 'template.php';
  * something like resource/123 where ‘resource’ is the type of resource, and 123 is the ID
  * which uniquely identifies that resource.
  * 
+ * In terms of the MVC design pattern, the Resource class can be considered the 'controller'
+ * of the "Dataclass, Template, Resource" threesome.
+ * 
  * On a HTTP resource, there are up to four methods available: GET, POST, PUT and DELETE.
  * Simply put, these correspond to the following operations:
  *  - show    : GET

@@ -7,6 +7,9 @@ require_once 'database.php';
  * This is a base class which can be inherited by database objects, to offer a
  * wrapper around the SQL functions with easy access to the attributes, etc.
  * 
+ * In terms of the MVC design pattern, the Dataclass class can be considered the 'model'
+ * of the "Dataclass, Template, Resource" threesome.
+ * 
  * This class is abstract, and each derived class must implement the following methods:
  *  - getTableName(); returns the name of the database table to use.
  *  - getPrimaryKeyName(); returns the name of the table’s primary key.

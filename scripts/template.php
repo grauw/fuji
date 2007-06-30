@@ -4,6 +4,16 @@ require_once 'database.php';
 require_once 'l10nmanager.php';
 require_once 'pluginmanager.php';
 
+/**
+ * Generic base class for all templates.
+ * 
+ * [insert summary here]
+ * 
+ * In terms of the MVC design pattern, the Template class can be considered the 'view'
+ * of the "Dataclass, Template, Resource" threesome.
+ * 
+ * [insert further documentation here]
+ */
 class Template extends Dataclass {
 	
 	public $groupid;
@@ -34,7 +44,7 @@ class Template extends Dataclass {
 		$data = Database::getArray("SELECT * FROM " . DbVar::$db_tprefix . "templates WHERE mimetype = '".addslashes($mimetype)."'");
 		$templatedata = $data[0];
 		if (!$templatedata) trigger_error('template not found for MIME type '.$mimetype);
-		$templateclass = require_once(realpath(dirname(__FILE__).'/../'.$templatedata['basedir']));
+		$templateclass = require_once(realpath(dirname(__FILE__).'/../../'.$templatedata['basedir']));
 		return new $templateclass($templatedata);
 	}
 	
