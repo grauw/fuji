@@ -46,7 +46,9 @@ class Resource {
 	 */
 	function __construct()
 	{
-		$method = $_SERVER['REQUEST_METHOD'];
+		// support _method POST variable to fake request methods for HTML
+		$method = isset($_POST['_method']) ? isset($_POST['_method']) : $_SERVER['REQUEST_METHOD'];
+		
 		if ($method == 'GET' && method_exists($this,'httpGet')) {
 			$this->httpGet();
 		} elseif ($method == 'HEAD' && method_exists($this,'httpHead')) {
