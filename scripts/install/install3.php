@@ -1,14 +1,15 @@
 <?php
-include_once '../adodb_lite/adodb.inc.php';
-include_once '../adodb_lite/adodb-exceptions.inc.php'; 
+include_once 'scripts/adodb_lite/adodb.inc.php';
+include_once 'scripts/adodb_lite/adodb-exceptions.inc.php'; 
 
 class Install3 {   
     
 	function execute()
 	{
-		require_once 'database.php';
-		require_once '../l10nmanager.php';
-		require_once '../stylesheet.php';
+		require_once 'scripts/install/database.php';
+		require_once 'scripts/l10nmanager.php';
+		require_once 'scripts/dataclasses/stylesheet.php';
+		
 		if(isset($_POST['language']))
 		{
 			$this->configDefaultOptions();

@@ -1,7 +1,7 @@
 <?php
-require_once 'entry.php';
-require_once 'usermanager.php';
-require_once 'resource.php';
+require_once 'scripts/dataclasses/entry.php';
+require_once 'scripts/usermanager.php';
+require_once 'scripts/resource.php';
 
 class ItemSource extends Resource {
 	
@@ -18,12 +18,10 @@ class ItemSource extends Resource {
 	}
 	
 	function getEntry() {
-		if (!isset($_GET['id'])) return null;
-		return Entry::getEntry(intval($_GET['id']));
+		$uriparts = $this->request->getRequestURIParts();
+		return Entry::getEntry(intval($uriparts[1]));
 	}
 	
 }
 
-new ItemSource();
-	
 ?>

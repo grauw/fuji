@@ -1,5 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<?php require_once('../../../scripts/database.php') ?>
+<?php
+require_once 'scripts/database.php';
+
+// TODO: Move database retrieval stuff out of the view and into the model and controller. BAD BAD.
+?>
+<?php echo $this->getPrefix() ?>
 <fuji:item xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:fuji="http://fuji.sourceforge.net/ns"
 	xml:lang="<?php echo $this->l10n->language ?>"

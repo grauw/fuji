@@ -1,8 +1,8 @@
 <?php
-require_once 'dataclass.php';
-require_once 'database.php';
-require_once 'l10nmanager.php';
-require_once 'pluginmanager.php';
+require_once 'scripts/dataclass.php';
+require_once 'scripts/database.php';
+require_once 'scripts/l10nmanager.php';
+require_once 'scripts/pluginmanager.php';
 
 /**
  * Generic base class for all templates.
@@ -16,10 +16,13 @@ require_once 'pluginmanager.php';
  */
 class Template extends Dataclass {
 	
-	public $groupid;
+	// These are variables that can be passed along the template... if you pass a new variable
+	// without declaring it here, the template will generate an error.
 	public $groups;
 	public $entry;
 	public $entries;
+	public $user;
+	public $users;
 	public $page;
 	public $l10n;
 	public $message;
@@ -44,7 +47,7 @@ class Template extends Dataclass {
 		$data = Database::getArray("SELECT * FROM " . DbVar::$db_tprefix . "templates WHERE mimetype = '".addslashes($mimetype)."'");
 		$templatedata = $data[0];
 		if (!$templatedata) trigger_error('template not found for MIME type '.$mimetype);
-		$templateclass = require_once(realpath(dirname(__FILE__).'/../../'.$templatedata['basedir']));
+		$templateclass = require_once $templatedata['basedir'];
 		return new $templateclass($templatedata);
 	}
 	
@@ -53,7 +56,7 @@ class Template extends Dataclass {
 		$data = Database::getArray("SELECT * FROM " . DbVar::$db_tprefix . "templates WHERE mimetype = '".addslashes($mimetype)."'");
 		$templatedata = $data[0];
 		if (!$templatedata) trigger_error('template not found for MIME type '.$mimetype);
-		$templateclass = require_once(realpath(dirname(__FILE__).'/../plugins/'.$plugin.'/'.$templatedata['basedir']));
+		$templateclass = require_once 'plugins/'.$plugin.'/'.$templatedata['basedir'];
 		$t = new $templateclass($templatedata);
 		$t->pluginname = $plugin;
 		return $t;
@@ -63,14 +66,14 @@ class Template extends Dataclass {
 		if (isset($this->pluginname))
 		{
 			$file = 'plugins/'.$this->pluginname.'/'.dirname($this->basedir).'/'.$view.'.php';
-			if (!file_exists(realpath(dirname(__FILE__).'/../'.$file))) return FALSE;
-			return realpath(dirname(__FILE__).'/../'.$file);
+			if (!file_exists($file)) return FALSE;
+			return $file;
 		}
 		else
 		{
 			$file = dirname($this->basedir).'/'.$view.'.php';
-			if (!file_exists(realpath(dirname(__FILE__).'/../'.$file))) return FALSE;
-			return realpath(dirname(__FILE__).'/../'.$file);
+			if (!file_exists($file)) return FALSE;
+			return $file;
 		}
 	}
 	

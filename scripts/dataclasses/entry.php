@@ -1,8 +1,8 @@
 <?php
-require_once 'dataclass.php';
-require_once 'database.php';
-require_once 'usermanager.php';
-require_once 'processor/processor.php';
+require_once 'scripts/dataclass.php';
+require_once 'scripts/database.php';
+require_once 'scripts/usermanager.php';
+require_once 'scripts/processor/processor.php';
 
 class Entry extends Dataclass {
 	
@@ -333,4 +333,5 @@ class Entry extends Dataclass {
 	}
 	
 }
+
 ?>

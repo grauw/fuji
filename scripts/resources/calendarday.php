@@ -1,17 +1,18 @@
 <?php
-require_once 'usermanager.php';
-require_once 'template.php';
-require_once 'resource.php';
+require_once 'scripts/usermanager.php';
+require_once 'scripts/dataclasses/template.php';
+require_once 'scripts/resource.php';
 
-class Calendar extends Resource {
+class CalendarDay extends Resource {
 	
 	function httpGet()
 	{
 		UserManager::authenticate();
 		$template = Template::getTemplate();
 		$template->today = time();
-		if (isset($_GET['date']))
-			$template->date = strtotime($_GET['date']);
+		$uriparts = $this->request->getRequestURIParts();
+		if (isset($uriparts[1]))
+			$template->date = strtotime($uriparts[1]);
 		else
 			$template->date = $template->today;
 		$template->entries = self::threadsFromEntries(Entry::getEntriesByDate(date('Y-m-d', $template->date),
@@ -23,21 +24,25 @@ class Calendar extends Resource {
 		$threads = array();
 		foreach ($entries as $entry) {
 			$thread = self::threadFromEntry($entry);
-			$threads['a'.$thread->id] = $thread;
+			if ($thread)
+				$threads['a'.$thread->id] = $thread;
 		}
 		return $threads;
 	}
 	
 	static function threadFromEntry($entry) {
-		if ($entry->getParent()->type == 3) {
-			return $entry;
+		$parent = $entry->getParent();
+		if ($parent) {
+			if ($parent->type == 3) {
+				return $entry;
+			} else {
+				return self::threadFromEntry($parent);
+			}
 		} else {
-			return self::threadFromEntry($entry->getParent());
+			return NULL;
 		}
 	}
 	
 }
-	
-new Calendar();
-	
+
 ?>

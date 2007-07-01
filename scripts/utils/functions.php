@@ -7,4 +7,5 @@ class Functions {
 		return implode($glue, $ret);
 	}
 }
+
 ?>

@@ -1,22 +1,23 @@
 <?php
-include_once '../adodb_lite/adodb.inc.php';
-include_once '../adodb_lite/adodb-exceptions.inc.php'; 
+include_once 'scripts/adodb_lite/adodb.inc.php';
+include_once 'scripts/adodb_lite/adodb-exceptions.inc.php'; 
 
 class Install1 {   
     
-  function execute()
-  {
-	if(isset($_POST['db_host']))
+	function execute()
 	{
-		require_once 'database.php';
-		$this->tryDatabase();
+		if (isset($_POST['db_host']))
+		{
+			require_once 'scripts/install/database.php';
+			$this->tryDatabase();
+		}
+		else
+		{
+			$this->getInfo();
+		}
 	}
-	else {
-		$this->getInfo();
-	}
-  }
 
-   function tryDatabase() {		
+	function tryDatabase() {		
 		if($_POST['db_create']=='true') $db->createdatabase = true;
 
 		try{
@@ -74,7 +75,5 @@ class Install1 {
 			  $target_phase = $current_phase;
 	}
 }
-
-
 
 ?>

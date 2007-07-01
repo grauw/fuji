@@ -4,8 +4,9 @@ class Install2 {
 
 	function execute()
 	{
-		require_once('../database.php');
-		require_once('database.php');
+		require_once 'scripts/database.php';
+		require_once 'scripts/install/database.php';
+		
 		if(isset($_POST['admin']) && strlen($_POST['e-mail']) > 0)
 		{
 			if(strlen($_POST['e-mail']) > 1 && preg_match('/^[^@]+@([^@.]+\.)+[a-zA-Z]{2,}$/', $_POST['e-mail']))

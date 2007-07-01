@@ -1,6 +1,6 @@
 <?php
+require_once 'processor.php';
 
-require_once "processor.php";
 /**
  * An XHTML parser/filter, based on the abstract Processor class.
  */
@@ -86,4 +86,5 @@ class XHTML extends Processor {
 }
 
 $x = new XHTML();
+
 ?>

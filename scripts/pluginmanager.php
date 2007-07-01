@@ -1,6 +1,7 @@
 <?php
-require_once 'database.php';
-require_once 'plugin.php';
+require_once 'scripts/database.php';
+require_once 'scripts/plugin.php';
+
 class PluginManager{
 	private $plugins = array();
 	function __construct() {
@@ -12,9 +13,9 @@ class PluginManager{
 			$this->loadPlugin($plugin['name']);
 	}
 	function loadPlugin($name) {
-		if(file_exists("../plugins/$name/$name.php"));
+		if(file_exists("plugins/$name/$name.php"));
 		{
-			include_once("../plugins/$name/$name.php");
+			include_once("plugins/$name/$name.php");
 			array_push($this->plugins, new $name());
 		}
 	}
@@ -23,13 +24,13 @@ class PluginManager{
 	}
 	static function reloadPlugins() {
 		Database::execute('DELETE FROM plugins');
-		$dirs = scandir('../plugins');
+		$dirs = scandir('plugins');
 		$plugins = array();
 		foreach($dirs as $dir)
 		{
-			if(file_exists("../plugins/$dir/$dir.php"))
+			if(file_exists("plugins/$dir/$dir.php"))
 			{
-				include_once("../plugins/$dir/$dir.php");
+				include_once("plugins/$dir/$dir.php");
 				$plugin = new $dir();
 				$name = $dir;
 				$description = $plugin->description();
@@ -66,4 +67,5 @@ class PluginManager{
 				$plugin->getIndexExtension($template, $user, $type);
 	}	
 }
+
 ?>

@@ -1,30 +1,30 @@
 <?php
+require_once 'scripts/dataclasses/entry.php';
+require_once 'scripts/dataclasses/group.php';
+require_once 'scripts/usermanager.php';
+require_once 'scripts/dataclasses/template.php';
+require_once 'scripts/resource.php';
 
-require_once 'entry.php';
-require_once 'group.php';
-require_once 'usermanager.php';
-require_once 'template.php';
-require_once 'resource.php';
-
-class ItemRights extends Resource {
+class ConfigRights extends Resource {
 	
 	function httpGet()
 	{
 		UserManager::authenticate();
-		if(UserManager::isAdmin()) {
-			if(isset($_GET['id'])) {
-				$id = intval($_GET['id']);
-            	if($entry = Entry::getEntry($_GET['id'])) {
+		if (UserManager::isAdmin()) {
+			$uriparts = $this->request->getRequestURIParts();
+			if ($uriparts[0] == 'users') {
+				$id = intval($uriparts[1]);
+            	if ($entry = Entry::getEntry($uriparts[1])) {
 					$template = Template::getTemplate();
 					$template->entry = $entry;
 					$template->applyView('rights');
 					header('HTTP/1.1 200 OK');
 				} else header('HTTP/1.1 404 Not Found');
 			} else {
-				if(isset($_GET['groupid'])) {
-					if (Group::isGroupId($_GET['groupid'])) {
+				if ($uriparts[0] == 'groups') {
+					if (Group::isGroupId($uriparts[1])) {
 						$template = Template::getTemplate();
-						$template->groupid = $_GET['groupid'];
+						$template->groupid = $uriparts[1];
 						$template->applyView('rights');
         				header('HTTP/1.1 200 OK');
 					}
@@ -51,8 +51,4 @@ class ItemRights extends Resource {
 	
 }
 
-new ItemRights();
-
-
-	
 ?>

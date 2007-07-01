@@ -1,9 +1,9 @@
 <?php
-require_once 'usermanager.php';
-require_once 'template.php';
-require_once 'resource.php';
+require_once 'scripts/usermanager.php';
+require_once 'scripts/dataclasses/template.php';
+require_once 'scripts/resource.php';
 
-class Logout extends Resource {
+class SessionLogout extends Resource {
 	
 	function httpGet()
 	{
@@ -24,8 +24,6 @@ class Logout extends Resource {
 		//header('HTTP/1.1 302 Found');
 	}
 	
-}	
-	
-new Logout();
-	
+}
+
 ?>

@@ -1,7 +1,7 @@
 <?php
-require_once 'usermanager.php';
-require_once 'template.php';
-require_once 'resource.php';
+require_once 'scripts/usermanager.php';
+require_once 'scripts/dataclasses/template.php';
+require_once 'scripts/resource.php';
 
 class Calendar extends Resource {
 	
@@ -10,15 +10,14 @@ class Calendar extends Resource {
 		UserManager::authenticate();
 		$template = Template::getTemplate();
 		$template->today = time();
-		if (isset($_GET['date']))
-			$template->date = strtotime($_GET['date'].'-01');
+		$uriparts = $this->request->getRequestURIParts();
+		if (isset($uriparts[1]))
+			$template->date = strtotime($uriparts[1].'-01');
 		else
 			$template->date = strtotime(date('Y-m-01', time()));
 		$template->applyView('calendar');
 	}
 	
-}	
-	
-new Calendar();
-	
+}
+
 ?>

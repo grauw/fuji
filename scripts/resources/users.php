@@ -1,8 +1,9 @@
 <?php
-require_once 'entry.php';
-require_once 'usermanager.php';
-require_once 'template.php';
-require_once 'resource.php';
+require_once 'scripts/dataclasses/entry.php';
+require_once 'scripts/dataclasses/user.php';
+require_once 'scripts/usermanager.php';
+require_once 'scripts/dataclasses/template.php';
+require_once 'scripts/resource.php';
 
 class Users extends Resource {
 	
@@ -12,7 +13,17 @@ class Users extends Resource {
 		$entry = Entry::getRoot();
 		if (UserManager::getUser()->getRights($entry)->may_read) {
 			$template = Template::getTemplate();
-			if(isset($_GET['groupid'])) $template->groupid = $_GET['groupid'];
+			$uriparts = $this->request->getRequestURIParts();
+			if ($uriparts[0] == 'groups') {
+				$group = Group::getGroup($uriparts[1]);
+				if ($group)
+					$users = $group->getUsers();
+				else
+					$users = array();
+			} else {
+				$users = User::getUsers();
+			}
+			$template->users = $users;
 			$template->applyView('users');
 		}
 		else header('HTTP/1.1 401 Unauthorized');
@@ -21,6 +32,8 @@ class Users extends Resource {
 	function httpPost()
 	{
 		UserManager::authenticate();
+		// TODO: The nickname restrictions are kind of arbitrarily stashed in here...
+		//       Could use some review, too. Why such a limited set?
 		if (strlen($_POST['nickname']) > 1 && preg_match('/[a-zA-Z0-9_-]$/', $_POST['nickname'])) {
 			if (!User::isUser($_POST['nickname'])) {
 				if (UserManager::isAdmin()) {
@@ -41,7 +54,8 @@ class Users extends Resource {
 	function httpDelete()
 	{
 		UserManager::authenticate();
-		if ($user = User::getUser($_GET['id'])) {
+		$uriparts = $this->request->getRequestURIParts();
+		if ($user = User::getUser($uriparts[1])) {
 			if (UserManager::isAdmin()) {
 				$user->remove();
 				header('HTTP/1.1 204 No Content');
@@ -49,7 +63,5 @@ class Users extends Resource {
 		} else header('HTTP/1.1 404 Not Found');
 	}
 }
-	
-new Users();
-	
+
 ?>

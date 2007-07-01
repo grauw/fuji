@@ -1,7 +1,7 @@
 <?php
-require_once 'usermanager.php';
-require_once 'database.php';
-require_once 'resource.php';
+require_once 'scripts/usermanager.php';
+require_once 'scripts/database.php';
+require_once 'scripts/resource.php';
 
 class ServerSettings extends Resource {
 	
@@ -30,7 +30,5 @@ class ServerSettings extends Resource {
 	}
 	
 }
-
-new ServerSettings();
 
 ?>

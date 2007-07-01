@@ -1,9 +1,9 @@
 <?php
-require_once 'usermanager.php';
-require_once 'template.php';
-require_once 'group.php';
-require_once 'utils/functions.php';
-require_once 'resource.php';
+require_once 'scripts/usermanager.php';
+require_once 'scripts/dataclasses/template.php';
+require_once 'scripts/dataclasses/group.php';
+require_once 'scripts/utils/functions.php';
+require_once 'scripts/resource.php';
 
 class Groups extends Resource {
 	
@@ -12,9 +12,10 @@ class Groups extends Resource {
 		UserManager::authenticate();
 		$entry = Entry::getRoot();
 		if (UserManager::getUser()->getRights($entry)->may_read) {
+			$uriparts = $this->request->getRequestURIParts();
 			$template = Template::getTemplate();
-			if(isset($_GET['userid'])) $template->userid = $_GET['userid'];
-			if(isset($_GET['groupid'])) $template->userid = $_GET['groupid'];
+			if ($uriparts[0] == 'users') $template->userid = $uriparts[1];
+			if ($uriparts[0] == 'groups') $template->userid = $uriparts[1];
 			$template->applyView('groups');
 		}
 		else header('HTTP/1.1 401 Unauthorized');
@@ -26,7 +27,7 @@ class Groups extends Resource {
 		if (strlen($_POST['name']) > 1 && preg_match('/[a-zA-Z0-9_-]$/', $_POST['name'])) {
 			if (!Group::isGroupName($_POST['name'])) {
 				if (UserManager::isAdmin()) {
-					$newgroupdata = array ( 
+					$newgroupdata = array (
 							'name' => $_POST['name'],
 							);
 					$newgroup = Group::addUser($newuserdata);
@@ -40,13 +41,12 @@ class Groups extends Resource {
 	function httpDelete()
 	{
 		UserManager::authenticate();
-		if($_GET['id']){
-			Group::getGroup($_GET['id'])->delete();
+		$uriparts = $this->request->getRequestURIParts();
+		if ($uriparts[1]) {
+			Group::getGroup($uriparts[1])->delete();
 		}
 	}
 	
-}	
-	
-new Groups();
-	
+}
+
 ?>

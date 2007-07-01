@@ -7,7 +7,8 @@
 	</head>
 		<h1>Updates the database tables</h1>
 <?php
-require_once "database.php";
+set_include_path('../..');
+require_once 'database.php';
 new InstallDb();
 ?>
 	</body>

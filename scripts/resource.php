@@ -1,6 +1,5 @@
 <?php
-
-require_once 'template.php';
+require_once 'scripts/dataclasses/template.php';
 
 /**
  * Generic base class for HTTP resources
@@ -44,13 +43,16 @@ require_once 'template.php';
  */
 class Resource {
 	
+	protected $request;
+	
 	/**
 	 * Run the proper request method, or return HTTP 405
 	 */
-	function __construct()
+	function __construct(HttpRequest $request)
 	{
-		// support _method POST variable to fake request methods for HTML
-		$method = isset($_POST['_method']) ? isset($_POST['_method']) : $_SERVER['REQUEST_METHOD'];
+		$this->request = $request;
+		
+		$method = $request->getMethod();
 		
 		if ($method == 'GET' && method_exists($this,'httpGet')) {
 			$this->httpGet();

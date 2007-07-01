@@ -1,9 +1,9 @@
 <?php
-require_once "dataclass.php";
-require_once "database.php";
-require_once "entry.php";
-require_once "rights.php";
-require_once "utils/functions.php";
+require_once 'scripts/dataclass.php';
+require_once 'scripts/database.php';
+require_once 'scripts/dataclasses/entry.php';
+require_once 'scripts/dataclasses/rights.php';
+require_once 'scripts/utils/functions.php';
 
 class Group extends Dataclass {
 	
@@ -32,9 +32,9 @@ class Group extends Dataclass {
 	 * @returns Group object
 	 */
 	static function addGroup($data) {
-		if(count(Database::getArray("SELECT * FROM " . Database::$db_tprefix . "groups WHERE name = '". $data['name'] ."'")) == 0)
+		if (count(Database::getArray("SELECT * FROM " . Database::$db_tprefix . "groups WHERE name = '". $data['name'] ."'")) == 0)
 		{
-			if(count($data) > 0)
+			if (count($data) > 0)
 			{
 				$keys = implode(',', array_keys($data));
 				$values = implode('\',\'',$data);
@@ -63,7 +63,7 @@ class Group extends Dataclass {
 	 * @returns True if group exists, false otherwise
 	 */
 	static function isGroupId($name){
-		if(count(Database::getArray("SELECT * FROM " . Database::$db_tprefix . "groups WHERE id = '". $id ."'")) == 0) return false;
+		if (count(Database::getArray("SELECT * FROM " . Database::$db_tprefix . "groups WHERE id = '". $id ."'")) == 0) return false;
 		else return true;
 	}
 	
@@ -75,7 +75,8 @@ class Group extends Dataclass {
 	{
 		$data = Database::getArray("SELECT name FROM " . Database::$db_tprefix . "groups");
 		$return = Array();
-		foreach($data as $row) array_push($return, $row['name']);
+		foreach ($data as $row)
+			array_push($return, $row['name']);
 		return $return;
 	}
 	
@@ -93,6 +94,20 @@ class Group extends Dataclass {
 	 */
 	function removeUser($user) {
 		Database::execute("DELETE FROM groupmembers WHERE groupid = '$this->id' AND userid = '$user->id'");
+	}
+	
+	/**
+	 * Gets an array with all users in the group
+	 */
+	function getUsers() {
+		$userids = Database::getArray("SELECT userid AS id FROM " . Database::$db_tprefix . "groupmembers WHERE groupid=".$groupid);
+		$users = array();
+		foreach ($userids as $userid) {
+			$user = User::getUser($userid['id']);
+			if ($user)
+				$users[] = $user;
+		}
+		return $users;
 	}
 	
 	/**
@@ -185,4 +200,5 @@ class Group extends Dataclass {
 		Database::execute("DELETE FROM " . Database::$db_tprefix . "groupmembers WHERE groupid = $this->id");
 	}
 }
+
 ?>

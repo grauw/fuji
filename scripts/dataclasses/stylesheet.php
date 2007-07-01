@@ -1,7 +1,6 @@
-<?php	
-
-require_once 'dataclass.php';
-require_once "database.php";
+<?php
+require_once 'scripts/dataclass.php';
+require_once 'scripts/database.php';
 
 class Stylesheet extends Dataclass {
 	

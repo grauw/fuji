@@ -1,6 +1,6 @@
 <?php
-require_once 'usermanager.php';
-require_once 'resource.php';
+require_once 'scripts/usermanager.php';
+require_once 'scripts/resource.php';
 
 class Preferences extends Resource {
 	
@@ -32,8 +32,6 @@ class Preferences extends Resource {
 		}
 	}
 	
-}	
-
-new Preferences();
+}
 
 ?>

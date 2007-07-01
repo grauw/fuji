@@ -1,6 +1,6 @@
 <?php
-require_once "../database.php";
-require_once "../usermanager.php";
+require_once "scripts/database.php";
+require_once "scripts/usermanager.php";
 
 class InstallDb
 {

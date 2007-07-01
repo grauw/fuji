@@ -1,5 +1,5 @@
 <?php
-require_once 'database.php';
+require_once 'scripts/database.php';
 
 /**
  * Generic base class for database data objects
@@ -270,7 +270,7 @@ abstract class Dataclass {
 	 * Gets the root path of the forum
 	 */
 	function getForumRoot() {
-		return substr($_SERVER['PHP_SELF'], 0, strrpos($_SERVER['PHP_SELF'], '/scripts/') + 1);
+		return Configuration::$path_prefix;
 	}
 	
 	/**
@@ -281,4 +281,5 @@ abstract class Dataclass {
 	}
 	
 }
+
 ?>

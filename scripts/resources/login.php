@@ -1,7 +1,7 @@
 <?php
-require_once 'usermanager.php';
-require_once 'template.php';
-require_once 'resource.php';
+require_once 'scripts/usermanager.php';
+require_once 'scripts/dataclasses/template.php';
+require_once 'scripts/resource.php';
 
 class Login extends Resource {
 	
@@ -17,8 +17,6 @@ class Login extends Resource {
 		$template->applyView('login');
 	}
 	
-}	
-	
-new Login();
-	
+}
+
 ?>

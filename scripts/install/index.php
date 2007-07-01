@@ -1,8 +1,10 @@
 <?php
-	require_once "install1.php";
-	require_once "install2.php";
-	require_once "install3.php";
-	require_once "finish.php";
+	set_include_path('../..');
+	require_once 'scripts/install/install1.php';
+	require_once 'scripts/install/install2.php';
+	require_once 'scripts/install/install3.php';
+	require_once 'scripts/install/finish.php';
+	
 	if(isset($_POST['phase']))
 		$current_phase = $_POST['phase'];
 	else
@@ -26,7 +28,7 @@
 		<link rel="stylesheet" href="style/default/css/wizard.css" type="text/css" />
 	</head>
 	<body>
-<?php if(!file_exists("../configuration/installer_disabled")) { ?>	
+<?php if(!file_exists("scripts/configuration/installer_disabled")) { ?>	
 		<div id="mainWindow" class="box">
 		<form action="install" method="post">
 		  <h2>Fuji Installer</h2>

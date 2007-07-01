@@ -1,4 +1,5 @@
 <?php
+
 abstract class Processor {
 
 	abstract public function parse();
@@ -10,4 +11,5 @@ abstract class Processor {
 		return new $processordata['name']();
 	}
 }
+
 ?>

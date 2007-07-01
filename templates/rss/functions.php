@@ -1,5 +1,5 @@
 <?php
-require_once 'template.php';
+require_once 'scripts/dataclasses/template.php';
 
 class RSS_Template extends Template {
 	

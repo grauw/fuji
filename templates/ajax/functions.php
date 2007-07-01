@@ -1,6 +1,6 @@
 <?php
-require_once 'template.php';
-require_once '../scripts/stylesheet.php';
+require_once 'scripts/dataclasses/template.php';
+require_once 'scripts/dataclasses/stylesheet.php';
 
 class AJAX_Template extends Template {
 	

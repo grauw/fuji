@@ -1,8 +1,8 @@
 <?php
-require_once 'usermanager.php';
-require_once 'pluginmanager.php';
-require_once 'resource.php';
-require_once 'database.php';
+require_once 'scripts/usermanager.php';
+require_once 'scripts/pluginmanager.php';
+require_once 'scripts/resource.php';
+require_once 'scripts/database.php';
 
 class Plugins extends Resource {
 	
@@ -23,8 +23,6 @@ class Plugins extends Resource {
 			
 		} else header('HTTP/1.1 401 Unauthorized');
 	}	
-}	
-
-new Plugins();
+}
 
 ?>

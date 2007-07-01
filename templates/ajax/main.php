@@ -13,7 +13,8 @@
 					$forumchildren = $entry->getChildren();
 					$forums = array();
 					foreach ($forumchildren as $forum) {
-						if($forum->type < 4) array_push($forums, $forum);
+						if ($forum->type < 4)
+							array_push($forums, $forum);
 					}
 					$rv = '';
 					if (count($forums) > 0) {

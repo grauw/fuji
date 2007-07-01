@@ -1,10 +1,10 @@
 <?php
-require_once "dataclass.php";
-require_once "database.php";
-require_once "group.php";
-require_once "entry.php";
-require_once "rights.php";
-require_once "usermanager.php";
+require_once 'scripts/dataclass.php';
+require_once 'scripts/database.php';
+require_once 'scripts/dataclasses/group.php';
+require_once 'scripts/dataclasses/entry.php';
+require_once 'scripts/dataclasses/rights.php';
+require_once 'scripts/usermanager.php';
 
 class User extends Dataclass {
 	
@@ -28,16 +28,31 @@ class User extends Dataclass {
 	}
 	
 	/**
+	 * Get an array of all users
+	 * @returns Array with User objects
+	 */
+	static function getUsers() {
+		$userids = Database::getArray("SELECT id FROM " . Database::$db_tprefix . "users");
+		$users = array();
+		foreach ($userids as $userid) {
+			$user = User::getUser($userid['id']);
+			if ($user)
+				$users[] = $user;
+		}
+		return $users;
+	}
+	
+	/**
 	 * Add a user to the database
 	 * @param {array} $data hash/assoc. array. Key = column name in database. Value = value.
 	 * @returns User object
 	 */
 	static function addUser($data) {
-		if(!User::isUser($data['nickname']))
+		if (!User::isUser($data['nickname']))
 		{
-			if(count($data) > 0)
+			if (count($data) > 0)
 			{
-				if($data['password']) $data['password'] = UserManager::createUserKey($data['nickname'], $data['password']);
+				if ($data['password']) $data['password'] = UserManager::createUserKey($data['nickname'], $data['password']);
 				$keys = implode(',', array_keys($data));
 				$values = implode('\',\'',$data);
 				Database::execute("INSERT INTO " . Database::$db_tprefix . "users ($keys) VALUES ('$values')");
@@ -65,7 +80,7 @@ class User extends Dataclass {
 	 * @returns True if user exists, false otherwise
 	 */
 	static function isUserName($nickname){
-		if(count(Database::getArray("SELECT * FROM " . Database::$db_tprefix . "users WHERE nickname = '". $nickname ."'")) == 0) return false;
+		if (count(Database::getArray("SELECT * FROM " . Database::$db_tprefix . "users WHERE nickname = '". $nickname ."'")) == 0) return false;
 		else return true;
 	}
 	
@@ -75,7 +90,7 @@ class User extends Dataclass {
 	 * @returns True if user exists, false otherwise
 	 */
 	static function isUserId($id){
-		if(count(Database::getArray("SELECT * FROM " . Database::$db_tprefix . "users WHERE id = '". $id ."'")) == 0) return false;
+		if (count(Database::getArray("SELECT * FROM " . Database::$db_tprefix . "users WHERE id = '". $id ."'")) == 0) return false;
 		else return true;
 	}
 	
@@ -88,7 +103,7 @@ class User extends Dataclass {
 	{
 		$data = Database::getArray("SELECT * FROM " . Database::$db_tprefix . "users WHERE nickname = '$nickname'");
 		$userdata = $data[0];
-		if($userdata)
+		if ($userdata)
 			return new User($userdata);
 	}
 	
@@ -124,7 +139,8 @@ class User extends Dataclass {
 	function isInGroup($group)
 	{
 		$groups = $this->getGroups();
-		foreach($groups as $usergroup) if($usergroup->name == $group) return true;
+		foreach ($groups as $usergroup)
+			if ($usergroup->name == $group) return true;
 		return false;
 	}
 	
@@ -136,7 +152,7 @@ class User extends Dataclass {
 	{
 		$root = Entry::getRoot();
 		$rights = $this->getRights($root);
-		if($rights->may_read == 1 && $rights->may_post == 1 && $rights->may_edit == 1 && $rights->may_delete == 1)
+		if ($rights->may_read == 1 && $rights->may_post == 1 && $rights->may_edit == 1 && $rights->may_delete == 1)
 			return true;
 		else return false;
 	}
@@ -150,11 +166,11 @@ class User extends Dataclass {
 	{
 		$groups = $this->getGroups();
 		$userrights = array();
-		if($entry->userref == $this->id)
+		if ($entry->userref == $this->id)
 			$userrights += Rights::$owner_rights;
-		if(count($groups) > 0)
+		if (count($groups) > 0)
 		{
-			foreach($groups as $group)
+			foreach ($groups as $group)
 			{
 				$rights = $group->getRights($entry);
 				$rightsdata = $rights->getData();
@@ -188,4 +204,5 @@ class User extends Dataclass {
 		parent::remove();
 	}
 }
+
 ?>

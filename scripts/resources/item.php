@@ -1,14 +1,15 @@
 <?php
-require_once 'entry.php';
-require_once 'usermanager.php';
-require_once 'resource.php';
+require_once 'scripts/dataclasses/entry.php';
+require_once 'scripts/usermanager.php';
+require_once 'scripts/resource.php';
 
 class Item extends Resource {
 	
 	function httpGet()
 	{
 		UserManager::authenticate();
-		$page = isset($_GET['page']) ? intval($_GET['page']) : 1;
+		$uriparts = $this->request->getRequestURIParts();
+		$page = isset($uriparts[2]) ? intval($uriparts[2]) : 1;
 		if ($entry = $this->getEntry()) {
 			if (UserManager::getUser()->getRights($entry)->may_read) {
 				$template = Template::getTemplate();
@@ -73,12 +74,11 @@ class Item extends Resource {
 	}
 	
 	function getEntry() {
-		if (!isset($_GET['id'])) return null;
-		return Entry::getEntry(intval($_GET['id']));
+		$uriparts = $this->request->getRequestURIParts();
+		if (!isset($uriparts[1])) return null;
+		return Entry::getEntry(intval($uriparts[1]));
 	}
 	
 }
 
-new Item();
-	
 ?>

@@ -1,118 +1,15 @@
 RewriteEngine On
 
-##
-## Different templates
-## (not Last -> chain to item/*)
-##
+# Don’t rewrite these paths:
+RewriteRule ^js/ - [L]
+RewriteRule ^style/ - [L]
 
-# GET *.rss
-RewriteRule ^(.*)\.rss$ $1?mime=application/rss\%2Bxml [QSA]
-
-# GET *.atom
-RewriteRule ^(.*)\.atom$ $1?mime=application/atom\%2Bxml [QSA]
-
-# GET *.wml
-RewriteRule ^(.*)\.wml$ $1?mime=text/vnd.wap.wml [QSA]
-
-# GET *.xhtml
-RewriteRule ^(.*)\.xhtml$ $1?mime=application/xhtml\%2Bxml [QSA]
-
-# GET *.rdf
-RewriteRule ^(.*)\.rdf$ $1?mime=application/rdf\%2Bxml [QSA]
-
-# GET *.fuji
-RewriteRule ^(.*)\.fuji$ $1?mime=application/x-fuji\%2Bxhtml\%2Bxml [QSA]
-
-
-
-##
-## Pretty URLs rewriting
-##
-
-# GET /
-RewriteRule ^$ scripts/index.php [L,QSA]
-
-# GET /item/<id>
-# POST /item/<id>
-# DELETE /item/<id>
-# PUT /item/<id>
-RewriteRule ^item/(\d+)/?$ scripts/item.php?id=$1 [L,QSA]
-
-# GET /item/<id>/source
-RewriteRule ^item/(\d+)/source/?$ scripts/itemsource.php?id=$1 [L,QSA]
-
-# POST /item/<id>/rights
-RewriteRule ^item/(\d+)/rights/?$ scripts/config_rights.php?id=$1 [L,QSA]
-
-# GET /item/<id>/<page>
-RewriteRule ^item/(\d+)/(\d+)/?$ scripts/item.php?id=$1&page=$2 [L,QSA]
-
-# GET /menu
-RewriteRule ^menu/?$ scripts/menu.php [L,QSA]
-
-# GET /menu/<action>
-RewriteRule ^menu/(\w+)/?$ scripts/menu.php?action=$1 [L,QSA]
-
-# GET /install
+# Do a separate rewrite for the installer
 RewriteRule ^install/?$ scripts/install/index.php [L,QSA]
 
-# GET /register
-RewriteRule ^register/?$ scripts/register.php [L,QSA]
+# Rewrite everything else to index.php for further processing
+RewriteRule .* index.php [L,QSA]
 
-# POST /preferences
-RewriteRule ^preferences/?$ scripts/preferences.php [L,QSA]
-
-# POST /serversettings
-RewriteRule ^serversettings/?$ scripts/serversettings.php [L,QSA]
-
-# GET /pluginsettings
-# POST /pluginsettings
-RewriteRule ^pluginsettings/?$ scripts/plugins.php [L,QSA]
-
-# POST /login
-RewriteRule ^login/?$ scripts/login.php [L,QSA]
-
-# POST /logout
-RewriteRule ^logout/?$ scripts/logout.php [L,QSA]
-
-# GET /session-login
-# POST /session-login
-RewriteRule ^session-login/?$ scripts/session_login.php [L,QSA]
-
-# POST /session-logout
-RewriteRule ^session-logout/?$ scripts/session_logout.php [L,QSA]
-
-# GET /users
-# POST /users
-RewriteRule ^users/?$ scripts/users.php [L,QSA]
-
-# GET /users/<id>
-# DELETE /users/<id>
-# PUT /users/<id>
-RewriteRule ^users/(\d+)/?$ scripts/users.php?id=$1 [L,QSA]
-
-# GET /users/<id>/profile
-RewriteRule ^users/(\d+)/profile/?$ scripts/profile.php?id=$1 [L,QSA]
-
-# GET /groups
-# POST /groups
-RewriteRule ^groups/?$ scripts/groups.php [L,QSA]
-
-# PUT /groups/<groupid>
-# DELETE /groups/<groupid>
-RewriteRule ^groups/(\d+)/?$ scripts/groups.php?groupid=$1 [L,QSA]
-
-# GET /groups/<groupid>/users
-RewriteRule ^groups/(\d+)/users/?$  scripts/users.php?groupid=$1 [L,QSA]
-
-# GET /groups/<groupid>/rights
-RewriteRule ^item/(\d+)/rights/?$ scripts/config_rights.php?groupid=$1 [L,QSA]
-
-# GET /calendar
-RewriteRule ^calendar/?$ scripts/calendar.php [L,QSA]
-
-# GET /calendar/yyyy-mm
-RewriteRule ^calendar/(\d{4}-\d{2})/?$ scripts/calendar.php?date=$1 [L,QSA]
-
-# GET /calendar/yyyy-mm-dd
-RewriteRule ^calendar/(\d{4}-\d{2}-\d{2})/?$ scripts/calendarday.php?date=$1 [L,QSA]
+##
+## Note: the URL routing functionality can be found in routes.php
+##

@@ -1,6 +1,6 @@
 <?php
+require_once 'scripts/processor/processor.php';
 
-require_once "processor.php";
 /**
  * A simple BBCode-parser, based on the abstract Processor class.
  */
@@ -180,3 +180,5 @@ class BBCode extends Processor {
         }
     }
 }
+
+?>
