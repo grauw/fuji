@@ -3,15 +3,16 @@ Fuji.Dialogs = {
 		if(!Fuji.Dialogs.Instances[sName])
 		{
 			var effect;
-			if(Fuji.settings.visual_effects) effect = {effect:YAHOO.widget.ContainerEffect.FADE, duration:0.25};
+			if (Fuji.settings.visual_effects)
+				effect = {effect:YAHOO.widget.ContainerEffect.FADE, duration:0.25};
 			else effect = null;
 			Fuji.Dialogs.Instances[sName] = new YAHOO.widget.Dialog(sName, { visible: false, fixedCenter: true, effect: effect });
 			var buttons = new Array();
-			if(Fuji.Dialogs.Settings[sName].handleSubmit)
+			if (Fuji.Dialogs.Settings[sName].handleSubmit)
 				buttons.push( { text:Fuji.Messages.ok, handler:Fuji.Dialogs.Settings[sName].handleSubmit, isDefault:true } );
-			if(Fuji.Dialogs.Settings[sName].handleCancel)
+			if (Fuji.Dialogs.Settings[sName].handleCancel)
 				buttons.push( { text:Fuji.Messages.cancel, handler:Fuji.Dialogs.Settings[sName].handleCancel } );
-			if(buttons.length > 0)
+			if (buttons.length > 0)
 				Fuji.Dialogs.Instances[sName].cfg.queueProperty("buttons", buttons);
 			Fuji.Dialogs.Instances[sName].cfg.queueProperty("onsuccess", Fuji.Dialogs.Settings[sName].onSuccess);
 			Fuji.Dialogs.Instances[sName].render();
@@ -24,20 +25,21 @@ Fuji.Dialogs = {
 		if(!Fuji.Dialogs.Instances[sName])
 		{
 			var effect;
-			if(Fuji.settings.visual_effects) effect = {effect:YAHOO.widget.ContainerEffect.FADE, duration:0.25};
+			if (Fuji.settings.visual_effects)
+				effect = {effect:YAHOO.widget.ContainerEffect.FADE, duration:0.25};
 			else effect = null;
 			Fuji.Dialogs.Instances[sName] = new YAHOO.widget.SimpleDialog(sName, { modal: true, visible: false, fixedCenter: true, effect: effect });
 			var buttons = new Array();
-			if(Fuji.Dialogs.Settings[sName].handleSubmit)
+			if (Fuji.Dialogs.Settings[sName].handleSubmit)
 				buttons.push( { text:Fuji.Messages.ok, handler:Fuji.Dialogs.Settings[sName].handleSubmit, isDefault:true } );
-			if(Fuji.Dialogs.Settings[sName].handleCancel)
+			if (Fuji.Dialogs.Settings[sName].handleCancel)
 				buttons.push( { text:Fuji.Messages.cancel, handler:Fuji.Dialogs.Settings[sName].handleCancel } );
-			if(buttons.length > 0)
+			if (buttons.length > 0)
 				Fuji.Dialogs.Instances[sName].cfg.queueProperty("buttons", buttons);
 			Fuji.Dialogs.Instances[sName].setHeader(Fuji.Dialogs.Settings[sName].header);
 			Fuji.Dialogs.Instances[sName].setBody(Fuji.Dialogs.Settings[sName].body);
 			Fuji.Dialogs.Instances[sName].cfg.setProperty("icon", Fuji.Dialogs.Settings[sName].icon);
-			if(Fuji.Dialogs.Settings[sName].onSuccess)
+			if (Fuji.Dialogs.Settings[sName].onSuccess)
 				Fuji.Dialogs.Instances[sName].cfg.queueProperty("onsuccess", Fuji.Dialogs.Settings[sName].onSuccess);
 			Fuji.Dialogs.Instances[sName].render(document.body);
 		}
@@ -45,30 +47,41 @@ Fuji.Dialogs = {
 	},
 	
 	/**
-	 * Creates an error message dialog
+	 * Creates an HTTP error message dialog
 	 * @param oResponse The XMLHTTPRequest response-object
 	 */
-	newErrorDialog : function(oResponse) {
-		if(oResponse.status == '401')
+	newHttpErrorDialog : function(oResponse) {
+		if (oResponse.status == '401')
 		{
-			Fuji.Dialogs.Settings.errorDialog401.uri = oResponse.argument.uri;
-			Fuji.Dialogs.Settings.errorDialog401.loadBody();			
-			Fuji.Dialogs.newSimpleDialog('errorDialog401');
+			Fuji.Dialogs.Settings.httpErrorDialog401.uri = oResponse.argument.uri;
+			Fuji.Dialogs.Settings.httpErrorDialog401.loadBody();
+			Fuji.Dialogs.newSimpleDialog('httpErrorDialog401');
 		}
-		else if(oResponse.status == '404')
+		else if (oResponse.status == '404')
 		{
-			Fuji.Dialogs.Settings.errorDialog404.uri = oResponse.argument.uri;
-			Fuji.Dialogs.Settings.errorDialog404.loadBody();
-			Fuji.Dialogs.newSimpleDialog('errorDialog404');
+			Fuji.Dialogs.Settings.httpErrorDialog404.uri = oResponse.argument.uri;
+			Fuji.Dialogs.Settings.httpErrorDialog404.loadBody();
+			Fuji.Dialogs.newSimpleDialog('httpErrorDialog404');
 		}
 		else
 		{
-			Fuji.Dialogs.Settings.errorDialogOther.uri = oResponse.argument.uri;
-			Fuji.Dialogs.Settings.errorDialogOther.status = oResponse.status;
-			Fuji.Dialogs.Settings.errorDialogOther.statusText = oResponse.statusText;
-			Fuji.Dialogs.Settings.errorDialogOther.loadBody();		
-			Fuji.Dialogs.newSimpleDialog('errorDialogOther');
+			Fuji.Dialogs.Settings.httpErrorDialogOther.uri = oResponse.argument.uri;
+			Fuji.Dialogs.Settings.httpErrorDialogOther.status = oResponse.status;
+			Fuji.Dialogs.Settings.httpErrorDialogOther.statusText = oResponse.statusText;
+			Fuji.Dialogs.Settings.httpErrorDialogOther.loadBody();
+			Fuji.Dialogs.newSimpleDialog('httpErrorDialogOther');
 		}
+	},
+	
+	/**
+	 * Creates an error message dialog
+	 * @param oResponse The XMLHTTPRequest response-object
+	 */
+	newErrorDialog : function(title, message) {
+		Fuji.Dialogs.Settings.errorDialogOther.title = title;
+		Fuji.Dialogs.Settings.errorDialogOther.message = message;
+		Fuji.Dialogs.Settings.errorDialogOther.loadBody();
+		Fuji.Dialogs.newSimpleDialog('errorDialogOther');
 	},
 	
 	/**
@@ -81,7 +94,7 @@ Fuji.Dialogs = {
 			var callback =
 			{
 				success: Fuji.updateEditDialog,
-				failure: Fuji.newErrorDialog,
+				failure: Fuji.Dialogs.newHttpErrorDialog,
 				argument: []
 			}
 			document.getElementById('createDialogHd').style.display = 'none';
@@ -294,7 +307,7 @@ Fuji.Dialogs.Settings.deleteGroupDialog = {
 	body : Fuji.Messages.sure_delete_group,
 	icon : YAHOO.widget.SimpleDialog.ICON_WARN
 }
-Fuji.Dialogs.Settings.errorDialog401 = {
+Fuji.Dialogs.Settings.httpErrorDialog401 = {
 	handleSubmit : function() { this.hide(); },
 	header : Fuji.Messages.error,
 	loadBody : function() {	this.body = '<p>' + Fuji.Messages.error_loading_resource + ' ' + this.uri + '</p>' +
@@ -307,7 +320,7 @@ Fuji.Dialogs.Settings.errorDialog401 = {
 	body : null,
 	icon : YAHOO.widget.SimpleDialog.ICON_BLOCK
 }
-Fuji.Dialogs.Settings.errorDialog404 = {
+Fuji.Dialogs.Settings.httpErrorDialog404 = {
 	handleSubmit : function() { this.hide(); },
 	header : Fuji.Messages.error,
 	loadBody : function() {	this.body = '<p>' + Fuji.Messages.error_loading_resource + ' ' + this.uri + '.</p>' +
@@ -320,7 +333,7 @@ Fuji.Dialogs.Settings.errorDialog404 = {
 	icon : YAHOO.widget.SimpleDialog.ICON_BLOCK,
 	uri : null
 }
-Fuji.Dialogs.Settings.errorDialogOther = {
+Fuji.Dialogs.Settings.httpErrorDialogOther = {
 	handleSubmit : function() { this.hide(); },
 	header : Fuji.Messages.error,
 	loadBody : function() {	this.body = '<p>' + Fuji.Messages.error_loading_resource + '.</p>' +
@@ -333,6 +346,16 @@ Fuji.Dialogs.Settings.errorDialogOther = {
 	icon : YAHOO.widget.SimpleDialog.ICON_BLOCK,
 	status : null,
 	statusText : null
+}
+Fuji.Dialogs.Settings.errorDialogOther = {
+	handleSubmit : function() { this.hide(); },
+	header : Fuji.Messages.error,
+	loadBody : function() {	this.body = '<p><b>' + this.title + '</b></p>' +
+				'<pre style="max-height: 30em; _height: 30em; overflow: auto;">' + this.message.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/\t/g,'    ') + '</pre>'},
+	body : null,
+	icon : YAHOO.widget.SimpleDialog.ICON_BLOCK,
+	title : null,
+	message : null
 }
 Fuji.Dialogs.Settings.loadingDialog = {
 	header : Fuji.Messages.loading,

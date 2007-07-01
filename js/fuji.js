@@ -55,7 +55,7 @@ Fuji = {
 	
 	loadFailure : function(oXMLHttpObject) {
 		Fuji.Dialogs.Instances.loadingDialog.hide();
-		Fuji.Dialogs.newErrorDialog(oXMLHttpObject);
+		Fuji.Dialogs.newHttpErrorDialog(oXMLHttpObject);
 	},
 	
 	/**
@@ -85,7 +85,20 @@ Fuji = {
 			if (!oDocument.documentElement) //Internet Explorer-hack
 			{
 				oDocument = new ActiveXObject("Microsoft.XMLDOM");
-				oDocument.loadXML(oXMLHttpObject.responseText);
+				oDocument.loadXML(oXMLHttpObject.responseText)
+				if (oDocument.parseError.errorCode != 0) {
+					// parse error in IE...
+					Fuji.Dialogs.newErrorDialog('XML parsing error',
+						oDocument.parseError.reason + ' (line ' + oDocument.parseError.line + ' position ' + 
+							oDocument.parseError.linepos + ')\n\n' + oXMLHttpObject.responseText);
+					return;
+				}
+			}
+			if (oDocument.documentElement.nodeName == 'parsererror') {
+				// parse error in Firefox...
+				Fuji.Dialogs.newErrorDialog('XML parsing error',
+					oDocument.documentElement.textContent + '\n\n' + oXMLHttpObject.responseText);
+				return;
 			}
 			Fuji.loadDocument(oDocument, oXMLHttpObject.argument.uri);
 			if (oXMLHttpObject.argument.oDocument) {
@@ -164,7 +177,7 @@ Fuji = {
 		var callback =
 		{
 			success: function(o) {Fuji.reloadItem(sParentURI, 999); location.hash='#'+sParentURI},
-			failure: Fuji.newErrorDialog,
+			failure: Fuji.Dialogs.newHttpErrorDialog,
 			argument: []
 		}
 		YAHOO.util.Connect.asyncRequest('DELETE', sURI, callback, null); 
@@ -196,7 +209,7 @@ Fuji = {
 		var callback =
 		{
 			success: function(o) {Fuji.reloadItem(sURI, 999)},
-			failure: Fuji.newErrorDialog,
+			failure: Fuji.Dialogs.newHttpErrorDialog,
 			argument: []
 		}
 		YAHOO.util.Connect.setForm('editF');
@@ -271,14 +284,14 @@ Fuji = {
 	login : function() {
 		var callback = {
 			success: function(o) {window.location.reload()},
-			failure: Fuji.newErrorDialog
+			failure: Fuji.Dialogs.newHttpErrorDialog
 		}
 		YAHOO.util.Connect.asyncRequest('POST', 'login', callback, null);
 	},
 	logout : function() {
 		var callback = {
 			success: function(o) {window.location.reload()},
-			failure: Fuji.newErrorDialog
+			failure: Fuji.Dialogs.newHttpErrorDialog
 		}
 		YAHOO.util.Connect.asyncRequest('POST', 'logout', callback, null);
  	},
@@ -299,7 +312,7 @@ Fuji = {
 	reloadPlugins : function() {
 		var callback = {
 			success: function(o) {window.location.reload()},
-			failure: Fuji.newErrorDialog
+			failure: Fuji.Dialogs.newHttpErrorDialog
 		}
 // 		YAHOO.util.Connect.asyncRequest('GET', 'pluginsettings', callback, null);
 	},
@@ -350,7 +363,7 @@ Fuji = {
 			        oTBody.appendChild(oTr);
 			    }
 			},
-			failure: Fuji.newErrorDialog
+			failure: Fuji.Dialogs.newHttpErrorDialog
 		}
  		YAHOO.util.Connect.asyncRequest('GET', sURI + '/rights', callback, null);
 	}
