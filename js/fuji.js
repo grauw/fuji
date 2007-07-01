@@ -602,4 +602,60 @@ Fuji.Tree = {
 	}
 }
 
+/**
+ * Make DOMParser work in IE. To parse, do:
+ * 
+ *    var node = new DOMParser.parseFromString(xml, 'text/xml');
+ */
+if (!window.DOMParser){
+	DOMParser = new Function;
+	DOMParser.prototype.baseURI = null;
+	DOMParser.prototype.parseFromString = function(sXml, sMime) {
+		var oDocument = new ActiveXObject("Microsoft.XMLDOM");
+		oDocument.loadXML(sXml);
+		return oDocument;
+	};
+}
+
+/**
+ * Make XMLSerializer work in IE. To serialise, do:
+ * 
+ *    var xml = new XMLSerializer.serializeToString(node);
+ */
+if (!window.XMLSerializer){
+	XMLSerializer = new Function;
+	XMLSerializer.prototype.serializeToString   = function(oNode) {
+		return oNode.xml;
+	};
+}
+
+/**
+ * Make XMLHttpRequest work in IE.
+ */
+if (!window.XMLHttpRequest){
+	XMLHttpRequest = function() {
+		return new ActiveXObject("Microsoft.XMLHTTP");
+	};
+}
+
+/**
+ * Make XSLTProcessor work in IE. To transform, do:
+ * 
+ *    var xsltproc = new XSLTProcessor();
+ *    xsltproc.importStylesheet(xslt_node);
+ *    var node = xsltproc.transformToDocument(source_node);
+ */
+if (!window.XSLTProcessor){
+	XSLTProcessor = new Function();
+	XSLTProcessor.prototype.importStylesheet	= function(oNode) {
+		this._stylesheet = oNode.cloneNode(true);
+	}
+
+	XSLTProcessor.prototype.transformToDocument = function(oNode) {
+		var oDocument   = new ActiveXObject("Microsoft.XMLDOM");
+		oNode.transformNodeToObject(this._stylesheet, oDocument);
+		return oDocument;
+	};
+}
+
 Fuji.preBoot();
