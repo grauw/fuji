@@ -82,7 +82,7 @@ Fuji = {
 	loadSuccess : function(oXMLHttpObject) {
 		if (oXMLHttpObject.responseText) {
 			var oDocument = oXMLHttpObject.responseXML;
-			if (!oDocument.documentElement) //Internet Explorer-hack
+			if (Fuji.Util.Browser.ie && (!oDocument || !oDocument.documentElement)) //Internet Explorer-hack
 			{
 				oDocument = new ActiveXObject("Microsoft.XMLDOM");
 				oDocument.loadXML(oXMLHttpObject.responseText)
@@ -94,10 +94,11 @@ Fuji = {
 					return;
 				}
 			}
-			if (oDocument.documentElement.nodeName == 'parsererror') {
+			if (!Fuji.Util.Browser.ie && (!oDocument || oDocument.documentElement.nodeName == 'parsererror')) {
 				// parse error in Firefox...
 				Fuji.Dialogs.newErrorDialog('XML parsing error',
-					oDocument.documentElement.textContent + '\n\n' + oXMLHttpObject.responseText);
+					(oDocument ? oDocument.documentElement.textContent : '') + '\n\n' +
+						oXMLHttpObject.responseText);
 				return;
 			}
 			Fuji.loadDocument(oDocument, oXMLHttpObject.argument.uri);
