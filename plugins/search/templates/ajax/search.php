@@ -1,5 +1,5 @@
 <?php $page_size = 8; ?>
-<?xml version="1.0" encoding="UTF-8"?>
+<?php $this->getPrefix() ?>
 <fuji:item xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:fuji="http://fuji.sourceforge.net/ns"
 	xml:lang="<?php echo $this->l10n->language ?>"
