@@ -45,8 +45,7 @@ class Entry extends Dataclass {
 	 * @returns True if entry exists, false otherwise
 	 */
 	static function isEntryId($id){
-		if(count(Database::getArray("SELECT * FROM " . Database::$db_tprefix . "entries WHERE id = '". $id ."'")) == 0) return false;
-		else return true;
+		return count(Database::getArray("SELECT * FROM " . Database::$db_tprefix . "entries WHERE id = '". $id ."' LIMIT 1")) > 0;
 	}
 	
 	/**
@@ -55,8 +54,7 @@ class Entry extends Dataclass {
 	 * @returns True if entry exists, false otherwise
 	 */
 	static function isEntryTitle($title){
-		if(count(Database::getArray("SELECT * FROM " . Database::$db_tprefix . "entries WHERE title = '". $title ."'")) == 0) return false;
-		else return true;
+		return count(Database::getArray("SELECT * FROM " . Database::$db_tprefix . "entries WHERE title = '". $title ."' LIMIT 1")) > 0;
 	}
 	
 	static function search($query, $field, $forumid = null, $orderby = null, $limit = null) {
