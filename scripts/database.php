@@ -1,6 +1,5 @@
 <?php
-	require_once 'adodb5/adodb.inc.php';
-//	require_once 'adodb_lite/adodb-xmlschema.inc.php';
+	require_once 'adodb_lite/adodb.inc.php';
 	require_once 'configuration/database.php';
 	require_once 'database_axmls.php';
 
@@ -13,7 +12,6 @@
 			if(!self::$db || !self::$db->IsConnected())
 			{
 				self::$db = ADONewConnection(DbVar::$db_type);
-//				self::$db = ADONewConnection(DbVar::$db_type, "pear:meta");
 				self::$db->createdatabase = $create;
 				if (self::$db_port)
 					self::$db->port = self::$db_port;
@@ -50,11 +48,6 @@
 		 */
 		static function LoadAndExecuteSchema($filename) {
 			self::connect();
-			
-//			$schema = new adoSchema(self::$db);
-//			$sql = $schema->ParseSchema($filename);
-//			echo $sql;
-//			$result = $schema->ExecuteSchema();
 			
 			$axmls = new DatabaseAXMLS(self::$db, $filename);
 			$axmls->ExecuteSchema();
