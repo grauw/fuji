@@ -1,14 +1,16 @@
 RewriteEngine On
 
 # Don’t rewrite these paths:
-RewriteRule ^js/ - [L]
+RewriteRule ^js/ - [L,R]
 RewriteRule ^style/ - [L]
 
 # Do a separate rewrite for the installer
 RewriteRule ^install/?$ scripts/install/index.php [L,QSA]
+# The rewritten URL above seems to pass through the RewriteRules again?! Weirdness.
+RewriteRule ^scripts/install/index.php - [L]
 
 # Rewrite everything else to index.php for further processing
-RewriteRule .* index.php [L,QSA]
+RewriteRule .* index.php [L,QSA,NS]
 
 ##
 ## Note: the URL routing functionality can be found in routes.php
