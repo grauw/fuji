@@ -117,15 +117,19 @@ abstract class Dataclass {
 		unset($this->data[$name]);
 		unset($this->datastate[$name]);
 	}
-	function getData() {
-		return $this->data;
-	}		
+	protected function getData() {
+		return array_merge($this->datacache, $this->data);
+	}
 	
 	private function getAttributeFromCache($name) {
-		if(!isset($this->datacache[$name]) && $this->hasAttribute($this->getPrimaryKeyName())) {
-			$data = $this->loadData();
-			if (count($data) == 0) trigger_error("Resource not available in database");
-			$this->datacache = $data[0];
+		if(!isset($this->datacache[$name])) {
+			if (!$this->loadToCache()) {
+				if ($this->hasAttribute($this->getPrimaryKeyName())) {
+					trigger_error("No primary key in object, data can not be found.");
+				} else {
+					trigger_error("Resource not available in database. Check with exists() before use.");
+				}
+			}
 		}
 		if (array_key_exists($name, $this->datacache)) {
 			return $this->datacache[$name];
@@ -154,23 +158,42 @@ abstract class Dataclass {
 	
 	
 	/**
-	 * Load object from database
+	 * Load object from database, overwrite all modifications.
+	 * 
+	 * @return false if not available, true if successful
 	 */
 	function load() {
-		if(!$this->hasAttribute($this->getPrimaryKeyName())) {
+		if(!$this->hasAttribute($this->getPrimaryKeyName()))
 			return false;
-		}
 		$data = $this->loadData();
+		if (count($data) == 0)
+			return false;
 		$this->data = $data[0];
+		// TODO: reset all datastates to STATE_FRESH 
+		return true;
+	}
+	
+	/**
+	 * Load object from database into the datacache
+	 * 
+	 * @return false if not available, true if successful
+	 */
+	private function loadToCache() {
+		if(!$this->hasAttribute($this->getPrimaryKeyName()))
+			return false;
+		$data = $this->loadData();
+		if (count($data) == 0)
+			return false;
+		$this->datacache = $data[0];
 		return true;
 	}
 	
 	/**
 	 * Returns the data array for this object.
 	 */
-	protected function loadData() {
+	private function loadData() {
 		if ($this->hasAttribute($this->getPrimaryKeyName())); //TODO: return something?
-		return Database::getArray("SELECT * FROM " . DbVar::$db_tprefix . $this->getTableName() . " WHERE " . $this->getPrimaryKeyName() . "='" . addslashes($this->getAttribute($this->getPrimaryKeyName())) . "'");
+		return Database::getArray("SELECT * FROM " . DbVar::$db_tprefix . $this->getTableName() . " WHERE " . $this->getPrimaryKeyName() . "='" . addslashes($this->getAttribute($this->getPrimaryKeyName())) . "' LIMIT 1");
 	}
 	
 	/**
@@ -220,7 +243,7 @@ abstract class Dataclass {
 		foreach ($data as $key => $value) {
 			$items[] = "$key=$value";
 		}
-		$result = Database::execute("UPDATE " . Database::$db_tprefix . $this->getTableName() . " SET " . implode(',', $items) . " WHERE " . $this->getPrimaryKeyName() . "='" . addslashes($this->getAttribute($this->getPrimaryKeyName())) . "'");
+		$result = Database::execute("UPDATE " . Database::$db_tprefix . $this->getTableName() . " SET " . implode(',', $items) . " WHERE " . $this->getPrimaryKeyName() . "='" . addslashes($this->getAttribute($this->getPrimaryKeyName())) . "' LIMIT 1");
 		return $result;
 	}
 	
@@ -232,17 +255,18 @@ abstract class Dataclass {
 		if(!$this->hasAttribute($this->getPrimaryKeyName())) {
 			return false;
 		}
-		Database::execute("DELETE FROM " . Database::$db_tprefix . $this->getTableName() . " WHERE " . $this->getPrimaryKeyName() . "='" . addslashes($this->getAttribute($this->getPrimaryKeyName())) . "'");
+		Database::execute("DELETE FROM " . Database::$db_tprefix . $this->getTableName() . " WHERE " . $this->getPrimaryKeyName() . "='" . addslashes($this->getAttribute($this->getPrimaryKeyName())) . "' LIMIT 1");
 		return true;
 	}
 	
 	
 	/**
 	 * Check whether the resource exists in the database
+	 * 
+	 * @return true if found, false if not found.
 	 */
 	function exists() {
-		if (count($this->loadData()) == 0) return false;
-		else return true;
+		return $this->loadToCache();
 	}
 	
 	
