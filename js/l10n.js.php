@@ -1,5 +1,8 @@
 <?php
 set_include_path('..');
+require_once 'config.php';
+require_once 'scripts/httprequest.php';
+require_once 'routes.php';
 require_once 'scripts/l10nmanager.php';
 
 //TODO: Use javascript to access the language files (XML) directly, instead of using PHP
@@ -7,6 +10,7 @@ require_once 'scripts/l10nmanager.php';
 /* Cache-version of this file should be reset when changing languages */
 //require_once("../scripts/caching.php");
 //L10nManager::getL10nCache()->send();
+$request = new HttpRequest($routes);
 $l10n = new L10nManager();
 header('Content-Type: application/javascript; charset=utf-8');
 
