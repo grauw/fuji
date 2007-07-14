@@ -100,7 +100,7 @@ class Template extends Dataclass {
 		
 		// TODO: select the MIME type of choice
 		
-		Resource::addVary('Content-Type');
+		Resource::addVary('Accept');
 		if (isset($_GET['mime'])) return $_GET['mime'];
 		if (self::acceptsFujiXHTML()) return 'application/x-fuji+xhtml+xml';
 		if (self::acceptsXHTML()) return 'application/xhtml+xml';
@@ -124,8 +124,11 @@ class Template extends Dataclass {
 	public function startGZIP() {
 		$gzip_level = Database::getArray("SELECT value FROM " . Database::$db_tprefix . "defaults WHERE name = 'gzip'");
 		$gzip_level = $gzip_level[0][0];
-		ini_set('zlib.output_compression_level', $gzip_level);
-		ob_start('ob_gzhandler');
+		if ($gzip_level > 0) {
+			ini_set('zlib.output_compression_level', $gzip_level);
+			ob_start('ob_gzhandler');
+			Resource::addVary('Accept-Encoding');
+		}
 	}
 	
 }

@@ -111,8 +111,8 @@ class Resource {
 	
 	public static function addVary($vary) {
 		if (!in_array($vary,self::$varying)) {
-			$varying[] = $vary;
-			header('Vary: '.implode(', ', $varying));
+			self::$varying[] = $vary;
+			header('Vary: '.implode(', ', self::$varying));
 		}
 	}
 	
