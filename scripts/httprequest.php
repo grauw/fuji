@@ -16,6 +16,8 @@
  */
 class HttpRequest {
 	
+	static $request = null; // dirty hack, makes request object globally available
+	
 	public $BASIC_AUTH = 1;
 	public $DIGEST_AUTH = 2;
 	public $COOKIE_AUTH = 3;
@@ -23,6 +25,7 @@ class HttpRequest {
 	
 	function __construct($routes)
 	{
+		self::$request = $this; // dirty hack
 		$this->routes = $routes; 
 	}
 	

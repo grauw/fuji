@@ -92,16 +92,12 @@ class Template extends Dataclass {
 	}
 	
 	static function getMimeType() {
-		if (isset($_GET['mime'])) {
-			$mimetype = $_GET['mime'];
-		} else {
-			$mimetype = $_SERVER['HTTP_ACCEPT'];
-		}
+		$mimetype = HttpRequest::$request->getAccept();
 		
 		// TODO: select the MIME type of choice
 		
 		Resource::addVary('Accept');
-		if (isset($_GET['mime'])) return $_GET['mime'];
+		if (strpos($mimetype, ',') === FALSE) return $mimetype;
 		if (self::acceptsFujiXHTML()) return 'application/x-fuji+xhtml+xml';
 		if (self::acceptsXHTML()) return 'application/xhtml+xml';
 		return 'text/html';
@@ -113,12 +109,14 @@ class Template extends Dataclass {
 	
 	public function acceptsXHTML()
 	{
-		return strpos($_SERVER['HTTP_ACCEPT'],'application/xhtml+xml') !== FALSE ? true : false;
+		$mimetype = HttpRequest::$request->getAccept();
+		return strpos($mimetype, 'application/xhtml+xml') !== FALSE;
 	}
 	
 	public function acceptsFujiXHTML()
 	{
-		return strpos($_SERVER['HTTP_ACCEPT'],'application/x-fuji+xhtml+xml') !== FALSE ? true : false;
+		$mimetype = HttpRequest::$request->getAccept();
+		return strpos($mimetype, 'application/x-fuji+xhtml+xml') !== FALSE;
 	}
 	
 	public function startGZIP() {
