@@ -5,11 +5,13 @@ require_once 'scripts/database.php';
  * Implementation of the ADODB XML Schema (axmls) format
  * (because adodb-xmlschema is way buggy :()
  *
- * It’s not very intelligent yet though (doesn’t merge with existing database).
+ * It does alter existing tables (when ChangeTableSQL is used instead of CreateTableSQL), 
+ * It doesn’t merge with an existing database.
  *
- * See adodb_lite/xmlschema.dtd for the (invalid) DTD
+ * See database_axmls.dtd for the DTD
  * 
  * Elements currently supported: schema, table, DROP, descr, field, sql, query (only prefixmethod=NONE), data, row, f
+ * Elements not supported: contraint, opt, index, col, CLUSTERED, BITMAP, UNIQUE, FULLTEXT, HASH
  * All field parameters: NOTNULL, KEY, PRIMARY, AUTO, AUTOINCREMENT, DEFAULT, DEFDATE, DEFTIMESTAMP, NOQUOTE, CONSTRAINT, descr
  */
 class DatabaseAXMLS {
