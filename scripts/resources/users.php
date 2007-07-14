@@ -12,7 +12,6 @@ class Users extends Resource {
 		UserManager::authenticate();
 		$entry = Entry::getRoot();
 		if (UserManager::getUser()->getRights($entry)->may_read) {
-			$template = Template::getTemplate();
 			$uriparts = $this->request->getRequestURIParts();
 			if ($uriparts[0] == 'groups') {
 				$group = Group::getGroup($uriparts[1]);
@@ -23,8 +22,8 @@ class Users extends Resource {
 			} else {
 				$users = User::getUsers();
 			}
-			$template->users = $users;
-			$template->applyView('users');
+			$this->template->users = $users;
+			$this->template->applyView('users');
 		}
 		else header('HTTP/1.1 401 Unauthorized');
 	}

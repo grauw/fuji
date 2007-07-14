@@ -13,8 +13,7 @@ class Login extends Resource {
 	function httpPost()
 	{
 		UserManager::authenticate(true);
-		$template = Template::getTemplate();
-		$template->applyView('login');
+		$this->template->applyView('login');
 	}
 	
 }

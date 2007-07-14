@@ -7,8 +7,7 @@ class Register extends Resource {
 	
 	function httpGet()
 	{
-		$template = Template::getTemplate();
-		$template->applyView('register');
+		$this->template->applyView('register');
 	}
 	
 	function httpPost()
@@ -33,9 +32,8 @@ class Register extends Resource {
 					$message = 'Invalid e-mail address.';
 			else
 				$message = 'Invalid nickname.';
-		$template = Template::getTemplate();
-		$template->message = $message;
-		$template->applyView('register-ok');
+		$this->template->message = $message;
+		$this->template->applyView('register-ok');
 	}
 	
 }

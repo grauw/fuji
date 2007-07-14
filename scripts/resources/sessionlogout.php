@@ -12,15 +12,13 @@ class SessionLogout extends Resource {
 	
 	function httpPost()
 	{
-		$template = Template::getTemplate();
+		setcookie('username', '', 0, $this->template->getForumRoot());
+		setcookie('userkey', '', 0, $this->template->getForumRoot());
 		
-		setcookie('username', '', 0, $template->getForumRoot());
-		setcookie('userkey', '', 0, $template->getForumRoot());
+		$this->template->redirecturl = $this->template->getAbsoluteForumRoot();
+		$this->template->applyView('session_loggedout');
 		
-		$template->redirecturl = $template->getAbsoluteForumRoot();
-		$template->applyView('session_loggedout');
-		
-		//header('Location: '.$template->getAbsoluteForumRoot());
+		//header('Location: '.$this->template->getAbsoluteForumRoot());
 		//header('HTTP/1.1 302 Found');
 	}
 	

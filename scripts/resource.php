@@ -44,6 +44,7 @@ require_once 'scripts/dataclasses/template.php';
 class Resource {
 	
 	protected $request;
+	protected $template;
 	
 	/**
 	 * Run the proper request method, or return HTTP 405
@@ -51,6 +52,7 @@ class Resource {
 	function __construct(HttpRequest $request)
 	{
 		$this->request = $request;
+		$this->template = Template::getTemplate();
 		
 		$method = $request->getMethod();
 		

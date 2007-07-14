@@ -8,16 +8,15 @@ class CalendarDay extends Resource {
 	function httpGet()
 	{
 		UserManager::authenticate();
-		$template = Template::getTemplate();
-		$template->today = time();
+		$this->template->today = time();
 		$uriparts = $this->request->getRequestURIParts();
 		if (isset($uriparts[1]))
-			$template->date = strtotime($uriparts[1]);
+			$this->template->date = strtotime($uriparts[1]);
 		else
-			$template->date = $template->today;
-		$template->entries = self::threadsFromEntries(Entry::getEntriesByDate(date('Y-m-d', $template->date),
-			date('Y-m-d', strtotime('next day', $template->date))));
-		$template->applyView('calendarday');
+			$this->template->date = $this->template->today;
+		$this->template->entries = self::threadsFromEntries(Entry::getEntriesByDate(date('Y-m-d', $this->template->date),
+			date('Y-m-d', strtotime('next day', $this->template->date))));
+		$this->template->applyView('calendarday');
 	}
 	
 	static function threadsFromEntries($entries) {

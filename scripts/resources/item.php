@@ -12,11 +12,10 @@ class Item extends Resource {
 		$page = isset($uriparts[2]) ? intval($uriparts[2]) : 1;
 		if ($entry = $this->getEntry()) {
 			if (UserManager::getUser()->getRights($entry)->may_read) {
-				$template = Template::getTemplate();
-				$template->entry = $entry;
-				$template->page = $page;
+				$this->template->entry = $entry;
+				$this->template->page = $page;
 				header('HTTP/1.1 200 OK');
-				$template->applyView($entry->getView());
+				$this->template->applyView($entry->getView());
 			} else header('HTTP/1.1 401 Unauthorized');
 		} else header('HTTP/1.1 404 Not Found');
 	}
@@ -34,12 +33,11 @@ class Item extends Resource {
 				$newentry->content = $_POST['content'];
 				$newentry->save();
 				$location = $entry->type != Entry::$TYPE_POST ? $newentry->getAbsoluteURI() : $entry->getAbsoluteURI() . '#i' . $newentry->id;
-				$template = Template::getTemplate();
-				if ($template->mimetype == 'text/html') {
+				if ($this->template->mimetype == 'text/html') {
 					header('Location: '.$location);
 					header('HTTP/1.1 200 OK');
-					$template->redirecturl = $location;
-					$template->applyView('item_posted');
+					$this->template->redirecturl = $location;
+					$this->template->applyView('item_posted');
 				} else {
 					header('Location: '.$location);
 					header('HTTP/1.1 201 Created');

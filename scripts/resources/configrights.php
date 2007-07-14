@@ -15,17 +15,15 @@ class ConfigRights extends Resource {
 			if ($uriparts[0] == 'users') {
 				$id = intval($uriparts[1]);
             	if ($entry = Entry::getEntry($uriparts[1])) {
-					$template = Template::getTemplate();
-					$template->entry = $entry;
-					$template->applyView('rights');
+					$this->template->entry = $entry;
+					$this->template->applyView('rights');
 					header('HTTP/1.1 200 OK');
 				} else header('HTTP/1.1 404 Not Found');
 			} else {
 				if ($uriparts[0] == 'groups') {
 					if (Group::isGroupId($uriparts[1])) {
-						$template = Template::getTemplate();
-						$template->groupid = $uriparts[1];
-						$template->applyView('rights');
+						$this->template->groupid = $uriparts[1];
+						$this->template->applyView('rights');
         				header('HTTP/1.1 200 OK');
 					}
 				} else header('HTTP/1.1 404 Not Found');

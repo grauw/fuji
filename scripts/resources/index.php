@@ -15,8 +15,7 @@ class Index extends Resource {
 			exit;
 		}
 		UserManager::authenticate();
-		$template = Template::getTemplate();
-		$template->applyView('index');
+		$this->template->applyView('index');
 	}
 	
 }

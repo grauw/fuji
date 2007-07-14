@@ -8,8 +8,7 @@ class Menu extends Resource {
 	function httpGet()
 	{
 		UserManager::authenticate();
-		$template = Template::getTemplate();
-		$template->applyView('menu');
+		$this->template->applyView('menu');
 	}
 	
 }

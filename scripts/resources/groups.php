@@ -13,10 +13,9 @@ class Groups extends Resource {
 		$entry = Entry::getRoot();
 		if (UserManager::getUser()->getRights($entry)->may_read) {
 			$uriparts = $this->request->getRequestURIParts();
-			$template = Template::getTemplate();
-			if ($uriparts[0] == 'users') $template->userid = $uriparts[1];
-			if ($uriparts[0] == 'groups') $template->userid = $uriparts[1];
-			$template->applyView('groups');
+			if ($uriparts[0] == 'users') $this->template->userid = $uriparts[1];
+			if ($uriparts[0] == 'groups') $this->template->userid = $uriparts[1];
+			$this->template->applyView('groups');
 		}
 		else header('HTTP/1.1 401 Unauthorized');
 	}

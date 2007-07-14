@@ -15,8 +15,7 @@ class Logout extends Resource {
 		UserManager::authenticate();
 		if (UserManager::isUser())
 			UserManager::forceAuthenticate();
-		$template = Template::getTemplate();
-		$template->applyView('logout');
+		$this->template->applyView('logout');
 	}
 	
 }

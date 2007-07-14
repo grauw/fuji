@@ -23,10 +23,9 @@ class Profile extends Resource {
 			}
 		}
 		
-		$template = Template::getTemplate();
-		$template->user = $user;
-		$template->groups = $user->getGroups();
-		$template->applyView('profile');
+		$this->template->user = $user;
+		$this->template->groups = $user->getGroups();
+		$this->template->applyView('profile');
 	}
 	
 }
