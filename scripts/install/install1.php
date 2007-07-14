@@ -2,7 +2,7 @@
 include_once 'scripts/adodb_lite/adodb.inc.php';
 include_once 'scripts/adodb_lite/adodb-exceptions.inc.php'; 
 
-class Install1 {   
+class Install1 {
     
 	function execute()
 	{
@@ -18,7 +18,7 @@ class Install1 {
 	}
 
 	function tryDatabase() {		
-		if($_POST['db_create']=='true') $db->createdatabase = true;
+		$db->createdatabase = $_POST['db_create'] == 'true';
 
 		try{
 			$db = ADONewConnection($_POST['db_type']);
@@ -30,8 +30,10 @@ class Install1 {
 			echo "<p>A functioning database has been found and configured at the supplied address.</p>";
 		}
 		catch(exception $e) {
-			if($db->createDatabase = true) echo "<p>A database could not be created at the supplied address:</p>";
-			else echo "<p>A database could not be located at the supplied address:</p>";
+			if ($db->createDatabase = true)
+				echo "<p>A database could not be created at the supplied address:</p>";
+			else
+				echo "<p>A database could not be located at the supplied address:</p>";
 			?>
 			<table>
 			<tr><th>Type</th><th>Host</th><th>User</th><th>Port</th><th>Name</th></tr>
