@@ -74,7 +74,8 @@ class Stylesheet extends Dataclass {
 	static function getStylesheetsHTML()
 	{
 		// save a lot of requests
-//		return Stylesheet::getDefaultStylesheet()->getStylesheetHTML();
+		// comment out to get browser stylesheet selection
+		return Stylesheet::getDefaultStylesheet()->getStylesheetHTML();
 		
 		$stylesheetsarr = Stylesheet::getStylesheets();
 		$stylesheets = '';
@@ -87,7 +88,8 @@ class Stylesheet extends Dataclass {
 	static function getStylesheetsXML()
 	{
 		// save a lot of requests
-//		return Stylesheet::getDefaultStylesheet()->getStylesheetXML();
+		// comment out to get browser stylesheet selection
+		return Stylesheet::getDefaultStylesheet()->getStylesheetXML();
 		
 		$stylesheetsarr = Stylesheet::getStylesheets();
 		$stylesheets = '';
