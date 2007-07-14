@@ -96,7 +96,8 @@ class HttpRequest {
 	 * in the first line of the HTTP request. The URI is not decoded.
 	 */
 	function getRequestURI() {
-		return $_SERVER['REDIRECT_URL'];
+		$base = $this->getBasePath();
+		return substr($_SERVER['REDIRECT_URL'], strlen($base));
 	}
 	
 	/**
@@ -112,7 +113,7 @@ class HttpRequest {
 	 * Returns the parts of the request URI (separated by /’s).
 	 */
 	function getRequestURIParts() {
-		return explode('/', substr($this->getRequestURIWithoutExtension(), 1));
+		return explode('/', $this->getRequestURIWithoutExtension());
 	}
 	
 	/**
@@ -121,7 +122,28 @@ class HttpRequest {
 	 * but it does not include query string parameters.
 	 */
 	function getRequestURL() {
-		return 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+		return $this->getScheme().'://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+	}
+	
+	/**
+	 * Returns the base path
+	 * e.g. if the forum is at http://example.com/forum/item/1 it will return '/forum/'
+	 */
+	function getBasePath() {
+		// TODO: this method doesn’t work with Apache aliases.
+		return substr($_SERVER['PHP_SELF'], 0, strrpos($_SERVER['PHP_SELF'], '/') + 1);
+	}
+	
+	/**
+	 * Returns the full base path
+	 * e.g. if the forum is at http://example.com/forum/item/1 it will return 'http://example.com/forum/'
+	 */
+	function getAbsoluteBasePath() {
+		return $this->getScheme().'://'.$_SERVER['HTTP_HOST'].$this->getBasePath();
+	}
+	
+	function getScheme() {
+		return $_SERVER['HTTPS'] ? 'https' : 'http';
 	}
 	
 	/**
