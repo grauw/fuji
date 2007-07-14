@@ -62,7 +62,7 @@ class UserManager {
 		$user = User::getUserByName($response_data['username']);
 		if ($user) {
 			$A1 = $user->password;
-			$A2 = md5($_SERVER['REQUEST_METHOD'].':'.$response_data['uri']);
+			$A2 = md5(HttpRequest::$request->getMethod().':'.$response_data['uri']);
 			$valid_response = md5($A1.':'.$response_data['nonce'].':'.$response_data['nc'].':'.$response_data['cnonce'].':'.$response_data['qop'].':'.$A2);
 			if ($response == $valid_response) {
 				self::$user = $user;
@@ -136,7 +136,7 @@ class UserManager {
 	 * Determines whether the client has sent an HTTP digest access authentication header.
 	 */
 	static private function hasDigestHeader() {
-		return !empty($_SERVER['PHP_AUTH_DIGEST']);
+		return HttpRequest::$request->getAuthType() == HttpRequest::$DIGEST_AUTH;
 	}
 	
 	/**

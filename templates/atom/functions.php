@@ -25,7 +25,7 @@ class Atom_Template extends Template {
 	
 	public function acceptsAtom()
 	{
-		return strpos($_SERVER['HTTP_ACCEPT'],'application/atom+xml') ? true : false;
+		return strpos(HttpRequest::$request->getHeader('Accept'), 'application/atom+xml') ? true : false;
 	}
 	
 }

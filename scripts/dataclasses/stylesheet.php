@@ -101,12 +101,12 @@ class Stylesheet extends Dataclass {
 	
 	function getStylesheetHTML()
 	{
-		return '<link rel="'.($this->default ? '' : 'alternate ').'stylesheet" type="text/css" href="'.$this->getForumRoot() . $this->file.'" title="'.$this->name.'" />'."\n"; 
+		return '<link rel="'.($this->default ? '' : 'alternate ').'stylesheet" type="text/css" href="'.HttpRequest::$request->getContextPath() . '/' . $this->file.'" title="'.$this->name.'" />'."\n"; 
 	}
 	
 	function getStylesheetXML()
 	{
-		return '<?xml-stylesheet href="'.$this->getForumRoot() . $this->file.'" title="'.$this->name.'"'.($this->default ? '' : ' alternate="yes"').' type="text/css" ?'.">\n";
+		return '<?xml-stylesheet href="'.HttpRequest::$request->getContextPath() . '/' . $this->file.'" title="'.$this->name.'"'.($this->default ? '' : ' alternate="yes"').' type="text/css" ?'.">\n";
 	}
 }
 

@@ -18,9 +18,9 @@
 			<?php echo $this->l10n->logged_in_as . ' ' . UserManager::getUser()->nickname ?>
 		<?php } ?>
 		<?php if(UserManager::getUser()->nickname == 'anonymous') { ?>
-			(<a href="<?php echo $this->getForumRoot() ?>session-login"><?php echo $this->l10n->login ?></a>)
+			(<a href="<?php echo HttpRequest::$request->getContextPath() ?>/session-login"><?php echo $this->l10n->login ?></a>)
 		<?php } else { ?>
-			(<a href="<?php echo $this->getForumRoot() ?>session-logout"><?php echo $this->l10n->logout ?></a>)
+			(<a href="<?php echo HttpRequest::$request->getContextPath() ?>/session-logout"><?php echo $this->l10n->logout ?></a>)
 		<?php } ?>
 	</p>
 	<p><?php echo $this->l10n->location ?>: <?php echo $this->getBreadcrumb() ?></p>

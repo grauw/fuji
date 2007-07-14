@@ -25,7 +25,7 @@ class RSS_Template extends Template {
 	
 	public function acceptsRSS()
 	{
-		return strpos($_SERVER['HTTP_ACCEPT'],'application/rss+xml') ? true : false;
+		return strpos(HttpRequest::$request->getHeader('Accept'),'application/rss+xml') ? true : false;
 	}
 	
 }

@@ -123,8 +123,9 @@ class L10nManager {
 	static function getAcceptLanguage() {
 		Resource::addVary('Accept-Language');
 		$languages = array();
-		if (isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
-			$accept_lang = str_replace(' ', '', $_SERVER['HTTP_ACCEPT_LANGUAGE']);
+		$accept_lang = HttpRequest::$request->getHeader('Accept-Language');
+		if ($accept_lang) {
+			$accept_lang = str_replace(' ', '', $accept_lang);
 			if ($accept_lang) {
 				$acceptlangs = explode(',', $accept_lang);
 				foreach ($acceptlangs as $acceptlang) {

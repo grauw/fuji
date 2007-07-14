@@ -16,11 +16,11 @@ class XHTML_Template extends Template {
 	{
 		$head = '<meta http-equiv="Content-Type" content="' .
 			($this->acceptsXHTML() ? 'application/xhtml+xml' : 'text/html') . '; charset=utf-8" />';
-		$head .= '<link rel="icon" type="image/png" href="' . $this->getForumRoot() . 'images/siteicon.png" />';
+		$head .= '<link rel="icon" type="image/png" href="' . HttpRequest::$request->getContextPath() . '/images/siteicon.png" />';
 		if (!$this->acceptsXHTML() && !$this->isEVEIngameBrowser()) {
 			$head .= Stylesheet::getStyleSheetsHTML();
 		} else if ($this->isEVEIngameBrowser()) {
-			$head .= '<link rel="stylesheet" href="'.$this->getForumRoot().'style/eve-igb/css/eve-igb.css" type="text/css" />';
+			$head .= '<link rel="stylesheet" href="'.HttpRequest::$request->getContextPath().'/style/eve-igb/css/eve-igb.css" type="text/css" />';
 		}
 		return $head;
 	}
@@ -35,12 +35,12 @@ class XHTML_Template extends Template {
 	
 	public function acceptsXHTML()
 	{
-		return strpos($_SERVER['HTTP_ACCEPT'],'application/xhtml+xml') ? true : false;
+		return strpos(HttpRequest::$request->getHeader('Accept'),'application/xhtml+xml') ? true : false;
 	}
 	
 	public function isEVEIngameBrowser()
 	{
-		return isset($_SERVER['HTTP_EVE_TRUSTED']);
+		return HttpRequest::$request->getHeader('Eve-Trusted');
 	}
 	
 	public function getBreadcrumb()

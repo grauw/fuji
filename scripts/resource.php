@@ -123,7 +123,7 @@ class Resource {
 	 */
 	private function prepPostDataFromPut() {
 		$putdata = file_get_contents('php://input');
-		if ($_SERVER['CONTENT_TYPE'] == 'application/x-www-form-urlencoded') {
+		if (HttpRequest::$request->getContentType() == 'application/x-www-form-urlencoded') {
 			$components = explode('&', $putdata);
 			foreach ($components as $component) {
 				$components2 = explode('=', $component);

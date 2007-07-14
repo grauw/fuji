@@ -16,11 +16,12 @@
  */
 class HttpRequest {
 	
-	static $request = null; // dirty hack, makes request object globally available
+	public static $request = null; // dirty hack, makes request object globally available
 	
-	public $BASIC_AUTH = 1;
-	public $DIGEST_AUTH = 2;
-	public $COOKIE_AUTH = 3;
+	public static $BASIC_AUTH = 1;
+	public static $DIGEST_AUTH = 2;
+	public static $COOKIE_AUTH = 3;
+	
 	public $routes;
 	
 	function __construct($routes)
@@ -83,6 +84,20 @@ class HttpRequest {
 	}
 	
 	/**
+	 * Returns the name of the authentication scheme used to protect the servlet.
+	 * All servlet containers support basic, form and client certificate authentication,
+	 * and may additionally support digest authentication. If the servlet is not
+	 * authenticated null is returned.
+	 */
+	function getAuthType() {
+		if ($_SERVER['PHP_AUTH_DIGEST'])
+			return self::$DIGEST_AUTH;
+		if ($_SERVER['PHP_AUTH_USER'])
+			return self::$BASIC_AUTH;
+		return NULL;
+	}
+	
+	/**
 	 * Returns an array with all set cookies.
 	 * 
 	 * @return Associative array with cookies as key/value pairs.
@@ -96,7 +111,7 @@ class HttpRequest {
 	 * in the first line of the HTTP request. The URI is not decoded.
 	 */
 	function getRequestURI() {
-		$base = $this->getBasePath();
+		$base = $this->getContextPath();
 		return substr($_SERVER['REDIRECT_URL'], strlen($base));
 	}
 	
@@ -113,7 +128,7 @@ class HttpRequest {
 	 * Returns the parts of the request URI (separated by /’s).
 	 */
 	function getRequestURIParts() {
-		return explode('/', $this->getRequestURIWithoutExtension());
+		return explode('/', substr($this->getRequestURIWithoutExtension(), 1));
 	}
 	
 	/**
@@ -126,22 +141,28 @@ class HttpRequest {
 	}
 	
 	/**
-	 * Returns the base path
-	 * e.g. if the forum is at http://example.com/forum/item/1 it will return '/forum/'
+	 * Returns the portion of the request URI that indicates the context of the request.
+	 * The context path always comes first in a request URI. The path starts with a '/'
+	 * character but does not end with a '/' character. For servlets in the default (root)
+	 * context, this method returns "".
+	 * e.g. if the forum is at http://example.com/forum/item/1 it will return '/forum'
 	 */
-	function getBasePath() {
+	function getContextPath() {
 		// TODO: this method doesn’t work with Apache aliases.
-		return substr($_SERVER['PHP_SELF'], 0, strrpos($_SERVER['PHP_SELF'], '/') + 1);
+		return substr($_SERVER['PHP_SELF'], 0, strrpos($_SERVER['PHP_SELF'], '/'));
 	}
 	
 	/**
 	 * Returns the full base path
-	 * e.g. if the forum is at http://example.com/forum/item/1 it will return 'http://example.com/forum/'
+	 * e.g. if the forum is at http://example.com/forum/item/1 it will return 'http://example.com/forum'
 	 */
-	function getAbsoluteBasePath() {
-		return $this->getScheme().'://'.$_SERVER['HTTP_HOST'].$this->getBasePath();
+	function getAbsoluteContextPath() {
+		return $this->getScheme().'://'.$_SERVER['HTTP_HOST'].$this->getContextPath();
 	}
 	
+	/**
+	 * Returns the name of the scheme used to make this request, for example, http or https.
+	 */
 	function getScheme() {
 		return $_SERVER['HTTPS'] ? 'https' : 'http';
 	}
@@ -155,10 +176,22 @@ class HttpRequest {
 	}
 	
 	/**
-	 * Returns the value of the header with the specified name.
+	 * Returns the value of the specified request header. If the request did not include
+	 * a header of the specified name, this method returns NULL. The header name is case
+	 * insensitive. You can use this method with any request header.
+	 * 
+	 * TODO: Automatically add it to the Vary header?
 	 */
 	function getHeader($header) {
-		return $_SERVER['HTTP_'.strtoupper(strtr($header, '-', '_'))];
+		$php_name = 'HTTP_'.strtoupper(strtr($header, '-', '_'));
+		return isset($_SERVER[$php_name]) ? $_SERVER[$php_name] : NULL;
+	}
+	
+	/**
+	 * Returns the MIME type of the body of the request, or null if the type is not known.
+	 */
+	function getContentType() {
+		return isset($_SERVER['CONTENT_TYPE']) ? $_SERVER['CONTENT_TYPE'] : NULL;
 	}
 	
 	/**

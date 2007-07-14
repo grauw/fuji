@@ -49,8 +49,9 @@ class Cache {
 	 */
 	function isCached()
 	{
-		$client_etag = $_SERVER['HTTP_IF_NONE_MATCH'] ? TRUE : FALSE;
-		$client_last_modified = $_SERVER['HTTP_IF_MODIFIED_SINCE'] ? strtotime(trim($_SERVER['HTTP_IF_MODIFIED_SINCE'])) : FALSE;
+		$client_etag = HttpRequest::$request->getHeader('If-None-Match') ? TRUE : FALSE;
+		$if_modified_since = HttpRequest::$request->getHeader('If-Modified-Since');
+		$client_last_modified = $if_modified_since ? strtotime(trim($if_modified_since)) : FALSE;
 		
 		if ($client_last_modified && $client_etag) {
 			return ($client_last_modified == $this->last_modified) && $this->strongETagComparison();
@@ -100,7 +101,7 @@ class Cache {
 	function strongETagComparison() {
 		if ($this->weak_etag) return FALSE;
 		$formattedEtag = $this->getFormattedETag();
-		preg_match_all('/\s*((?:W\/)?"[^"]*")\s*,?/', $_SERVER['HTTP_IF_NONE_MATCH'], $etags, PREG_SET_ORDER);
+		preg_match_all('/\s*((?:W\/)?"[^"]*")\s*,?/', HttpRequest::$request->getHeader('If-None-Match'), $etags, PREG_SET_ORDER);
 		foreach ($etags as $etag) {
 			if ($etag[1] == $formattedEtag) return TRUE;
 		}
@@ -112,9 +113,9 @@ class Cache {
 	 * MAY only be done on a GET or HEAD request with If-None-Match.
 	 */
 	function weakETagComparison() {
-		if (not($_SERVER['REQUEST_METHOD'] == 'GET' || $_SERVER['REQUEST_METHOD'] == 'HEAD')) return $this->strongETagComparison();
+		if (not(HttpRequest::$request->getMethod() == 'GET' || HttpRequest::$request->getMethod() == 'HEAD')) return $this->strongETagComparison();
 		$formattedEtag = $this->getFormattedETagWithoutWeak();
-		preg_match_all('/\s*(?:W\/)?("[^"]*")\s*,?/', $_SERVER['HTTP_IF_NONE_MATCH'], $etags, PREG_SET_ORDER);
+		preg_match_all('/\s*(?:W\/)?("[^"]*")\s*,?/', HttpRequest::$request->getHeader('If-None-Match'), $etags, PREG_SET_ORDER);
 		foreach ($etags as $etag) {
 			if ($etag[1] == $formattedEtag) return TRUE;
 		}

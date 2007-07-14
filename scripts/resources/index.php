@@ -10,7 +10,7 @@ class Index extends Resource {
 	function httpGet()
 	{
 		if (!file_exists('scripts/configuration/installer_disabled')) {
-			header('Location: ' . ($_SERVER['HTTPS']?'https://':'http://') . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] . 'install');
+			header('Location: ' . HttpRequest::$request->getAbsoluteContextPath() . 'install');
 			header('HTTP/1.1 303 See Other');
 			exit;
 		}

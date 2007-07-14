@@ -46,7 +46,6 @@ require_once 'scripts/database.php';
  *  - exists(); checks whether the object exists in the database (based on primary key).
  *  - getURI(); gets the unique URI for this resource based on getResourceUriFormat().
  *  - getAbsoluteURI(); same as getURI, but then a full URI.
- *  - getForumRoot(); gets the root path of the forum. Should move to utility class.
  * 
  */
 abstract class Dataclass {
@@ -280,28 +279,13 @@ abstract class Dataclass {
 	 * Gets the root-based URI of this resource
 	 */
 	function getRootedURI() {
-		return $this->getForumRoot().$this->getURI();
+		return HttpRequest::$request->getContextPath().'/'.$this->getURI();
 	}
 	/**
 	 * Gets the absolute URI of this resource
 	 */
 	function getAbsoluteURI() {
-		return $this->getAbsoluteForumRoot().$this->getURI();
-	}
-	
-	/* ================== Utility functions ================== */
-	/**
-	 * Gets the root path of the forum
-	 */
-	function getForumRoot() {
-		return Configuration::$path_prefix;
-	}
-	
-	/**
-	 * Gets the absolute root path of the forum
-	 */
-	function getAbsoluteForumRoot() {
-		return ($_SERVER['HTTPS']?'https://':'http://').$_SERVER['HTTP_HOST'].$this->getForumRoot();
+		return HttpRequest::$request->getAbsoluteContextPath().'/'.$this->getURI();
 	}
 	
 }

@@ -2,7 +2,7 @@
 <rss version="2.0">
 	<channel>
 		<title><?php echo htmlentities($this->entry->title, ENT_NOQUOTES) ?></title>
-		<link><?php echo $this->entry->getAbsoluteForumRoot() . '/#' . $this->entry->getURI() ?></link>
+		<link><?php echo HttpRequest::$request->getAbsoluteContextPath() . '/#' . $this->entry->getURI() ?></link>
 		<pubDate><?php echo $this->entry->getFormattedDate('created', '%a, %d %b %Y %H:%i:%s GMT') ?></pubDate>
 		<lastBuildDate><?php echo $this->entry->getFormattedDate('modified', '%a, %d %b %Y %H:%i:%s GMT') ?></lastBuildDate>
 		<description><?php echo $this->entry->getProcessedContent() ?></description>
@@ -13,7 +13,7 @@
 				foreach($this->entry->getChildren('created DESC', 10) as $post) { ?>
 		<item>
 			<title><?php echo htmlentities($post->title, ENT_NOQUOTES) ?></title>
-			<link><?php echo $this->entry->getAbsoluteForumRoot() . '/#' . $post->getURI() ?></link>
+			<link><?php echo HttpRequest::$request->getAbsoluteContextPath() . '/#' . $post->getURI() ?></link>
 			<description><?php echo $post->getProcessedContent() ?></description>
 			<pubDate><?php echo $post->getFormattedDate('created', '%a, %d %b %Y %H:%i:%s GMT') ?></pubDate>
 			<lastBuildDate><?php echo $post->getFormattedDate('modified', '%a, %d %b %Y %H:%i:%s GMT') ?></lastBuildDate>		

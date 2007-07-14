@@ -40,7 +40,7 @@
 		<div class="content">
 			<p>Your browser is not compatible with the AJAX version of <?php echo $this->l10n->forum_name ?>. The HTML version has limited functionality.</p>
 			
-			<p><a href="<?php echo $this->getForumRoot() ?>item/2">Browse the forum</a></p>
+			<p><a href="<?php echo HttpRequest::$request->getContextPath() ?>/item/2">Browse the forum</a></p>
 		</div>
 	</div>
 </body>

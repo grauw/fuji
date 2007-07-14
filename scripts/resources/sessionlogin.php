@@ -12,13 +12,13 @@ class SessionLogin extends Resource {
 	
 	function httpPost()
 	{
-		setcookie('username', $_POST['username'], 0, $this->template->getForumRoot());
-		setcookie('userkey', UserManager::createUserKey($_POST['username'], $_POST['password']), 0, $this->template->getForumRoot());
+		setcookie('username', $_POST['username'], 0, HttpRequest::$request->getContextPath().'/');
+		setcookie('userkey', UserManager::createUserKey($_POST['username'], $_POST['password']), 0, HttpRequest::$request->getContextPath().'/');
 		
-		$this->template->redirecturl = $this->template->getAbsoluteForumRoot();
+		$this->template->redirecturl = HttpRequest::$request->getAbsoluteContextPath();
 		$this->template->applyView('session_loggedin');
 		
-		//header('Location: '.$this->template->getAbsoluteForumRoot());
+		//header('Location: '.HttpRequest::$request->getAbsoluteContextPath());
 		//header('HTTP/1.1 302 Found');
 	}
 	
