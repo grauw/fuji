@@ -43,24 +43,49 @@ class Template extends Dataclass {
 	}
 	
 	static function getTemplate($mimetype = NULL) {
-		if ($mimetype == NULL) $mimetype = self::getMimeType();
-		$data = Database::getArray("SELECT * FROM " . DbVar::$db_tprefix . "templates WHERE mimetype = '".addslashes($mimetype)."'");
-		$templatedata = $data[0];
-		if (!$templatedata) trigger_error('template not found for MIME type '.$mimetype);
-		$templateclass = require_once $templatedata['basedir'];
-		return new $templateclass($templatedata);
+		$templatedata = self::getTemplateData($mimetype);
+		if ($templatedata) {
+			$templateclass = require_once $templatedata['basedir'];
+			return new $templateclass($templatedata);
+		} else {
+			return NULL;
+		}
 	}
 	
 	static function getPluginTemplate($plugin, $mimetype = NULL) {
-		if ($mimetype == NULL) $mimetype = self::getMimeType();
-		$data = Database::getArray("SELECT * FROM " . DbVar::$db_tprefix . "templates WHERE mimetype = '".addslashes($mimetype)."'");
-		$templatedata = $data[0];
-		if (!$templatedata) trigger_error('template not found for MIME type '.$mimetype);
-		$templateclass = require_once 'plugins/'.$plugin.'/'.$templatedata['basedir'];
-		$t = new $templateclass($templatedata);
-		$t->pluginname = $plugin;
-		return $t;
-	}	
+		$templatedata = self::getTemplateData($mimetype);
+		if ($templatedata) {
+			$templateclass = require_once 'plugins/'.$plugin.'/'.$templatedata['basedir'];
+			$t = new $templateclass($templatedata);
+			$t->pluginname = $plugin;
+			return $t;
+		} else {
+			return NULL;
+		}
+	}
+	
+	static function getTemplateData($mimetype = NULL) {
+		if ($mimetype == NULL)
+			$mimetype = self::getMimeTypes();
+		if (strpos($mimetype, ',') === FALSE && strpos($mimetype, ';') === FALSE) {
+			// small optimization if only one MIME-type specified
+			$data = Database::getArray("SELECT * FROM " . DbVar::$db_tprefix . "templates WHERE mimetype = '".addslashes($mimetype)."'");
+			$templatedata = $data[0];
+			if ($templatedata) {
+				return $templatedata;
+			}
+		} else {
+			$data = Database::getArray("SELECT * FROM " . DbVar::$db_tprefix . "templates");
+			foreach ($data as $templatedata) {
+				// TODO: properly parse Accept string, and consider ;q= parameters in mime type
+				if (strpos($mimetype, $templatedata['mimetype']) !== FALSE) {
+					return $templatedata;
+				}
+			}
+		}
+		header('HTTP/1.1 406 Not Acceptable');
+		return NULL;
+	}
 	
 	function getTemplateView($view) {
 		if (isset($this->pluginname))
@@ -91,32 +116,12 @@ class Template extends Dataclass {
 		require_once($templatepath);
 	}
 	
-	static function getMimeType() {
+	static function getMimeTypes() {
 		$mimetype = HttpRequest::$request->getAccept();
-		
-		// TODO: select the MIME type of choice
-		
+		if (!$mimetype)
+			$mimetype = 'text/html';
 		Resource::addVary('Accept');
-		if (strpos($mimetype, ',') === FALSE) return $mimetype;
-		if (self::acceptsFujiXHTML()) return 'application/x-fuji+xhtml+xml';
-		if (self::acceptsXHTML()) return 'application/xhtml+xml';
-		return 'text/html';
-		
-		// TODO: else 406 Not Acceptable
-		// Note: Quote: HTTP/1.1 servers are allowed to return responses which are
-		// not acceptable according to the accept headers sent in the request. (rfc2616 10.4.7)
-	}
-	
-	public function acceptsXHTML()
-	{
-		$mimetype = HttpRequest::$request->getAccept();
-		return strpos($mimetype, 'application/xhtml+xml') !== FALSE;
-	}
-	
-	public function acceptsFujiXHTML()
-	{
-		$mimetype = HttpRequest::$request->getAccept();
-		return strpos($mimetype, 'application/x-fuji+xhtml+xml') !== FALSE;
+		return $mimetype;
 	}
 	
 	public function startGZIP() {
