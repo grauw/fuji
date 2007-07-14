@@ -29,7 +29,5 @@ class RSS_Template extends Template {
 	}
 	
 }
-	
-return 'RSS_Template';
 
 ?>

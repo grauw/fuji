@@ -21,7 +21,5 @@ class AJAX_Template extends Template {
 	}
 	
 }
-	
-return 'AJAX_Template';
 
 ?>

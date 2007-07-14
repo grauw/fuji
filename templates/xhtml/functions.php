@@ -55,7 +55,5 @@ class XHTML_Template extends Template {
 	}
 	
 }
-	
-return 'XHTML_Template';
 
 ?>

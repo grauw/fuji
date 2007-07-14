@@ -45,7 +45,8 @@ class Template extends Dataclass {
 	static function getTemplate($mimetype = NULL) {
 		$templatedata = self::getTemplateData($mimetype);
 		if ($templatedata) {
-			$templateclass = require_once $templatedata['basedir'];
+			require_once 'templates/'.strtolower($templatedata['name']).'/functions.php';
+			$templateclass = $templatedata['name'].'_Template';
 			return new $templateclass($templatedata);
 		} else {
 			return NULL;
@@ -55,7 +56,8 @@ class Template extends Dataclass {
 	static function getPluginTemplate($plugin, $mimetype = NULL) {
 		$templatedata = self::getTemplateData($mimetype);
 		if ($templatedata) {
-			$templateclass = require_once 'plugins/'.$plugin.'/'.$templatedata['basedir'];
+			require_once 'plugins/'.$plugin.'/templates/'.strtolower($templatedata['name']).'/functions.php';
+			$templateclass = $templatedata['name'].'_Template';
 			$t = new $templateclass($templatedata);
 			$t->pluginname = $plugin;
 			return $t;
@@ -90,13 +92,13 @@ class Template extends Dataclass {
 	function getTemplateView($view) {
 		if (isset($this->pluginname))
 		{
-			$file = 'plugins/'.$this->pluginname.'/'.dirname($this->basedir).'/'.$view.'.php';
+			$file = 'plugins/'.$this->pluginname.'/templates/'.strtolower($this->name).'/'.$view.'.php';
 			if (!file_exists($file)) return FALSE;
 			return $file;
 		}
 		else
 		{
-			$file = dirname($this->basedir).'/'.$view.'.php';
+			$file = 'templates/'.strtolower($this->name).'/'.$view.'.php';
 			if (!file_exists($file)) return FALSE;
 			return $file;
 		}

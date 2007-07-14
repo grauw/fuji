@@ -29,7 +29,5 @@ class Atom_Template extends Template {
 	}
 	
 }
-	
-return 'Atom_Template';
 
 ?>

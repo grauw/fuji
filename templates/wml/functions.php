@@ -21,7 +21,5 @@ class WML_Template extends Template {
 	}
 	
 }
-	
-return 'WML_Template';
 
 ?>
