@@ -20,20 +20,21 @@ class Rights extends Dataclass {
 	
 	/**
 	* Get group rights
-	* @param Number $entryid the entryid of the entry you want the rights of or all if empty
-	* @param Number $groupid the groupid of the group you want the rights of or all if empty
+	* @param {Entry} $entry the entry you want the rights of or all if null
+	* @param {Group} $group the group you want the rights of or all if null
+	* @param Boolean $recursive checks the rights recursively when true (all the way to the root)
 	* @returns hash/assoc. array with rights this group has on this entry
 	*/
-	static function getRights($entryid, $groupid) {
+	static function getRights($entry, $group, $recursive = false) {
 		$data;
-		if(isset($entryid) || isset($groupid)) {
-			if(isset($entryid) && isset($groupid)) {
-				$data = Database::getArray("SELECT * FROM " . Database::$db_tprefix . "grouprights WHERE entryid = '$entryid' AND groupid = '$groupid'");
+		if(isset($entry) || isset($group)) {
+			if(isset($entry) && isset($group)) {
+				$data = Database::getArray("SELECT * FROM " . Database::$db_tprefix . "grouprights WHERE entryid = '$entry->id' AND groupid = '$group->id'");
 			} else  {
 				if(isset($entryid)) {
-					$data = Database::getArray("SELECT * FROM " . Database::$db_tprefix . "grouprights WHERE entryid = '$entryid'");
+					$data = Database::getArray("SELECT * FROM " . Database::$db_tprefix . "grouprights WHERE entryid = '$entry->id'");
 				} else {
-					$data = Database::getArray("SELECT * FROM " . Database::$db_tprefix . "grouprights WHERE groupid = '$groupid'");
+					$data = Database::getArray("SELECT * FROM " . Database::$db_tprefix . "grouprights WHERE groupid = '$group->id'");
 				}
 			}
 		} else {
@@ -44,7 +45,47 @@ class Rights extends Dataclass {
 		if($rightsdata)
 			return new Rights($rightsdata);
 		else
-			return new Rights(self::$no_rights);
+		{
+		    $parent = $entry->getParent();
+		    if($recursive && $parent)
+		        return Rights::getRights($parent, $group, true);
+		    else
+			    return new Rights(self::$no_rights);
+	    }
+	}
+
+	/**
+	* Get rights for an array of groups and merges them
+	* @param {Entry} $entry the entry you want the rights
+	* @param {Array} $groups the array of groups you want the rights
+	* @param Boolean $recursive checks the rights recursively when true (all the way to the root)
+	* @returns hash/assoc. array with rights these groups have on this entry
+	*/
+	static function getMergedRights($entry, $groups, $recursive = false) {
+	    $rights = array();
+	    array_push($rights, self::$no_rights);
+  	    foreach($groups as $group)
+   	    {
+   	        array_push($rights, self::getRights($entry, $group, $recursive));
+   	    }
+		return self::max($rights);
+	}
+
+	/**
+	* Combines an array of rights (uses the highest values)
+	* @param {Array} $rightsset the array of rights you want to combine
+	* @returns hash/assoc. array with highest rights
+	*/
+	static function max($rightsset) {
+	    $may_read = 0; $may_post = 0; $may_edit = 0; $may_delete = 0;
+	    foreach($rightsset as $rights)
+	    {
+	        if($rights->may_read > $may_read) $may_read = $rights->may_read;
+	        if($rights->may_post > $may_post) $may_post = $rights->may_post;
+	        if($rights->may_edit > $may_edit) $may_edit = $rights->may_edit;
+	        if($rights->may_delete > $may_delete) $may_delete = $rights->may_delete;
+	    }
+	    return new Rights(array('may_read' => $may_read, 'may_post' => $may_post, 'may_edit' => $may_edit, 'may_delete' => $may_delete));
 	}
 	
 	function toString(){

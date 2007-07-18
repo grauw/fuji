@@ -249,19 +249,34 @@ class Entry extends Dataclass {
 	}
 
 	/**
+	 * Get rights of current user
+	 * @returns hash/assoc. array with rights this user has on this entry
+	 */
+	function getRights() {
+	    return $this->getRightsByUser(UserManager::getUser());
+	}
+	
+	/**
 	 * Get group rights
 	 * @param {Group} $group the group from which you want the rights
 	 * @returns hash/assoc. array with rights this group has on this entry
 	 */
-	function getRights($group) {
-		$data = Database::getArray("SELECT * FROM " . Database::$db_tprefix . "grouprights WHERE entryid = '$this->id' AND groupid = '$group->id'");
-		$rightsdata = $data[0];
-		if($rightsdata)
-			return new Rights($rightsdata);
-		elseif($this->ref)
-			return $this->getParent()->getRights($group);
+	function getRightsByGroup($group) {
+		return Rights::getRights($this, $group, true);
+	}
+
+	/**
+	 * Get user rights
+	 * @param {User} $user the user from which you want the rights
+	 * @returns hash/assoc. array with rights this user has on this entry
+	 */
+	function getRightsByUser($user) {
+		$groups = $user->getGroups();
+		$userrights = array();
+		if ($this->userref == $user->id)
+			return new Rights(Rights::$owner_rights);
 		else
-			return new Rights(array());
+		    return Rights::getMergedRights($this, $groups, true);
 	}
 	
 	/**

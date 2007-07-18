@@ -151,7 +151,7 @@ class User extends Dataclass {
 	function isAdmin()
 	{
 		$root = Entry::getRoot();
-		$rights = $this->getRights($root);
+		$rights = $root->getRightsByUser($this);
 		if ($rights->may_read == 1 && $rights->may_post == 1 && $rights->may_edit == 1 && $rights->may_delete == 1)
 			return true;
 		else return false;
@@ -162,28 +162,12 @@ class User extends Dataclass {
 	 * @param {Entry} $entry the entry to be checked
 	 * @returns Rights about the entry/user
 	 */
+	/*
 	function getRights($entry)
 	{
-		$groups = $this->getGroups();
-		$userrights = array();
-		if ($entry->userref == $this->id)
-			$userrights += Rights::$owner_rights;
-		if (count($groups) > 0)
-		{
-			foreach ($groups as $group)
-			{
-				$rights = $group->getRights($entry);
-				$rightsdata = $rights->getData();
-				$userrights = array_merge_recursive($userrights, $rightsdata);
-			}
-			$userrights = array_map(create_function('$value', 'if(is_array($value)) return max($value); else return $value;'), $userrights);
-			unset($userrights['groupid']);
-			$userrights += array('userid' => $this->id);
-			return new Rights($userrights);
-		}
-		else
-			return new Rights(array('entryid' => $entry->id, 'userid' => $this->id, 'may_read' => '0', 'may_post' => '0', 'may_edit' => '0', 'may_delete' => '0'));
-	}
+	    //DEPRECATED
+		$entry->getRightsByUser($this);
+	}*/
 	
 	/**
 	 * Returns the number of posts by this user

@@ -12,11 +12,11 @@
 		<div class="forumContainer box withpager">
 		<h2><?php echo $this->l10n->threads ?> – <?php echo htmlentities($this->entry->title, ENT_NOQUOTES) ?></h2>
 		<ul class="menu">
-			<?php if (UserManager::getUser()->getRights($this->entry)->may_post) { ?>
+			<?php if ($this->entry->getRights()->may_post) { ?>
 				<li><a href="javascript:Fuji.Dialogs.newCreateDialog('<?php echo $this->entry->getURI() ?>', <?php echo $this->entry->type + 1 ?>)"><?php echo $this->l10n->new ?></a></li>
-			<?php } if (UserManager::getUser()->getRights($this->entry)->may_edit) { ?>
+			<?php } if ($this->entry->getRights()->may_edit) { ?>
 				<li><a href="javascript:Fuji.Dialogs.newEditDialog('<?php echo $this->entry->getURI() ?>')"><?php echo $this->l10n->edit ?></a></li>
-			<?php } if (UserManager::getUser()->getRights($this->entry)->may_delete) { ?>
+			<?php } if ($this->entry->getRights()->may_delete) { ?>
 				<li><a href="javascript:Fuji.Dialogs.newDeleteDialog('<?php echo $this->entry->getURI() ?>', '<?php echo $this->entry->getParent()->getURI() ?>')"><?php echo $this->l10n->delete ?></a></li>
 			<?php } if (UserManager::isAdmin()) { ?>
 				<li><a href="javascript:Fuji.Dialogs.newRightsDialog('<?php echo $this->entry->getURI() ?>')"><?php echo $this->l10n->config_rights ?></a></li>
@@ -33,7 +33,7 @@
 			<?php $this->plugin->getMenu(Plugin::$TEMPLATE_AJAX, $userstatus, Plugin::$MENU_FORUMCONTAINER) ?>
 		</ul>
 		<div class="content">
-			<div may_post="<?php echo UserManager::getUser()->getRights($this->entry)->may_post ?>" may_edit="<?php echo UserManager::getUser()->getRights($this->entry)->may_edit ?>" may_delete="<?php echo UserManager::getUser()->getRights($this->entry)->may_delete ?>">
+			<div may_post="<?php echo $this->entry->getRights()->may_post ?>" may_edit="<?php echo $this->entry->getRights()->may_edit ?>" may_delete="<?php echo $this->entry->getRights()->may_delete ?>">
 			<div class="forumcontent"><?php echo $this->entry->getProcessedContent() ?></div>
 			<table>
 				<colgroup>

@@ -131,14 +131,7 @@ class Group extends Dataclass {
 	 * @returns hash/assoc. array with rights this group has on this entry
 	 */
 	function getRights($entry) {
-		$data = Database::getArray("SELECT * FROM " . Database::$db_tprefix . "grouprights WHERE entryid = '$entry->id' AND groupid = '$this->id'");
-		$rightsdata = $data[0];
-		if($rightsdata)
-			return new Rights($rightsdata);
-		elseif($entry->ref)
-			return $this->getRights($entry->getParent());
-		else
-			return new Rights(array());
+	    return Rights::getRights($entry, $this, true);
 	}
 	
 	/**

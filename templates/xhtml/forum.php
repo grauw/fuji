@@ -81,7 +81,7 @@
 	</table>
 	</div>
 			
-	<?php if (UserManager::getUser()->getRights($this->entry)->may_post) { ?>
+	<?php if ($this->entry->getRights()->may_post) { ?>
 	<div class="box postreply">
 		<!-- TODO: put style in CSS -->
 		<h3><?php echo $this->l10n->new ?></h3>

@@ -17,9 +17,9 @@ while($contextEntry->type == 4) $contextEntry = $contextEntry->getParent();
 		<div class="threadContainer box withpager">
 		<h2><?php echo $this->l10n->posts ?> – <?php echo htmlentities($this->entry->title, ENT_NOQUOTES) ?></h2>
 		<ul class="menu">
-			<?php if (UserManager::getUser()->getRights($this->entry)->may_post) { ?>
+			<?php if ($this->entry->getRights()->may_post) { ?>
 				<li><a href="javascript:Fuji.Dialogs.newCreateDialog('<?php echo $this->entry->getURI() ?>', '4')"><?php echo $this->l10n->reply ?></a></li>
-			<?php } if (UserManager::getUser()->getRights($this->entry)->may_delete) { ?>
+			<?php } if ($this->entry->getRights()->may_delete) { ?>
 				<li><a href="javascript:Fuji.Dialogs.newDeleteDialog('<?php echo $this->entry->getURI() ?>', '<?php echo $this->entry->getParent()->getURI() ?>')"><?php echo $this->l10n->delete ?></a></li>
 			<?php } ?>
 			<li><a href="<?php echo $this->entry->getURI() ?>.rss" rel="alternate" type="application/rss+xml" class="feed">RSS</a></li>
@@ -41,11 +41,9 @@ while($contextEntry->type == 4) $contextEntry = $contextEntry->getParent();
 					<span>(<?php $output = ""; $groups = User::getUser($this->entry->userref)->getGroups(); foreach($groups as $group) { $output .= ($output ? ', ' : '') . htmlentities($group->name, ENT_NOQUOTES); } echo $output ?>)</span>
 					</div>
 				</h3>
-				<?php if (UserManager::getUser()->getRights($this->entry)->may_edit) { ?>
+				<?php if ($this->entry->getRights()->may_edit) { ?>
 				<ul class="menu">
-					<?php if (UserManager::getUser()->getRights($this->entry)->may_edit) { ?>
 						<li><a href="javascript:Fuji.Dialogs.newEditDialog('<?php echo $this->entry->getURI() ?>')"><?php echo $this->l10n->edit ?></a></li>
-					<?php } ?>
 				</ul>
 				<?php } ?>
 				<div class="content"><?php echo $this->entry->getProcessedContent() ?></div>
@@ -69,11 +67,11 @@ while($contextEntry->type == 4) $contextEntry = $contextEntry->getParent();
 						<span>(<?php $output = ""; $groups = User::getUser($post->userref)->getGroups(); foreach($groups as $group) { $output .= ($output ? ', ' : '') . htmlentities($group->name, ENT_NOQUOTES); } echo $output ?>)</span>
 						</div>
 					</h3>
-					<?php if (UserManager::getUser()->getRights($post)->may_edit || UserManager::getUser()->getRights($post)->may_delete) { ?>
+					<?php if ($post->getRights()->may_edit || $post->getRights()->may_delete) { ?>
 					<ul class="menu">
-						<?php if (UserManager::getUser()->getRights($post)->may_edit) { ?>
+						<?php if ($post->getRights()->may_edit) { ?>
 							<li><a href="javascript:Fuji.Dialogs.newEditDialog('<?php echo $post->getURI() ?>')"><?php echo $this->l10n->edit ?></a></li>
-						<?php } if (UserManager::getUser()->getRights($post)->may_delete) { ?>
+						<?php } if ($post->getRights()->may_delete) { ?>
 							<li><a href="javascript:Fuji.Dialogs.newDeleteDialog('<?php echo $post->getURI() ?>', '<?php echo $post->getParent()->getURI() ?>')"><?php echo $this->l10n->delete ?></a></li>
 						<?php } ?>
 					</ul>

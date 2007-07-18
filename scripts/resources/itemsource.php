@@ -9,7 +9,7 @@ class ItemSource extends Resource {
 	{
 		UserManager::authenticate();
 		if ($entry = $this->getEntry()) {
-			if (UserManager::getUser()->getRights($entry)->may_read) {
+			if ($entry->getRights()->may_read) {
 				$this->template->entry = $entry;
 				$this->template->applyView('item_source');
 			} else header('HTTP/1.1 401 Unauthorized');

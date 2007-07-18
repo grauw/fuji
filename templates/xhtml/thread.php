@@ -46,9 +46,9 @@
 							$this->entry->getFormattedDate('created', $this->l10n->datetime_format));
 					?>
 				</p>
-				<?php if (UserManager::getUser()->getRights($this->entry)->may_edit) { ?>
+				<?php if ($this->entry->getRights()->may_edit) { ?>
 				<ul class="menu">
-					<?php if (UserManager::getUser()->getRights($this->entry)->may_edit) { ?>
+					<?php if ($this->entry->getRights()->may_edit) { ?>
 						<li><a href="javascript:Fuji.Dialogs.newEditDialog('<?php echo $this->entry->getURI() ?>')"><?php echo $this->l10n->edit ?></a></li>
 					<?php } ?>
 				</ul>
@@ -72,11 +72,11 @@
 								$post->getFormattedDate('created', $this->l10n->datetime_format));
 						?>
 					</p>
-					<?php if (UserManager::getUser()->getRights($post)->may_edit || UserManager::getUser()->getRights($post)->may_delete) { ?>
+					<?php if ($post->getRights()->may_edit || $post->entry->getRights()->may_delete) { ?>
 					<ul class="menu">
-						<?php if (UserManager::getUser()->getRights($post)->may_edit) { ?>
+						<?php if ($post->getRights()->may_edit) { ?>
 							<li><a href="javascript:Fuji.Dialogs.newEditDialog('<?php echo $post->getURI() ?>')"><?php echo $this->l10n->edit ?></a></li>
-						<?php } if (UserManager::getUser()->getRights($post)->may_delete) { ?>
+						<?php } if ($post->getRights()->may_delete) { ?>
 							<li><a href="javascript:Fuji.Dialogs.newDeleteDialog('<?php echo $post->getURI() ?>', '<?php echo $post->getParent()->getURI() ?>')"><?php echo $this->l10n->delete ?></a></li>
 						<?php } ?>
 					</ul>
@@ -91,7 +91,7 @@
 			</div>
 			<?php } ?>
 			
-			<?php if (UserManager::getUser()->getRights($this->entry)->may_post) { ?>
+			<?php if ($this->entry->getRights()->may_post) { ?>
 			<div class="box <?php echo $i++ % 2 ? 'even' : 'odd' ?> postreply">
 				<h3><?php echo $this->l10n->reply ?></h3>
 				<form action="<?php echo $this->entry->getRootedURI() ?>" method="POST" class="content">
