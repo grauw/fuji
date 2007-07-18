@@ -11,7 +11,7 @@ class Users extends Resource {
 	{
 		UserManager::authenticate();
 		$entry = Entry::getRoot();
-		if (UserManager::getUser()->getRights($entry)->may_read) {
+		if ($entry->getRights()->may_read) {
 			$uriparts = $this->request->getRequestURIParts();
 			if ($uriparts[0] == 'groups') {
 				$group = Group::getGroup($uriparts[1]);

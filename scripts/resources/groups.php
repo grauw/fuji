@@ -11,7 +11,7 @@ class Groups extends Resource {
 	{
 		UserManager::authenticate();
 		$entry = Entry::getRoot();
-		if (UserManager::getUser()->getRights($entry)->may_read) {
+		if ($entry->getRights()->may_read) {
 			$uriparts = $this->request->getRequestURIParts();
 			if ($uriparts[0] == 'users') $this->template->userid = $uriparts[1];
 			if ($uriparts[0] == 'groups') $this->template->userid = $uriparts[1];
