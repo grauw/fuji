@@ -2,6 +2,8 @@
 require_once 'scripts/usermanager.php';
 require_once 'scripts/dataclasses/template.php';
 require_once 'scripts/dataclasses/group.php';
+require_once 'scripts/dataclasses/user.php';
+require_once 'scripts/dataclasses/entry.php';
 require_once 'scripts/utils/functions.php';
 require_once 'scripts/resource.php';
 

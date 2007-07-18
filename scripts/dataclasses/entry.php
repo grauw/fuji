@@ -284,18 +284,12 @@ class Entry extends Dataclass {
 	 * @returns hash/assoc. array with rights groups have on this entry
 	 */
 	function getAllRights() {
-		$data = Database::getAll("SELECT * FROM " . Database::$db_tprefix . "grouprights WHERE entryid = '$this->id'");
-		$rights = array();
-		foreach($data as $dataitem)
-		{
-    		if($dataitem)
-    			$rights[$dataitem['groupid']] = new Rights($dataitem);
-    		elseif($this->ref)
-    			$rights[$dataitem['groupid']] = $this->getParent()->getAllRights();
-    		else
-    			$rights[$dataitem['groupid']] = new Rights(array());
-    	}
-    	return $rights;
+	    $rights = array();
+	    foreach(Group::getAllGroups() as $group)
+	    {
+	        array_push($rights, Rights::getRights($this, $group, true));
+	    }
+	    return $rights;
 	}
 	
 	/**

@@ -36,7 +36,7 @@ $routes = array(
 						'' => 'Item',	// GET, POST, PUT, DELETE
 						'/^\d+$/' => 'Item',	// GET
 						'source'   => 'ItemSource',	// GET
-						'rights'   => 'ConfigRights'	// POST
+						'rights'   => 'ItemRights'	// POST
 					)
 			),
 		'menu' => array(
@@ -62,8 +62,7 @@ $routes = array(
 				'' => 'Groups', // GET, POST // Should be separate grouplist.php :/
 				'/^\d+$/' => array(
 						'' => 'Groups', // GET, POST
-						'users' => 'Users',	// GET
-						'rights' => 'ConfigRights'	// GET
+						'users' => 'Users'	// GET
 					),
 			),
 		'calendar' => array(

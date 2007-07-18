@@ -225,14 +225,16 @@
 							<tr><td><?php echo $this->l10n->group ?></td><td><?php echo $this->l10n->read ?></td><td><?php echo $this->l10n->post ?></td><td><?php echo $this->l10n->edit ?></td><td><?php echo $this->l10n->delete ?></td><td><?php echo $this->l10n->options ?></td></tr>
 						</thead>
 						<tbody id="rightsDialogTb">
+						    <?php foreach(Group::getAllGroups() as $group) { ?>
+						        <tr>
+						            <td><?php echo $group->name ?></td>
+						            <td><input id='rightsMayRead<?php echo $group->id ?>' name='may_read_<?php echo $group->id ?>' type='checkbox' /></td>
+						            <td><input id='rightsMayPost<?php echo $group->id ?>' name='may_post_<?php echo $group->id ?>' type='checkbox' /></td>
+						            <td><input id='rightsMayEdit<?php echo $group->id ?>' name='may_edit_<?php echo $group->id ?>' type='checkbox' /></td>
+						            <td><input id='rightsMayDelete<?php echo $group->id ?>' name='may_delete_<?php echo $group->id ?>' type='checkbox' /></td>
+						        </tr>
+						    <?php } ?>
 						</tbody>
-						<tfoot>
-						<tr>
-							<td>
-							    <button onclick=""><?php echo $this->l10n->new ?></button>
-							</td>
-						</tr>
-						</tfoot>
 					</table>
 				</form>
 			</div>

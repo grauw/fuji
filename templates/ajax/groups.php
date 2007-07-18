@@ -21,9 +21,7 @@
 						</tr>
 					</thead>
 					<tbody>
-					<?php 	require_once 'group.php';
-							require_once 'entry.php';
-							$groupnames = Group::getGroupNames();
+					<?php 	$groupnames = Group::getGroupNames();
 							$groups = Array();
 							foreach($groupnames as $groupname) array_push($groups, Group::getGroupByName($groupname));
 							if(count($groups)>0){
@@ -51,22 +49,10 @@
 						</fieldset>
 						<fieldset>
 							<legend><?php echo $this->l10n->members ?></legend>
-							<!-- TODO: Member selector -->
-						</fieldset>
-						<fieldset>
-							<legend><?php echo $this->l10n->rights ?></legend>
-							<table>
-								<thead>
-									<th><?php echo $this->l10n->item ?></th>
-									<th><?php echo $this->l10n->read ?></th>
-									<th><?php echo $this->l10n->post ?></th>
-									<th><?php echo $this->l10n->edit ?></th>
-									<th><?php echo $this->l10n->delete ?></th>
-									<th><?php echo $this->l10n->actions ?></th>
-								</thead>
-								<tbody>
-								</tbody>
-							</table>
+							<ul id="groupDialogUsers">
+							</ul>
+							<ul id="groupDialogMembers">
+							</ul>
 						</fieldset>
 					</form>
 				</div>

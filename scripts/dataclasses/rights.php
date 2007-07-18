@@ -20,27 +20,13 @@ class Rights extends Dataclass {
 	
 	/**
 	* Get group rights
-	* @param {Entry} $entry the entry you want the rights of or all if null
-	* @param {Group} $group the group you want the rights of or all if null
+	* @param {Entry} $entry the entry you want the rights
+	* @param {Group} $group the group you want the rights
 	* @param Boolean $recursive checks the rights recursively when true (all the way to the root)
 	* @returns hash/assoc. array with rights this group has on this entry
 	*/
 	static function getRights($entry, $group, $recursive = false) {
-		$data;
-		if(isset($entry) || isset($group)) {
-			if(isset($entry) && isset($group)) {
-				$data = Database::getArray("SELECT * FROM " . Database::$db_tprefix . "grouprights WHERE entryid = '$entry->id' AND groupid = '$group->id'");
-			} else  {
-				if(isset($entryid)) {
-					$data = Database::getArray("SELECT * FROM " . Database::$db_tprefix . "grouprights WHERE entryid = '$entry->id'");
-				} else {
-					$data = Database::getArray("SELECT * FROM " . Database::$db_tprefix . "grouprights WHERE groupid = '$group->id'");
-				}
-			}
-		} else {
-			$data = Database::getArray("SELECT * FROM " . Database::$db_tprefix . "grouprights");
-		}
-		//TODO: should return array of rights
+		$data = Database::getArray("SELECT * FROM " . Database::$db_tprefix . "grouprights WHERE entryid = '$entry->id' AND groupid = '$group->id'");
 		$rightsdata = $data[0];
 		if($rightsdata)
 			return new Rights($rightsdata);
