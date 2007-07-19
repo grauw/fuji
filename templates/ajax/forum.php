@@ -42,6 +42,7 @@
 					<col />
 					<col />
 					<col />
+					<col />
 				</colgroup>
 				<thead>
 					<tr>
@@ -50,6 +51,7 @@
 						<th><?php echo $this->l10n->replies ?></th>
 						<th><?php echo $this->l10n->created ?></th>
 						<th><?php echo $this->l10n->modified ?></th>
+						<th><?php echo $this->l10n->rights ?></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -64,6 +66,8 @@
 							<td><?php echo count($post->getChildren()) ?></td>
 							<td><?php echo $post->getFormattedDate('created', $this->l10n->datetime_format) ?></td>
 							<td><?php echo $post->getFormattedDate('modified', $this->l10n->datetime_format) ?></td>
+                            <td><?php $rights = $post->getRights();
+							          echo ($rights->may_read ? '<acronym title="' . $this->l10n->read . '">' . $this->l10n->read_short . '</acronym>' : '-') . ($rights->may_post ? '<acronym title="' . $this->l10n->post . '">' . $this->l10n->post_short . '</acronym>': '-') . ($rights->may_edit ? '<acronym title="' . $this->l10n->edit . '">' . $this->l10n->edit_short . '</acronym>' : '-') . ($rights->may_delete ? '<acronym title="' . $this->l10n->delete . '">' . $this->l10n->delete_short . '</acronym>' : '-'); ?></td>
 						
 						<?php } else if ($post->type == Entry::$TYPE_POST) { ?>
 						<tr class="tableThreadEntry <?php echo $i++ % 2 ? 'even' : 'odd' ?>">				
@@ -72,6 +76,8 @@
 							<td><?php echo count($post->getChildren()) ?></td>
 							<td><?php echo $post->getFormattedDate('created', $this->l10n->datetime_format) ?></td>
 							<td><?php echo $post->getFormattedDate('modified', $this->l10n->datetime_format) ?></td>
+							<td><?php $rights = $post->getRights();
+							          echo ($rights->may_read ? '<acronym title="' . $this->l10n->read . '">' . $this->l10n->read_short . '</acronym>' : '-') . ($rights->may_post ? '<acronym title="' . $this->l10n->post . '">' . $this->l10n->post_short . '</acronym>': '-') . ($rights->may_edit ? '<acronym title="' . $this->l10n->edit . '">' . $this->l10n->edit_short . '</acronym>' : '-') . ($rights->may_delete ? '<acronym title="' . $this->l10n->delete . '">' . $this->l10n->delete_short . '</acronym>' : '-'); ?></td>
 						<?php } else { ?>
 						<tr class="tableUnsupportedEntry">				
 							(<?php echo $this->l10n->type_unsupported ?>)

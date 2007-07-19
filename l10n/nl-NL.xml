@@ -8,6 +8,7 @@
 	<message name="admin">Beheerder</message>
 	<message name="address">Adres</message>
 	<message name="anonymous_user">Anonieme gebruiker</message>
+	<message name="apply_rights_recursive">Ook op subfora en threads toepassen</message>	
 	<message name="back">Terug</message>
 	<message name="calendar">Kalender</message>
 	<message name="cancel">Annuleren</message>
@@ -24,10 +25,12 @@
 	<message name="default_style">Standaardstijl</message>		
 	<message name="definition_term">Definitieterm</message>	
 	<message name="delete">Verwijderen</message>
+	<message name="delete_short">V</message>
 	<message name="deleted">Verwijderd</message>
 	<message name="delete_group">Verwijder groep</message>
 	<message name="disable_rte">Schakel rich text editor uit</message>	
 	<message name="edit">Bewerken</message>
+	<message name="edit_short">B</message>
 	<message name="edit_group">Bewerk groep</message>
 	<message name="email">E-mail</message>
 	<message name="email_address">E-mailadres</message>
@@ -98,6 +101,7 @@
 	<message name="please_wait">Een ogenblik geduld alstublieft…</message>
 	<message name="possible_reasons">Mogelijke oorzaken:</message>
 	<message name="post">Schrijven</message>
+	<message name="post_short">S</message>
 	<message name="posted_by">Geschreven door</message>	
 	<message name="posted_by_at">Geschreven door %s op %s.</message>	
 	<message name="poster">Afzender</message>
@@ -109,6 +113,7 @@
 	<message name="profile_photo">Profielfoto</message>
 	<message name="quotation">Quote</message>	
 	<message name="read">Lezen</message>
+	<message name="read_short">L</message>
 	<message name="reenter_your_new_password">Voer uw nieuwe wachtwoord nogmaals in</message>	
 	<message name="register">Registreer</message>
 	<message name="replies">Reacties</message>

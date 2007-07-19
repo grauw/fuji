@@ -111,21 +111,6 @@ class Group extends Dataclass {
 	}
 	
 	/**
-	 * Change the group rights
-	 * @param {array} $data hash/assoc. array with new values. Key = column name. Value = value.
-	 */
-	//TODO geeft fout bij false als input omdat false == '' , terwijl 0 =='0'
-	function updateRights($data) {
-		if(array_key_exists('groupid', $data)) unset($data['groupid']);
-		//if entryid is given only the values for that entry and group are updated, otherwise for all entries in that group
-		if($entry_id = $data['entryid']) unset($data['entryid']);
-		$s_update = Functions::implode_with_keys(', ' , $data);
-		
-		if($entry_id) Database::execute("UPDATE " . Database::$db_tprefix . "grouprights SET $s_update WHERE groupid = '$this->id' AND entryid = '$entry_id'");
-		else Database::execute("UPDATE " . Database::$db_tprefix . "grouprights SET $s_update WHERE groupid = '$this->id'");
-	}
-	
-	/**
 	 * Get group rights
 	 * @param {Entry} $entry the entry from which you want the rights
 	 * @returns hash/assoc. array with rights this group has on this entry
@@ -133,22 +118,6 @@ class Group extends Dataclass {
 	function getRights($entry) {
 	    return Rights::getRights($entry, $this, true);
 	}
-	
-	/**
-	 * Get group rights
-	 * @param {Entry} $entry the entry from which you want the rights
-	 * @returns hash/assoc. array with rights this group has on this entry
-	 */
-	/* Work in progress
-	function getRights($entry) {
-		$rights = Rights::getRights($entry->id, $this->id);
-		if($rights) return $rights;
-		elseif(!$entry->isRoot())
-			return $this->getRights($entry->getParent());
-		else
-			return new Rights(Rights::$no_rights);
-	}
-	*/
 	
 	/**
 	 * Get group member count
@@ -175,7 +144,7 @@ class Group extends Dataclass {
 	 * Get all groups
 	 * @returns Group-array
 	 */
-	function getAllGroups()
+	static function getAllGroups()
 	{
 		$data = Database::getArray("SELECT * FROM " . Database::$db_tprefix . "groups");
 		$return = Array();

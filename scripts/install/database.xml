@@ -74,28 +74,30 @@
 	
 	<table name="groupmembers">
 		<descr>Group members link</descr>
-		<field name="groupid" type="I"><KEY/><UNSIGNED/></field>
-		<field name="userid" type="I"><KEY/><UNSIGNED/></field>
+		<field name="id" type="I1"><KEY/><AUTOINCREMENT/><UNSIGNED/></field>
+		<field name="groupid" type="I"><UNSIGNED/></field>
+		<field name="userid" type="I"><UNSIGNED/></field>
 		
 		<data>
-			<row><f>1</f><f>2</f></row>
-			<row><f>3</f><f>1</f></row>
+			<row><f>1</f><f>1</f><f>2</f></row>
+			<row><f>2</f><f>3</f><f>1</f></row>
 		</data>
 	</table>
 	
 	<table name="grouprights">
 		<descr>Group rights for an entry</descr>
-		<field name="entryid" type="I"><KEY/><UNSIGNED/></field>
-		<field name="groupid" type="I"><KEY/><UNSIGNED/></field>
+		<field name="id" type="I1"><KEY/><AUTOINCREMENT/><UNSIGNED/></field>
+		<field name="entryid" type="I"><UNSIGNED/></field>
+		<field name="groupid" type="I"><UNSIGNED/></field>
 		<field name="may_read" type="L"><NOTNULL/><DEFAULT value="0"/></field>
 		<field name="may_post" type="L"><NOTNULL/><DEFAULT value="0"/></field>
 		<field name="may_edit" type="L"><NOTNULL/><DEFAULT value="0"/></field>
 		<field name="may_delete" type="L"><NOTNULL/><DEFAULT value="0"/></field>
 		
 		<data>
-			<row><f>1</f><f>1</f><f>1</f><f>1</f><f>1</f><f>1</f></row>
-			<row><f>1</f><f>2</f><f>1</f><f>1</f><f>0</f><f>0</f></row>
-			<row><f>1</f><f>3</f><f>1</f><f>0</f><f>0</f><f>0</f></row>
+			<row><f>1</f><f>1</f><f>1</f><f>1</f><f>1</f><f>1</f><f>1</f></row>
+			<row><f>2</f><f>1</f><f>2</f><f>1</f><f>1</f><f>0</f><f>0</f></row>
+			<row><f>3</f><f>1</f><f>3</f><f>1</f><f>0</f><f>0</f><f>0</f></row>
 		</data>
 	</table>
 	

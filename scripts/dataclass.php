@@ -251,6 +251,8 @@ abstract class Dataclass {
 	 * Remove object from database
 	 */
 	function remove() {
+	    error_log('removing');
+		error_log("DELETE FROM " . Database::$db_tprefix . $this->getTableName() . " WHERE " . $this->getPrimaryKeyName() . "='" . addslashes($this->getAttribute($this->getPrimaryKeyName())) . "' LIMIT 1");
 		if(!$this->hasAttribute($this->getPrimaryKeyName())) {
 			return false;
 		}

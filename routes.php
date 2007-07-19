@@ -36,7 +36,7 @@ $routes = array(
 						'' => 'Item',	// GET, POST, PUT, DELETE
 						'/^\d+$/' => 'Item',	// GET
 						'source'   => 'ItemSource',	// GET
-						'rights'   => 'ItemRights'	// POST
+						'rights'   => 'ItemRights'	// GET, POST
 					)
 			),
 		'menu' => array(

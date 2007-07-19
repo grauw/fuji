@@ -11,11 +11,10 @@ class Rights extends Dataclass {
 		return 'grouprights';
 	}
 	static function getPrimaryKeyName() {
-		// XXX: there is no single key!
-		return 'entryid';
+		return 'id';
 	}
 	static function getResourceUriFormat() {
-		return 'group/%s/rights';
+		return 'item/%s/rights';
 	}
 	
 	/**
@@ -36,8 +35,16 @@ class Rights extends Dataclass {
 		    if($recursive && $parent)
 		        return Rights::getRights($parent, $group, true);
 		    else
-			    return new Rights(self::$no_rights);
+		    {
+		        $rights = new Rights(array_merge(array(groupid => $group->id, entryid => $entry->id), self::$no_rights));
+		        return $rights;
+			}
 	    }
+	}
+	
+	static function hasRights($entry, $group) {
+		$data = Database::getArray("SELECT * FROM " . Database::$db_tprefix . "grouprights WHERE entryid = '$entry->id' AND groupid = '$group->id'");
+		return count($data) > 0;
 	}
 
 	/**
@@ -72,6 +79,17 @@ class Rights extends Dataclass {
 	        if($rights->may_delete > $may_delete) $may_delete = $rights->may_delete;
 	    }
 	    return new Rights(array('may_read' => $may_read, 'may_post' => $may_post, 'may_edit' => $may_edit, 'may_delete' => $may_delete));
+	}
+	
+	function deleteChildrenRights() {
+	    $entry = Entry::getEntry($this->entryid);
+	    $children = $entry->getChildren();
+	    foreach($children as $child)
+	    {
+	        if(Rights::hasRights($child->id, $this->groupid))
+	            Rights::getRights($child->id, $this->groupid)->remove();
+	        $child->deleteChildrenRights();
+	    }
 	}
 	
 	function toString(){

@@ -8,6 +8,7 @@
 	<message name="address">Address</message>
 	<message name="admin">Administrator</message>
 	<message name="anonymous_user">Anonymous user</message>	
+	<message name="apply_rights_recursive">Apply to subfora and threads too</message>	
 	<message name="back">Back</message>
 	<message name="calendar">Calendar</message>
 	<message name="cancel">Cancel</message>
@@ -24,11 +25,13 @@
 	<message name="default_style">Default style</message>
 	<message name="definition_term">Definition term</message>
 	<message name="delete">Delete</message>
+	<message name="delete_short">D</message>
 	<message name="deleted">Deleted</message>
 	<message name="delete_group">Delete group</message>
 	<message name="disable_rte">Disable rich text editor</message>
 	<message name="edit">Edit</message>
 	<message name="edit_group">Edit group</message>
+	<message name="edit_short">E</message>
 	<message name="email">E-Mail</message>
 	<message name="email_address">E-Mail address</message>
 	<message name="email_empty">E-Mail address cannot be empty</message>
@@ -103,6 +106,7 @@
 	<message name="please_wait">Please wait a moment…</message>
 	<message name="plugins">Plugins</message>
 	<message name="post">Post</message>
+	<message name="post_short">P</message>
 	<message name="posted_by">Posted by</message>
 	<message name="posted_by_at">Posted by %s at %s.</message>
 	<message name="poster">Poster</message>
@@ -114,6 +118,7 @@
 	<message name="profile_photo">Profile photo</message>
 	<message name="quotation">Quotation</message>
 	<message name="read">Read</message>
+	<message name="read_short">R</message>
 	<message name="reenter_password">Reenter password</message>
 	<message name="reenter_your_new_password">Reenter your new password</message>
 	<message name="register">Register</message>

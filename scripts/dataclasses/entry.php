@@ -273,8 +273,12 @@ class Entry extends Dataclass {
 	function getRightsByUser($user) {
 		$groups = $user->getGroups();
 		$userrights = array();
-		if ($this->userref == $user->id)
-			return new Rights(Rights::$owner_rights);
+		if ($this->userref == $user->id) //should check if user has no rights in higher level
+		{
+		    //special owner rights
+		    $rights = new Rights(array_merge(array(entryid => $this->id), Rights::$owner_rights));
+		    return $rights;
+	    }
 		else
 		    return Rights::getMergedRights($this, $groups, true);
 	}

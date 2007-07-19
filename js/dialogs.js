@@ -189,7 +189,7 @@ Fuji.Dialogs = {
 		{
 			document.getElementById('rightsDialog').style.display = 'block';
 			document.getElementById('rightsDialogForm').action = sURI + '/rights';
-			document.getElementById('rightsDialogForm').method = 'PUT';
+			document.getElementById('rightsDialogForm').method = 'POST';
 			Fuji.Dialogs.newDialog('rightsDialog');
 		}
 		Fuji.getRights(sURI);
@@ -247,8 +247,18 @@ Fuji.Dialogs.Settings.prefDialog = {
 }
 Fuji.Dialogs.Settings.rightsDialog = {
 	onSuccess : function() { },
-	handleSubmit : function() { },
-	handleCancel : function() { this.cancel(); this.hide(); }
+	handleSubmit : function()
+	                {
+	                    this.submit();
+	                    document.getElementById('rightsDialogForm').reset();
+	                    this.hide();
+	                },
+	handleCancel : function()
+	                {
+	                    this.cancel();
+	                    document.getElementById('rightsDialogForm').reset();
+	                    this.hide();
+	                }
 }
 Fuji.Dialogs.Settings.createEditDialog = {
 	uri : null,

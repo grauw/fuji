@@ -18,6 +18,7 @@
 				<li><a href="#<?php echo UserManager::getUser()->getURI() ?>"><?php echo $this->l10n->profile ?></a></li>
 				<?php if (UserManager::isAdmin()) { ?>
 					<li><a href="javascript:Fuji.Dialogs.newDialog('serverSettingsDialog')"><?php echo $this->l10n->server_settings ?></a></li>
+					<li><a href="javascript:Fuji.Dialogs.newRightsDialog('item/1')"><?php echo $this->l10n->rights ?></a></li>
 					<li><a href="javascript:Fuji.Dialogs.newDialog('pluginsDialog')"><?php echo $this->l10n->plugins ?></a></li>
 				<?php } ?>
 				<li><a href="javascript:Fuji.Dialogs.newDialog('prefDialog')"><?php echo $this->l10n->preferences ?></a></li>

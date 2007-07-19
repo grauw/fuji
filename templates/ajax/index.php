@@ -219,7 +219,7 @@
 		<div id="rightsDialog" style="display: none">
 			<div class="hd"><?php echo $this->l10n->rights ?></div>
 			<div class="bd">
-				<form name="rightsF" id="rightsDialogForm" method="PUT" action="">
+				<form name="rightsF" id="rightsDialogForm" method="POST" action="">
 					<table>
 						<thead>
 							<tr><td><?php echo $this->l10n->group ?></td><td><?php echo $this->l10n->read ?></td><td><?php echo $this->l10n->post ?></td><td><?php echo $this->l10n->edit ?></td><td><?php echo $this->l10n->delete ?></td><td><?php echo $this->l10n->options ?></td></tr>
@@ -228,13 +228,16 @@
 						    <?php foreach(Group::getAllGroups() as $group) { ?>
 						        <tr>
 						            <td><?php echo $group->name ?></td>
-						            <td><input id='rightsMayRead<?php echo $group->id ?>' name='may_read_<?php echo $group->id ?>' type='checkbox' /></td>
-						            <td><input id='rightsMayPost<?php echo $group->id ?>' name='may_post_<?php echo $group->id ?>' type='checkbox' /></td>
-						            <td><input id='rightsMayEdit<?php echo $group->id ?>' name='may_edit_<?php echo $group->id ?>' type='checkbox' /></td>
-						            <td><input id='rightsMayDelete<?php echo $group->id ?>' name='may_delete_<?php echo $group->id ?>' type='checkbox' /></td>
+						            <td><input id='rightsMayRead<?php echo $group->id ?>' name='mayRead<?php echo $group->id ?>' type='checkbox' /></td>
+						            <td><input id='rightsMayPost<?php echo $group->id ?>' name='mayPost<?php echo $group->id ?>' type='checkbox' /></td>
+						            <td><input id='rightsMayEdit<?php echo $group->id ?>' name='mayEdit<?php echo $group->id ?>' type='checkbox' /></td>
+						            <td><input id='rightsMayDelete<?php echo $group->id ?>' name='mayDelete<?php echo $group->id ?>' type='checkbox' /></td>
 						        </tr>
 						    <?php } ?>
 						</tbody>
+						<tfoot>
+						    <tr><td colspan="4"><?php echo $this->l10n->apply_rights_recursive ?></td><td><input id='rightsApplyRecursive' name='applyRecursive' type='checkbox' /></td></tr>
+						</tfoot>
 					</table>
 				</form>
 			</div>
