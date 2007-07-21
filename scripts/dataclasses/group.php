@@ -93,17 +93,17 @@ class Group extends Dataclass {
 	 * @param {User} $user the user to be removed
 	 */
 	function removeUser($user) {
-		Database::execute("DELETE FROM groupmembers WHERE groupid = '$this->id' AND userid = '$user->id'");
+		Database::execute("DELETE FROM " . Database::$db_tprefix . "groupmembers WHERE groupid = '$this->id' AND userid = '$user->id'");
 	}
 	
 	/**
 	 * Gets an array with all users in the group
 	 */
 	function getUsers() {
-		$userids = Database::getArray("SELECT userid AS id FROM " . Database::$db_tprefix . "groupmembers WHERE groupid=".$groupid);
+		$userids = Database::getArray("SELECT userid FROM " . Database::$db_tprefix . "groupmembers WHERE groupid=" . $this->id);
 		$users = array();
 		foreach ($userids as $userid) {
-			$user = User::getUser($userid['id']);
+			$user = User::getUser($userid['userid']);
 			if ($user)
 				$users[] = $user;
 		}

@@ -15,9 +15,16 @@ class Groups extends Resource {
 		$entry = Entry::getRoot();
 		if ($entry->getRights()->may_read) {
 			$uriparts = $this->request->getRequestURIParts();
-			if ($uriparts[0] == 'users') $this->template->userid = $uriparts[1];
-			if ($uriparts[0] == 'groups') $this->template->userid = $uriparts[1];
-			$this->template->applyView('groups');
+			if ($uriparts[1] == '')
+			    $this->template->applyView('groups');
+			else
+			{
+			    if($group = $this->getGroup())
+			    {
+			        $this->template->group = $group;
+			        $this->template->applyView('group');
+			    }
+			}
 		}
 		else header('HTTP/1.1 401 Unauthorized');
 	}
@@ -48,6 +55,11 @@ class Groups extends Resource {
 		}
 	}
 	
+	function getGroup() {
+		$uriparts = $this->request->getRequestURIParts();
+		if (!isset($uriparts[1])) return null;
+		return Group::getGroup(intval($uriparts[1]));
+	}
 }
 
 ?>

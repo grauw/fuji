@@ -18,6 +18,7 @@ class Template extends Dataclass {
 	
 	// These are variables that can be passed along the template... if you pass a new variable
 	// without declaring it here, the template will generate an error.
+	public $group;
 	public $groups;
 	public $entry;
 	public $entries;
