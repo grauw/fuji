@@ -158,13 +158,13 @@
 	<message name="sunday">Sunday</message>
 	
 	<!-- Days short -->
-	<message name="short_monday">mon</message>
-	<message name="short_tuesday">tue</message>
-	<message name="short_wednesday">wed</message>
-	<message name="short_thursday">thu</message>
-	<message name="short_friday">fri</message>
-	<message name="short_saturday">sat</message>
-	<message name="short_sunday">sun</message>
+	<message name="short_monday">Mon</message>
+	<message name="short_tuesday">Tue</message>
+	<message name="short_wednesday">Wed</message>
+	<message name="short_thursday">Thu</message>
+	<message name="short_friday">Fri</message>
+	<message name="short_saturday">Sat</message>
+	<message name="short_sunday">Sun</message>
 	
 	<!-- Months -->
 	<message name="january">January</message>

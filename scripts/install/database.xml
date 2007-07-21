@@ -135,9 +135,10 @@
 		
 		<data>
 			<row><f>en-GB</f><f>English (Great Britain)</f></row>
-			<row><f>nl-NL</f><f>Nederlands (Nederland)</f></row>
+			<row><f>en-US</f><f>English (United States)</f></row>
 			<row><f>fr-FR</f><f>Français (France)</f></row>
 			<row><f>ja-JP</f><f>日本語 (日本)</f></row>
+			<row><f>nl-NL</f><f>Nederlands (Nederland)</f></row>
 		</data>
 	</table>
 	
