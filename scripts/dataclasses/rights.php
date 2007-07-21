@@ -44,6 +44,7 @@ class Rights extends Dataclass {
 	
 	static function hasRights($entry, $group) {
 		$data = Database::getArray("SELECT * FROM " . Database::$db_tprefix . "grouprights WHERE entryid = '$entry->id' AND groupid = '$group->id'");
+		error_log("SELECT * FROM " . Database::$db_tprefix . "grouprights WHERE entryid = '$entry->id' AND groupid = '$group->id'");
 		return count($data) > 0;
 	}
 
@@ -80,15 +81,19 @@ class Rights extends Dataclass {
 	    }
 	    return new Rights(array('may_read' => $may_read, 'may_post' => $may_post, 'may_edit' => $may_edit, 'may_delete' => $may_delete));
 	}
-	
-	function deleteChildrenRights() {
-	    $entry = Entry::getEntry($this->entryid);
+
+	/**
+	* Deletes the rights of all children of the entry (slow)
+	* @param {Entry} $entry the entry you want to delete the rights of recursively
+	* @param {Group} $groups the group of the rights
+	*/
+	static function deleteChildrenRights($entry, $group) {
 	    $children = $entry->getChildren();
 	    foreach($children as $child)
 	    {
-	        if(Rights::hasRights($child->id, $this->groupid))
-	            Rights::getRights($child->id, $this->groupid)->remove();
-	        $child->deleteChildrenRights();
+	        if(Rights::hasRights($child, $group))
+	            Rights::getRights($child, $group)->remove();
+	        self::deleteChildrenRights($child, $group);
 	    }
 	}
 	

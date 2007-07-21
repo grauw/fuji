@@ -250,14 +250,14 @@ Fuji.Dialogs.Settings.rightsDialog = {
 	handleSubmit : function()
 	                {
 	                    this.submit();
-	                    document.getElementById('rightsDialogForm').reset();
 	                    this.hide();
+	                    document.getElementById('rightsDialogForm').reset();
 	                },
 	handleCancel : function()
 	                {
 	                    this.cancel();
-	                    document.getElementById('rightsDialogForm').reset();
 	                    this.hide();
+	                    document.getElementById('rightsDialogForm').reset();
 	                }
 }
 Fuji.Dialogs.Settings.createEditDialog = {
@@ -271,34 +271,34 @@ Fuji.Dialogs.Settings.createEditDialog = {
 					else
 						document.getElementById('createEditProcessor').value = 'bbcode';
 					this.submit();
+					this.hide(); 
 					document.getElementById('createEditForm').reset();
-					Fuji.Util.removeChildNodes(document.getElementById('editor').contentWindow.document.body);
-					this.hide(); },
+					Fuji.Util.removeChildNodes(document.getElementById('editor').contentWindow.document.body); },
 	handleCancel : function() {	this.cancel();
+					this.hide();
 					document.getElementById('createEditForm').reset();
-					Fuji.Util.removeChildNodes(document.getElementById('editor').contentWindow.document.body);
-					this.hide(); }
+					Fuji.Util.removeChildNodes(document.getElementById('editor').contentWindow.document.body); }
 }
 Fuji.Dialogs.Settings.userDialog = {
 	uri : null,
 	onSuccess : function() { Fuji.reloadItem('users'); },
 	handleSubmit : function() {	this.submit();
-					document.getElementById('userDialogForm').reset();
-					this.hide(); },
+					this.hide();
+					document.getElementById('userDialogForm').reset();},
 	handleCancel : function() {	this.cancel();
-					document.getElementById('userDialogForm').reset();
-					this.hide(); }
+	                this.hide();
+					document.getElementById('userDialogForm').reset(); }
 }
 Fuji.Dialogs.Settings.groupDialog = {
 	uri : null,
 	onSuccess : function() { Fuji.reloadItem('groups'); },
 	handleSubmit : function() {	this.submit();
-					document.getElementById('groupDialogForm').reset();
 					this.hide();
+					document.getElementById('groupDialogForm').reset();
 					Fuji.reloadItem('groups'); },
 	handleCancel : function() {	this.cancel();
-					document.getElementById('groupDialogForm').reset();
-					this.hide(); }
+					this.hide();
+					document.getElementById('groupDialogForm').reset(); }
 }
 Fuji.Dialogs.Settings.deleteDialog = {
 	uri : null,
