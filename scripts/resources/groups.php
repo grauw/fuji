@@ -28,18 +28,21 @@ class Groups extends Resource {
 	function httpPost()
 	{
 		UserManager::authenticate();
-		if (strlen($_POST['name']) > 1 && preg_match('/[a-zA-Z0-9_-]$/', $_POST['name'])) {
-			if (!Group::isGroupName($_POST['name'])) {
+		if (strlen($_POST['groupname']) > 1 && preg_match('/[a-zA-Z0-9_-]$/', $_POST['groupname'])) {
+			if (!Group::isGroupName($_POST['groupname'])) {
 				if (UserManager::isAdmin()) {
-					$newgroupdata = array (
-							'name' => $_POST['name'],
-							);
-                    $group = new Group($newgroupdata);
+                    $group = new Group();
+                    $group->name = $_POST['groupname'];
                     $group->save();
-    	            $memberids = split(',', $_POST['members']);
+    	            $memberids = split(',', $_POST['groupmembers']);
     	            foreach($memberids as $memberid)
-    	                if($user = User::getUser(intval($memberid)) && !Group::isMember($user))
+    	            {
+    	                $user = User::getUser(intval($memberid));
+    	                if($user && !$group->isMember($user))
+    	                {
     	                    $group->addUser($user);
+    	                }
+    	            }
 					header('Location: '.$newgroup->getAbsoluteURI());
 					header('HTTP/1.1 201 Created');
 				} else header('HTTP/1.1 401 Unauthorized');
@@ -53,20 +56,26 @@ class Groups extends Resource {
 		$uriparts = $this->request->getRequestURIParts();
 	    if($group = $this->getGroup())
 	    {
-	        if($group->isMember(User::getUser()))
+	        if(UserManager::isAdmin() || $group->isMember(User::getUser()))
 	        {
-	            if($_POST['name'] != $group->name && strlen($_POST['name']) > 1 && preg_match('/[a-zA-Z0-9_-]$/', $_POST['name']))
+	            if($_POST['groupname'] != $group->name && strlen($_POST['groupname']) > 1 && preg_match('/[a-zA-Z0-9_-]$/', $_POST['groupname']))
 	            {
-	                $group->name = $_POST['name'];
+	                $group->name = $_POST['groupname'];
 	                $group->save();
 	            }
-	            $memberids = split(',', $_POST['members']);
+	            $memberids = split(',', $_POST['groupmembers']);
 	            foreach($group->getUsers() as $user)
 	                if(!in_array($user->id, $memberids))
 	                    $group->removeUser($user);
-	            foreach($memberids as $memberid)
-	                if($user = User::getUser(intval($memberid)) && !Group::isMember($user))
-	                    $group->addUser($user);
+   	            foreach($memberids as $memberid)
+   	            {
+   	                $user = User::getUser(intval($memberid));
+   	                if($user && !$group->isMember($user))
+   	                {
+   	                    $group->addUser($user);
+   	                }
+   	            }
+				header('HTTP/1.1 200 OK');
     	    }
     		else header('HTTP/1.1 401 Unauthorized');
 	    }

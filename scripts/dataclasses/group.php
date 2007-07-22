@@ -27,27 +27,6 @@ class Group extends Dataclass {
 	}
 	
 	/**
-	 * Add a group to the database
-	 * @param {array} $data hash/assoc. array. Key = column name in database. Value = value.
-	 * @returns Group object
-	 */
-	static function addGroup($data) {
-		if (count(Database::getArray("SELECT * FROM " . Database::$db_tprefix . "groups WHERE name = '". $data['name'] ."'")) == 0)
-		{
-			if (count($data) > 0)
-			{
-				$keys = implode(',', array_keys($data));
-				$values = implode('\',\'',$data);
-				Database::execute("INSERT INTO " . Database::$db_tprefix . "groups ($keys) VALUES ('$values')");
-				$data += array('id' => Database::insert_id());
-				$id = $data['id'];
-				Database::execute("INSERT INTO " . Database::$db_tprefix . "grouprights VALUES ('1', '$id', '', '', '', '')");
-				return new Group($data);
-			}
-		}
-	}
-	
-	/**
 	 * Checks if a group exists
 	 * @param {String} $name the name of the group you want to check
 	 * @returns True if group exists, false otherwise

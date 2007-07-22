@@ -38,7 +38,7 @@
 							<td>
 							<?php if (UserManager::isAdmin()) { ?>
 								<span><a href="javascript:Fuji.Dialogs.newEditUserDialog('users/<?php echo $user->id ?>')"><?php echo $this->l10n->edit ?></a></span>
-								<span><a href="javascript:Fuji.Dialogs.newDeleteDialog('users/<?php echo $user->id ?>','users')"><?php echo $this->l10n->delete ?></a></span>
+								<span><a href="javascript:Fuji.Dialogs.newDeleteDialog('users/<?php echo $user->id ?>','userlist')"><?php echo $this->l10n->delete ?></a></span>
 							<?php } ?>
 							</td>
 						</tr>

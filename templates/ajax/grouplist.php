@@ -30,7 +30,7 @@
 							<td><a href="#<?php echo $group->getURI() ?>/users"><?php echo htmlentities($group->name, ENT_NOQUOTES) ?></a></td>
 							<td><?php echo $group->getNumMembers() ?></td>
 							<td><a href="javascript:Fuji.Dialogs.newEditGroupDialog('<?php echo $group->getURI() ?>')"><?php echo $this->l10n->edit ?></a>
-								<a href="javascript:Fuji.Dialogs.newDeleteDialog('<?php echo $group->getURI() ?>','groups')"><?php echo $this->l10n->delete ?></a></td>
+								<a href="javascript:Fuji.Dialogs.newDeleteDialog('<?php echo $group->getURI() ?>','grouplist')"><?php echo $this->l10n->delete ?></a></td>
 						</tr>
 						<?php } ?>
 					<?php } else echo $this->l10n->error_no_groups ?>
@@ -44,7 +44,7 @@
 						<fieldset>
 							<legend><?php echo $this->l10n->group ?></legend>
 							<p><?php echo $this->l10n->name ?><br />
-								<input id='groupDialogName' name='name' type='text' value='' />
+								<input id="groupDialogName" name="groupname" type="text" value="" />
 							</p>
 						</fieldset>
 						<fieldset>
@@ -61,7 +61,7 @@
     							<ul id="groupDialogMembers">
     							</ul>
 							</div>
-							<input type="hidden" id="groupDialogMembersH" name="members" value="" />
+							<input type="hidden" id="groupDialogMembersH" name="groupmembers" value="" />
 						</fieldset>
 					</form>
 				</div>
