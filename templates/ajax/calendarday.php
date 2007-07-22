@@ -5,7 +5,7 @@
 	loadcontext="threadsDiv">
 	<fuji:content>
 		<div class="box">
-			<h2>Calendar day <?php echo strftime($this->l10n->date_format, $this->date) ?></h2>
+			<h2><?php echo $this->l10n->calendar_day ?> <?php echo strftime($this->l10n->date_format, $this->date) ?></h2>
 			
 			<div class="content">
 			

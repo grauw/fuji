@@ -53,10 +53,10 @@
     							<ul id="groupDialogUsers">
     							</ul>
     							<div class="buttonblock">
-        							<input type="button" onclick="Fuji.Group.addSelection()" value="<?php echo $this->l10n->add ?> &gt;" />
-        							<input type="button" onclick="Fuji.Group.removeSelection()" value="&lt; <?php echo $this->l10n->remove ?>" />
-        							<input type="button" onclick="Fuji.Group.addAll()" value="<?php echo $this->l10n->add_all ?> &gt;" />
-        							<input type="button" onclick="Fuji.Group.removeAll()" value="&lt; <?php echo $this->l10n->remove_all ?>" />
+        							<input type="button" onclick="Fuji.Group.addSelection()" value="<?php echo $this->l10n->add ?> &#x2192;" />
+        							<input type="button" onclick="Fuji.Group.removeSelection()" value="&#x2190; <?php echo $this->l10n->remove ?>" />
+        							<input type="button" onclick="Fuji.Group.addAll()" value="<?php echo $this->l10n->add_all ?> &#x2192;" />
+        							<input type="button" onclick="Fuji.Group.removeAll()" value="&#x2190; <?php echo $this->l10n->remove_all ?>" />
     							</div>
     							<ul id="groupDialogMembers">
     							</ul>

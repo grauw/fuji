@@ -30,7 +30,7 @@
 	<message name="error_invalid_url">Vous avez entré ou cliqué sur un URL invalide.</message>
 	<message name="error_loading_resource">Erreur charger la ressource</message>
 	<message name="error_no_groups">Ce forum n’a pas des groupes</message>
-	<message name="error_no_threads">Ce forum n’a pas des sujets</message>
+	<message name="error_no_items">Ce forum n’a pas des articles</message>
 	<message name="error_no_users">Ce groupe n’a pas des utilisateurs</message>
 	<message name="error_resource_cannot_be_found">La ressource ne pouvait pas être trouvé.</message>
 	<message name="error_restricted_forum">Vous n’êtes pas autorisé d’accesser le forum ou le sujet.</message>

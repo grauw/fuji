@@ -30,7 +30,7 @@
 	<message name="error_invalid_url">You have entered or clicked on an invalid URL.</message>
 	<message name="error_loading_resource">Error loading resource</message>
 	<message name="error_no_groups">これのフォーラムはグループをいません</message>
-	<message name="error_no_threads">This forum has no threads</message>
+	<message name="error_no_items">This forum has no items</message>
 	<message name="error_no_users">これのフォーラムはユーザーをいません</message>
 	<message name="error_resource_cannot_be_found">The resource cannot be found.</message>
 	<message name="error_restricted_forum">You are trying to access a restricted forum or thread.</message>

@@ -13,7 +13,13 @@
 		<h2><?php echo $this->l10n->threads ?> – <?php echo htmlentities($this->entry->title, ENT_NOQUOTES) ?></h2>
 		<ul class="menu">
 			<?php if ($this->entry->getRights()->may_post) { ?>
-				<li><a href="javascript:Fuji.Dialogs.newCreateDialog('<?php echo $this->entry->getURI() ?>', <?php echo $this->entry->type + 1 ?>)"><?php echo $this->l10n->new ?></a></li>
+    			<li><a href="javascript://" class="submenu"><?php echo $this->l10n->new ?></a>
+    				<ul>
+    					<li><a href="javascript:Fuji.Dialogs.newCreateDialog('<?php echo $this->entry->getURI() ?>', 3)"><?php echo $this->l10n->forum ?></a></li>
+    					<li><a href="javascript:Fuji.Dialogs.newCreateDialog('<?php echo $this->entry->getURI() ?>', 4)"><?php echo $this->l10n->thread ?></a></li>
+    					<li><a href="javascript:Fuji.Dialogs.newCreatePollDialog('<?php echo $this->entry->getURI() ?>', 11)"><?php echo $this->l10n->poll ?></a></li>
+    				</ul>
+    			</li>
 			<?php } if ($this->entry->getRights()->may_edit) { ?>
 				<li><a href="javascript:Fuji.Dialogs.newEditDialog('<?php echo $this->entry->getURI() ?>')"><?php echo $this->l10n->edit ?></a></li>
 			<?php } if ($this->entry->getRights()->may_delete) { ?>
@@ -84,7 +90,7 @@
 						
 						<?php } ?>
 					</tr>
-				<?php } else echo $this->l10n->error_no_threads
+				<?php } else echo $this->l10n->error_no_items
 					// TODO: Invalid XHTML here!
 					?>
 				</tbody>

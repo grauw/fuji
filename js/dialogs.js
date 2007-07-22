@@ -126,6 +126,24 @@ Fuji.Dialogs = {
 	},
 	
 	/**
+	 * Creates a new create poll dialog (if it doesn't exist), and shows the dialog
+	 * @param {String} sURI The uri of the item to add a new item to
+	 * @param {Int} iType The type of the new item
+	 */
+	newCreatePollDialog : function(sURI, iType) {
+		if(!Fuji.Dialogs.Instances.createEditPollDialog || document.getElementById('createEditPollDialog_c').style.visibility == 'hidden')
+		{
+			document.getElementById('editPollDialogHd').style.display = 'none';
+			document.getElementById('createPollDialogHd').style.display = 'block';
+			document.getElementById('createEditPollType').value = iType;
+			document.getElementById('createEditPollForm').action = sURI;
+			document.getElementById('createEditPollForm').method = 'POST';
+			Fuji.Dialogs.Settings.createEditPollDialog.uri = sURI;
+			Fuji.Dialogs.newDialog('createEditPollDialog');
+		}
+	},
+	
+	/**
 	 * Creates a new user create dialog (if it doesn't exist), and shows the dialog
 	 */
 	newCreateUserDialog : function() {
@@ -280,6 +298,19 @@ Fuji.Dialogs.Settings.createEditDialog = {
 					this.hide();
 					document.getElementById('createEditForm').reset();
 					Fuji.Util.removeChildNodes(document.getElementById('editor').contentWindow.document.body); }
+}
+Fuji.Dialogs.Settings.createEditPollDialog = {
+	uri : null,
+	onSuccess : function() { Fuji.reloadItem(Fuji.Dialogs.Settings.createEditDialog.uri, 999) },
+	handleSubmit : function() {
+					this.submit();
+					this.hide(); 
+					document.getElementById('createEditPollForm').reset();
+					 },
+	handleCancel : function() {	this.cancel();
+					this.hide();
+					document.getElementById('createEditPollForm').reset();
+					 }
 }
 Fuji.Dialogs.Settings.userDialog = {
 	uri : null,

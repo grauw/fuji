@@ -10,9 +10,11 @@
 	<message name="admin">Beheerder</message>
 	<message name="address">Adres</message>
 	<message name="anonymous_user">Anonieme gebruiker</message>
-	<message name="apply_rights_recursive">Ook op subfora en threads toepassen</message>	
+	<message name="answer">Antwoord</message>	
+	<message name="apply_rights_recursive">Ook op subfora en onderwerpen toepassen</message>	
 	<message name="back">Terug</message>
 	<message name="calendar">Kalender</message>
+	<message name="calendar_day">Kalender dag</message>
 	<message name="cancel">Annuleren</message>
 	<message name="character_style">Letterstijl</message>
 	<message name="citation">Citaat</message>
@@ -52,14 +54,14 @@
 	<message name="error_invalid_url">U heeft een verkeerde URL ingevoerd of aangeklikt.</message>	
 	<message name="error_loading_resource">Fout bij het laden van de pagina</message>	
 	<message name="error_no_groups">Dit forum heeft geen groepen</message>
-	<message name="error_no_threads">Dit forum heeft geen threads</message>
+	<message name="error_no_items">Dit forum heeft geen berichten</message>
 	<message name="error_no_users">Deze groep heeft geen gebruikers</message>
 	<message name="error_resource_cannot_be_found">De pagina kon niet gevonden worden.</message>
 	<message name="error_restricted_forum">U probeert een forum of onderwerp te bekijken met beperkte toegang.</message>
 	<message name="error_rights_revoked">Uw rechten zijn ingetrokken (verbannen).</message>	
 	<message name="error_server_misconfiguration">Een foutieve serverconfiguratie.</message>	
 	<message name="error_unknown">Onbekende fout.</message>	
-	<message name="events">Events</message>
+	<message name="events">Gebeurtenissen</message>
 	<message name="fora">Fora</message>
 	<message name="forum">Forum</message>
 	<message name="forum_name">Fuji</message>
@@ -107,6 +109,7 @@
 	<message name="please_wait">Een ogenblik geduld alstublieft…</message>
 	<message name="possible_reasons">Mogelijke oorzaken:</message>
 	<message name="plugins">Plugins</message>
+	<message name="poll">Opiniepeiling</message>
 	<message name="post">Schrijven</message>
 	<message name="post_short">S</message>
 	<message name="posted_by">Geschreven door</message>	
@@ -119,6 +122,7 @@
 	<message name="profile">Profiel</message>
 	<message name="profile_photo">Profielfoto</message>
 	<message name="quotation">Quote</message>	
+	<message name="question">Vraag</message>	
 	<message name="read">Lezen</message>
 	<message name="read_short">L</message>
 	<message name="reenter_password">Voer uw wachtwoord nogmaals in</message>
@@ -139,6 +143,7 @@
 	<message name="subscribe_to_rss">Abonneer op RSS feed</message>
 	<message name="sure_delete_group">Weet u zeker dat u deze groep wilt verwijderen?</message>
 	<message name="sure_delete_item">Weet u zeker dat u dit bericht wilt verwijderen?</message>	
+	<message name="thread">Onderwerp</message>
 	<message name="threads">Onderwerpen</message>
 	<message name="title">Titel</message>
 	<message name="topic">Onderwerp</message>
