@@ -97,6 +97,16 @@ class Group extends Dataclass {
 	}
 	
 	/**
+	 * Checks if a user is member of this group
+	 * @param {User} $user the user to check
+	 * @returns {Boolean} true if the user is a member
+	 */
+	function isMember($user) {
+		$data = Database::getArray("SELECT * FROM " . Database::$db_tprefix . "groupmembers WHERE groupid = '$this->id' AND userid = '$user->id'");
+		return count($data) > 0;
+	}
+	
+	/**
 	 * Gets an array with all users in the group
 	 */
 	function getUsers() {

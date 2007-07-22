@@ -51,18 +51,20 @@ $routes = array(
 		'logout' => 'Logout',	// GET (should be POST?)
 		'session-login' => 'SessionLogin',	// GET (should be POST?)
 		'session-logout' => 'SessionLogout',	// GET (should be POST?)
+		'userlist' => 'Userlist', //GET
+		'grouplist' => 'Grouplist', //GET
 		'users' => array(
-				'' => 'Users', // GET, POST // Should be separate userlist.php :/
+				'' => 'Users', // GET, POST
 				'/^\d+$/' => array(
 						'' => 'Users', // GET, PUT, DELETE
 						'profile' => 'Profile'	// GET
 					),
 			),
 		'groups' => array(
-				'' => 'Groups', // GET, POST // Should be separate grouplist.php :/
+				'' => 'Groups', // GET, POST
 				'/^\d+$/' => array(
 						'' => 'Groups', // GET, POST
-						'users' => 'Users'	// GET
+						'users' => 'Userlist'	// GET (should this be here, or under /userlist ?)
 					),
 			),
 		'calendar' => array(

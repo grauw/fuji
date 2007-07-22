@@ -22,9 +22,9 @@
 					<li><a href="javascript:Fuji.Dialogs.newDialog('pluginsDialog')"><?php echo $this->l10n->plugins ?></a></li>
 				<?php } ?>
 				<li><a href="javascript:Fuji.Dialogs.newDialog('prefDialog')"><?php echo $this->l10n->preferences ?></a></li>
-				<li><a href="#users"><?php echo $this->l10n->users ?></a></li>
+				<li><a href="#userlist"><?php echo $this->l10n->users ?></a></li>
 				<?php if (UserManager::isAdmin()) { ?>
-					<li><a href="#groups"><?php echo $this->l10n->groups ?></a></li>
+					<li><a href="#grouplist"><?php echo $this->l10n->groups ?></a></li>
 				<?php } ?>
 				<?php $userstatus = (UserManager::getUser()->nickname == 'anonymous' ? Plugin::$USER_ANONYMOUS : (UserManager::getUser()->isAdmin() ? Plugin::$USER_ADMINISTRATOR : Plugin::$USER_LOGGED_IN));
 				$this->plugin->getMenu(Plugin::$TEMPLATE_AJAX, Plugin::$USER_LOGGED_IN, Plugin::$MENU_INDEX) ?>

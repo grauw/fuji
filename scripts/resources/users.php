@@ -13,16 +13,7 @@ class Users extends Resource {
 		$entry = Entry::getRoot();
 		if ($entry->getRights()->may_read) {
 			$uriparts = $this->request->getRequestURIParts();
-			if ($uriparts[0] == 'groups') {
-				$group = Group::getGroup($uriparts[1]);
-				if ($group)
-					$users = $group->getUsers();
-				else
-					$users = array();
-			} else {
-				$users = User::getUsers();
-			}
-			$this->template->users = $users;
+			$this->template->users = User::getUsers();
 			$this->template->applyView('users');
 		}
 		else header('HTTP/1.1 401 Unauthorized');

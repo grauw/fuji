@@ -356,6 +356,113 @@ Fuji = {
  		YAHOO.util.Connect.asyncRequest('GET', sURI + '/rights', callback, null);
 	}
 }
+Fuji.Group = {
+	getUsers : function(sURI) {
+		var callback = {
+			success: function(o)
+			{
+			    var oDocument = o.responseXML.documentElement;
+			    var oUsers = Fuji.Util.getElementsByTagNameNS(oDocument, Fuji.NS, 'user');
+			    var oGUsers = document.getElementById('groupDialogUsers');
+			    for(var i=0; i<oUsers.length; i++)
+			    {
+			        var oUser = oUsers.item(i);
+			        var iUserId = oUser.getAttributeNS(Fuji.NS, 'userid');
+			        var sUserName = oUser.getAttributeNS(Fuji.NS, 'username');
+			        var oLi = document.createElement('li');
+			        oLi.appendChild(document.createTextNode(sUserName));
+			        oLi.id = "groupUser" + iUserId;
+			        YAHOO.util.Event.addListener(oLi, 'click',     Fuji.Group.toggleSelect);
+			        oGUsers.appendChild(oLi);
+			    }
+			    if(o.argument.sURI)
+			        Fuji.Group.getMembers(o.argument.sURI);
+			},
+			failure: Fuji.Dialogs.newHttpErrorDialog,
+			argument: {sURI : sURI}
+		}
+	    Fuji.Util.removeChildNodes(document.getElementById('groupDialogUsers'));
+	    Fuji.Util.removeChildNodes(document.getElementById('groupDialogMembers'));
+ 		YAHOO.util.Connect.asyncRequest('GET', 'users', callback, null);
+	},
+    getMembers : function(sURI) {
+		var callback = {
+			success: function(o)
+			{
+			    var oDocument = o.responseXML.documentElement;
+			    document.getElementById('groupDialogName').value = oDocument.getAttributeNS(Fuji.NS, 'groupname');
+			    var oGUsers = document.getElementById('groupDialogUsers');
+			    var oGMembers = document.getElementById('groupDialogMembers');
+			    var oUsers = Fuji.Util.getElementsByTagNameNS(oDocument, Fuji.NS, 'user');
+			    
+			    for(var i=0; i<oUsers.length; i++)
+			    {
+			        var oUser = oUsers.item(i);
+			        var iUserId = oUser.getAttributeNS(Fuji.NS, 'userid');
+			        oGMembers.appendChild(document.getElementById('groupUser' + iUserId));
+			    }
+			},
+			failure: Fuji.Dialogs.newHttpErrorDialog
+		}
+ 		YAHOO.util.Connect.asyncRequest('GET', sURI, callback, null);
+	},
+	toggleSelect : function(oEvent)
+	{
+        if(YAHOO.util.Dom.hasClass(this, 'selected'))
+            YAHOO.util.Dom.removeClass(this, 'selected');
+        else
+            YAHOO.util.Dom.addClass(this, 'selected');
+	},
+	addSelection : function()
+	{
+    	var aUsersItems = Fuji.Util.nodeListToArray(
+    			document.getElementById('groupDialogUsers').getElementsByTagName('li'));
+    	for (var i in aUsersItems) {
+    		if (YAHOO.util.Dom.hasClass(aUsersItems[i],'selected')) {
+    			YAHOO.util.Dom.removeClass(aUsersItems[i],'selected');
+    			document.getElementById('groupDialogMembers').appendChild(aUsersItems[i]);
+    		}
+    	}
+	},
+	removeSelection : function()
+	{
+    	var aMembersItems = Fuji.Util.nodeListToArray(
+    			document.getElementById('groupDialogMembers').getElementsByTagName('li'));
+    	for (var i in aMembersItems) {
+    		if (YAHOO.util.Dom.hasClass(aMembersItems[i],'selected')) {
+    			YAHOO.util.Dom.removeClass(aMembersItems[i],'selected');
+    			document.getElementById('groupDialogUsers').appendChild(aMembersItems[i]);
+    		}
+    	}
+	},
+    addAll : function()
+	{
+    	var aUsersItems = Fuji.Util.nodeListToArray(
+    			document.getElementById('groupDialogUsers').getElementsByTagName('li'));
+    	for (var i in aUsersItems) {
+   			YAHOO.util.Dom.removeClass(aUsersItems[i],'selected');
+   			document.getElementById('groupDialogMembers').appendChild(aUsersItems[i]);
+    	}
+	},
+	removeAll : function()
+	{
+    	var aMembersItems = Fuji.Util.nodeListToArray(
+    			document.getElementById('groupDialogMembers').getElementsByTagName('li'));
+    	for (var i in aMembersItems) {
+   			YAHOO.util.Dom.removeClass(aMembersItems[i],'selected');
+   			document.getElementById('groupDialogUsers').appendChild(aMembersItems[i]);
+    	}
+	},
+	preSubmit : function()
+	{
+    	var aMembersItems = Fuji.Util.nodeListToArray(
+    			document.getElementById('groupDialogMembers').getElementsByTagName('li'));
+    	var sMemberIds = '';
+    	for (var i in aMembersItems) {   			sMemberIds += (i != 0 ? ',' : '') + aMembersItems[i].getAttribute('id').replace('groupUser', '');
+    	}
+    	document.getElementById('groupDialogMembersH').value = sMemberIds;
+	},
+}
 Fuji.Util = {
 	// Opera and IE don't have these defined on the nodes themselves :(
 	ELEMENT_NODE                : 1,
@@ -528,7 +635,20 @@ Fuji.Util = {
 		safari:	(parseInt(navigator.userAgent.substr(navigator.userAgent.search(/applewebkit\//i)+12,3))>=420),
 		//Check for quirksmode
 		quirks:	(document.compatMode)? document.compatMode.indexOf('CSS1Compat') < 0 : true
-	}
+	},
+	
+	/**
+	 * Returns a NodeList or NamedNodeMap as a JavaScript array
+	 * @param {object} oNodeList Source NodeList or NamedNodeMap
+	 * @return array
+	 */
+	nodeListToArray : function(oNodeList) {
+		var aNodeListRv = new Array();
+		for (var i=0; i<oNodeList.length; i++) {
+			aNodeListRv.push(oNodeList.item(i));
+		}
+		return aNodeListRv;
+	},
 }
 
 Fuji.Tree = {

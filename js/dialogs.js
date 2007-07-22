@@ -161,10 +161,11 @@ Fuji.Dialogs = {
 		{
 			document.getElementById('groupDialog').style.display = 'none';
 			document.getElementById('groupDialogHead').style.display = 'block';
-			document.getElementById('groupDialogForm').action = 'groups';
-			document.getElementById('groupDialogForm').method = 'POST';
 			Fuji.Dialogs.newDialog('groupDialog');
 		}
+		document.getElementById('groupDialogForm').action = 'groups';
+		document.getElementById('groupDialogForm').method = 'POST';
+		Fuji.Group.getUsers();
 	},
 	
 	/**
@@ -175,10 +176,11 @@ Fuji.Dialogs = {
 		{
 			document.getElementById('groupDialog').style.display = 'none';
 			document.getElementById('groupDialogHead').style.display = 'block';
-			document.getElementById('groupDialogForm').action = sURI;
-			document.getElementById('groupDialogForm').method = 'PUT';
 			Fuji.Dialogs.newDialog('groupDialog');
 		}
+		document.getElementById('groupDialogForm').action = sURI;
+		document.getElementById('groupDialogForm').method = 'PUT';
+		Fuji.Group.getUsers(sURI);
 	},
 
 	/**
@@ -291,11 +293,13 @@ Fuji.Dialogs.Settings.userDialog = {
 }
 Fuji.Dialogs.Settings.groupDialog = {
 	uri : null,
-	onSuccess : function() { Fuji.reloadItem('groups'); },
-	handleSubmit : function() {	this.submit();
+	onSuccess : function() { Fuji.reloadItem('grouplist'); },
+	handleSubmit : function() {	
+	                Fuji.Group.preSubmit();
+	                this.submit();
 					this.hide();
 					document.getElementById('groupDialogForm').reset();
-					Fuji.reloadItem('groups'); },
+					Fuji.reloadItem('grouplist'); },
 	handleCancel : function() {	this.cancel();
 					this.hide();
 					document.getElementById('groupDialogForm').reset(); }

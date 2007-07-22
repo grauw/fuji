@@ -158,18 +158,6 @@ class User extends Dataclass {
 	}
 	
 	/**
-	 * Get the rights this user has at a specified entry
-	 * @param {Entry} $entry the entry to be checked
-	 * @returns Rights about the entry/user
-	 */
-	/*
-	function getRights($entry)
-	{
-	    //DEPRECATED
-		$entry->getRightsByUser($this);
-	}*/
-	
-	/**
 	 * Returns the number of posts by this user
 	 * @returns int the number of posts
 	 */
