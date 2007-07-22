@@ -5,6 +5,8 @@
 	<message name="acronym">Acroniem</message>	
 	<message name="actions">Acties</message>
 	<message name="active_threads">Actieve onderwerpen</message>
+	<message name="add">Toevoegen</message>
+	<message name="add_all">Alles toevoegen</message>
 	<message name="admin">Beheerder</message>
 	<message name="address">Adres</message>
 	<message name="anonymous_user">Anonieme gebruiker</message>
@@ -36,6 +38,7 @@
 	<message name="email_address">E-mailadres</message>
 	<message name="email_empty">E-mailadres mag niet leeg zijn</message>		
 	<message name="emphasis">Nadruk</message>
+	<message name="enabled">Geactiveerd</message>
 	<message name="enter_image_url">Voer afbeelding-URL in:</message>
 	<message name="enter_link_url">Voer link-URL in:</message>
 	<message name="enter_login_details">Vul uw inloggegevens in.</message>
@@ -67,8 +70,10 @@
 	<message name="heading1">Koptekst 1</message>
 	<message name="heading2">Koptekst 2</message>
 	<message name="heading3">Koptekst 3</message>
-	<message name="inserted">Ingevoegd</message>	
-	<message name="invalid_url">Foutieve URL</message>	
+	<message name="inserted">Ingevoegd</message>
+	<message name="install_plugin">Installeer plugin</message>
+	<message name="invalid_url">Foutieve URL</message>
+	<message name="item_posted_redirect">Uw post is verwerkt. U wordt doorgestuurd naar %sde post%s in 5 seconden.</message>
 	<message name="keyboard">Toetsenbord</message>	
 	<message name="lang">Taal</message>
 	<message name="language">nl-NL</message>
@@ -89,7 +94,8 @@
 	<message name="name">Naam</message>
 	<message name="new">Nieuw</message>
 	<message name="new_group">Nieuwe groep</message>
-	<message name="next">Volgende</message>	
+	<message name="next">Volgende</message>
+	<message name="nickname">Bijnaam</message>	
 	<message name="none">Geen.</message>
 	<message name="on">op</message>
 	<message name="ok">OK</message>
@@ -100,6 +106,7 @@
 	<message name="passwords_do_not_match">Wachtwoorden komen niet overeen</message>
 	<message name="please_wait">Een ogenblik geduld alstublieft…</message>
 	<message name="possible_reasons">Mogelijke oorzaken:</message>
+	<message name="plugins">Plugins</message>
 	<message name="post">Schrijven</message>
 	<message name="post_short">S</message>
 	<message name="posted_by">Geschreven door</message>	
@@ -114,8 +121,12 @@
 	<message name="quotation">Quote</message>	
 	<message name="read">Lezen</message>
 	<message name="read_short">L</message>
+	<message name="reenter_password">Voer uw wachtwoord nogmaals in</message>
 	<message name="reenter_your_new_password">Voer uw nieuwe wachtwoord nogmaals in</message>	
 	<message name="register">Registreer</message>
+	<message name="reload_plugins">Plugins herladen</message>
+	<message name="remove">Verwijderen</message>
+	<message name="remove_all">Alles verwijderen</message>
 	<message name="replies">Reacties</message>
 	<message name="reply">Reageren</message>
 	<message name="rights">Rechten</message>
@@ -123,6 +134,7 @@
 	<message name="server_settings">Serverinstellingen</message>
 	<message name="strong_emphasis">Sterke nadruk</message>
 	<message name="style">Stijl</message>
+	<message name="submit">Verzenden</message>
 	<message name="subscribe_to_atom">Abonneer op Atom feed</message>
 	<message name="subscribe_to_rss">Abonneer op RSS feed</message>
 	<message name="sure_delete_group">Weet u zeker dat u deze groep wilt verwijderen?</message>

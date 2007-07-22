@@ -5,6 +5,8 @@
 	<message name="acronym">Acronym</message>
 	<message name="actions">Actions</message>
 	<message name="active_threads">Active threads</message>
+	<message name="add">Add</message>
+	<message name="add_all">Add all</message>
 	<message name="address">Address</message>
 	<message name="admin">Administrator</message>
 	<message name="anonymous_user">Anonymous user</message>	
@@ -123,6 +125,8 @@
 	<message name="reenter_your_new_password">Reenter your new password</message>
 	<message name="register">Register</message>
 	<message name="reload_plugins">Reload plugins</message>
+	<message name="remove">Remove</message>
+	<message name="remove_all">Remove all</message>
 	<message name="replies">Replies</message>
 	<message name="reply">Reply</message>
 	<message name="rights">Rights</message>

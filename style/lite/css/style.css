@@ -169,14 +169,14 @@ a.feed {
 }
 
 .selector div.buttonblock {
-    width: 8em;
+    width: 10em;
     height: 15em;
     margin: 0 0.5em 0 0.5em;
     float: left;
 }
 
 .selector div.buttonblock input {
-    width: 8em;
+    width: 10em;
     margin: 0.25em 0 0.25em 0;
 }
 
