@@ -82,18 +82,22 @@
 			<div class="bd">
 				<form id="createEditPollForm" name="createEditPollForm" method="POST" action="item">
 					<input id='createEditPollType' name='type' type='hidden' value='' />
-				    <div><span><?php echo $this->l10n->title ?></span><input type="text" id="createEditPollTitle" name="title" /></div>
-				    <div><span><?php echo $this->l10n->question ?></span><input type="text" id="createEditPollQuestion" name="pollquestion" /></div>
-				    <div><span><?php echo $this->l10n->answer ?> 1</span><input type="text" id="createEditPollAnswer1" name="pollanswer1" /></div>
-				    <div><span><?php echo $this->l10n->answer ?> 2</span><input type="text" id="createEditPollAnswer2" name="pollanswer2" /></div>
-				    <div><span><?php echo $this->l10n->answer ?> 3</span><input type="text" id="createEditPollAnswer3" name="pollanswer3" /></div>
-				    <div><span><?php echo $this->l10n->answer ?> 4</span><input type="text" id="createEditPollAnswer4" name="pollanswer4" /></div>
-				    <div><span><?php echo $this->l10n->answer ?> 5</span><input type="text" id="createEditPollAnswer5" name="pollanswer5" /></div>
-				    <div><span><?php echo $this->l10n->answer ?> 6</span><input type="text" id="createEditPollAnswer6" name="pollanswer6" /></div>
-				    <div><span><?php echo $this->l10n->answer ?> 7</span><input type="text" id="createEditPollAnswer7" name="pollanswer7" /></div>
-				    <div><span><?php echo $this->l10n->answer ?> 8</span><input type="text" id="createEditPollAnswer8" name="pollanswer8" /></div>
-				    <div><span><?php echo $this->l10n->answer ?> 9</span><input type="text" id="createEditPollAnswer9" name="pollanswer9" /></div>
-				    <div><span><?php echo $this->l10n->answer ?> 10</span><input type="text" id="createEditPollAnswer10" name="pollanswer10" /></div>
+					<table>
+					<tbody>
+				    <tr><td><?php echo $this->l10n->title ?></td><td><input type="text" id="createEditPollTitle" name="title" /></td></tr>
+				    <tr><td><?php echo $this->l10n->question ?></td><td><input type="text" id="createEditPollQuestion" name="pollquestion" /></td></tr>
+				    <tr><td><?php echo $this->l10n->answer ?> 1</td><td><input type="text" id="createEditPollAnswer1" name="pollanswer1" /></td></tr>
+				    <tr><td><?php echo $this->l10n->answer ?> 2</td><td><input type="text" id="createEditPollAnswer2" name="pollanswer2" /></td></tr>
+				    <tr><td><?php echo $this->l10n->answer ?> 3</td><td><input type="text" id="createEditPollAnswer3" name="pollanswer3" /></td></tr>
+				    <tr><td><?php echo $this->l10n->answer ?> 4</td><td><input type="text" id="createEditPollAnswer4" name="pollanswer4" /></td></tr>
+				    <tr><td><?php echo $this->l10n->answer ?> 5</td><td><input type="text" id="createEditPollAnswer5" name="pollanswer5" /></td></tr>
+				    <tr><td><?php echo $this->l10n->answer ?> 6</td><td><input type="text" id="createEditPollAnswer6" name="pollanswer6" /></td></tr>
+				    <tr><td><?php echo $this->l10n->answer ?> 7</td><td><input type="text" id="createEditPollAnswer7" name="pollanswer7" /></td></tr>
+				    <tr><td><?php echo $this->l10n->answer ?> 8</td><td><input type="text" id="createEditPollAnswer8" name="pollanswer8" /></td></tr>
+				    <tr><td><?php echo $this->l10n->answer ?> 9</td><td><input type="text" id="createEditPollAnswer9" name="pollanswer9" /></td></tr>
+				    <tr><td><?php echo $this->l10n->answer ?> 10</td><td><input type="text" id="createEditPollAnswer10" name="pollanswer10" /></td></tr>
+				    </tbody>
+				    </table>
 				</form>
 			</div>
 		</div>

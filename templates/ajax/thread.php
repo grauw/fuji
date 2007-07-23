@@ -83,7 +83,7 @@ while($contextEntry->type == 4) $contextEntry = $contextEntry->getParent();
 					<?php } ?>
 					<div class="content"><?php echo $post->getProcessedContent() ?></div>
 				<?php } elseif ($post->type == Entry::$TYPE_POLL) { ?>
-				<?php $post = new Poll($post->getData()); $post->loadContent(); ?>
+				<?php $post = Poll::loadPoll($post) ?>
 					<div class="userinfo">
 						<img src="<?php echo (isset(User::getUser($post->userref)->picture) && User::getUser($post->userref)->picture ? htmlentities(User::getUser($post->userref)->picture) : $photo_placeholder) ?>" alt="profilephoto" />
 					</div>
@@ -107,22 +107,24 @@ while($contextEntry->type == 4) $contextEntry = $contextEntry->getParent();
 					</ul>
 					<?php } ?>
 				<div class="content">
-				    <?php if(true /* vote-state */) { ?>    
-				        <form id="poll<?php echo $post->id ?>" name="poll<?php echo $post->id ?>" action="item/<?php echo $post->id ?>" method="POST">        
-				            <span class="pollQuestion"><?php print_r($post->question) ?></span>
-				            <table class="pollAnswers">
-				            <tbody>
-				            <?php for($n = 1; $n <= count($post->answer); $n++) { ?>
-				            <tr>
-				            <td><?php echo $post->answer[$n] ?></td>
-				            <td><input onclick="Fuji.pollVote('item/<?php echo $post->id ?>', '<?php echo $n ?>')" type="radio" name="pollAnswer<?php echo $post->id ?>" value="<?php echo $n ?>" /></td>
-				            </tr>
-				            <?php } ?>
-				            </tbody>
-				            </table>
-				        </form>
-				    <?php } else /* result-state */ { ?>
-				    <?php } ?>
+			        <form id="poll<?php echo $post->id ?>" name="poll<?php echo $post->id ?>" action="item/<?php echo $post->id ?>" method="POST"<?php if($post->hasVoted()) echo ' style="display:none"'; ?>>
+			            <input type="hidden" name="type" value="<?php echo Entry::$TYPE_VOTE ?>" />    
+			            <span class="pollQuestion"><?php print_r($post->question) ?></span>
+			            <table class="pollAnswers">
+			            <tbody>
+			            <?php for($n = 1; $n <= count($post->answer); $n++) { ?>
+			            <tr>
+			            <td><?php echo $post->answer[$n] ?></td>
+			            <td><input onclick="Fuji.pollVote('item/<?php echo $post->id ?>', '<?php echo $n ?>')" type="radio" name="vote" value="<?php echo $n ?>" /></td>
+			            </tr>
+			            <?php } ?>
+			            </tbody>
+			            </table>
+			            <span class="pollVotes"><?php echo $post->total ?> <?php echo $this->l10n->votes ?></span>
+			        </form>
+			        <div id="pollResult<?php echo $post->id ?>" class="pollResult"<?php if(!$post->hasVoted()) echo ' style="display:none"'; ?>>
+			            Poll results go here
+			        </div>
 				</div>
 				<?php } else { ?>
 				

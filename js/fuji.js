@@ -354,6 +354,21 @@ Fuji = {
 			failure: Fuji.Dialogs.newHttpErrorDialog
 		}
  		YAHOO.util.Connect.asyncRequest('GET', sURI + '/rights', callback, null);
+	},
+	pollVote : function(sURI) {
+	    var iId = sURI.replace('item/', '');
+        var oElm = document.getElementById('poll' + iId);
+		var callback = {
+			success: function(o)
+			{
+			    document.getElementById('poll' + iId).style.display = 'none';
+			    document.getElementById('pollResult' + iId).style.display = 'block';
+			},
+			failure: Fuji.Dialogs.newHttpErrorDialog,
+			argument: { iId: iId }
+		}
+        YAHOO.util.Connect.setForm(oElm);
+        YAHOO.util.Connect.asyncRequest('POST', sURI, callback);
 	}
 }
 Fuji.Group = {
@@ -461,7 +476,7 @@ Fuji.Group = {
     	for (var i in aMembersItems) {   			sMemberIds += (i != 0 ? ',' : '') + aMembersItems[i].getAttribute('id').replace('groupUser', '');
     	}
     	document.getElementById('groupDialogMembersH').value = sMemberIds;
-	},
+	}
 }
 Fuji.Util = {
 	// Opera and IE don't have these defined on the nodes themselves :(

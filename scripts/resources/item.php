@@ -71,6 +71,14 @@ class Item extends Resource {
     					header('Location: '.$location);
     					header('HTTP/1.1 201 Created');
     				}
+    			} elseif ($_POST['type'] == Entry::$TYPE_VOTE) {
+                    $poll = Poll::loadPoll($this->getEntry());
+                    if(!$poll->hasVoted() && UserManager::isUser())
+                    {
+                        $number = intval($_POST['vote']);
+                        if(isset($poll->answer[$number]))
+                            $poll->addVote($number);
+                    }
     			}
 			} else header('HTTP/1.1 401 Unauthorized');
 		} else header('HTTP/1.1 404 Not Found');

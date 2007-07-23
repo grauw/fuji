@@ -151,6 +151,7 @@
 	<message name="user">User</message>
 	<message name="users">Users</message>
 	<message name="variable">Variable</message>
+	<message name="votes">votes</message>
 	<message name="visible_in_profile">Visible in profile</message>
 	<message name="visual_effects">Visual effects</message>	
 	<message name="warning">Warning</message>

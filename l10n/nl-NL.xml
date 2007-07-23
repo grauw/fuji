@@ -151,6 +151,7 @@
 	<message name="user">Gebruiker</message>
 	<message name="users">Gebruikers</message>
 	<message name="variable">Variabele</message>	
+	<message name="votes">stemmen</message>
 	<message name="visible_in_profile">Zichtbaar in profiel</message>
 	<message name="visual_effects">Grafische effecten</message>
 	<message name="warning">Waarschuwing</message>
