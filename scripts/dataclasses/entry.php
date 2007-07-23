@@ -10,6 +10,8 @@ class Entry extends Dataclass {
 	static public $TYPE_FORUMCONTAINER = 2;
 	static public $TYPE_FORUM = 3;
 	static public $TYPE_POST = 4;
+	static public $TYPE_POLL = 11;
+	static public $TYPE_VOTE = 12;
 	
 	static function getTableName() {
 		return 'entries';
@@ -125,6 +127,7 @@ class Entry extends Dataclass {
 	 * Creates a new entry which is a reply to this entry.
 	 * @param {Entry} $entry New entry to add to this entry.
 	 * @returns the new Entry
+	 * @deprecated
 	 */
 	function newReply() {
 		$entry = new Entry();

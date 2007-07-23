@@ -17,7 +17,6 @@
     				<ul>
     					<li><a href="javascript:Fuji.Dialogs.newCreateDialog('<?php echo $this->entry->getURI() ?>', 3)"><?php echo $this->l10n->forum ?></a></li>
     					<li><a href="javascript:Fuji.Dialogs.newCreateDialog('<?php echo $this->entry->getURI() ?>', 4)"><?php echo $this->l10n->thread ?></a></li>
-    					<li><a href="javascript:Fuji.Dialogs.newCreatePollDialog('<?php echo $this->entry->getURI() ?>', 11)"><?php echo $this->l10n->poll ?></a></li>
     				</ul>
     			</li>
 			<?php } if ($this->entry->getRights()->may_edit) { ?>

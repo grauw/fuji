@@ -1,5 +1,6 @@
 <?php
 require_once 'scripts/dataclasses/entry.php';
+require_once 'scripts/dataclasses/poll.php';
 require_once 'scripts/usermanager.php';
 require_once 'scripts/resource.php';
 
@@ -25,23 +26,52 @@ class Item extends Resource {
 		UserManager::authenticate();
 		if ($entry = $this->getEntry()) {
 			if ($entry->getRights()->may_post) {
-				$newentry = $entry->newReply();
-				$newentry->title   = $_POST['title'];
-				$newentry->type    = $_POST['type'];
-				$newentry->processor = $_POST['processor']; //TODO: check if user is allowed to use processor
-				$newentry->userref = UserManager::getUser()->id;
-				$newentry->content = $_POST['content'];
-				$newentry->save();
-				$location = $entry->type != Entry::$TYPE_POST ? $newentry->getAbsoluteURI() : $entry->getAbsoluteURI() . '#i' . $newentry->id;
-				if ($this->template->mimetype == 'text/html') {
-					header('Location: '.$location);
-					header('HTTP/1.1 200 OK');
-					$this->template->redirecturl = $location;
-					$this->template->applyView('item_posted');
-				} else {
-					header('Location: '.$location);
-					header('HTTP/1.1 201 Created');
-				}
+			    if($_POST['type'] == Entry::$TYPE_POST || $_POST['type'] == Entry::$TYPE_FORUM)
+			    {
+    				$newentry = new Entry();
+    				$newentry->ref     = $entry->id;
+    				$newentry->title   = $_POST['title'];
+    				$newentry->type    = $_POST['type'];
+    				$newentry->processor = $_POST['processor']; //TODO: check if user is allowed to use processor
+    				$newentry->userref = UserManager::getUser()->id;
+    				$newentry->content = $_POST['content'];
+    				$newentry->save();
+    				$location = $entry->type != Entry::$TYPE_POST ? $newentry->getAbsoluteURI() : $entry->getAbsoluteURI() . '#i' . $newentry->id;
+    				if ($this->template->mimetype == 'text/html') {
+    					header('Location: '.$location);
+    					header('HTTP/1.1 200 OK');
+    					$this->template->redirecturl = $location;
+    					$this->template->applyView('item_posted');
+    				} else {
+    					header('Location: '.$location);
+    					header('HTTP/1.1 201 Created');
+    				}
+    			} elseif ($_POST['type'] == Entry::$TYPE_POLL) {
+    			    $newpoll = new Poll();
+    			    $newpoll->ref = $entry->id;
+    				$newpoll->title   = $_POST['title'];
+    				$newpoll->type    = $_POST['type'];
+    				$newpoll->processor = $_POST['processor']; //TODO: check if user is allowed to use processor
+    				$newpoll->userref = UserManager::getUser()->id;
+    				$newpoll->question = htmlentities($_POST['pollquestion']);
+    				for($n = 1; $n < 11; $n++)
+                        if($_POST['pollanswer' . $n] == '')
+                            break;
+                        else
+                            $newpoll->answer[$n] = $_POST['pollanswer' . $n];
+    				$newpoll->createContent();
+    				$newpoll->save();
+    				$location = $entry->getAbsoluteURI() . '#i' . $newentry->id;
+    				if ($this->template->mimetype == 'text/html') {
+    					header('Location: '.$location);
+    					header('HTTP/1.1 200 OK');
+    					$this->template->redirecturl = $location;
+    					$this->template->applyView('item_posted');
+    				} else {
+    					header('Location: '.$location);
+    					header('HTTP/1.1 201 Created');
+    				}
+    			}
 			} else header('HTTP/1.1 401 Unauthorized');
 		} else header('HTTP/1.1 404 Not Found');
 	}

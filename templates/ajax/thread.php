@@ -18,7 +18,12 @@ while($contextEntry->type == 4) $contextEntry = $contextEntry->getParent();
 		<h2><?php echo $this->l10n->posts ?> – <?php echo htmlentities($this->entry->title, ENT_NOQUOTES) ?></h2>
 		<ul class="menu">
 			<?php if ($this->entry->getRights()->may_post) { ?>
-				<li><a href="javascript:Fuji.Dialogs.newCreateDialog('<?php echo $this->entry->getURI() ?>', '4')"><?php echo $this->l10n->reply ?></a></li>
+    			<li><a href="javascript://" class="submenu"><?php echo $this->l10n->new ?></a>
+    				<ul>
+    					<li><a href="javascript:Fuji.Dialogs.newCreateDialog('<?php echo $this->entry->getURI() ?>', 4)"><?php echo $this->l10n->reply ?></a></li>
+    					<li><a href="javascript:Fuji.Dialogs.newCreatePollDialog('<?php echo $this->entry->getURI() ?>', 11)"><?php echo $this->l10n->poll ?></a></li>
+    				</ul>
+    			</li>
 			<?php } if ($this->entry->getRights()->may_delete) { ?>
 				<li><a href="javascript:Fuji.Dialogs.newDeleteDialog('<?php echo $this->entry->getURI() ?>', '<?php echo $this->entry->getParent()->getURI() ?>')"><?php echo $this->l10n->delete ?></a></li>
 			<?php } ?>
@@ -77,7 +82,48 @@ while($contextEntry->type == 4) $contextEntry = $contextEntry->getParent();
 					</ul>
 					<?php } ?>
 					<div class="content"><?php echo $post->getProcessedContent() ?></div>
-				
+				<?php } elseif ($post->type == Entry::$TYPE_POLL) { ?>
+				<?php $post = new Poll($post->getData()); $post->loadContent(); ?>
+					<div class="userinfo">
+						<img src="<?php echo (isset(User::getUser($post->userref)->picture) && User::getUser($post->userref)->picture ? htmlentities(User::getUser($post->userref)->picture) : $photo_placeholder) ?>" alt="profilephoto" />
+					</div>
+					<h3>
+						<div>
+						<span><?php echo $post->title ?></span>
+						<span><?php echo $post->getFormattedDate('modified', $this->l10n->datetime_format) ?></span>
+						</div>
+						<div>
+						<span><a href="#<?php echo User::getUser($post->userref)->getURI() ?>"><?php echo htmlentities(User::getUser($post->userref)->nickname, ENT_NOQUOTES) ?></a></span>
+						<span>(<?php $output = ""; $groups = User::getUser($post->userref)->getGroups(); foreach($groups as $group) { $output .= ($output ? ', ' : '') . htmlentities($group->name, ENT_NOQUOTES); } echo $output ?>)</span>
+						</div>
+					</h3>
+					<?php if ($post->getRights()->may_edit || $post->getRights()->may_delete) { ?>
+					<ul class="menu">
+						<?php if ($post->getRights()->may_edit) { ?>
+							<li><a href="javascript:Fuji.Dialogs.newEditDialog('<?php echo $post->getURI() ?>')"><?php echo $this->l10n->edit ?></a></li>
+						<?php } if ($post->getRights()->may_delete) { ?>
+							<li><a href="javascript:Fuji.Dialogs.newDeleteDialog('<?php echo $post->getURI() ?>', '<?php echo $post->getParent()->getURI() ?>')"><?php echo $this->l10n->delete ?></a></li>
+						<?php } ?>
+					</ul>
+					<?php } ?>
+				<div class="content">
+				    <?php if(true /* vote-state */) { ?>    
+				        <form id="poll<?php echo $post->id ?>" name="poll<?php echo $post->id ?>" action="item/<?php echo $post->id ?>" method="POST">        
+				            <span class="pollQuestion"><?php print_r($post->question) ?></span>
+				            <table class="pollAnswers">
+				            <tbody>
+				            <?php for($n = 1; $n <= count($post->answer); $n++) { ?>
+				            <tr>
+				            <td><?php echo $post->answer[$n] ?></td>
+				            <td><input onclick="Fuji.pollVote('item/<?php echo $post->id ?>', '<?php echo $n ?>')" type="radio" name="pollAnswer<?php echo $post->id ?>" value="<?php echo $n ?>" /></td>
+				            </tr>
+				            <?php } ?>
+				            </tbody>
+				            </table>
+				        </form>
+				    <?php } else /* result-state */ { ?>
+				    <?php } ?>
+				</div>
 				<?php } else { ?>
 				
 					(<?php echo $this->l10n->type_unsupported ?>)

@@ -82,7 +82,7 @@
 			<div class="bd">
 				<form id="createEditPollForm" name="createEditPollForm" method="POST" action="item">
 					<input id='createEditPollType' name='type' type='hidden' value='' />
-				    <div><span><?php echo $this->l10n->title ?></span><input type="text" id="createEditPollQuestion" name="pollquestion" /></div>
+				    <div><span><?php echo $this->l10n->title ?></span><input type="text" id="createEditPollTitle" name="title" /></div>
 				    <div><span><?php echo $this->l10n->question ?></span><input type="text" id="createEditPollQuestion" name="pollquestion" /></div>
 				    <div><span><?php echo $this->l10n->answer ?> 1</span><input type="text" id="createEditPollAnswer1" name="pollanswer1" /></div>
 				    <div><span><?php echo $this->l10n->answer ?> 2</span><input type="text" id="createEditPollAnswer2" name="pollanswer2" /></div>
