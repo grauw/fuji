@@ -83,7 +83,7 @@ while($contextEntry->type == 4) $contextEntry = $contextEntry->getParent();
 					<?php } ?>
 					<div class="content"><?php echo $post->getProcessedContent() ?></div>
 				<?php } elseif ($post->type == Entry::$TYPE_POLL) { ?>
-				<?php $post = Poll::loadPoll($post) ?>
+				<?php $post = Poll::loadPoll($post); $show_vote = !$post->hasVoted() && UserManager::isUser() && $post->getRights()->may_post; ?>
 					<div class="userinfo">
 						<img src="<?php echo (isset(User::getUser($post->userref)->picture) && User::getUser($post->userref)->picture ? htmlentities(User::getUser($post->userref)->picture) : $photo_placeholder) ?>" alt="profilephoto" />
 					</div>
@@ -107,7 +107,7 @@ while($contextEntry->type == 4) $contextEntry = $contextEntry->getParent();
 					</ul>
 					<?php } ?>
 				<div class="content">
-			        <form id="poll<?php echo $post->id ?>" name="poll<?php echo $post->id ?>" action="item/<?php echo $post->id ?>" method="POST"<?php if($post->hasVoted()) echo ' style="display:none"'; ?>>
+			        <form id="poll<?php echo $post->id ?>" name="poll<?php echo $post->id ?>" action="item/<?php echo $post->id ?>" method="POST"<?php if(!$show_vote) echo ' style="display:none"'; ?>>
 			            <input type="hidden" name="type" value="<?php echo Entry::$TYPE_VOTE ?>" />    
 			            <span class="pollQuestion"><?php print_r($post->question) ?></span>
 			            <table class="pollAnswers">
@@ -120,10 +120,31 @@ while($contextEntry->type == 4) $contextEntry = $contextEntry->getParent();
 			            <?php } ?>
 			            </tbody>
 			            </table>
-			            <span class="pollVotes"><?php echo $post->total ?> <?php echo $this->l10n->votes ?></span>
+			            <span class="pollVotes"><?php echo str_replace('%s%', $post->total, $post->total == 1 ? $this->l10n->vote_text : $this->l10n->votes_text) ?></span>
 			        </form>
-			        <div id="pollResult<?php echo $post->id ?>" class="pollResult"<?php if(!$post->hasVoted()) echo ' style="display:none"'; ?>>
-			            Poll results go here
+			        <div id="pollResult<?php echo $post->id ?>" class="pollResult"<?php if($show_vote) echo ' style="display:none"'; ?>>
+			            <table>
+			            <thead>
+			            <tr>
+			            <td><?php echo $this->l10n->answer ?></td>
+			            <td><?php echo $this->l10n->votes ?></td>
+			            <td><?php echo $this->l10n->percentage ?></td>
+			            <td></td>
+			            </tr>
+			            </thead>
+			            <tbody>
+			            <?php for($n = 1; $n <= count($post->answer); $n++) { ?>
+			            <tr class="pollResult<?php echo $n ?>">
+			            <td><?php echo $post->answer[$n] ?></td>
+			            <td><?php echo $post->votes[$n] ?></td>
+			            <td><?php echo round(($post->votes[$n] / $post->total) * 100) . '%' ?></td>
+			            <td><?php echo $post->getBar($n) ?></td>
+			            </tr>
+			            <?php } ?>
+			            </tbody>
+			            </table>
+			            <span class="pollVotes"><?php echo str_replace('%s%', $post->total, $post->total == 1 ? $this->l10n->vote_text : $this->l10n->votes_text) ?></span>
+			            <!-- put a nice graph here -->
 			        </div>
 				</div>
 				<?php } else { ?>

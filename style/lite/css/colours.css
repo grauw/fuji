@@ -182,6 +182,11 @@ a:hover {
 	background-color: #dadad9;
 }
 
+.pollBar {
+    fill: #bbb9b9;
+    stroke: #000;
+}
+
 /* trees */
 /*
 ul.tree li {

@@ -106,6 +106,7 @@
 	<message name="paragraph_style">Paragraafstijl</message>	
 	<message name="password">Wachtwoord</message>
 	<message name="passwords_do_not_match">Wachtwoorden komen niet overeen</message>
+	<message name="percentage">Percentage</message>
 	<message name="please_wait">Een ogenblik geduld alstublieft…</message>
 	<message name="possible_reasons">Mogelijke oorzaken:</message>
 	<message name="plugins">Plugins</message>
@@ -147,11 +148,14 @@
 	<message name="threads">Onderwerpen</message>
 	<message name="title">Titel</message>
 	<message name="topic">Onderwerp</message>
+	<message name="total">Total</message>
 	<message name="type_unsupported">Berichttype wordt hier niet ondersteund</message>
 	<message name="user">Gebruiker</message>
 	<message name="users">Gebruikers</message>
 	<message name="variable">Variabele</message>	
-	<message name="votes">stemmen</message>
+	<message name="votes">Stemmen</message>
+	<message name="vote_text">%s% stem</message>
+	<message name="votes_text">%s% stemmen</message>
 	<message name="visible_in_profile">Zichtbaar in profiel</message>
 	<message name="visual_effects">Grafische effecten</message>
 	<message name="warning">Waarschuwing</message>

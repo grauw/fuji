@@ -42,7 +42,7 @@ class Poll extends Entry {
 	    foreach($xmlcontent->getElementsByTagNameNS($this->ns, 'answer') as $elm)
 	    {
 	        $this->answer[$elm->hasAttributeNS($this->ns, 'number') ? $elm->getAttributeNS($this->ns, 'number') : $elm->getAttribute('number') ] = $elm->textContent;
-	        $this->votes[$elm->hasAttributeNS($this->ns, 'votes') ? $elm->getAttributeNS($this->ns, 'votes') : $elm->getAttribute('votes') ] = $elm->textContent;
+	        $this->votes[$elm->hasAttributeNS($this->ns, 'number') ? $elm->getAttributeNS($this->ns, 'number') : $elm->getAttribute('number') ] = $elm->hasAttributeNS($this->ns, 'votes') ? $elm->getAttributeNS($this->ns, 'votes') : $elm->getAttribute('votes');
 	    }
 	}
 	
@@ -78,6 +78,27 @@ class Poll extends Entry {
 	    $this->total = $total;
 	    $this->votes = $votes;
 	    $this->createContent();
+	}
+	
+	function getBar($n) {
+	    $doc = new DOMDocument('1.0', 'utf-8');
+	    $svg = $doc->createElementNS('http://www.w3.org/2000/svg', 'svg');
+	    $svg->setAttribute('version', '1.1');
+	    $svg->setAttribute('width', '200'); //in em would be nicer, but doesn't work (why?)
+   	    $svg->setAttribute('height', '20'); //in em would be nicer, but doesn't work (why?)
+   	    $svg->setAttribute('class', 'pollSVG');
+	    $doc->appendChild($svg);
+	    
+	    $bar = $doc->createElement('rect');
+	    $bar->setAttribute('x', 0);
+	    $bar->setAttribute('y', 0);
+	    $bar->setAttribute('width', ($this->votes[$n] / $this->total) * 100 . '%');
+	    $bar->setAttribute('height', '100%');
+   	    $bar->setAttribute('class', 'pollBar');
+   	    $bar->setAttribute('style', 'stroke-width: 2;');
+       	$svg->appendChild($bar);
+	    
+	    return $doc->saveXML($doc->documentElement);
 	}
 }
 
