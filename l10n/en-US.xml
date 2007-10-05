@@ -122,8 +122,8 @@
 	<message name="previous">Previous</message>
 	<message name="profile">Profile</message>
 	<message name="profile_photo">Profile photo</message>
-	<message name="quotation">Quotation</message>
 	<message name="question">Question</message>
+	<message name="quotation">Quotation</message>
 	<message name="read">Read</message>
 	<message name="read_short">R</message>
 	<message name="reenter_password">Reenter password</message>
