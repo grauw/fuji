@@ -123,10 +123,10 @@ abstract class Dataclass {
 	private function getAttributeFromCache($name) {
 		if(!isset($this->datacache[$name])) {
 			if (!$this->loadToCache()) {
-				if ($this->hasAttribute($this->getPrimaryKeyName())) {
-					trigger_error("No primary key in object, data can not be found.");
+				if (!$this->hasAttribute($this->getPrimaryKeyName())) {
+					trigger_error("No primary key value in '".$this->getTableName()."' object, data can not be found.");
 				} else {
-					trigger_error("Resource not available in database. Check with exists() before use.");
+					trigger_error("Resource ".$this->data[$this->getPrimaryKeyName()]." not available in '".$this->getTableName()."' database table. Check with exists() before use.");
 				}
 			}
 		}
