@@ -191,7 +191,10 @@ class HttpRequest {
 	 * Returns the MIME type of the body of the request, or null if the type is not known.
 	 */
 	function getContentType() {
-		return isset($_SERVER['CONTENT_TYPE']) ? $_SERVER['CONTENT_TYPE'] : NULL;
+		if (!isset($_SERVER['CONTENT_TYPE']))
+			return null;
+		$parts = explode(';', $_SERVER['CONTENT_TYPE']);
+		return $parts[0]; 
 	}
 	
 	/**
